@@ -1,0 +1,23 @@
+body
+{
+    margin-left: 150px;
+	max-width: 750px;
+}
+h1, h2, h3
+{
+    font-family: "Verdana", Verdana, serif;
+}
+p
+{
+    font-family: "Verdana", Verdana, serif;
+	line-height: 1.7;
+	color: #0c0c0c;
+	max-width: 750px;
+}
+.header
+{
+}
+.youtube
+{
+    align: center;
+}
