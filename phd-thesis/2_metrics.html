@@ -1,0 +1,412 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Metrics - PhD Thesis</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-0392ca55.css">
+        <link rel="stylesheet" href="css/chrome-fc474251.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-ae97acae.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-039d0267.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">PhD Thesis</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <p><span id="ch:metrics" label="ch:metrics"></span></p>
+<p>In this chapter, we’ll discuss some of our dream requirements for a behavior architecture, in order to set up our goals and the desired properties of a particular implementation.
+In this thesis we focus on behavior systems that require human expertise to dream up, create, adapt, and modify.
+It is conceivable that a generally intelligent AI could replace this role in the future, but nevertheless we do not consider that here.
+This list of characteristics is therefore in the realm of Operator-Robot teams, be it any number of humans and robots.
+We leave the Operator-Robot ratio open-ended.
+Potentially, many humans could be managing one robot or one human could be managing a fleet of robots.</p>
+<h1 id="capability"><a class="header" href="#capability">Capability</a></h1>
+<p>The goal of a behavior system should be to support doing as many tasks as possible to help it achieve maximum utility.
+The whole point of a robot behavior system, as we are concerned with it in this thesis, is to fill in for the dull, dirty, and dangerous work humans do.
+We define capability as how many different tasks and their variations can be performed successfully.
+For example, a system that only supports door traversals is not as capable as one that supports exploring buildings.</p>
+<h1 id="feasibility"><a class="header" href="#feasibility">Feasibility</a></h1>
+<p>Any implementation of a behavior system must be feasible given real-world constraints.
+It is desirable to not require overly expensive computers or ones that are not readily available.
+If the robot needs to function autonomously in comms-degraded scenarios, the behavior should not rely on external comms or compute to operate.
+The behaviors cannot require robot actuation hardware that is not reliable, readily available, or that does not exist.
+There should be no jetpack flying requirement for behaviors if robots with jetpacks and controllers for them do not exist or only exist as prototypes.
+The behaviors should not rely on control software that does not exist.
+For example, modern whole-body controllers do not do much in the way of planning out how to achieve complicated bracing positions and techniques to avoid falling in dynamic scenarios, so the behavior system should support getting the robot into positions and authoring at a primitive action level that allows the operator to reason about what the controller can handle while authoring the behavior actions.</p>
+<h1 id="speed"><a class="header" href="#speed">Speed</a></h1>
+<p>Behaviors should be watchable at 1x speed.
+Computational components of the system need to run within their allotted time boundaries, not causing any pauses.
+The robot hardware and the whole-body controller that the behavior system relies on should be capable of decently fast motions.
+We are not talking about super fast speeds here, just approaching casual human speed in performing day-to-day chore-like tasks.
+We want robots to be a drop-in for human work without an immediately huge tradeoff or question mark on speed.</p>
+<h1 id="parallelizability"><a class="header" href="#parallelizability">Parallelizability</a></h1>
+<p>The system should support moving multiple parts of the body at once and the ability to walk while doing that.
+This is particularly useful when doing manipulation.
+Before performing many manipulations, the robot will need to prepare the grasping arm in a pre-grasp-ready pose while putting the other arm in a collision-avoidance pose.
+Having to get into these ready poses sequentially would cause an unnecessary delay.
+This goes towards the speed metric, but also important for capability.
+For example, for traversing spring-loaded doors, the robot must walk while keeping its arm out in the correct locations to prevent the door from closing on the robot.</p>
+<h1 id="reliability"><a class="header" href="#reliability">Reliability</a></h1>
+<p>You should be able to execute tasks repeatably without failures.
+More formally, for a given task, given similar environmental conditions, the robot should consistently perform the task.
+If it succeeds, it should consistently succeed (and if it fails, it should consistently fail).
+In other words, you should be able to count on the robot to perform a task repeatedly without random failures that have little to do with environmental variance.</p>
+<h1 id="robustness"><a class="header" href="#robustness">Robustness</a></h1>
+<p>The robot and behavior system should be robust to environmental disturbances.
+These can be both physical and visual.
+For example, slight pushes to the robot, unmodeled friction and inertias in manipulated items, and changes in lighting due to time of day should not cause task failures.
+Robustness mechanisms should be present via the whole-body controller or in the behavior system to address these.
+Any vision models should be trained using data from varied times of day and lighting conditions to prepare them for round-the-clock work.</p>
+<h1 id="resilience"><a class="header" href="#resilience">Resilience</a></h1>
+<p>The behavior system should support resilience to changing task conditions and attempt to recover or work around gaps in reliability and robustness.
+We define resilience to mean being responsive and creative when facing task failures.
+For example, when the robot is trying to turn a door handle, perhaps a human is present and trying to test the reactivity of the system.
+In this case, the behavior system should be able to identify that the task is not proceeding nominally and enact some retry strategy.
+Retry strategies can include simply retry the action sequence, mutating the pose-grasp sequence, or aborting mission entirely and doing something else.
+Resilience ultimately means surviving day-to-day unexpected events and failures.
+Attaining resilience is a long-tail robotics problem, but the prior examples are good places to start.</p>
+<h1 id="independence-from-external-systems"><a class="header" href="#independence-from-external-systems">Independence from External Systems</a></h1>
+<p>Ideally, the robot can execute behaviors without any connection to the outside world, given the behaviors have been authored and set up ahead of time.
+This mirrors animals in nature and supports a level of robustness by removing an unintuitive dependence on network communication.
+It also allows the robot to operate in more environments, including inside buildings with thick concrete walls and rural areas.</p>
+<p>Some behavior systems rely on external perception.
+It is desirable to perceive the world only via the robot and not be dependent on motion capture systems or fiducial markers, which are implements of a laboratory setup.
+We want the robots using our behavior system to thrive beyond the lab environment and provide useful service in the real world.
+It is also desirable to have humanoid robots be a drop-in replacement for human workers without having to make robot-specific adjustments to the environment, such as placing fiducial markers.
+It would be better if robots were to read the same signage and maps as humans.</p>
+<h1 id="dependence-on-only-passive-color-vision"><a class="header" href="#dependence-on-only-passive-color-vision">Dependence on Only Passive Color Vision</a></h1>
+<p>By using only passive color vision, the robot mirrors human nature and is more robust to varied lighting conditions.
+For example, structured light projection sensors can have degraded performance outdoors and in the presence of certain frequencies of light.
+Additionally, it can be more intuitive and understandable when the robot’s vision modality is similar to human vision.
+Since we are building humanoid robots to fill in for humans, it could be a more surefire drop-in replacement by matching the mode of vision.</p>
+<h1 id="adaptability-of-the-operator-robot-team"><a class="header" href="#adaptability-of-the-operator-robot-team">Adaptability of the Operator-Robot Team</a></h1>
+<p>Given the near infinite world of tasks robots could help us with, we want a behavior system that can support creating new and adapting existing behaviors to tackle them.
+Adaptability means being able to survive in a changing environment and, for robots, this means you must be able to readily adapt robot behaviors to changing needs.
+One of the selling points of humanoid robots is their generality and similarity to humans, which means one application of them is to fill in for human work.
+Given the adaptiveness of humans and the existence and competitiveness of purpose-built machinery, the value-add for robots must exist in the realm of being an adaptable generalized form.
+Therefore, it is desirable to be able to create and modify behaviors to tackle various dull, dirty, and dangerous work tasks in a quick time frame.</p>
+<p>The following three characteristics are inherently required in building in the adaptability components, as defined by Coactive Design .</p>
+<h1 id="observability"><a class="header" href="#observability">Observability</a></h1>
+<p>This means knowing the current state of the system in order to understand what is going on.
+For a robot, there is a lot of information to take in at any particular moment and there are different levels of granularity in doing so.
+Knowing the current state is required for a human operator to reason about the behavior to modify or adapt it.
+It is also required to monitor what the robot is accomplishing and determine if it needs help.
+Let’s list some of the biggest ones:</p>
+<ol>
+<li>
+<p>Seeing the current configuration of the robot’s body and hands, visual elements that indicate current forces on the environment, robot hardware status, motor temperatures, and joint faults.</p>
+</li>
+<li>
+<p>Seeing what the robot sees such as the current robot view video stream(s) and current semantic object identification.</p>
+</li>
+<li>
+<p>Getting a feel for the robot’s immediate environmental surroundings and how the robot is situated in it.
+For example, this can be done via a colored depth point cloud in the 3D view with the robot configuration.
+If the robot doesn’t have 360-degree vision, mapping may be required or the robot could move the head around to rescan.</p>
+</li>
+<li>
+<p>Knowing the current state of the behavior system and whole-body controller.
+For example, what state is the behavior in?
+Is anything currently executing?
+Has anything failed?
+What have we done in the recent past and was it successful?</p>
+</li>
+<li>
+<p>Knowing the robot’s current model of the environment.
+Which objects does it know about?
+Where does it think they are in 3D?
+Does the robot know where it is on a map?
+Is it aware of the major obstacles nearby?</p>
+</li>
+</ol>
+<h1 id="predictability"><a class="header" href="#predictability">Predictability</a></h1>
+<p>This one is about a sense of what is going to happen next both with the robot and the environment.
+This is required for a human operator to create, adapt, and diagnose behaviors.
+For example, when authoring the next action(s), it is desirable to see a preview of the motion of the robot and environment as a way of verifying that action.
+The preview can be inspected for collisions or bad inverse kinematics solutions to avoid failures before executing it on the real robot.
+Predictability also goes hand-in-hand with authoring at runtime and in mission-critical field scenarios.
+For example, in the DARPA Robotics Challenge, many tasks, such as getting out of the car, were a step-by-step sequence of predefined robot motions.
+The robot was being teleoperated live and if the robot fell, the competition would be lost.
+When doing this task, a preview of the next motions allowed the team to inspect the plan before executing it, increasing confidence and the reliability of the operator-robot team.</p>
+<p>On a technical level, it is possible to provide predictability of whole-body motions by playing back a planned animation of future motion, as a transparent colored robot.
+Primitive graphics like footsteps can be shown to convey where the robot will step next.
+Color can be used to convey feasibility.
+For example, a blue transparent graphic of an arm can represent a feasible solution and it can turn red to notify the operator of an infeasible or hard-to-reach configuration.
+On a longer horizon, a browsable list of actions could be shown which lists all future actions and sub-sequences in the behavior.</p>
+<h1 id="directability"><a class="header" href="#directability">Directability</a></h1>
+<p>The last of Johnson’s three characteristics in Coactive Design is directability.
+It is a measure of how expressive the operator can be in commanding the robot to do things.
+For a humanoid robot, at the basic level, it means being able to command the robot to take steps, walk, move its hands, look around with its head, and generally pose the whole body.
+At a higher level, the availability of planners increases expressiveness.
+Good examples of high expressiveness would be the ability to ask the robot to clean a room or to fetch a particular object.
+We also extend the scope of directability to include non-direct ways of commanding the robot, such as tuning parameters of primitive actions, behavior logic, perception, or scene management.
+In this way, we want to not only directly command the robot’s physical actions, but also its cognitive model of the world and its plan.</p>
+<h1 id="learnability-operator-learning-curve"><a class="header" href="#learnability-operator-learning-curve">Learnability (Operator Learning Curve)</a></h1>
+<p>The operator interface should be designed in a way that facilitates a novice operator in learning how to use it.
+The behavior operator interface should be interactive and guide the user with cues to point them in the right direction and give them confidence that what they did is what they wanted to do.
+Nielsen’s 10 Usability Heuristics for User Interface Design is a good reference point for designing a user interface .
+These 10 heuristics include: visibility of system status, match between the system and the real world, user control and freedom, consistency and standards, error prevention, recognition rather than recall, flexibility and efficiency of use, aesthetic and minimalist design, help users recognize, diagnose, and recover from errors, and help and documentation.</p>
+<h1 id="understandability-of-the-implementation"><a class="header" href="#understandability-of-the-implementation">Understandability (of the Implementation)</a></h1>
+<p>It would be nice if it were easy to learn how the behavior system works by reviewing the code and observing behaviors in operation.
+Viewing a behavior’s composition in the user interface should give a good idea of what the behavior does by being organized and supporting abstractions.
+The use of hierarchical abstractions, for example, can allow the reader to understand the high level at a glance and dive deeper where they want to learn more.</p>
+<h1 id="usability"><a class="header" href="#usability">Usability</a></h1>
+<p>The user interface should be easy to use, even for an expert operator.
+Functionality should be organized in meaningful ways, such as grouping like functionalities, scene objects by category, and organizing primitive actions by part of the body.
+When behaviors get large, there should be mechanisms to abstract their contents into high-level parts.
+One way to do this, for example, is to structure behaviors hierarchically, such that the higher level layers are more generic, like “navigate to room C”, and lower level layers are more specific like “move hand forward 5 centimeters”.
+Functionalities should be organized into menus.
+Buttons and checkboxes should be easy to click.
+Text and widgets should be easy to read and size-adjustable.</p>
+<h1 id="ability-to-analyze-in-post"><a class="header" href="#ability-to-analyze-in-post">Ability to Analyze in Post</a></h1>
+<p>A lot can happen in the course of a robot run and sometimes it can happen very fast.
+When there are failures or potential improvements, it is often useful to do a post-mortem analysis of what happened.
+This characteristic is desirable especially because running and supervising robots is stressful and requires attention.
+We want the ability to log all the data for a robot run and dive into that data later, without the cognitive overhead of the live run.
+This also gives the operator or behavior engineer the opportunity to view the system in non-live ways.
+They do not necessarily need the same observability data; they can choose to deep dive into control or logic data, using screen real estate for that instead of live monitoring.
+The logged data should include (ideally lossless) recordings of the robot’s sensors, behavior state and parameter data over time, controller variables over time, robot configuration state over time, and more.
+This also implies the availability of post-mortem analysis software, which would allow the logged data to be explored in a rich and interactive way.
+Examples of this include a slider to scrub data over time, a 3D reconstruction of robot configuration state and 3D depth data, and time plots of controller and behavior logic variables.</p>
+<h1 id="debuggability"><a class="header" href="#debuggability">Debuggability</a></h1>
+<p>The system should provide outputs that assist in debugging when things go wrong or while bringing up new functionalities.
+Examples of this include good print statements in the robot processes and logging them, sending log messages from the robot to the user interface at runtime, and coloring the log messages by severity and importance.
+Dynamic user interface elements can also be helpful, for example, when an action fails, making it blink red to draw the operator’s attention.
+Another way to support debugging is to carefully select a representative set of state variables to log in a time-dependent buffer.
+These buffers can be streamed live or stored to disk and viewed as scrubbable plots.</p>
+<h1 id="testability"><a class="header" href="#testability">Testability</a></h1>
+<p>It is desirable to be able to test the system in an automated way.
+This could be with the real robot, virtually with real data, or using fully simulated data.
+For example, having test fixtures available for code continuous integration tools to perform simulated behaviors and inspect the results for success and performance characteristics would be helpful to ensure quality and prevent regressions.
+Testing often requires significant resources as in the case of real robot automated testing.
+To support these cases, the behavior system should be able to be operated in an automated way and not just by a human operator.</p>
+<p>Another case that requires significant resources is fully simulated testing.
+It can be very difficult to reduce the sim-to-real gap for loco-manipulation behaviors that need realistic vision and physics.
+Tasks often need to be rigged as articulated simulation assets as in the case of doors, which is a manual process that requires expertise.
+However, there is also a middle ground in which tradeoffs can be made and components replaced with dummies.
+For example, poses of objects in the scene could be given via ground truth knowledge, bypassing the vision system entirely or partially.</p>
+<h1 id="extendability"><a class="header" href="#extendability">Extendability</a></h1>
+<p>We’re still firmly in the early stages of humanoid robots starting to work well.
+Any system for running behaviors on humanoid robots should be easy to extend, functionality-wise, to keep pace with the state of the art and maintain competitive usefulness.
+For example, given the availability of a new footstep planner, it should be a straightforward process to include it as an option.
+Likewise, if a new comms protocol is adopted, it should not require a complete redesign of the architecture to switch over.
+Some ways that could help in achieving extendability are keeping the code well tested and maintaining separation of concerns in the design and implementation.</p>
+<p>There are a lot of different ways to achieve these characteristics, and in some sense there are tradeoffs depending on your specific requirements.
+The tradeoffs could be in engineering time or they could be theoretical.
+For example, if you know your system will only be used by trained expert operators, you can invest more engineering time in the functional and utilitarian aspects like reducing number of clicks or relying more heavily on keyboard shortcuts.
+However, if your system needs to be usable by a more general audience, more engineering time needs to be spent on Nielsen’s 10 heuristics and you may even want to conduct a user study.</p>
+<p>An example of a more theoretical tradeoff would be what you show to the operator at any given time.
+There is only so much screen real estate and operator attention that can go around, so hard decisions need to be made about the value of information.
+We think this will vary from system to system and ultimately is based on the confidence levels of the particular subsystems.
+For example, if you have high trust in your controller’s ability to walk and balance, you may not show balance information to the operator.
+Conversely, if you depend on a semantic object detection subsystem that is always failing to detect objects, you will likely want that visible in high detail at all times so you can monitor and learn how to either exploit its properties or make informed improvements.</p>
+<p>Now that we have defined some desirable characteristics of a good behavior architecture, we’ll tell the story of our journey in navigating the tradeoffs and building one from near-scratch that met our requirements.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-c22b7243.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>
