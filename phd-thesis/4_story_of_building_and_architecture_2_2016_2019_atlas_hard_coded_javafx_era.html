@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Abstract - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
+        <title>2016-2019 Atlas, Hard-Coded, JavaFX Era - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
 
 
         <!-- Custom HTML head -->
@@ -176,37 +176,118 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="abstract"><a class="header" href="#abstract">Abstract</a></h1>
-<h2 id="a-system-for-fast-resilient-and-adaptable-loco-manipulation-behaviors-on-humanoid-robots"><a class="header" href="#a-system-for-fast-resilient-and-adaptable-loco-manipulation-behaviors-on-humanoid-robots">A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</a></h2>
-<p><strong>Author:</strong> Duncan William Calvert<br><strong>Department:</strong> Department of Intelligent Systems and Robotics<br><strong>College:</strong> College of Science and Engineering</p>
-<!-- AUTO-ABSTRACT-START -->
-<h2 id="abstract-1"><a class="header" href="#abstract-1">Abstract</a></h2>
-<p>Humanoid robots could be used to take on physically demanding, hazardous, and repetitive work in spaces built for humans, including shipyards, energy infrastructure, construction sites, and factories.
-However, a useful robot for these spaces must coordinate locomotion, whole body motion, perception, contact, and operator supervision.
-In this thesis we present a system doing this via a behavior authoring and runtime system.
-Furthermore, we argue that behavior coordination architecture is itself a measurable design variable affecting the ability to readily acheive these tasks in the real world.
-Specifically, we argue that architecture implicates speed, robustness across task variation, and adaptation time when modifying a behavior for a new task.</p>
-<p>We present a robot-local editable behavior architecture in which trees of action primitives execute with layered concurrency on the robot, while an operator interface remains continuously synchronized for runtime authoring, monitoring, and repair.
-Action primitives are built on top of a whole body controller that supports manipulation while walking.
-Perception actions are authored inside the behavior so that detection and scene reasoning are scheduled with the rest of the task rather than configured globally.
-The architecture supports rapid authoring of new behaviors and reuse of existing subtrees across related tasks.</p>
-<p>Door traversal is used as the main benchmark task because it exposes the full coordination problem in a compact and repeatable setting, requiring approach walking, body placement, mechanism perception, grasp selection, handle actuation, interaction with a moving obstacle, and a transition back to locomotion.
-The behavior library developed during this work covers more than twenty real-robot task variants, including push and pull doors with knob, push-bar, and lever-handle mechanisms, multi-step exploration sequences, obstacle clearing and breaching, and reactive table-to-table manipulation tasks.
-Versions of the same behavior system were run on Nadia, Boston Dynamics DRC Atlas, IHMC’s fully electric Alex humanoid robot, and Unitree H1-2, which shows that the architecture is not tied to one platform.</p>
-<p>We evaluate the system on speed, reliability, variation coverage, and authoring effort.
-A push bar door traversal in 14 seconds and a reactive pick and place demonstration for 6 balls in 42 seconds establish our speed direction.
-For reliability, we tested 11 successful push approach-and-opening repetitions in a row and 12 successful pull approach-and-opening repetitions in a row on Alex, and 32 successful right pull openings in a row on Unitree H1-2.
-Measured authoring sessions show that new door behaviors can be created from an empty tree to the start of autonomous repeated-run testing in 31 minutes, and that a mirrored real-door adaptation reaches first success in under two hours, both without code recompilation or redeployment.
-We compare against prior IHMC baselines and selected door systems from the literature across speed, reliability, variation coverage, and authoring effort, with execution boundary and sensing assumptions reported alongside as part of each comparison.
-Videos of the work presented in this dissertation are available online at <a href="https://www.youtube.com/playlist?list=PLJK5CTyotYqsfgfnXb-09YNFeBose6uEY">https://www.youtube.com/playlist?list=PLJK5CTyotYqsfgfnXb-09YNFeBose6uEY</a>.</p>
-<!-- AUTO-ABSTRACT-END -->
+                        <h1 id="2016-2019-atlas-hard-coded-javafx-era"><a class="header" href="#2016-2019-atlas-hard-coded-javafx-era">2016-2019 Atlas, Hard-Coded, JavaFX Era</a></h1>
+<h2 id="state-machines-and-pipelines"><a class="header" href="#state-machines-and-pipelines">State Machines and Pipelines</a></h2>
+<p>The next generation of behaviors at IHMC started around 2016, where we implemented code-defined behaviors as state machines and pipelines.
+These behaviors used the whole-body controller API directly, which is largely the same today.
+It allows asynchronous commands for the various body parts to be submitted in real time.
+The controller maintains a list of active commands that it is actively controlling the robot to satisfy.
+For example, you can send a list of footsteps for the robot to take, a 3D hand pose for the robot to reach to, or a list of joint angles for the spine, a leg, an arm, or the neck.
+Pipelines allowed a level of hard-coded action concurrency by branching out into parallel states before rejoining.</p>
+<p>This generation of behaviors started to use perception in the form of basic OpenCV color filters, blob detectors, fiducial detectors, and simple lidar processing.
+This enabled us to perform behaviors such as pull-door traversals (<a href="#fig:door_diagram" data-reference-type="ref+label" data-reference="fig:door_diagram">1</a>) and autonomous ball pickup behaviors.
+These behaviors were slow in the several minutes range for door traversals and maybe 5 to 10 minutes for picking up colored balls off the floor.
+They were performed with the Boston Dynamics DRC Atlas.</p>
+<h2 id="perception-limits"><a class="header" href="#perception-limits">Perception Limits</a></h2>
+<figure id="fig:door_diagram">
+<img src="media/atlas/DoorBehaviorDiagram.png" />
+<figcaption>The door traversal behavior hierarchical state machine from the 2019 era.
+This behavior was hard-coded in Java.
+A video of a 2018 door behavior is available at <a href="https://youtu.be/-XBlT1H8ZZ4" class="uri">https://youtu.be/-XBlT1H8ZZ4</a>.
+</figcaption>
+</figure>
+<p>Perception was a big limitation in these behaviors.
+We relied on a MultiSense SL lidar scanner which took some time to spin around and gather sufficient data.
+We also didn’t have good software for buffering and querying the point cloud quickly.
+This made it difficult to achieve fast behavior based on perception.</p>
+<p>Another key limitation was the architecture.
+The behaviors were coded by hand, with magic numbers in the code defining the poses of the hands and footsteps relative to objects.
+This meant that iterating on behaviors required code changes for every tweak.
+In practice, this was done by running the behavior off-board on the operator computer and using a code-reloading tool called JRebel .
+The iteration loop required magic number tweaking, code commenting, reordering, and restructuring.
+This authoring process was an unguided expert code tweaking exercise.</p>
+<h2 id="autonomous-locomotion-with-javafx-uis"><a class="header" href="#autonomous-locomotion-with-javafx-uis">Autonomous Locomotion with JavaFX UIs</a></h2>
+<figure id="fig:rough_terrain_autonomy_atlas">
+<img src="media/atlas/20190515_Atlas_AutonomousExplorationBehavior-00.02.11.576.jpg" />
+<figcaption>A rough terrain autonomous exploration behavior that sought out high and low flat regions, turning and scanning the terrain in between.
+A planar region map was built over time and used to traverse the rough terrain.
+A video is available at <a href="https://youtu.be/cwnrZzzueFA" class="uri">https://youtu.be/cwnrZzzueFA</a>.
+(May 2019)</figcaption>
+</figure>
+<p>In 2017 and 2018, we started to develop more planning and perception capability, but using a separate UI framework from the DRC UI.
+We developed an A* footstep planner and a planar region segmentation perception algorithm that worked together.
+Using the MultiSense SL lidar scanner, we could wait for 20 seconds or so, pool an octomap terrain representation, segment it into planar regions, and plan footsteps over it.
+This facilitated a leap in robot autonomy.
+The robot was now able to traverse sections of rough terrain autonomously, as shown in <a href="#fig:rough_terrain_autonomy_atlas" data-reference-type="ref+label" data-reference="fig:rough_terrain_autonomy_atlas">2</a> and <a href="#fig:rough_terrain_autonomy_sim" data-reference-type="ref+label" data-reference="fig:rough_terrain_autonomy_sim">3</a>.</p>
+<figure id="fig:rough_terrain_autonomy_sim">
+<img src="media/atlas/2019-05-02_SimRoughTerrainBehavior.jpeg" />
+<figcaption>A simulation example of the rough terrain up and down exploration behavior.
+This behavior was a hard-coded state machine for perceptive locomotion over planar regions operated via the widgets shown.
+The robot would plan one or several steps at a time while perceiving and traversing rough terrain.
+It allowed for manual or automatic waypoint placement represented as the yellow ball and green arrow.
+The operator could execute one step at a time or allow automatic execution.
+The current state was rendered in the UI for monitoring.
+On the bottom right, direct robot management controls can be seen alongside planar regions and perception operations.
+REA stands for Robot Environment Awareness<span class="citation" data-cites="Bertrand_2020"></span>, which is the module that generates planar regions from the MultiSense SL lidar scanner.
+The clear function was used by the operator and the behavior to maintain usable planar regions, as the data would get messy or stale.
+This also highlights the JavaFX behavior user interface at the time. (May 2019)
+A video is available at <a href="https://youtu.be/MHvjn6B9hQ4" class="uri">https://youtu.be/MHvjn6B9hQ4</a>.
+</figcaption>
+</figure>
+<p>These planning and perception features departed from the DRC UI, opting to use JavaFX for the algorithm visualization.
+This meant that there was now a separate UI framework for algorithm development and robot operation.
+A complication was that JavaFX could not render point clouds efficiently like the DRC UI could, causing somewhat of a rift when deciding how to visualize robot data.</p>
+<h2 id="navigation-with-planar-regions"><a class="header" href="#navigation-with-planar-regions">Navigation with Planar Regions</a></h2>
+<p>Around 2019, we started to develop room-to-room navigation tools in the JavaFX ecosystem (<a href="#fig:atlas_maze" data-reference-type="ref+label" data-reference="fig:atlas_maze">4</a>), while also starting the development of a rough terrain traversal behavior system that used active perception for each footstep.
+It was in 2019 that the work on this thesis started directly.
+One aspiration was to try to unify the tools used for robot operation and planning and perception algorithm development.
+The reason this was important was to simplify the decision of what tools to use when developing a feature and also reduce code duplication.
+For example, the JavaFX UI could not render point clouds efficiently and it was cumbersome to create UI widgets.
+Conversely, the DRC UI code was aging and it was time to evaluate a more modern set of building blocks while cleaning up the code.</p>
+<figure id="fig:atlas_maze">
+<img src="media/atlas/AtlasNavigatingOccludedMaze-00.01.18.518.jpg" />
+<figcaption>A simulation of Atlas performing a navigation behavior in the JavaFX-based behavior system user interface.
+This phase of the behavior system heavily relied on planar regions for locomotion.
+A video is available at <a href="https://youtu.be/0Ygti7aOxYM" class="uri">https://youtu.be/0Ygti7aOxYM</a>.
+(December 2019)
+</figcaption>
+</figure>
+<p>Another issue with the DRC UI was the friction in creating standalone applications.
+When developing planners and perception algorithms, it is desirable to create a test or demo app just for that, while maintaining the usability of those components in larger apps, such as algorithm visualization elements.</p>
+<h2 id="virtual-reality-teleoperation"><a class="header" href="#virtual-reality-teleoperation">Virtual Reality Teleoperation</a></h2>
+<p>Around this time, we had also developed some virtual reality (VR) applications based on the DRC UI, which allowed for teleoperating the robot.
+This virtual reality interface made authoring one-time-use footstep plans really fast.
+We ran a demonstration where the VR operator was able to manually place footsteps over a rough terrain cinder block field in the range of a few minutes.
+One caveat to this implementation was that the operator had to either launch the 2D DRC UI or the VR one and could not switch between VR and mouse and keyboard modalities without restarting the user interface.
+Restarting the user interface is a frustrating thing to have to do because you can lose any persistent state you may have in setting up robot commands.
+Additionally, it can take several minutes to relaunch the user interface, so it can really start to eat up time.</p>
+<h2 id="simulation-construction-set"><a class="header" href="#simulation-construction-set">Simulation Construction Set</a></h2>
+<p>We also had a simulation and data visualization engine called Simulation Construction Set (SCS), which allows users to programmatically create rigid-body dynamics simulations and robot controllers.
+On top of that, it featured a 3D view of the robot and scrubbable plots of buffered variable data, as seen in <a href="#fig:agile_hexapod" data-reference-type="ref+label" data-reference="fig:agile_hexapod">5</a>.
+SCS was implemented using an older version of jMonkeyEngine and features were not interchangeable with our DRC UI.
+For UI widgets, SCS used Java Swing, but using a very different code path than the Java Swing used in the DRC UI.
+The takeaway here is that while SCS and the DRC UI used the same underlying libraries, functionality could not be shared between them.</p>
+<figure id="fig:agile_hexapod">
+<img src="media/atlas/AgileHexapod.png" />
+<figcaption>The Agile Hexapod simulation in Simulation Construction Set.
+In the upper area, the simulated robot and terrain is visible.
+In the center, simulation and buffer controls are available.
+The gear runs the simulation forward and the play button plays it back via the buffered data.
+In the bottom left there is an area to search for variables to plot or tune.
+In the bottom right variables are plotted or rendered as widgets where the variables can be modified.
+Modifying variables can be used to tune parameter values.
+Screenshot taken in 2026.</figcaption>
+</figure>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="4_story_of_building_and_architecture_1_2014_2015_darpa_robotics_challenge_era.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
 
-                            <a rel="next prefetch" href="2_metrics.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="4_story_of_building_and_architecture_3_2020_2021_atlas_rdx_behavior_tree_era.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -216,8 +297,11 @@ Videos of the work presented in this dissertation are available online at <a hre
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="4_story_of_building_and_architecture_1_2014_2015_darpa_robotics_challenge_era.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
 
-                    <a rel="next prefetch" href="2_metrics.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="4_story_of_building_and_architecture_3_2020_2021_atlas_rdx_behavior_tree_era.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

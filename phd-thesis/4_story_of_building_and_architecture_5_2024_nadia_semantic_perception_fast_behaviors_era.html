@@ -1,0 +1,452 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>2024 Nadia, Semantic Perception, Fast Behaviors Era - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-0392ca55.css">
+        <link rel="stylesheet" href="css/chrome-fc474251.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-29b762a1.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-39201727.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="2024-nadia-semantic-perception-fast-behaviors-era"><a class="header" href="#2024-nadia-semantic-perception-fast-behaviors-era">2024 Nadia, Semantic Perception, Fast Behaviors Era</a></h1>
+<h2 id="can-pick-and-place"><a class="header" href="#can-pick-and-place">Can Pick and Place</a></h2>
+<figure id="fig:2024_shoe_in_box">
+<img src="media/nadia/20240121_PackShoeInBox.jpg" />
+<figcaption>A behavior for picking up a shoe (top left), walking to the side (top right), placing the shoe in the box (bottom left), and picking up the box (bottom right) executed on January 21, 2024.
+A video is available at <a href="https://youtu.be/BV9vFMgMc3A" class="uri">https://youtu.be/BV9vFMgMc3A</a>.
+</figcaption>
+</figure>
+<p>In January 2024, in an effort to demonstrate advancements in manipulation capability, the behavior system was used in a demo that picks up a shoe off a table, sidesteps, places the shoe in a banker’s box, picks up the box, and backs away with it as shown in <a href="#fig:2024_shoe_in_box" data-reference-type="ref+label" data-reference="fig:2024_shoe_in_box">1</a>.
+This behavior was authored by Dexton Anderson and Dhruv Thanki and was a good example of the behavior system being used by someone other than Duncan Calvert or Luigi Penco, who had been the primary users until this point.
+The behavior was executed using manually stepping as opposed to the automatic mode and lasted 3 minutes and 9 seconds.
+This was also the first integration of a CenterPose model for the shoe and the first behavior that did not use an ArUco marker for manipulation of an object.
+The behavior was split into three separate JSON files which were executed separately: “LeftHandShoePickUp.json”, “ShoeDropOff.json”, and “PickUpBankersResizableBox.json”.</p>
+<p>This behavior was very difficult to get to work due to the unreliability of the components.
+The Nadia T-Motor arms and lower body EtherCAT bus would often fault, causing the robot to fall.
+CenterPose was very unreliable in detecting the shoe.
+There was no onboard compute so a laptop was tethered to the robot to run the perception and behavior processes.
+On top of those, the behavior system was still new and buggy.
+We also had a new implementation of a scene graph that worked with the behavior system, but separate.
+This scene graph had synchronization bugs.</p>
+<h2 id="behavior-system-user-interface"><a class="header" href="#behavior-system-user-interface">Behavior System User Interface</a></h2>
+<figure id="fig:2024_refreshed_ui">
+<img src="media/nadia/20240130_NewUI.jpg" />
+<figcaption>A screenshot from January 30, 2024 showing a refreshed user interface for the behavior system.
+Icons were now present for action types, actions could be renamed with a double-click, the node settings were consolidated to a modal area in the lower portion of the panel (left), the root node selection menu was visually refreshed (center), and plots were now an available option for action progress (right).
+A video is available at <a href="https://youtu.be/RQ8N9wGhW7s" class="uri">https://youtu.be/RQ8N9wGhW7s</a>.
+</figcaption>
+</figure>
+<p>Also in January 2024, a major refresh of the behavior system user interface was completed as shown in <a href="#fig:2024_refreshed_ui" data-reference-type="ref+label" data-reference="fig:2024_refreshed_ui">2</a>.
+The general visual improvements in this version are still present in 2026 at the time of writing.
+The major changes included the following.</p>
+<ol>
+<li>
+<p>Icons were added for the action types to aid in visual navigation.</p>
+</li>
+<li>
+<p>Actions could now be renamed by double clicking them, typing the new name, and hitting enter.</p>
+</li>
+<li>
+<p>The settings for each node were moved to a modal area at the bottom of the Behavior Tree panel instead of being inlined next to each node.
+This was an important change that simplified the user experience, as only one node should be modified at a time.</p>
+</li>
+<li>
+<p>The root node selection area was refreshed visually and used selectable underlined text buttons.</p>
+</li>
+<li>
+<p>Action progress was now plotted at the top as an option instead the progress bars.
+The user could toggle between these two types of progress information.</p>
+</li>
+</ol>
+<figure id="fig:2024_17s_push_door">
+<img src="media/nadia/20240221_PushDoorSuccess17Seconds-00.00.04.651.jpg" />
+<figcaption>A screenshot of the February 4, 2024, 17-second push door behavior.
+A video is available at <a href="https://youtu.be/c929cDimaCY" class="uri">https://youtu.be/c929cDimaCY</a>.
+</figcaption>
+</figure>
+<p>On February 4, 2024, we achieved the fastest push door behavior yet on Nadia in 17 seconds, shown in <a href="#fig:2024_17s_push_door" data-reference-type="ref+label" data-reference="fig:2024_17s_push_door">3</a>.
+By this time, Nadia’s upper arms had been upgraded to a cycloid drive based design.
+It also used an “execute with next action” boolean option for action nodes which was added back in September 2023.
+The “execute with next action” feature supported executing multiple nodes at once, contributing to the speed of this push door behavior.
+This action sequence node would not wait for the currently executing action to complete if this field was true for the next action.
+Instead, it would immediately execute it too, such that multiple actions could be running at once.</p>
+<figure id="fig:2024_mark_modified">
+<img src="media/nadia/Peek 2024-02-28 16-42-MarkModified-00.00.09.316.jpeg" />
+<figcaption>A screenshot from February 28, 2024, showing the introduction of the "mark modified" feature, which illustrated to the operator that a node has been modified but not saved, using the asterisk symbol (*).
+A gif is available at <a href="https://giphy.com/gifs/kqTj94XEMbo9l6gdDl" class="uri">https://giphy.com/gifs/kqTj94XEMbo9l6gdDl</a>.
+</figcaption>
+</figure>
+<p>Also in February 2024, we added a feature that shows an asterisk next to the behavior node names if they have been modified, as shown in <a href="#fig:2024_mark_modified" data-reference-type="ref+label" data-reference="fig:2024_mark_modified">4</a>.
+This was an important usability feature in behavior authoring, because accidental behavior modifications were common at this stage in the implementation.
+It was, therefore, important to understand when a modification was made so the operator could undo it if necessary.
+This feature involved some extra boilerplate in each node’s definition implementation but was well worth it for the usability improvement.</p>
+<h2 id="execute-after"><a class="header" href="#execute-after">Execute After</a></h2>
+<figure id="fig:2024_14s_push_door">
+<img src="media/nadia/PXL_20240315_163444716.TS-14sPushDoor-00.00.15.494.jpg" />
+<figcaption>The 14 second continuous walking spring-loaded push bar door traversal on March 15 2024.
+This behavior used the new "execute after" concurrency mechanism to achieve scheduled concurrent arm motions while walking.
+A video is available at <a href="https://youtu.be/DrR2Ng3ft5Y" class="uri">https://youtu.be/DrR2Ng3ft5Y</a>.
+</figcaption>
+</figure>
+<p>In March of 2024, the “execute with next action” concurrency feature was replaced with an “execute after” node pointer.
+This allowed each action to declare a dependency on which action to wait for.
+By setting the “execute after” field to something earlier than the previous action, actions could start along with prior actions.
+This also allowed for action scheduling using the Wait action in combination with the “execute after” field.
+For example, arm motions could be scheduled during walking.
+This feature enabled our fastest ever door traversal, performed on March 15 2024, as shown in <a href="#fig:2024_14s_push_door" data-reference-type="ref+label" data-reference="fig:2024_14s_push_door">5</a>.
+In this behavior, Nadia traversed a spring-loaded push door without stopping walking in 14 seconds, using nubs for hands and an ArUco marker for detecting the pose of the door.</p>
+<h2 id="composite-frame"><a class="header" href="#composite-frame">Composite Frame</a></h2>
+<figure id="fig:2024_box_pick_and_place">
+<img src="media/nadia/202400409_AutonomousWBBoxPickUp.jpg" />
+<figcaption>The April 9, 2024 bimanual box pick and place behavior.
+A video is available at <a href="https://youtu.be/m0NC2EV4XB4" class="uri">https://youtu.be/m0NC2EV4XB4</a>.
+</figcaption>
+</figure>
+<p>On April 9, 2024, we demonstrated a bimanual box pick and place behavior as shown in <a href="#fig:2024_box_pick_and_place" data-reference-type="ref+label" data-reference="fig:2024_box_pick_and_place">6</a>.
+With some padding attached to the nub forearms, Nadia executed a behavior that picked a box up from a pallet on the ground, carried it to a table, set it down, and backed away.</p>
+<figure id="fig:2024_pull_door_tmotor">
+<img src="media/nadia/20240412_PullDoorBehavior.jpg" />
+<figcaption>A 19 second pull door behavior executed on April 12, 2024.
+A video is available at <a href="https://youtu.be/jSM8mdmOZlc" class="uri">https://youtu.be/jSM8mdmOZlc</a>.
+</figcaption>
+</figure>
+<p>On April 12, 2024, we demonstrated a pull door behavior in 19 seconds, shown in <a href="#fig:2024_pull_door_tmotor" data-reference-type="ref+label" data-reference="fig:2024_pull_door_tmotor">7</a>.
+This behavior used a new YOLO model for door opening mechanisms and did not use an ArUco marker.</p>
+<p>Earlier, in late March 2024, we had started implementing a heuristic door traversal node as a place to hard-code door-specific logic while continuing to use the runtime editable actions.
+The purpose of this was to implement reactive elements like retries on failure before figuring out how to generalize it with fallback nodes.
+Pseudocode for the initial pull door lever retry is presented in <a href="#alg:pull_door_screw_primitive_retry" data-reference-type="ref+label" data-reference="alg:pull_door_screw_primitive_retry">[alg:pull_door_screw_primitive_retry]</a>.
+This algorithm didn’t work as reliabiliy as the one we will present next.</p>
+<div class="algorithm">
+</div>
+
+<figure id="fig:2024_pull_door_reactive_dhruv">
+<img src="media/nadia/20240412_NadiaDisturbanceReactiveLeftPullHandleTmotor.jpg" />
+<figcaption>A pull door behavior is disturbed during the opening phase 5 times.
+The robot retries the opening 5 times, ultimately leading to task success.
+This demonstration was executed on April 12, 2024.
+A video is available at <a href="https://youtu.be/j_rzh5cAP2E" class="uri">https://youtu.be/j_rzh5cAP2E</a>.
+</figcaption>
+</figure>
+<p>On April 12, 2024, we used this strategy to demonstrate a reactive version of the pull door behavior, as shown in <a href="#fig:2024_pull_door_reactive_dhruv" data-reference-type="ref+label" data-reference="fig:2024_pull_door_reactive_dhruv">8</a>.
+A human repeatedly holds the door closed, pulls the door closed, and pushes the robot’s hand back as the robot tries to open the door.
+The door traversal node detects the action failure, rewinds to the grasp approach action, and tries again until successful.</p>
+<div class="algorithm">
+</div>
+
+<p>An improved hard-coded heuristic, presented in <a href="#alg:door_traversal_node_reactive" data-reference-type="ref+label" data-reference="alg:door_traversal_node_reactive">[alg:door_traversal_node_reactive]</a>, was used to detect three types of failures specific to opening a door.
+At the end of the grasp action, if the hand did not reach the handle, we assume the grasp failed.
+At the end of the pull door open action, we check the pose of the door handle and the pose of the robot’s hand.
+In the case the handle did not move far from its original position, we assume that the unlatch failed.
+In the case the handle pose is far from the hand pose, we assume the hand slipped off.
+On any type of failure detected by this node, we rewind the action sequence to the grasp approach action, where the robot immediately begins to retry the door opening.
+This approach worked well for the human holding the door shut, pulling the door out of the robot’s hand, and pushing the robot’s hand away from the door handle.
+In all three cases, the robot was able to recover and successfully execute the full door traversal without operator intervention.</p>
+<p>During this demo, we noted the friction with hard-coded reactive logic.
+Iterating from <a href="#alg:pull_door_screw_primitive_retry" data-reference-type="ref+label" data-reference="alg:pull_door_screw_primitive_retry">[alg:pull_door_screw_primitive_retry]</a> to <a href="#alg:door_traversal_node_reactive" data-reference-type="ref+label" data-reference="alg:door_traversal_node_reactive">[alg:door_traversal_node_reactive]</a> took a lot of time and guesswork.
+Our metric for evaluation was the reliability of the reactive retry mechanism.
+Since this test required the full system to be online and two people to operate, one at the operator computer and one to disturb the robot,
+experiment time was scarce.
+Having to change code, implement debugging output, redeploy, and restart the behavior to modify the reactive logic sucked up even more of that time.
+It was clear that a fallback node, proximity condition, and improved action success criteria would streamline this process in the future.</p>
+<figure id="fig:2024_3_doors">
+<img src="media/nadia/20240703_NadiaDoorTraversalsPushBarPushKnobPullHandleFall.jpg" />
+<figcaption>Our July 3, 2024 run where we attempted to traverse three doors in a row with continuous autonomy.
+We traversed the first two in 48 seconds, but ultimately fell after opening the third.
+A video is available at <a href="https://youtu.be/cd-lo-l7pPI" class="uri">https://youtu.be/cd-lo-l7pPI</a>.
+</figcaption>
+</figure>
+<p>On July 3, 2024, we wanted to show reliability and behavior composition in a building exploration type environment.
+We put together a behavior to traverse three doors of different types consecutively in one continuous automatic execution.
+We built three lab doors for this: a door with spring closer with a push bar on one side and a pull handle on the other, a knob handle door with a spring closer, and a lever handle door without a spring closer.
+We traversed the first two doors in 48 seconds but fell after opening the third door.
+This run is shown in <a href="#fig:2024_3_doors" data-reference-type="ref+label" data-reference="fig:2024_3_doors">9</a>.</p>
+<p>There were a couple of failure modes that made achieving this behavior difficult.
+Firstly, the EZGripper gripper, having only two fingers and limited grippiness, resulted in slipping off the pull lever handle very often.
+Additionally, having only two fingers made getting a solid grasp on the knob handle difficult.
+For example, if the two fingers are not positioned at opposite vertices of the circular knob handle, it would slip off to the side.
+This was a key moment in realizing that having at least three fingers would make door behaviors more reliable.</p>
+<p>Another failure mode, and the one that ultimately prevented us from getting the third door completed, was the result of a combination of hardware and control issues.
+The Nadia robot was tethered to a hydraulic pump across the room and the hydraulic cabling was very stiff.
+Also, Nadia’s hip pitch actuators in their configuration were barely strong enough to lift the leg when the arms were also out in front of the robot, as required for door traversals in not colliding with the door frame.
+When the robot was positioned to traverse the third door, the hydraulic cables put enough extra torque on the robot to make walking through the door un-achievable for the robot and it repeatedly fell.</p>
+<figure id="fig:2024_onr_demo_partial">
+<img src="media/nadia/202407_NadiaONRDemoPushBarTrashCanPullHandleSearch.jpg" />
+<figcaption>
+The "ONR Demo" run where we entered a mock building through a push door (top), searched the room for couches and recycling bins (center left), navigated to the door being blocked by the recycling bin and cleared it out of the way (center right), entered that room (bottom left), and searched for a person (bottom right).
+A video is available at <a href="https://youtu.be/GQZbcyediI0" class="uri">https://youtu.be/GQZbcyediI0</a>.
+</figcaption>
+</figure>
+<p>Later that month, we attempted an extended version of that behavior in which we turned the behavior into a multi-room search.
+Dubbed the “ONR Demo”, this behavior was demonstrated on July 19, 2024.
+A test run is shown in <a href="#fig:2024_onr_demo_partial" data-reference-type="ref+label" data-reference="fig:2024_onr_demo_partial">10</a> which is a partial version.
+At the time of writing, we have been unable to recover video of the full run, but we recall having searched all three rooms, including moving the couch to check under it and performing a salute behavior in the third room.</p>
+<p>We have printed the structure of the behavior, generated from the actual JSON in <a href="#fig:onr_demo_tikz" data-reference-type="ref+label" data-reference="fig:onr_demo_tikz">11</a> and <a href="#fig:onr_demo_tikz2" data-reference-type="ref+label" data-reference="fig:onr_demo_tikz2">12</a>.</p>
+<figure id="fig:onr_demo_tikz">
+<figcaption>The ONR Demo behavior tree (Part 1).</figcaption>
+</figure>
+<figure id="fig:onr_demo_tikz2">
+<figcaption>The ONR Demo behavior tree (Part 2).</figcaption>
+</figure>
+<p>On the day of the ONR Demo demonstration, we were able to accomplish each task without a failure.
+However, in the run-up to the demo, we noted an important property of behavior composition.
+Our full demo was composed of seven main loco-manipulation behaviors:</p>
+<ol>
+<li>
+<p>Traverse a push bar door.</p>
+</li>
+<li>
+<p>Move the recycling bin out of the way.</p>
+</li>
+<li>
+<p>Traverse a push knob handle door.</p>
+</li>
+<li>
+<p>Traverse a pull knob handle door.</p>
+</li>
+<li>
+<p>Traverse a push lever handle door.</p>
+</li>
+<li>
+<p>Traverse a pull lever handle door.</p>
+</li>
+<li>
+<p>Move the couch.</p>
+</li>
+</ol>
+<p>Our observation was that even if each behavior had a success rate of 90% (which they didn’t), the full demo reliability is calculated as</p>
+<pre><code class="language-math">0.9^7 = 48.7\%
+</code></pre>
+<p>which is an alarmingly low (less than 50%) full-demo success rate even when the sub-behaviors have achieved very good reliability.
+On the day of the final demo, where we were ultimately successful, our success likely hinged on sufficiently configuring and testing the initial conditions such that the chance of success was much higher.</p>
+<figure id="fig:2025_ai2r">
+<img src="media/nadia/2025-06-07_FullSimDemoNadia_LLMcoordination-00.02.42.631.jpg" />
+<figcaption>
+A demo using the "AI to Robot" (AI2R) node to work with an external LLM process to coordinate behavior using reasoning in natural language.
+</figcaption>
+</figure>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="4_story_of_building_and_architecture_4_2022_2023_nadia_runtime_editable_sequences_era.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="4_story_of_building_and_architecture_6_2024_2026_h1_2_5_fingers_manipulation_era.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="4_story_of_building_and_architecture_4_2022_2023_nadia_runtime_editable_sequences_era.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="4_story_of_building_and_architecture_6_2024_2026_h1_2_5_fingers_manipulation_era.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-c22b7243.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

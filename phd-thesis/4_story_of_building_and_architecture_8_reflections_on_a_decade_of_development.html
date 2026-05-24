@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Abstract - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
+        <title>Reflections on a Decade of Development - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
 
 
         <!-- Custom HTML head -->
@@ -176,39 +176,38 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="abstract"><a class="header" href="#abstract">Abstract</a></h1>
-<h2 id="a-system-for-fast-resilient-and-adaptable-loco-manipulation-behaviors-on-humanoid-robots"><a class="header" href="#a-system-for-fast-resilient-and-adaptable-loco-manipulation-behaviors-on-humanoid-robots">A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</a></h2>
-<p><strong>Author:</strong> Duncan William Calvert<br><strong>Department:</strong> Department of Intelligent Systems and Robotics<br><strong>College:</strong> College of Science and Engineering</p>
-<!-- AUTO-ABSTRACT-START -->
-<h2 id="abstract-1"><a class="header" href="#abstract-1">Abstract</a></h2>
-<p>Humanoid robots could be used to take on physically demanding, hazardous, and repetitive work in spaces built for humans, including shipyards, energy infrastructure, construction sites, and factories.
-However, a useful robot for these spaces must coordinate locomotion, whole body motion, perception, contact, and operator supervision.
-In this thesis we present a system doing this via a behavior authoring and runtime system.
-Furthermore, we argue that behavior coordination architecture is itself a measurable design variable affecting the ability to readily acheive these tasks in the real world.
-Specifically, we argue that architecture implicates speed, robustness across task variation, and adaptation time when modifying a behavior for a new task.</p>
-<p>We present a robot-local editable behavior architecture in which trees of action primitives execute with layered concurrency on the robot, while an operator interface remains continuously synchronized for runtime authoring, monitoring, and repair.
-Action primitives are built on top of a whole body controller that supports manipulation while walking.
-Perception actions are authored inside the behavior so that detection and scene reasoning are scheduled with the rest of the task rather than configured globally.
-The architecture supports rapid authoring of new behaviors and reuse of existing subtrees across related tasks.</p>
-<p>Door traversal is used as the main benchmark task because it exposes the full coordination problem in a compact and repeatable setting, requiring approach walking, body placement, mechanism perception, grasp selection, handle actuation, interaction with a moving obstacle, and a transition back to locomotion.
-The behavior library developed during this work covers more than twenty real-robot task variants, including push and pull doors with knob, push-bar, and lever-handle mechanisms, multi-step exploration sequences, obstacle clearing and breaching, and reactive table-to-table manipulation tasks.
-Versions of the same behavior system were run on Nadia, Boston Dynamics DRC Atlas, IHMC’s fully electric Alex humanoid robot, and Unitree H1-2, which shows that the architecture is not tied to one platform.</p>
-<p>We evaluate the system on speed, reliability, variation coverage, and authoring effort.
-A push bar door traversal in 14 seconds and a reactive pick and place demonstration for 6 balls in 42 seconds establish our speed direction.
-For reliability, we tested 11 successful push approach-and-opening repetitions in a row and 12 successful pull approach-and-opening repetitions in a row on Alex, and 32 successful right pull openings in a row on Unitree H1-2.
-Measured authoring sessions show that new door behaviors can be created from an empty tree to the start of autonomous repeated-run testing in 31 minutes, and that a mirrored real-door adaptation reaches first success in under two hours, both without code recompilation or redeployment.
-We compare against prior IHMC baselines and selected door systems from the literature across speed, reliability, variation coverage, and authoring effort, with execution boundary and sensing assumptions reported alongside as part of each comparison.
-Videos of the work presented in this dissertation are available online at <a href="https://www.youtube.com/playlist?list=PLJK5CTyotYqsfgfnXb-09YNFeBose6uEY">https://www.youtube.com/playlist?list=PLJK5CTyotYqsfgfnXb-09YNFeBose6uEY</a>.</p>
-<!-- AUTO-ABSTRACT-END -->
+                        <h1 id="reflections-on-a-decade-of-development"><a class="header" href="#reflections-on-a-decade-of-development">Reflections on a Decade of Development</a></h1>
+<p>Over the course of nearly a decade, we think we made dramatic progress in robot autonomy and capability using our behavior system.
+In the DARPA Robotics Challenge Finals in 2015, the most successful teams had expert roboticists crowded around operator interfaces, meticulously managing every detail of an hour-long 8-task run.
+In 2026, we are able to somewhat casually author and run neglect-tolerant loco-manipulation behaviors with just a few expert roboticists.
+In addition, any video you will see of the DARPA Robotics Challenge is sped up by 5, 10, or 30 times realtime speed.
+Our automatic loco-manipulation behaviors are watchable and interesting when played at 1x speed.</p>
+<p>In the 2016-2021 era with Atlas, behaviors were hard-coded, developed features in themselves and only used perception for locomotion.
+In 2021, we introduced Robot Data eXplorer (RDX), a novel development tool suite for data visualization, algorithm development, and robot operation.
+In 2022, we invented the runtime-editable behavior sequence for humanoid robots, which allowed for an explosion of the size of our behavior library, given they could be authored in an operator interface instead of being hand-engineered with code.
+In 2024, with Nadia, we made the behaviors fast and started using perception for manipulation, executing some of the fastest door traversals ever done by humanoid robots and weaning our dependence on ArUco markers to direct environmental perception.
+In 2025, with H1-2 and the Psyonic Ability Hand, we upped our game with 5-finger anthropomorphic manipulation.
+Finally, in late 2025 and early 2026, with Alex, we made perceptual reactivity runtime-editable and demonstrated the ability to author novel loco-manipulation behaviors in hours.</p>
+<p>A few items of significance in the timeline are of note.
+Firstly, in 2025, we had decided to explore vision-language-action models starting in March.
+By October, we hadn’t gotten it working, so we decided to abandon the effort.
+What’s interesting is the impressive pace of development that followed.
+The October 2025 - April 2026 period yielded some of the most significant advancements in the entire system, such as the points-in-shape counting capability.
+Also in that time period, the advancement of manipulation sky-rocketed, from the mustard picking with H1-2, to the 199 ball sorting open house demo, to the 9/9 multi-station colored ball sorting demo.</p>
+<p>The pace of development is currently very strong.
+We are extremely proud of this work and the very large number of team members that contributed to this system in the last decade did an incredible job.
+At the same time, we are excited for the future.
+We want to see this system extended further and deployed on our new tetherless version of Alex for real-world use cases, not just tech demos.</p>
+<p>In the next chapter, we’ll provide a guide on the behavior authoring process in 2026.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-
-                            <a rel="next prefetch" href="2_metrics.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            <a rel="prev" href="4_story_of_building_and_architecture_7_2026_alex_resilience_adaptability_era.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
+
 
                         <div style="clear: both"></div>
                     </nav>
@@ -216,10 +215,10 @@ Videos of the work presented in this dissertation are available online at <a hre
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-
-                    <a rel="next prefetch" href="2_metrics.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    <a rel="prev" href="4_story_of_building_and_architecture_7_2026_alex_resilience_adaptability_era.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
+
             </nav>
 
         </div>

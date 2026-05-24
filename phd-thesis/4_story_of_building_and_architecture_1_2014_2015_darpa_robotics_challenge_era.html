@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Abstract - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
+        <title>2014-2015 DARPA Robotics Challenge Era - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
 
 
         <!-- Custom HTML head -->
@@ -176,37 +176,87 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="abstract"><a class="header" href="#abstract">Abstract</a></h1>
-<h2 id="a-system-for-fast-resilient-and-adaptable-loco-manipulation-behaviors-on-humanoid-robots"><a class="header" href="#a-system-for-fast-resilient-and-adaptable-loco-manipulation-behaviors-on-humanoid-robots">A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</a></h2>
-<p><strong>Author:</strong> Duncan William Calvert<br><strong>Department:</strong> Department of Intelligent Systems and Robotics<br><strong>College:</strong> College of Science and Engineering</p>
-<!-- AUTO-ABSTRACT-START -->
-<h2 id="abstract-1"><a class="header" href="#abstract-1">Abstract</a></h2>
-<p>Humanoid robots could be used to take on physically demanding, hazardous, and repetitive work in spaces built for humans, including shipyards, energy infrastructure, construction sites, and factories.
-However, a useful robot for these spaces must coordinate locomotion, whole body motion, perception, contact, and operator supervision.
-In this thesis we present a system doing this via a behavior authoring and runtime system.
-Furthermore, we argue that behavior coordination architecture is itself a measurable design variable affecting the ability to readily acheive these tasks in the real world.
-Specifically, we argue that architecture implicates speed, robustness across task variation, and adaptation time when modifying a behavior for a new task.</p>
-<p>We present a robot-local editable behavior architecture in which trees of action primitives execute with layered concurrency on the robot, while an operator interface remains continuously synchronized for runtime authoring, monitoring, and repair.
-Action primitives are built on top of a whole body controller that supports manipulation while walking.
-Perception actions are authored inside the behavior so that detection and scene reasoning are scheduled with the rest of the task rather than configured globally.
-The architecture supports rapid authoring of new behaviors and reuse of existing subtrees across related tasks.</p>
-<p>Door traversal is used as the main benchmark task because it exposes the full coordination problem in a compact and repeatable setting, requiring approach walking, body placement, mechanism perception, grasp selection, handle actuation, interaction with a moving obstacle, and a transition back to locomotion.
-The behavior library developed during this work covers more than twenty real-robot task variants, including push and pull doors with knob, push-bar, and lever-handle mechanisms, multi-step exploration sequences, obstacle clearing and breaching, and reactive table-to-table manipulation tasks.
-Versions of the same behavior system were run on Nadia, Boston Dynamics DRC Atlas, IHMC’s fully electric Alex humanoid robot, and Unitree H1-2, which shows that the architecture is not tied to one platform.</p>
-<p>We evaluate the system on speed, reliability, variation coverage, and authoring effort.
-A push bar door traversal in 14 seconds and a reactive pick and place demonstration for 6 balls in 42 seconds establish our speed direction.
-For reliability, we tested 11 successful push approach-and-opening repetitions in a row and 12 successful pull approach-and-opening repetitions in a row on Alex, and 32 successful right pull openings in a row on Unitree H1-2.
-Measured authoring sessions show that new door behaviors can be created from an empty tree to the start of autonomous repeated-run testing in 31 minutes, and that a mirrored real-door adaptation reaches first success in under two hours, both without code recompilation or redeployment.
-We compare against prior IHMC baselines and selected door systems from the literature across speed, reliability, variation coverage, and authoring effort, with execution boundary and sensing assumptions reported alongside as part of each comparison.
-Videos of the work presented in this dissertation are available online at <a href="https://www.youtube.com/playlist?list=PLJK5CTyotYqsfgfnXb-09YNFeBose6uEY">https://www.youtube.com/playlist?list=PLJK5CTyotYqsfgfnXb-09YNFeBose6uEY</a>.</p>
-<!-- AUTO-ABSTRACT-END -->
+                        <h1 id="2014-2015-darpa-robotics-challenge-era"><a class="header" href="#2014-2015-darpa-robotics-challenge-era">2014-2015 DARPA Robotics Challenge Era</a></h1>
+<h2 id="teleoperation-and-the-drc-ui"><a class="header" href="#teleoperation-and-the-drc-ui">Teleoperation and the DRC UI</a></h2>
+<p>The autonomous behavior system wasn’t developed heavily until around 2016, after Team IHMC won 2nd place in the DARPA Robotics Challenge Finals.
+In the DARPA Robotics Challenge, teams were given 1 hour to teleoperate humanoid robots in accomplishing 8 tasks in a mock-urban setting.
+The tasks were designed such that a humanoid robot might be the most suitable form factor for completing them.
+They included driving a car, getting out of the car, walking on uneven terrain, using hand tools, going through a door, up a flight of stairs, and operating various machinery.
+Comparatively, a human would be able to accomplish this set of tasks in under 5 minutes.
+Most teams were unsuccessful in completing all 8 tasks within the hour and those that did took the greater portion of the hour to do it.
+Participation in this challenge taught us a lot about the problems involved in getting loco-manipulation behaviors to work.</p>
+<p>Though we ended up using teleoperation, we had tried adding degrees of autonomy to increase speed and reliability.
+The challenge featured low bandwidth communication with the robot at all times and high bandwidth communication only periodically.
+Teams that had autonomous functionalities on-board the robot would have had the advantage of being able to proceed without waiting through the challenge’s communication blackouts.
+Teams that did not rely on human-guided perceptual registration would have been able to teleoperate more quickly, with less risk of needing to wait through multiple communications blackouts.</p>
+<p>Even through teleoperation, the challenge taught us a lot about the effectiveness of a particular style of user interface for humanoid robot-operator teaming.
+In the challenge, Team IHMC used a hybrid operator interface comprised of two 3D views: a third-person view with a posable viewport camera and a first-person view that looks at the world from the perspective of the robot’s head camera, such that virtual graphics could be situated within the scene to provide an augmented reality experience, as shown in <a href="#fig:drc_ui_valve_task" data-reference-type="ref+label" data-reference="fig:drc_ui_valve_task">1</a> and <a href="#fig:drc_ui_door_task" data-reference-type="ref+label" data-reference="fig:drc_ui_door_task">2</a>.</p>
+<figure id="fig:drc_ui_valve_task">
+<img src="media/atlas/IHMC DRC Finals Run June 6th _ValveTask.jpg" />
+<figcaption>The IHMC DRC operator interface during the Valve Task in the DARPA Robotics Challenge Finals.
+On the left side, a virtual valve has been placed in the scene on top of the point cloud to register the task.
+On the right side the current and next hand poses can be seen as two separate graphics.
+Also, the control gizmo for the hand can be seen as the large colored torii that revolve around the hand.
+A video is available at <a href="https://youtu.be/TstdKAvPfEs" class="uri">https://youtu.be/TstdKAvPfEs</a>.
+</figcaption>
+</figure>
+<p>The DRC UI introduced a lot of highly useful user interface mechanisms for managing a humanoid robot in accomplishing tasks.
+It was based on the Java Swing widget library and jMonkeyEngine for the 3D graphics engine.
+The DRC UI had a collection of competition-hardened interaction features that worked very well for operating humanoid robots.
+These included a unique 3D scene camera control and orbit system, quick access buttons with icons, 3D interactable pose gizmos, virtual modifiable plan footsteps, a walk path control ring, sliders for head and spine joint-space commands, virtual object placement, and object action templates.</p>
+<figure id="fig:drc_ui_door_task">
+<img src="media/atlas/IHMC DRC Finals Run June 6th _DoorTask.jpg" />
+<p>A video is available at <a href="https://youtu.be/TstdKAvPfEs" class="uri">https://youtu.be/TstdKAvPfEs</a>.
+<span id="fig:drc_ui_door_task" data-label="fig:drc_ui_door_task"></span></p>
+
+<figcaption>The IHMC DRC operator interface during the Door Task in the DARPA Robotics Challenge Finals.
+In the first-person view on the left, virtual planned footsteps can be seen.
+On the right, the virtual door modifiable has been placed at the pose of the real door.
+The small red arc shows the door panel edge arc if it were to swing open.</figcaption>
+</figure>
+<p>Gizmo has become a colloquial term in robotics to describe a virtual interactable 3D set of widgets that assist a user in defining or modifying a 3D position, orientation, or pose.
+There are a few implementations out there such as in RViz and ImGuizmo , with a representative MoveIt pose-gizmo example shown in <a href="#fig:rviz_gizmo" data-reference-type="ref+label" data-reference="fig:rviz_gizmo">3</a>.
+The DRC UI featured a custom one built by John Carff in jMonkeyEngine (JME) using colored torii for controlling orientation.
+The DRC UI gizmo was mainly controlled by keyboard shortcuts, with the F keys being used to select the axis and the arrow keys being used to move the gizmo along or about that axis.
+It featured orientation and position control and was used to specify poses of the virtual interactable objects such as hands, footsteps, torso motions, and scene objects.</p>
+<h2 id="virtually-placeable-objects"><a class="header" href="#virtually-placeable-objects">Virtually Placeable Objects</a></h2>
+<figure id="fig:rviz_gizmo">
+<img src="media/atlas/rviz_plugin_visualize_robots.jpg" />
+<figcaption>A still from the MoveIt tutorial <span class="citation" data-cites="MoveIt_quickstart_rviz_tutorial"></span> showing the red, green, and blue pose gizmo used to move the robot’s end effector.
+The user can drag the circular planes to reorient the pose and drag the arrows to translate it.</figcaption>
+</figure>
+<p>Virtually placeable objects included a door, a hand drill, and variable-sized valves.
+These virtually placed objects had hand-coded, steppable action scripts in code that were executable with respect to the object.
+This was very similar, unknowingly, to the Affordance Template framework being designed at TracLabs at around the same time by Steve Hart .
+Hart’s use of the word affordance was to establish a moniker for the concept of reusable behaviors for common things you might encounter in the environment.
+The word affordance comes from Gibson’s book, <em>The Ecological Approach to Visual Perception</em> .
+It is used in the sense that an environmental feature affords an action.
+For example, the ground is an affordance for walking and a handle is an affordance for turning.</p>
+<h2 id="scripted-behaviors"><a class="header" href="#scripted-behaviors">Scripted Behaviors</a></h2>
+<p>The DRC-era behaviors were scripts executed from the user interface as seen in <a href="#fig:drc_ui_door_task" data-reference-type="ref+label" data-reference="fig:drc_ui_door_task">2</a>.
+The operator would step through the actions one by one.
+They also did not close the loop on perception.
+Tasks were aligned to the scene manually by the operator using the point cloud and images.</p>
+<figure id="fig:drc_ui_egress_scripting">
+<img src="media/atlas/IHMC DRC Finals Run June 6th_EgressScripting.jpg" />
+<figcaption>The IHMC DRC operator interface during the Car Egress Task in the DARPA Robotics Challenge Finals.
+This is an example of a scripted behavior.
+The current state is "A7_tiltLateral" as seen in the bottom right.
+Scripts were loadable and savable locally to the operator computer.
+Script actions could be previewed before executing them.
+A video is available at <a href="https://youtu.be/TstdKAvPfEs" class="uri">https://youtu.be/TstdKAvPfEs</a>.
+</figcaption>
+</figure>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="4_story_of_building_and_architecture.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
 
-                            <a rel="next prefetch" href="2_metrics.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="4_story_of_building_and_architecture_2_2016_2019_atlas_hard_coded_javafx_era.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -216,8 +266,11 @@ Videos of the work presented in this dissertation are available online at <a hre
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="4_story_of_building_and_architecture.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
 
-                    <a rel="next prefetch" href="2_metrics.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="4_story_of_building_and_architecture_2_2016_2019_atlas_hard_coded_javafx_era.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

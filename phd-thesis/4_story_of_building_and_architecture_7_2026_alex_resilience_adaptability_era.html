@@ -1,0 +1,592 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>2026 Alex, Resilience, Adaptability Era - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-0392ca55.css">
+        <link rel="stylesheet" href="css/chrome-fc474251.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-29b762a1.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-39201727.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="2026-alex-resilience-adaptability-era"><a class="header" href="#2026-alex-resilience-adaptability-era">2026 Alex, Resilience, Adaptability Era</a></h1>
+<h2 id="alex-door-opening"><a class="header" href="#alex-door-opening">Alex Door Opening</a></h2>
+<figure id="fig:alex_door_opening">
+<img src="media/alex/2026-01-20_AlexDoorOpening-00.23.15.396.jpg" />
+<figcaption>Our first manipulation behavior on the IHMC Alex robot on January 20, 2026.
+A video is available at <a href="https://youtu.be/t4vXJIXfsl8" class="uri">https://youtu.be/t4vXJIXfsl8</a>.
+</figcaption>
+</figure>
+<p>On the same day, in a 33 minute authoring session, we demonstrated a stand-in-place door opening behavior on the new IHMC Alex robot, as seen in <a href="#fig:alex_door_opening" data-reference-type="ref+label" data-reference="fig:alex_door_opening">1</a>.
+This was the first autonomous manipulation behavior to run on the Alex platform.
+The process for getting this to work was essentially the same as the prior door opening behaviors on the Unitree H1-2, with the exception that we needed to point the head down, which wasn’t supported as a behavior action yet.
+Alex features a neck with pitch and yaw and the default neck pitch does not provide sufficient visibility of the manipulation zone in front of the robot.
+To perform manipulation, we need to pitch the head down by 30 degrees.</p>
+<div id="tab:alex_first_right_pull_authoring_timeline_story">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">Day</th><th style="text-align: left">Time</th><th style="text-align: left">Authoring milestone</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left">Day 1</td><td style="text-align: left">:00:00</td><td style="text-align: left">Create <code>door/RightPullLeverHandle.json</code>.</td></tr>
+<tr><td style="text-align: left">Day 1</td><td style="text-align: left">:32:59</td><td style="text-align: left">Closed unlatch-and-open loop from a squared-up stance.</td></tr>
+<tr><td style="text-align: left">Day 2</td><td style="text-align: left">:02:50</td><td style="text-align: left">Approach sequence created; footstep-planning issues encountered.</td></tr>
+<tr><td style="text-align: left">Day 3</td><td style="text-align: left">:27:57</td><td style="text-align: left">Approach finalized; pre-grasp work begins.</td></tr>
+<tr><td style="text-align: left">Day 3</td><td style="text-align: left">:15:35</td><td style="text-align: left">Knee-clearance check against the swinging panel.</td></tr>
+<tr><td style="text-align: left">Day 3</td><td style="text-align: left">:57:05</td><td style="text-align: left">First open from a staggered approach stance.</td></tr>
+<tr><td style="text-align: left">Day 4</td><td style="text-align: left">:32:44</td><td style="text-align: left">Pull-and-hold sequence begins.</td></tr>
+<tr><td style="text-align: left">Day 4</td><td style="text-align: left">:14:21</td><td style="text-align: left">Door opens farther but not fully by end of session.</td></tr>
+<tr><td style="text-align: left">Day 5</td><td style="text-align: left">:52:57</td><td style="text-align: left">Door fully open; first traversal step attempted.</td></tr>
+<tr><td style="text-align: left">Day 5</td><td style="text-align: left">:52:47</td><td style="text-align: left">Full traversal footstep plan authored.</td></tr>
+<tr><td style="text-align: left">Day 5</td><td style="text-align: left">:54:06</td><td style="text-align: left">Hold-open fallback added after force-related trouble.</td></tr>
+<tr><td style="text-align: left">Day 5</td><td style="text-align: left">:01:58</td><td style="text-align: left">Pre-authored <code>Pull right arm in</code> clearance pose added.</td></tr>
+<tr><td style="text-align: left">Day 5</td><td style="text-align: left">:10:17</td><td style="text-align: left">First successful full pull-door traversal.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Normalized authoring timeline for the January 20–24, 2026 first Alex loco-manipulation behavior, the right pull lever-handle door traversal.
+The time column is cumulative across days but excludes inactive gaps between daily sessions.</p>
+</div>
+
+<p><span id="tab:alex_first_right_pull_authoring_timeline_story" label="tab:alex_first_right_pull_authoring_timeline_story"></span></p>
+<p>As presented in <a href="#tab:alex_first_right_pull_authoring_timeline_story" data-reference-type="ref+label" data-reference="tab:alex_first_right_pull_authoring_timeline_story">1</a>, the authoring of the first pull door behavior on Alex was a five day process spanning 11 hours and 10 minutes of authoring time.</p>
+<figure id="fig:alex_door_approach_opening">
+<img src="media/alex/20260123_182614_AlexDoorApproachAndOpening.jpg" />
+<figcaption>Alex executing a pull door approach and opening behavior on January 23, 2026 as the behavior was being developed.
+A video is available at <a href="https://youtube.com/shorts/0_joZBgrBsQ" class="uri">https://youtube.com/shorts/0_joZBgrBsQ</a>.
+</figcaption>
+</figure>
+<p>On January 23, 2026, three days after the squared up stance opening behavior, we achieved the approach and opening portion of the pull door behavior, as shown in <a href="#fig:alex_door_approach_opening" data-reference-type="ref+label" data-reference="fig:alex_door_approach_opening">2</a>.
+This took a while to get working because Alex’s arms are shorter than Nadia’s were and the spine range of motion was more limited, meaning the same strategy did not work.
+Nadia’s spine yaw range of motion was greater than Alex’s +/- 30 degrees.
+Also on Nadia, we took a double support stance for opening that was further from the door, using the spine yaw and the longer arms.
+This allows Nadia’s pull door opening motions to be simpler and faster, due to the robot being farther from the door and having more space to work with.
+Part of Alex’s pull door behavior involved “sneaking” the left arm in to hold and pull the door open, which was complicated not only by space but also through trying to reduce risk of damage to the Ability Hands.
+These items contributed to Alex’s door behaviors being significantly slower than Nadia’s.
+However, we also think that, given some more time, we could speed Alex’s behaviors up significantly.</p>
+<figure id="fig:alex_first_pull_door">
+<img src="media/alex/20260124_AlexFirstPullDoor.jpg" />
+<figcaption>Alex executing its first full door traversal, a pull lever door, on January 24, 2026.
+A video is available at <a href="https://youtube.com/shorts/xp6Zs7By5tw" class="uri">https://youtube.com/shorts/xp6Zs7By5tw</a>.
+</figcaption>
+</figure>
+<p>The next day, as shown in <a href="#fig:alex_first_pull_door" data-reference-type="ref+label" data-reference="fig:alex_first_pull_door">3</a>, we authored the sequence for walking through the door and ran the whole behavior.
+This one was not fully automatic, but it was the first successful door traversal on Alex.
+Some difficulty was encountered in the preparation steps for the final traversal steps.
+While taking these preparation steps, Alex had to hold the door open with the left arm, as this door had a spring closer.</p>
+<p>When we first tried, we had falls for at least two reasons.
+One was that the whole body controller was not well tuned on Alex for walking with the arms out, as was required for holding the door open.
+Another was that when the robot would take a step toward the door while holding it open, if the holding arm is kept still, when the robot puts its weight on the stance foot, the upper body and arm shifts towards the robot and the foot swing would get caught on the bottom of the door, causing a fall.
+The solution was to put the arm farther out before or during the traversal preparation steps.
+This solution can be seen in the tree in <a href="#fig:alex_first_pull_door_tree" data-reference-type="ref+label" data-reference="fig:alex_first_pull_door_tree">4</a> as the “Push door way open for foot clearance” and “Retry push door way open” nodes.</p>
+<figure id="fig:alex_first_pull_door_tree">
+<img src="media/alex/20260127_AlexPullDoorBehaviorTree.png" />
+<figcaption>The behavior tree used for Alex’s first pull door traversal on January 24, 2026.</figcaption>
+</figure>
+<figure id="fig:alex_shape_contains_condition">
+<img src="media/alex/2026-01-27 22-34-20_ShapeContainsCondition-00.00.16.227.jpg" />
+<figcaption>A demonstration of the "shape contains" condition node type.
+On the left, a condition node is placed in the tree.
+In the bottom left, the condition node settings area can be seen, with the <code>SHAPE_CONTAINS</code> type selected.
+The sphere radius, min points, and current number of points contained are displayed.
+In the center, the 3D view shows the sphere, intersecting the door, with a red tint that indicates a high number of contained points.
+A video is available at <a href="https://youtu.be/tbTrKuGGmqk" class="uri">https://youtu.be/tbTrKuGGmqk</a>.
+</figcaption>
+</figure>
+<p>The “shape contains” condition was implemented on January 27, 2026 and is shown in <a href="#fig:alex_shape_contains_condition" data-reference-type="ref+label" data-reference="fig:alex_shape_contains_condition">5</a>.
+This new behavior condition returns success if either a reference frame or some minimum number of points from the point cloud lies within a 3D shape.
+We supported just spheres initially which can be sized and placed with respect to any behavior frame, just like the taskspace actions.</p>
+<h2 id="shape-contains-and-freeze"><a class="header" href="#shape-contains-and-freeze">Shape Contains and Freeze</a></h2>
+<p>For example, we can use it to check if the whole body controller actually achieved a commanded hand goal pose.
+Without a fallback node, this condition can be used to stop automatic execution by failing in a sequence.
+When combined with a fallback node, it can be used in the “try” to branch the sequence of execution.
+We use it in this way for the door opening retry mechanism, by placing the virtual sphere where the door panel should be with respect to the robot’s chest after opening.
+If there are no or few points in the sphere at that point, the fallback catch executes a goto node, returning the behavior back to door handle pre-grasp.
+Else, the behavior skips the fallback catch and continues opening and eventually traversing the door.</p>
+<figure id="fig:alex_freeze">
+<img src="media/alex/2026-01-29 15-47-29_AlexTestingBehaviorFeaturesThursday-00.06.33.134.jpg" />
+<figcaption>A demonstration of the <code>FREEZE_OBJECT</code> scene action type.
+On the left, a scene action can be seen in the tree named "Freeze door lever handle".
+In the bottom left, the scene action settings area is shown with the <code>FREEZE_OBJECT</code> type selected.
+In the center, the 3D scene has text overlaid reading "Freezing object: door_lever".
+On the right, in the Scene panel, the door_lever object indicates "FROZEN", meaning its pose will no longer be updated by active tracking.
+A video is available at <a href="https://youtu.be/dTM4Rw_912Q" class="uri">https://youtu.be/dTM4Rw_912Q</a>.
+</figcaption>
+</figure>
+<p>On January 29, 2026, we developed the planned freeze object scene action type, as shown in <a href="#fig:alex_freeze" data-reference-type="ref+label" data-reference="fig:alex_freeze">6</a>.
+As mentioned previously, the freeze action helps with manipulation by preventing a partial hand occlusion of objects while actively tracking.
+By freezing the object frame just before occlusion by the hand, we prevent a corrupted object frame during the grasp.
+Another use case for the freeze action is to dead reckon from the frame of an object we saw in the past, as we do for door handles and the door traversal footsteps.</p>
+<p>On February 12, 2026, we had our first fully automatic pull door traversal on Alex, that is, there were no gaps in autonomous execution from start to finish.
+The first run traversed the door in about 45 seconds.
+In about 10 minutes of speed-focused behavior tuning, we were able to shave that speed down to around 30 seconds.
+This was done by reducing action trajectory durations, reducing wait times, and increasing the concurrency of robot motions.</p>
+<p>As an anecdotal statement on the robustness of our Alex pull door behavior, we ran the pull door behavior from these runs again on February 17, without modification, and it worked the first try.
+We ran it again on February 18, and it had only one slight arm tolerance issue, which didn’t cause a fall, only a brief gap in autonomy, before completing the traversal successfully.
+This was a good indication that our behaviors worked independently of slight variations in environmental conditions, such as careful placement of the lab door and the natural lighting coming through the windows, which varies based on time of day.</p>
+<figure id="fig:alex_push_door_authoring">
+<img src="media/alex/202602_AlexPushDoorAuthoring-00.00.17.864.jpg" />
+<figcaption>A screenshot from the authoring session on February 22, 2026 for the push door behavior.
+A video is available at <a href="https://youtu.be/bLHQmV4GEFA" class="uri">https://youtu.be/bLHQmV4GEFA</a>.
+</figcaption>
+</figure>
+<p>On February 22, 2026, we authored our first push door traversal behavior on Alex in under 2 hours.
+A screenshot from the session is shown in <a href="#fig:alex_push_door_authoring" data-reference-type="ref+label" data-reference="fig:alex_push_door_authoring">7</a> and the timeline of authoring is documented in <a href="#tab:left_push_scratch_authoring_timeline_story" data-reference-type="ref+label" data-reference="tab:left_push_scratch_authoring_timeline_story">2</a>.
+The push door traversal executed in 21 seconds.</p>
+<div id="tab:left_push_scratch_authoring_timeline_story">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">Elapsed time</th><th style="text-align: left">Authoring milestone</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left">:00:00</td><td style="text-align: left">Create the <code>Left Push Door</code> sequence.</td></tr>
+<tr><td style="text-align: left">:14:33</td><td style="text-align: left">Door-panel scene action and squared-up pre-approach stance added.</td></tr>
+<tr><td style="text-align: left">:24:22</td><td style="text-align: left">Staggered approach stance executed.</td></tr>
+<tr><td style="text-align: left">:21:14</td><td style="text-align: left">First handle turn.</td></tr>
+<tr><td style="text-align: left">:24:37</td><td style="text-align: left">Door opened.</td></tr>
+<tr><td style="text-align: left">:39:21</td><td style="text-align: left">Right arm pushes door fully open.</td></tr>
+<tr><td style="text-align: left">:49:24</td><td style="text-align: left">Full traversal footstep set authored.</td></tr>
+<tr><td style="text-align: left">:50:11</td><td style="text-align: left">Traversal taken; arm task-space error sends the right arm backward.</td></tr>
+<tr><td style="text-align: left">:51:13</td><td style="text-align: left">Right-arm fix: bring the arm in for traversal.</td></tr>
+<tr><td style="text-align: left">:58:15</td><td style="text-align: left"><code>shape contains points</code> stop condition added if the door does not open.</td></tr>
+<tr><td style="text-align: left">:59:48</td><td style="text-align: left">First fully automatic push-door success.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Normalized scratch-authoring timeline for the February 22, 2026 left push door behavior, from creation of the <code>Left Push Door</code> sequence to first automatic success.</p>
+</div>
+
+<p><span id="tab:left_push_scratch_authoring_timeline_story" label="tab:left_push_scratch_authoring_timeline_story"></span></p>
+<p>Around this time, we started developing the Quick Footstep Planner to more reliably get footsteps for task approaches on flat ground.
+This footstep planner uses a procedural geometric heuristic instead of a search algorithm.
+This helped us by providing an alternative to the existing A* and turn-walk-turn planners.
+Since the author is able to choose the planning type for each walk action, alternative planning options increase the chance of finding a workable solution.</p>
+<p>On February 28, 2026, we introduced a duplication option for all behavior tree nodes.
+This allows the operator to right-click any node and select “Duplicate” to create a copy.
+This is useful to speed up authoring, as the author can mutate an existing node if a similar one is needed.
+Copying and mutating an existing node is often faster than creating a new one from scratch, especially for nearby nodes in a similar context.</p>
+<figure id="fig:alex_behavior_tree_icons">
+<img src="media/alex/20260301_NewIconsAndNodeCreationMenu.png" />
+<figcaption>New icons for behavior tree nodes on March 3, 2026.</figcaption>
+</figure>
+<p>On March 3, 2026, we introduced some new icons, shown in <a href="#fig:alex_behavior_tree_icons" data-reference-type="ref+label" data-reference="fig:alex_behavior_tree_icons">8</a>.
+At this point in time, the most common actions had an icon.
+Icons are useful when working with the behavior tree, because they help you locate things much easier and also give at-a-glance verification of node type.
+This takes the burden off the behavior author to include the action type in the name, which also helps reduce the amount of text in the view.</p>
+<p>In March, we made a modification that allows the “execute after” field of actions and the “node to goto” field of the goto node to point to non-leaf nodes.
+This helps avoid needing to create checkpoint nodes just for the purpose of creating a concurrent sequence.
+It also preps the goto node to eventually become a “gosub”, where it can point to a sequence with the guarantee that control will be returned when that sequence is complete.</p>
+<p>On March 3, 2026, we added a little theta indicator to arm actions when it is defined as joint angles rather than a taskspace pose.
+This was important because we would often tune the arm configurations using taskspace and forget to switch it back to jointspace.
+For arm configurations that frame invariant, such as door frame avoidance or table surface avoidance configurations, the joint angle definition is important.
+However, after tuning these configurations, if the arm action definition was accidentally left in taskspace in world frame, when executed later, the arm would go crazy trying to reach whatever point in world we were at during authoring.
+We made the default frame of arm actions chest frame to mitigate this issue, but the visual indicator helps the operator to verify this important action option at a glance.
+Since jointspace actions are generally safer to execute, it also gives the operator some confidence in executing the action.</p>
+<p>On the same day, we cleaned up the default frame names available to behavior actions.
+They were now more human readable like “Left Hand” instead of “afterGripperZLeft” and “Pelvis” instead of “afterPelvisLink”.
+This could help new operators climb the learning curve faster and help reduce cognitive burden for expert operators.</p>
+<p>On March 9, 2026, we conducted a reactivity test of the pull door behavior with Alex.
+In addition to the fallback node for retrying the door opening, we added one that waits for the doorway to be clear of obstacles before walking through.
+The test was successful.
+The robot was disturbed while opening the door three times and retried each time, succeeding on the fourth try.
+Then, the robot waited for the human to move out of the doorway before starting the walk-through.
+Unfortunately, the robot fell during the walk-through due to loss of balance, but the reactivity test was a success.</p>
+<p>Earlier in March, we implemented a behavior “Preview Mode”, which allows the operator to execute the full behavior against a kinematics simulation robot instead of the real one.</p>
+<p>On March 12, 2026, we developed a new element to the scene action “setup object” type node called the “nominal frame”.
+This nominal frame field specifies a pre-defined pose of the object for use in preview mode.
+At this point in time we do not have a photo-realistic or physics-accurate simulation of the robot, but we wanted to preview the robot’s motions when doing a full loco-manipulation behavior.
+When the behavior is running in preview mode,</p>
+<p>On March 20, we introduced a navigational mode for the Quick Footstep Planner which uses RRT-Connect to avoid YOLO detected obstacles.
+It plans from the start to the goal but avoids any YOLO objects by maintaining a radius of avoidance.
+We didn’t end up using it in an actual behavior yet.
+We think it might be better to use a capsule point check with the point cloud to make it more general.
+However, RRT-Connect may be too slow when the collision checks have to query the point cloud.
+It may be a good application of an occupancy map.</p>
+<figure id="fig:alex_behavior_timeline">
+<img src="media/alex/2026-03-22 20-33-52-BehaviorTimeline-00.00.41.533.jpg" />
+<figcaption>A view-only behavior timeline implementation from March 22, 2026.
+In the bottom center, the horizontal bars show the concurrency and durations of actions from a portion of our push door behavior as previewed in simulation.
+A video is available at <a href="https://youtu.be/QmiHA9GlQjY" class="uri">https://youtu.be/QmiHA9GlQjY</a>.
+</figcaption>
+</figure>
+<p>We had talked over the years about how to do a video-editor-like horizontal bars implementation where the behaviors can be viewed by concurrency, start time, and end time.
+On March 22, we took a stab at an initial behavior timeline implementation as seen in <a href="#fig:alex_behavior_timeline" data-reference-type="ref+label" data-reference="fig:alex_behavior_timeline">10</a>.
+One immediate issue with rendering such a view is that action timings are not always known ahead of time.
+They are often dependent on real-time events, such as the scene node obtaining a stable detection.
+When the behavior is run in preview mode or regular mode, the actual action durations are stored in the bars, to provide a retrospective on the behavior’s actions over time.</p>
+<p>In trying to build out our general door traversal behavior, we needed mirrored versions of our right pull and left push door behaviors.
+This became a priority on March 25, 2026 because we were about to attempt our first real-world door traversal – our break room door.
+Our break room door was a left pull door.
+Having added the duplicate node feature back in February, we decided to implement a “Mirror” operation as a similarly general feature.
+Some of our actions were able to be mirrored between left and right invariantly: jointspace arm actions, neck yaw actions, and spine yaw actions.</p>
+<p>Other actions required additional information to mirror such as the door-relative approach footsteps.
+To address our immediate needs, we simply hard-coded a door specific mirror option for five of our action types with a “Mirror (door)” option in addition to the invariant ones.
+This door-specific mirroring option applies to condition nodes, scene action nodes (for the nominal object poses), arm action nodes, screw primitive action nodes, and walk action nodes.</p>
+<p>We also added the option to mirror subtrees, i.e. (“Mirror Subtree” and “Mirror Subtree (door)”), which would try its best to perform the mirroring on the subtree recursively using the functionality we just described on each node or no mirroring if it was not covered.
+This actually worked really well to create a mirrored version of the pull door behavior which we then took to the break room door to try it for the first time.
+We were able to preview the mirrored behavior in simulation to verify the general motions before deploying the real-robot.</p>
+<figure id="fig:alex_behavior_timeline">
+<img src="media/alex/20260326_RealLeftPushDoorBreakRoom-00.00.17.952.jpg" />
+<figcaption>Alex opening the break room door on March 26, 2026.
+A video is available at <a href="https://youtu.be/sv6r1ZBn6FA" class="uri">https://youtu.be/sv6r1ZBn6FA</a>.
+</figcaption>
+</figure>
+<p>On March 26, we attempted to traverse the break room door, which would be the first time an IHMC robot has traversed a real world door as opposed to a lab-constructed one.
+In less than two hours of tweaking the behavior and attempting the behavior, we got a full door traversal to execute successfully in about 33 seconds.
+A frame from this run is shown in <a href="#fig:alex_behavior_timeline" data-reference-type="ref+label" data-reference="fig:alex_behavior_timeline">10</a>.</p>
+<figure id="fig:alex_jared_ball_pick_and_place">
+<img src="media/alex/20260331_AlexJaredBallPickAndPlace-00.00.49.389.jpg" />
+<figcaption>Our first ball pick and place behavior on March 31, 2026.
+A video is available at <a href="https://youtu.be/hq0y2LSdQ4A" class="uri">https://youtu.be/hq0y2LSdQ4A</a>.
+</figcaption>
+</figure>
+<p>In late March 2026, we decided to focus on demonstrating the versatility of our approach by manipulating objects on tables.
+Since FoundationPose tracking was not working so well at this time, we picked balls as an object to manipulate since the grasp of a ball does not depend on the ball’s orientation.
+Since we did not have any orientation-invariant graspable objects in and of our in-house trained YOLO models, we had to find a generally available model to use.
+We picked the default “yolov8n-seg” model that comes out of the box with YOLOv8.
+It has a “sports ball” object class that just barely worked for our use case, detecting our colored tennis balls and baseballs with widely varying confidence levels.
+Our balls could be detected with high confidence in the 70-80% range, but we could only rely on the confidence levels to be above 2% or so, as they were very often that low.</p>
+<p>As seen in <a href="#fig:alex_jared_ball_pick_and_place" data-reference-type="ref+label" data-reference="fig:alex_jared_ball_pick_and_place">11</a>, on March 31, 2026 we had our first ball pick and place behavior running.
+We used our “sphere contains” condition check to only pick up balls that were in a reachable region on the table, to avoid catastrophic unreachable grasp attempts.
+This version would often miss the grasps and had some unnatural looking arm configurations and slow trajectories.
+We also had some issues with the reliability of the YOLO persistent detections.
+Another problem was that we could not detect the storage containers and the balls at the same time because they were supported by two different YOLO models.</p>
+<p>By April 3 2026, just three days later, we had worked through a lot of these issues and achieved a much more resilient behavior.
+To start, we corrected unnatural arm configurations and sped up the motions, so the behavior was faster.
+Secondly, we added the ability to run more than one YOLO model at a time, round-robin style, so we could perceive the balls and the container at the same time.
+Thirdly, we implemented YOLO model and persistent detection settings management to the scene action node.
+This meant that the behavior author could decide which YOLO models were running, the enabled object classes within them, and the confidence thresholds for specific object classes for both the YOLO model and the persistent detections.
+This meant that the behaviors could configure the sports ball class to allow persistent detections of very low confidence, such as the 2% setting we used, to get much higher reliability.</p>
+<figure id="fig:alex_reactive_robust_ball_sorting">
+<img src="media/alex/20260404_ReactiveRobustBallSorting-00.00.29.328.jpg" />
+<figcaption>A reactive and robust ball sorting behavior on April 4, 2026, in which the robot sorted 5 balls successfully while gracefully handling a human-caused disturbance.
+A video is available at <a href="https://youtu.be/9DhgbjIRynM" class="uri">https://youtu.be/9DhgbjIRynM</a>.
+</figcaption>
+</figure>
+<p>In order to demonstrate online decision-making and reactivity, we then sought to sort the balls by color into separate containers.
+We also planned, for our annual robotics lab open house where we share our work with the public, to trigger specific behaviors based on ball color.
+For example, picking up a green ball would cause the robot to go and deliver that green ball to a box on a table beyond a door.
+On April 4, 2026, as seen in <a href="#fig:alex_reactive_robust_ball_sorting" data-reference-type="ref+label" data-reference="fig:alex_reactive_robust_ball_sorting">12</a>, we achieved a demonstration in which the robot successfully sorts five balls by color into two different containers, while successfully handling a disturbance where a ball was removed from the table just before the grasp.
+In this demo, the behavior was authored to pick up the balls and inspect them while still in hand for grasp success and color.
+If there were no points within the hand, we assumed the grasp failed and returned to pre-grasp.
+If there were points in the hand, we checked if they were yellow, in which case they would be placed in container A, else they would be placed in container B.</p>
+<p>Around this time we were also exploring options to increase the reliability of our door traversal walk throughs, as the robot would often lose balance during them.
+Since we had been working with RL mimic policies for boxing and martial arts at the time, we decided to try to incorporate the door walk-throughs as a robustified RL mimic policy trained on the whole-body motion preview available in the behavior system.
+We trained push and pull door policies and integrated a behavior node called the “Mimic action” which would transition from our model based controller to the mimic controller, perform the mimicked motion, and transition back to the model based controller.
+We haven’t yet run the mimic policy for the door traversals at the time of writing, but we did train and demonstrate several dance moves as behaviors triggered by picking up different colors of balls, such as an “I love you!” dance, a “Dab” dance, and stretching dance.</p>
+<figure id="fig:alex_composite_frame">
+<img src="media/alex/20260512_143840_HybridFrame.png" />
+<figcaption>The composite frame feature.
+On the left, a series of scene actions can be seen: Clear scene, Setup door panel, Setup door frame, and Setup hybrid frame.
+On the bottom left, the settings for the composite frame scene action type can be seen.
+In the settings, the hybrid frame is named "Door Approach Hybrid" and takes the position of the Door Panel object and the orientation of the Door Frame object.
+All three of the resulting scene objects can be seen in the scene panel on the right.
+This example uses nominal object poses in simulation.
+</figcaption>
+</figure>
+<p>Around this time we ran into a theoretical limitation with approaching tasks from a distance.
+Given that perceptual capability degrades with distance to a task and we first just need to navigate and approach it, we need a reference frame to define the approach in.
+Since the pose estimation of the object has the object’s orientation, it does not work as a frame to specify the approach in.
+Nominally, we would want the robot to approach the task by taking the shortest path from the robot’s current location to the task.
+Since we don’t want to run into the task, we need to “back off” the approach stance from the object toward the robot.
+To do this, on April 4, 2026, we decided to add a type of behavior scene object called a <em>composite frame</em>.
+This composite frame would exist as a privileged object in the behavior scene such that it would be usable in the same way to define actions.</p>
+<p>There are currently two types of composite frames: an approach frame and a hybrid frame.
+They are both generalized to be named frames as a derivative computation of two pre-existing behavior frames.
+In <a href="#fig:alex_composite_frame" data-reference-type="ref+label" data-reference="fig:alex_composite_frame">13</a>, this feature is shown.
+The approach frame’s orientation is defined to face from frame A to frame B and its position is defined to be on the line segment from frame B to frame A at some tunable distance from frame B.
+This makes the approach frame suitable for walking directly towards an object, but stopping before getting too close.</p>
+<p>The hybrid frame is similar.
+It takes the position of frame A and the orientation of frame B.
+The hybrid frame is useful for approaching ajar door panels, where you want to approach with the orientation of the door frame but the position of the door opening mechanism.</p>
+<p>Composite frames also can be layered.
+For example, the ajar door hybrid frame could be used in a subsequent approach frame to approach an ajar door’s handle from a distance.
+This composite frame mechanism is designed to be extended and generalized further based on encountered real world applications.</p>
+<p>On April 7, 2026, we fixed a pretty major race condition bug between the scene actions and the behavior scene.
+We had been having to put wait durations after scene actions because the bug would cause the subsequent physical actions to use outdated scene object frames when run in automatic mode.
+We fixed this through safer and more thorough scene management and synchronization.
+The behavior tree and scene are managed on the same thread, but it took multiple update ticks for the scene object’s pose to reflect the updated persistent detection’s pose.
+We mention this bug fix because it marks a leap in trust of the system, prevents user frustration, and avoids robot damage from actions reaching to stale, unreachable object poses.</p>
+<figure id="fig:alex_table_approach">
+<img src="media/alex/2026-04-06 16-15-17_TableApproachFrame.jpg" />
+<figcaption>The table approach algorithm visualization.
+The approach reference frame available to the physical actions is seen on the floor between the capsules.
+A video is available at <a href="https://youtu.be/iBPPJW1Pbmc" class="uri">https://youtu.be/iBPPJW1Pbmc</a>.
+</figcaption>
+</figure>
+<p>In the same week we developed a novel algorithm for humanoid robot table approach.
+Using our point-in-shape counting CUDA kernel, we designed a special heuristic scene object called the “Approach Table” object.
+This was similar in spirit to the heuristic door panel object discussed previously, but differs in that it does not use any semantic detections.
+Instead, we sweep two vertical capsules forward from the robot’s hips with the intention of colliding with the table’s edge, as shown in <a href="#fig:alex_table_approach" data-reference-type="ref+label" data-reference="fig:alex_table_approach">14</a>.
+A tunable threshold for the number of points to be considered constituting the table edge is defined in the settings of this type of scene node.
+Typically a value of 300-400 points seemed to be good.
+The capsules start around knee height and end just below chest height with the intention of handling tables of various heights.
+When a capsule collides with the table, it stops the forward sweep.
+The two capsules sweep independently.
+The result is that a line segment in the X-Y plane is now identified as the table edge.
+This line segment and the current stance height are used to form a reference frame on the ground with the orientation of the table edge.
+This reference frame can then be used by a subsequent walk action to perform a squared-up approach to the table edge.</p>
+<p>Anecdotally, we found this technique to be very reliable and able to approach our tables within a few centimeters of accuracy.
+This was also an important capability milestone for our behavior system.
+The ability to approach tables with this degree of accuracy is a necessary part of obtaining the reachability of the items on the table and avoiding failures caused by running into the table.</p>
+<h2 id="open-house-and-multi-station-sorting"><a class="header" href="#open-house-and-multi-station-sorting">Open House and Multi-Station Sorting</a></h2>
+<figure id="fig:alex_open_house_setup">
+<img src="media/alex/20260409_DoorBehaviorTriggeredByColoredBallCut-00.00.42.222.jpg" />
+<figcaption>A still frame from our open house demo behavior preparation on April 9, 2026, where Alex has picked up a green ball from the table and is executing a door traversal behavior as part of the delivery sub-behavior.
+A video is available at <a href="https://youtu.be/NmmnQui-uu0" class="uri">https://youtu.be/NmmnQui-uu0</a>.
+</figcaption>
+</figure>
+<p>On April 9 and 10, 2026, we designed and rehearsed a demo for our open house where the robot would have a table station where balls of different colors would be fed to the robot through a tube system.
+The robot would be tasked with picking up the balls, determining their color, and executing a specific behavior for each color, in an infinite loop.
+Yellow balls would simply be placed in a chute to deliver the ball back to the visitor’s side.
+Green balls would trigger a delivery behavior where the robot would traverse a door and deliver the green ball to a box on a table beyond that door, as presented in <a href="#fig:alex_open_house_setup" data-reference-type="ref+label" data-reference="fig:alex_open_house_setup">15</a>.
+The rest of the colors would trigger different RL mimic dances.
+For example, red balls would trigger the “I love you!” RL mimic dance.</p>
+<p>We did some partially successful rehearsals of this demo, but on April 10, 2026, just before the demo, the robot’s legs fell off its body in a dramatic fall.
+We were able to repair the robot, but avoided doing any more walking that day.
+During the demo, we picked and placed 199 balls at the table station.</p>
+<figure id="fig:alex_two_table_sorting">
+<img src="media/alex/20260414_SortingBallTwoTables-00.00.02.284.jpg" />
+<figcaption>The two-station ball sorting task scenario, as filmed on April 4, 2026.
+2 yellow balls, 1 orange ball, and container A sit on table A and a green ball, a blue ball, and container B sit on table B.
+A video is available at <a href="https://youtu.be/KxIihoDiMtc" class="uri">https://youtu.be/KxIihoDiMtc</a>.
+</figcaption>
+</figure>
+<p>Our last day of testing before the time of writing this thesis yielded some important results.
+On April 14, 2026, we extended our reactive and robust ball sorting behavior to a multi-station ball sorting behavior.
+The intention behind this demonstration was to show a compelling loco-manipulation task beyond door traversals.
+The robot and behavior author were tasked with sorting colored balls between two containers on two different tables, requiring walking between the tables.
+A still frame from this behavior is shown in <a href="#fig:alex_two_table_sorting" data-reference-type="ref+label" data-reference="fig:alex_two_table_sorting">16</a>.
+In a 1 hour and 50 minute time period we were able to extend the stationary sorting behavior to multi-station sorting.
+In the final demonstration run, the robot sorted 9 balls correctly, with three table approaches including two table-to-table transitions.
+However, the robot did not perceive the containers and there was one pause where the human experimenter had to shift one of the balls to get YOLO to detect it.</p>
+<p>On that same night, we conducted two reliability tests for door approach and opening on both push and pull door variants.
+We were able to achieve 11 push door approach and openings in a row and 12 in a row for the pull door.
+This final demonstration in our story marked a reliability milestone in loco-manipulation.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="4_story_of_building_and_architecture_6_2024_2026_h1_2_5_fingers_manipulation_era.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="4_story_of_building_and_architecture_8_reflections_on_a_decade_of_development.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="4_story_of_building_and_architecture_6_2024_2026_h1_2_5_fingers_manipulation_era.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="4_story_of_building_and_architecture_8_reflections_on_a_decade_of_development.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-c22b7243.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

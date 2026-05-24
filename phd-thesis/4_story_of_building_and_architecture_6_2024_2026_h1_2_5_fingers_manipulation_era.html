@@ -1,0 +1,532 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>2024-2026 H1-2, 5 Fingers, Manipulation Era - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-0392ca55.css">
+        <link rel="stylesheet" href="css/chrome-fc474251.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-29b762a1.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-39201727.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="2024-2026-h1-2-5-fingers-manipulation-era"><a class="header" href="#2024-2026-h1-2-5-fingers-manipulation-era">2024-2026 H1-2, 5 Fingers, Manipulation Era</a></h1>
+<h2 id="ai2r-and-fallback"><a class="header" href="#ai2r-and-fallback">AI2R and Fallback</a></h2>
+<p>In late 2024, we started looking into integrating our behavior tree system with external AI systems, such as Large Language Models (LLMs) and Vision Language Models (VLMs).
+For this, we created another heuristic control node called the AI to Robot (AI2R) node.
+In a similar spirit to our door traversal node, this node would contain hard-coded interfacing to external AI processes.
+The goal was to use LLMs and VLMs to generate behavior and make decisions.
+By June 2025 we had a working demo in simulation, as shown in <a href="#fig:2025_ai2r" data-reference-type="ref+label" data-reference="fig:2025_ai2r">[fig:2025_ai2r]</a>.
+The goal of this demo was to receive an object from a person, stick it to the door, and retreat.</p>
+<p>In this demo, the robot scans the area and reports the detected scene objects to the LLM, including people.
+The LLM is given a list of objects and poses, works out which person has the object, then tells the robot to go to the person with the object.
+There is also failure handling.
+If the robot goes to the wrong person, the one who is not holding the object, the LLM will detect this and an operator can, in natural language, correct the behavior to go to the other person.
+The system also supports collision avoidance.
+In the case a person is blocking the robot’s path, the behavior will pause and the operator can, in natural language, ask the robot to go behind the last person.</p>
+<p>This hybrid behavior system shows that it is possible for LLMs to work in place of some classical components.
+However, it has not yet been shown to be faster, more reliable, or more capable than what is possible with classical methods.</p>
+<h2 id="behavior-tree-and-scene-graph"><a class="header" href="#behavior-tree-and-scene-graph">Behavior Tree and Scene Graph</a></h2>
+<figure id="fig:2025_whiteboards">
+<img src="media/unitree/2025_BehaviorDesignMeetings.jpg" />
+<figcaption>
+Whiteboards from late 2024 and early 2025 behavior system design meetings.
+Left: "Design of the fallback node" from December 6, 2024, Center: "A tree with fallback, condition, and goto nodes" from January 31, 2025, and Right: "A design diagram showing how the scene graph would be deleted and a simpler "behavior frame references" component would be built" from March 3, 2025.
+</figcaption>
+</figure>
+<p>In late 2024 and early 2025 we had a series of design meetings focused on two major areas.
+The first was how to extract the reactive logic from the door traversal node into a runtime-editable version that would extend to other loco-manipulation behaviors.
+The second was how to resolve reliability and code architecture issues we were facing between the behavior tree and the scene graph.
+Whiteboards from these meetings are shown in <a href="#fig:2025_whiteboards" data-reference-type="ref+label" data-reference="fig:2025_whiteboards">1</a>.</p>
+<p>We had been looking to Behavior Trees (BTs) in the literature for some time, and had used an implementation of them in the 2021 building exploration demo on Atlas, as we showed in <a href="#fig:2021_building_exploration_demo" data-reference-type="ref+label" data-reference="fig:2021_building_exploration_demo">[fig:2021_building_exploration_demo]</a>.
+However, that 2021 implementation did not include runtime-editable behaviors.
+We wanted to figure out how to support behavior tree control nodes with our novel implementation of runtime-editable concurrent-capable action sequences.
+We decided to look for small, incremental modifications that made the biggest impact on reactivity.</p>
+<p>In the above design meetings, we decided that adding a fallback node, a condition node, and a goto node would take us a long way without having to do a more significant redesign.
+Our idea was that our existing design of “everything is a single sequence” would still work and that the sequence implementation would monitor the fallback node, condition node, and goto node children and manage the index of the next action to execute accordingly.</p>
+<p>In December 2024, we added a fallback node that supported concurrent actions.
+It has two sections: a “try” and a “catch”.
+It is implemented such that the first concurrent sequence in the ordered children represents the “try” and the rest represent the “catch”.
+The “try” can be one or more actions and the fallback node waits for them to finish.
+If one or more “try” actions fail, the entire “catch” sequence executes.
+There is no limit on the “catch” sequence length.
+Else, if the entire “try” is successful, the “catch” is skipped and the node after the fallback node will be executed next.</p>
+<p>In January 2025, we added a goto node.
+This node simply holds a settable reference to the next node to goto.
+It stores this reference simply as a node name in the JSON.
+When executed, it sets the “next execution index” accordingly.</p>
+<p>For a while, actions were simply placed as the “try”.
+In this way, if an action failed, a goto could be placed in the catch, pointing back to the try, to retry the action.
+For example, if a hand pose action does not achieve its goal pose within the tolerance setting, the node would fail.
+This already effectively made a certain amount of reactivity possible.
+A push door opening action could react to an unlatching failure through the “push door open” action failing to achieve the pushed open pose.</p>
+<p>However, it would be better to perform perceptual checks than to attempt and fail physical actions.
+For example, when pulling a door open, a slipped grasp would not cause the hand to fail to reach its goal pose.
+Instead, it would be better to detect that the door did not open with the hand by observing the point cloud.</p>
+<p>It took longer to implement a condition node that had a meaningful impact on behavior capability.
+In February 2025, a simple counter condition node was implemented to execute loops with iteration limits.
+This was ultimately not very useful.</p>
+<figure id="fig:2025_llm_condition_node">
+<img src="media/unitree/2025-03-06 17-08-LLMNode-15-00.00.04.763.jpg" />
+<figcaption>
+A condition node backed by an LLM.
+This test on March 6, 2025, replicated a simple persistent counter node using prompting and a regular expression matcher.
+In this example, the system prompt starts the count at 0, and the repeating prompt asks for the next number.
+The response matching returns success when the response is 4.
+A video is available at <a href="https://youtu.be/OQhm2xduzuk" class="uri">https://youtu.be/OQhm2xduzuk</a>.
+</figcaption>
+</figure>
+<p>In March 2025, we implemented an LLM condition node.
+It was based on the Llama 3.2 3B Instruct model with 8-bit quantization.
+As shown in <a href="#fig:2025_llm_condition_node" data-reference-type="ref+label" data-reference="fig:2025_llm_condition_node">2</a>, we replicated the counter condition node type with the LLM type.
+After experimentation, we found that the LLM’s response format varied.
+To create a simple binary pass/fail as required by the condition node, we structured the node as three parts: the system prompt, a repeating prompt, and a response matcher.
+The system prompt would be input to the model once and the repeating prompt would be input to the model each time the condition node is executed.
+The response matcher is implemented with a regular expression that either matches or does not match the output from the LLM.
+The behavior author is provided with an option for whether a match means a success or a failure of the condition node.</p>
+<p>This worked okay, but we had trouble with such a small LLM model generating meaningful results.
+This development did not result in any meaningful impact on the capabilities of loco-manipulation behaviors.
+Our focus quickly drifted to approaches that queried paid online VLM models via the AI2R node.</p>
+<p>For a seven month period from March to October 2025, we tried to get Vision Language Action Models (VLAs) working for task sub-components like the door opening</p>
+<p>, but ultimately failed and gave up.
+Our conclusion was that at this time, VLAs were not an “off the shelf” solution and still required expertise and an “artistic” talent to get working well.
+However, it may have also been that we had a bug somewhere.</p>
+<p>In October of 2025, we did some restructuring of the internals of the behavior system, making the root node reference final and accessible directly to all nodes.
+This allowed more direct access to behavior-wide components.
+For example, for all executor nodes, the controller ROS 2 node, the behavior scene, and the root node were all made final and accessible directly without needing to navigate boilerplate.
+This made the code a little nicer to deal with but didn’t have any meaningfull effects on operator usability or robot performance.</p>
+<figure id="fig:2025_scene_action_whiteboard">
+<img src="media/unitree/20251021_BehaviorSceneActionWhiteboard.jpg" />
+<figcaption>
+An October 21, 2025 behavior design meeting where the behavior scene and the concept of a scene action was solidified.
+</figcaption>
+</figure>
+<p>In late October of 2025, we finally acted on the March 3rd, 2025 design meeting, shown in <a href="#fig:2025_whiteboards" data-reference-type="ref+label" data-reference="fig:2025_whiteboards">1</a>, and had another meeting shown in <a href="#fig:2025_scene_action_whiteboard" data-reference-type="ref+label" data-reference="fig:2025_scene_action_whiteboard">3</a>.
+At this time we introduced a behavior scene that is owned by the behavior system alongside the tree, as opposed to relying on an external scene graph system.
+The October 21, 2025 meeting is where we solidified the concept of a scene action node.
+We pulled the instant and persistent detection components from the scene graph and left everything else.
+We referenced the detection manager that was part of the scene graph and created a condensed and revised version.</p>
+<p>Instant detections are immutable objects created from each run of the YOLO and FoundationPose models.
+They contain all the information about the detection such as the semantic object class name and the timestamp.
+Instant detections are extended by the type of the originating detector.
+For example, the YOLO instant detection contains the YOLO specific information, like the region-of-interest coordinates, the confidence value, and the segmentation image mask.
+The FoundationPose instant detection contains the pose of the object and the 3D bounding box corners.</p>
+<p>The YOLO instant detections also pull in and store the corresponding depth points from the ZED X Mini depth image.
+This feature required impressive technical wizardry from Tomasz Bialek and Dexton Anderson to maintain performance and avoid memory leaks.
+However, this capability of associating 3D depth data with semantic detection masks is essential to making perceptive behaviors work.
+The association gives a high frequency 3D position of the centroid of the detected object, which is usable to act on constrained objects like door handles and symmetrical objects like tennis balls.</p>
+<h2 id="behavior-scene"><a class="header" href="#behavior-scene">Behavior Scene</a></h2>
+<figure id="fig:2025_scene_demo">
+<img src="media/unitree/2025-11-04_12-57-13-BehaviorScenePersistentDetections-00.00.23.240.jpg" />
+<figcaption>
+A November 4th, 2025 demo of the new behavior scene.
+On the right, the behavior scene gets its own panel, with the persistent detections listed as "Stable Detections".
+The persistent detection entries show the semantic class (i.e. cup), the incoming instant detection frequency, and the current history size, which is the number of instant detections held by the persistent detection.
+A video is available at <a href="https://youtu.be/NLDHnASOzCc" class="uri">https://youtu.be/NLDHnASOzCc</a>.
+</figcaption>
+</figure>
+<p>Persistent detections are simply a collection of instant detections over time.
+An early demo is shown in <a href="#fig:2025_scene_demo" data-reference-type="ref+label" data-reference="fig:2025_scene_demo">4</a>.
+The new behavior scene implementation carried over a similar logical structure to the detection manager that was in the scene graph.
+This algorithm sorts incoming instant detections into existing persistent detections or new ones based on location.
+If an incoming instant detection is the same semantic class as an existing persistent detection and is close by, it is sorted into that one.
+If not, a new persistent detection is created.
+This system implements persistent object tracking which can be used to track objects for use in our frame-relative behaviors/affordance templates.</p>
+<p>Another innovation in November of 2025 was the introduction of the scene action.
+Now that we had an active list of persistent detections, we needed a mechanism for the behaviors to select one and use it.
+We had a list of issues we didn’t know how to fix from the prior scene graph implementation.
+One was that persistent detections would get distorted once they got occluded, such as what happens when grasping an object.
+The hand starts to cover the object and the centroid of the segmentation points moves away from the hand, corrupting the prior position estimate.
+Another issue was in object selection.
+When there are multiple instances of the same class of object, which one do you choose?</p>
+<p>Both of these issues require careful coordination with the behavior in order to solve and are context dependent.
+So, we decided that maybe it was best if the responsibility to handle these was just handed off to the expert operator.
+With that thought in mind, we decided to make the tools that made it possible for the behavior author to handle these issues.
+This led to the idea of an authorable scene action, which would have distinct types to do different scene related things.</p>
+<p>To solve the object selection issue, we provide a “setup object” scene action type which, when executed, chooses the <em>closest</em> persistent detection of the defined semantic class and puts that persistent detection in a privileged area called the list of “objects”.
+This privileged list of objects is where attachments to the behavior actions are made.
+Any object’s pose in this list is immediately available to all behavior actions as a reference frame that can be used to define actions relative to.
+This implementation limits the list to contain one instance of a particular semantic class at a time so behavior actions can be defined relative to the class of object – not the specific instance of one.
+Another property of the “objects” list is that the persistent detection does not automatically expire.
+If instant detections stop coming in for it, it merely becomes stale, indicated as greyed out in the UI, but the frame is still available for the behavior actions.
+This is actually an important and intentional feature, as this can be used to “dead reckon” actions with respect to something you perceived before but can no longer see.
+For example, for door behaviors, the traversal walk through is actually defined with respect to the stale opening mechanism reference frame.
+We planned to have selection heuristics for the “setup object” scene action type, but haven’t yet ended up with a burning need for anything other than <em>closest</em>.</p>
+<p>To solve the hand-object occlusion issue, we gave the operator a “freeze object” scene action type.
+This allowed a “freeze” to be performed on a scene object just before grasping it.
+For example, a scene object can be set up, the hand moved towards it, but not occluding it, while still tracking the object, and a freeze object action can be executed just before finally occluding the object.
+The freeze operation has an effect equivalent to the object becoming “stale” as described earlier.
+The object’s frame, similarly, can still be used for physical action definitions.</p>
+<h2 id="ability-hand-and-reliability"><a class="header" href="#ability-hand-and-reliability">Ability Hand and Reliability</a></h2>
+<figure id="fig:2025_mustard_pickup">
+<img src="media/unitree/2025-11-10_17-10-16_MustardGraspSuccess-00.00.15.591.jpg" />
+<figcaption>A November 10th, 2025 demo where our Unitree H1-2<span class="citation" data-cites="unitree_h1_2"></span> robot picked up a mustard bottle automatically using the new scene action node.
+A video is available at <a href="https://youtu.be/PVtL7KYMC9g" class="uri">https://youtu.be/PVtL7KYMC9g</a>.
+</figcaption>
+</figure>
+<p>A demonstration on November 10th, 2025, showed the utility of the new behavior scene and scene action node.
+This was the first time we picked up an object from a table in the fully automatic mode, as shown in <a href="#fig:2025_mustard_pickup" data-reference-type="ref+label" data-reference="fig:2025_mustard_pickup">5</a>.
+It was also the first manipulation behavior we executed on the Unitree H1-2 robot we got that year.
+There were still lots of little bugs and issues in this demo, but nothing super theoretical.
+For one, our whole body controller was not great at walking with the H1-2 so the approach stance was not accurate, resulting in a low quality IK solution for reaching the mustard due to not approaching the table closely enough.
+A low quality IK solution with our system has always meant a high error bar on the resulting hand pose.
+Another of the biggest issues was that our finger control was unreliable.
+We ended up fixing that on the hand controller side in the coming months.</p>
+<figure id="fig:2025_proximity_condition">
+<img src="media/unitree/2025-11-19 17-56-14_ProximityCondition-00.00.51.640.jpg" />
+<figcaption>A November 19, 2025 of a test of our new generalized proximity condition.
+A video is available at <a href="https://youtu.be/CeHAXjiN4hw" class="uri">https://youtu.be/CeHAXjiN4hw</a>.
+</figcaption>
+</figure>
+<p>On November 19, 2025, we generalized an initial implementation of the proximity condition type, as seen in <a href="#fig:2025_proximity_condition" data-reference-type="ref+label" data-reference="fig:2025_proximity_condition">6</a>.
+In the bottom left of the screenshot, the options can be seen.
+The proximity condition type compares the positions of two reference frames.
+In the case shown, frame A is selected as “afterPelvis” (the pelvis frame) and frame B is selected as the mustard object, which we’ve instantiated and posed virtually in simulation.
+The distance type field selects the comparison criteria: XYZ, which compares the pure Euclidean distance, XY, which compares the distance as projected onto the XY plane, and Z, which simply compares the height of the frames.
+A min and max distance is specified to define the success criteria.
+When the condition executes, it continues executing until the criteria is met (success) or the timeout is reached (failure).
+The current distance is also presented in the operator interface to help with authoring.
+Observing the current values can help the operator reason about which min and max values are best.</p>
+<figure id="fig:2025_execute_after_arrows">
+<img src="media/unitree/2025-11-13 15-14-44-ExecuteAfterIndicators-00.00.22.192.jpg" />
+<figcaption>
+A November 13th, 2025 development – showing arrows on the right side which represent the "execute after" dependencies visually.
+A video is available at <a href="https://youtu.be/4_26TwmRYr4" class="uri">https://youtu.be/4_26TwmRYr4</a>.
+</figcaption>
+</figure>
+<p>Later in November, we added a visualization element for the “execute after” field for action nodes, as shown in <a href="#fig:2025_execute_after_arrows" data-reference-type="ref+label" data-reference="fig:2025_execute_after_arrows">7</a>.
+Prior to this feature, to understand the concurrency of sequences you would select each action in the list and check the “execute after” field.
+You could also click the little green arrows and see if the ones after it were also green, indicating that they would execute together.
+However, we wanted to reduce uncertainty and increase understandability of the behavior at a glance.
+We came up with the arrow design, seen in the figure, which starts at the defining action and extends upwards, pointing to the action specified by the “execute after” setting.</p>
+<p>On December 1, 2025, we conducted our first behavior shakeout on IHMC’s new fully electric humanoid robot, Alex.
+We would soon transition behavior development fully to our new robot.
+The behavior shakeout consists of a sequence of open-loop walking and arm motions to test the system’s basic mechanics.</p>
+<figure id="fig:2025_behavior_yovariables">
+<img src="media/unitree/2025-12-10 12-08-14_BehaviorYoVariables-00.00.03.161.jpg" />
+<figcaption>A December 10, 2025 screenshot that shows the BehaviorTreeExecutor YoVariable registry in the tree on the left hand side.
+Behavior variables such as "automaticExecution" and "executionNextIndex" are plotted over time.
+A video is available at <a href="https://youtu.be/mcS6PkfpIWE" class="uri">https://youtu.be/mcS6PkfpIWE</a>.
+</figcaption>
+</figure>
+<p>Later in December, we implemented behavior data logging in a way that is synchronized and viewable alongside whole body controller data.
+In this system, the behavior system process sends a periodic ROS 2 message containing a registry of behavior YoVariables, the buffered data types supported in SCS.
+A subscriber is set up in the whole body controller process to subscribe to these variables and inject them into the whole body controller’s registry, which then gets logged in the normal way.
+A screenshot of a loaded log in SCS is displayed in <a href="#fig:2025_behavior_yovariables" data-reference-type="ref+label" data-reference="fig:2025_behavior_yovariables">8</a>, showing the behavior variables embedded in and synchronized with the whole body controller log.</p>
+<figure id="fig:2025_fp_mustard_pickup">
+<img src="media/unitree/2025-12-11_16-28-40_FoundationPoseMustardGrabAuto-00.00.08.825.jpg" />
+<figcaption>A December 11, 2025 demo where we used FoundationPose <span class="citation" data-cites="wen2024foundationpose"></span> to detect the pose of the mustard bottle and execute an automatic behavior to pick it up.
+A video is available at <a href="https://youtu.be/tP2ZvOkEjFk" class="uri">https://youtu.be/tP2ZvOkEjFk</a>.
+</figcaption>
+</figure>
+<p>On December 11, 2025, we integrated FoundationPose into the behavior scene.
+We used this to create an improved version of the mustard pickup task, as shown in <a href="#fig:2025_fp_mustard_pickup" data-reference-type="ref+label" data-reference="fig:2025_fp_mustard_pickup">9</a>.
+This added the capability to grasp asymmetric objects as FoundationPose detects an object’s orientation and bounding box in addition to the position.
+The red box in the figure shows the FoundationPose bounding box.
+In the bottom right, the FoundationPose scene object for the mustard can be seen.
+At this point we had two types of scene objects: FoundationPose and YOLOv8.
+Our scene was now designed to handle different types of objects abstractly and be extended easily to support more types.</p>
+<p>This demo was still somewhat unreliable due to the low level control code of our new 5-finger Psyonic Ability Hand grippers.
+The hands would often not respond to behavior commands and, worse, retrying the command did not work.
+By December 15, after trying at least five different control strategies, we fixed this issue and finger control was very smooth and reliable.
+The on-board Ability Hand controller wants an alpha-filtered position setpoint input that is generated from an ideal velocity-limited trajectory, as presented in <a href="#alg:ability_hand_pos_vel_limit" data-reference-type="ref+label" data-reference="alg:ability_hand_pos_vel_limit">[alg:ability_hand_pos_vel_limit]</a>.
+This helps the hand reliably move at the desired velocity to the desired setpoint and hold the position without jittering.</p>
+<div class="algorithm">
+<p>$<code>f_c \gets 1.0</code>$
+$<code>\tau \gets \frac{1}{2 \pi f_c}</code>$
+$<code>\alpha \gets \frac{\Delta t}{\tau + \Delta t}</code>$</p>
+</div>
+
+<figure id="fig:unitree_hand_previewing">
+<img src="media/unitree/2025-12-13 14-49-49_HandPreviewing-00.00.12.809.jpg" />
+<figcaption>A screenshot of the hand previewing feature from December 13, 2025.
+In the center, the transparent hand indicates the future grasp configuration.
+A video is available at <a href="https://youtu.be/ioqLeNys_Mc" class="uri">https://youtu.be/ioqLeNys_Mc</a>.
+</figcaption>
+</figure>
+<p>Later in December, we added hand and finger previewing in the behavior editor, as shown in <a href="#fig:unitree_hand_previewing" data-reference-type="ref+label" data-reference="fig:unitree_hand_previewing">10</a>.
+This feature was designed to help the operator understand where the fingers will be during authoring.
+When a hand pose action is selected, the finger previews show up at the end of that arm pose.
+Since the pose of the arm and the configuration of the fingers are specified in separate actions and can be interwoven with other actions, this feature looks backwards in the sequence to find the most recent Ability Hand action.
+This action is used for the finger preview.
+If there is no prior Ability Hand action, the finger preview will not be shown.</p>
+<p>This feature could probably be improved in a few ways.
+First, we could also show the preview when an Ability Hand action is selected, utilizing prior arm actions for the arm and hand locations.
+Secondly, if an arm action is selected and there are no prior Ability Hand actions, we could use the current configuration of the hand for the preview.</p>
+<figure id="fig:unitree_ability_hand_knob_grasp">
+<img src="media/unitree/AblityHandKnobGrasp.jpg" />
+<figcaption>Unitree H1-2 with Ability Hand performing a pinch grasp on the knob door handle.
+This is a very secure and reliable grasp, mimicking nature, and provides a wide error margin for pre-grasp hand poses.</figcaption>
+</figure>
+<figure id="fig:unitree_knob_23x">
+<img src="media/unitree/2025-12-23_13-44-18_DoorKnobHighSuccessRate23x-00.01.49.756.jpg" />
+<figcaption>Our December 23, 2025 demonstration of a knob door handle repeated opening demo.
+A video is available at <a href="https://youtu.be/3hRLBV4dZ0Q" class="uri">https://youtu.be/3hRLBV4dZ0Q</a>.
+</figcaption>
+</figure>
+<p>On December 23, 2025, using the pinch grasp shown in <a href="#fig:unitree_ability_hand_knob_grasp" data-reference-type="ref+label" data-reference="fig:unitree_ability_hand_knob_grasp">11</a>, we demonstrated a pull knob door handle opening task automatically 23 times in a row, as shown in <a href="#fig:unitree_knob_23x" data-reference-type="ref+label" data-reference="fig:unitree_knob_23x">12</a>.
+On the 24th attempt, the knob was not turned enough, and the hand slipped off on the pull.
+This was our first return to doors in over a year.
+Using now higher-confidence and more robust YOLO models for the door mechanisms in combination with the scene actions and the 5-finger Ability Hand gripper, door handle manipulation reliability has drastically increased.</p>
+<figure id="fig:unitree_lever_32x">
+<img src="media/unitree/2026-01-02_17-08-16_NeverFailingFastPullLeverHandle31x-00.05.31.588.jpg" />
+<figcaption>The 32 time pull lever door opening reliability demo run on January 2nd, 2026.
+A video is available at <a href="https://youtu.be/fQCNuXEF9xg" class="uri">https://youtu.be/fQCNuXEF9xg</a>.
+</figcaption>
+</figure>
+<p>On January 2, 2026, a similar demonstration with a door lever handle achieved 32 pull door openings in a row, as shown in <a href="#fig:unitree_lever_32x" data-reference-type="ref+label" data-reference="fig:unitree_lever_32x">13</a>.
+This time, the behavior was not run until failure.
+It was just run until we got bored.
+Similarly to the pull knob behavior, we think the Ability Hand being grippy and in an anthropomorphic 5-finger configuration contributed to the reliability along with the scene action and the maturation and stabilization of our behavior system as a whole.</p>
+<figure id="fig:unitree_fallback">
+<img src="media/unitree/20260104_UnitreeFallbackWorkaround.png" />
+<figcaption>The hand action fallback workaround from January 4th, 2026.
+The behavior would try the "Curl fingers a little, thumb back" command, but keep going regardless of the result.</figcaption>
+</figure>
+<p>However, this demo was not issue-free.
+There was some kind of bug in the hand action unrelated to hand control that was causing the action to fail.
+In this case, simply ignoring the failure would work to get the behavior to succeed, because this finger curling motion only slightly increased reliability, but was not necessary.
+We were able to use a fallback node to keep the behavior going regardless of failure, as shown in <a href="#fig:unitree_fallback" data-reference-type="ref+label" data-reference="fig:unitree_fallback">14</a>, marking our first use of the fallback node in a real robot behavior.
+The use of the fallback node helped in this case not to overcome an environmental failure, but to overcome a bug in the code, which was not a use case we expected.
+We learned that the fallback node was also useful for working around bugs in the system, reducing the chance that we would need to stop the robot experiment and go fix code bugs.</p>
+<figure id="fig:unitree_scene_setup_type">
+<img src="media/unitree/2026-01-08 17-43-51_SceneActionMenu-00.00.15.217.jpg" />
+<figcaption>The scene action settings for setting up a YOLO object.
+Dropdown combo boxes are available to select the YOLO model and object class.
+A video is available at <a href="https://youtu.be/TPXugNdRx6E" class="uri">https://youtu.be/TPXugNdRx6E</a>.
+</figcaption>
+</figure>
+<p>On January 8, 2026, the scene action was extended to fully support our full library of FoundationPose and YOLO models as shown in <a href="#fig:unitree_scene_setup_type" data-reference-type="ref+label" data-reference="fig:unitree_scene_setup_type">15</a>.
+The operator was now able to select any semantic object type from either model architecture via drop down menus.
+We also extended the scene object library to include heuristic objects, such as the door panel, shown here.</p>
+<figure id="fig:unitree_door_panel">
+<img src="media/unitree/2026-01-20 15-19-59-DoorPanel-00.00.13.153.jpg" />
+<figcaption>Our door panel detector in a screenshot from January 20, 2026.</figcaption>
+</figure>
+<p>On January 20, 2026, we implemented that door panel heuristic scene object, as shown in <a href="#fig:unitree_door_panel" data-reference-type="ref+label" data-reference="fig:unitree_door_panel">16</a>.
+It uses two YOLO persistent detections, one for the handle and one for the panel, and draws a line between the centroids to identify the orientation of the panel.
+This is possible with the assumption that door panels swing on a vertical hinge.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="4_story_of_building_and_architecture_5_2024_nadia_semantic_perception_fast_behaviors_era.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="4_story_of_building_and_architecture_7_2026_alex_resilience_adaptability_era.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="4_story_of_building_and_architecture_5_2024_nadia_semantic_perception_fast_behaviors_era.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="4_story_of_building_and_architecture_7_2026_alex_resilience_adaptability_era.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-c22b7243.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>
