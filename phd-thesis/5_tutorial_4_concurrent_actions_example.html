@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Abstract - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
+        <title>Concurrent Actions Example - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
 
 
         <!-- Custom HTML head -->
@@ -176,37 +176,115 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="abstract"><a class="header" href="#abstract">Abstract</a></h1>
-<h2 id="a-system-for-fast-resilient-and-adaptable-loco-manipulation-behaviors-on-humanoid-robots"><a class="header" href="#a-system-for-fast-resilient-and-adaptable-loco-manipulation-behaviors-on-humanoid-robots">A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</a></h2>
-<p><strong>Author:</strong> Duncan William Calvert<br><strong>Department:</strong> Department of Intelligent Systems and Robotics<br><strong>College:</strong> College of Science and Engineering</p>
-<!-- AUTO-ABSTRACT-START -->
-<h2 id="abstract-1"><a class="header" href="#abstract-1">Abstract</a></h2>
-<p>Humanoid robots could be used to take on physically demanding, hazardous, and repetitive work in spaces built for humans, including shipyards, energy infrastructure, construction sites, and factories.
-However, a useful robot for these spaces must coordinate locomotion, whole body motion, perception, contact, and operator supervision.
-In this thesis we present a system doing this via a behavior authoring and runtime system.
-Furthermore, we argue that behavior coordination architecture is itself a measurable design variable affecting the ability to readily acheive these tasks in the real world.
-Specifically, we argue that architecture implicates speed, robustness across task variation, and adaptation time when modifying a behavior for a new task.</p>
-<p>We present a robot-local editable behavior architecture in which trees of action primitives execute with layered concurrency on the robot, while an operator interface remains continuously synchronized for runtime authoring, monitoring, and repair.
-Action primitives are built on top of a whole body controller that supports manipulation while walking.
-Perception actions are authored inside the behavior so that detection and scene reasoning are scheduled with the rest of the task rather than configured globally.
-The architecture supports rapid authoring of new behaviors and reuse of existing subtrees across related tasks.</p>
-<p>Door traversal is used as the main benchmark task because it exposes the full coordination problem in a compact and repeatable setting, requiring approach walking, body placement, mechanism perception, grasp selection, handle actuation, interaction with a moving obstacle, and a transition back to locomotion.
-The behavior library developed during this work covers more than twenty real-robot task variants, including push and pull doors with knob, push-bar, and lever-handle mechanisms, multi-step exploration sequences, obstacle clearing and breaching, and reactive table-to-table manipulation tasks.
-Versions of the same behavior system were run on Nadia, Boston Dynamics DRC Atlas, IHMC’s fully electric Alex humanoid robot, and Unitree H1-2, which shows that the architecture is not tied to one platform.</p>
-<p>We evaluate the system on speed, reliability, variation coverage, and authoring effort.
-A push bar door traversal in 14 seconds and a reactive pick and place demonstration for 6 balls in 42 seconds establish our speed direction.
-For reliability, we tested 11 successful push approach-and-opening repetitions in a row and 12 successful pull approach-and-opening repetitions in a row on Alex, and 32 successful right pull openings in a row on Unitree H1-2.
-Measured authoring sessions show that new door behaviors can be created from an empty tree to the start of autonomous repeated-run testing in 31 minutes, and that a mirrored real-door adaptation reaches first success in under two hours, both without code recompilation or redeployment.
-We compare against prior IHMC baselines and selected door systems from the literature across speed, reliability, variation coverage, and authoring effort, with execution boundary and sensing assumptions reported alongside as part of each comparison.
-Videos of the work presented in this dissertation are available online at <a href="https://www.youtube.com/playlist?list=PLJK5CTyotYqsfgfnXb-09YNFeBose6uEY">https://www.youtube.com/playlist?list=PLJK5CTyotYqsfgfnXb-09YNFeBose6uEY</a>.</p>
-<!-- AUTO-ABSTRACT-END -->
+                        <h1 id="concurrent-actions-example"><a class="header" href="#concurrent-actions-example">Concurrent Actions Example</a></h1>
+<h2 id="behavior-timeline"><a class="header" href="#behavior-timeline">Behavior Timeline</a></h2>
+<figure id="fig:guide_sim_nonconcurrent">
+<img src="media/guide/2026-04-28 23-14-10_ConcurrentLayeringDemonstration-00.00.10.788.jpg" />
+<figcaption>The non-concurrent starting behavior for the concurrency example.
+A video of this demonstration is available at <a href="https://youtu.be/D53dKL-pgeo" class="uri">https://youtu.be/D53dKL-pgeo</a>.</figcaption>
+</figure>
+<p>In this example, we’ll show how we can schedule arm motions while walking using our concurrent action layering system.
+<a href="#fig:guide_sim_nonconcurrent" data-reference-type="ref+label" data-reference="fig:guide_sim_nonconcurrent">1</a> shows a behavior we have already built and run as the non-concurrent starting place.
+In this tree, we have added the pre-existing “Go Home” skill from a file, which allows us to reset the robot to the home configuration.
+This home configuration has the arms down by the sides in a natural position.
+Then there is a checkpoint node and a savable concurrency demo behavior, with a walk action followed by two arm actions and an always failing “STOP” condition.</p>
+<p>Our behavior timeline feature is presented in the bottom right of <a href="#fig:guide_sim_nonconcurrent" data-reference-type="ref+label" data-reference="fig:guide_sim_nonconcurrent">1</a>.
+It is a rendering of an action sequence over time meant to help with understanding the timing and concurrency of behavior actions.
+Here, it shows the tree as executed with each node running sequentially.</p>
+<h2 id="execute-after-layering-mechanism"><a class="header" href="#execute-after-layering-mechanism">“Execute After” Layering Mechanism</a></h2>
+<p>Concurrent action layering is implemented simply through an “Execute after” field in each action.
+It is selectable via a drop down menu in the node settings, which offers every prior node as an option.
+By default this field is set to “Previous”, which is a dynamic reference to whatever node is immediately before.
+A dynamic “Beginning” reference is also available, which points to before the root node, though it may be removed because it is functionally the same as pointing to the ever-present root node.</p>
+<p>When the behavior is running in autonomous mode, it triggers action execution in order.
+When deciding whether to trigger execution of the next one, it first checks the referenced node to execute after.
+If the node to execute after is currently executing, the next node is not triggered.
+Importantly, action execution does not wait for any nodes that may be in between the “execute after” node and itself.
+This is important for scheduling concurrent actions freely.</p>
+<p>The full algorithm is more complicated because the behavior can also be run step-by-step by clicking the “Manually” button.
+There is also a checkbox for disabling concurrency in the user interface, which effectively treats all “Execute after” fields as “Previous”.
+Further complexity is added to handle the fallback node’s try and catch mechanism.
+We present pseudocode in <a href="#alg:simplified_execution" data-reference-type="ref+label" data-reference="alg:simplified_execution">[alg:simplified_execution]</a> without the fallback part.</p>
+<h3 id="algorithm-simplified-action-execution-trigger-logic"><a class="header" href="#algorithm-simplified-action-execution-trigger-logic">Algorithm: Simplified Action Execution Trigger Logic</a></h3>
+<pre><code class="language-text">Function TickExecution(orderedLeaves, state):
+    # Halt if not autonomous and no manual step was requested
+    if not state.isAutonomous() and not state.isManualStepRequested():
+        return
+
+    nextIndex = state.getExecutionNextIndex()
+
+    for i in range(nextIndex, orderedLeaves.length):
+        node = orderedLeaves[i]
+
+        if node.isExecuting():
+            continue
+
+        # Determine the required dependency
+        afterIndex = node.getExecuteAfterIndex()
+        if not state.isConcurrencyEnabled():
+            afterIndex = i - 1  # Force sequential execution
+
+        # Break if the action to execute after is still executing
+        if afterIndex &gt;= 0 and orderedLeaves[afterIndex].isExecuting():
+            break
+
+        # Trigger execution and advance the index tracker
+        node.triggerExecution()
+        state.setExecutionNextIndex(i + 1)
+
+        # If running manually step-by-step, consume the step and halt
+        if not state.isAutonomous():
+            state.consumeManualStep()
+            break
+</code></pre>
+<h2 id="wait-nodes-and-dependencies"><a class="header" href="#wait-nodes-and-dependencies">Wait Nodes and Dependencies</a></h2>
+<figure id="fig:guide_sim_concurrent_waits">
+<img src="media/guide/2026-04-28 23-14-10_ConcurrentLayeringDemonstration-00.00.31.781.jpg" />
+<figcaption>Adding wait nodes after the walk action.
+A video of this demonstration is available at <a href="https://youtu.be/D53dKL-pgeo" class="uri">https://youtu.be/D53dKL-pgeo</a>.</figcaption>
+</figure>
+<p>Our example behavior in <a href="#fig:guide_sim_nonconcurrent" data-reference-type="ref+label" data-reference="fig:guide_sim_nonconcurrent">1</a> starts out as a non-concurrent sequence of a short walk and two arm motions.
+Now we’ll change it so the arm motions are scheduled during the walk.
+In <a href="#fig:guide_sim_concurrent_waits" data-reference-type="ref+label" data-reference="fig:guide_sim_concurrent_waits">2</a>, we add two wait actions, one for 1 second and one for 2.5 seconds.
+These waits are used to schedule the arm motions.
+We’ll move the right arm 1 second into the walk and the left arm 2.5 seconds into the walk.</p>
+<figure id="fig:guide_sim_concurrent_execute_after">
+<img src="media/guide/2026-04-28 23-14-10_ConcurrentLayeringDemonstration-00.00.45.014.jpg" />
+<figcaption>Setting the execute after fields of the arm actions to point to the wait actions.
+A video of this demonstration is available at <a href="https://youtu.be/D53dKL-pgeo" class="uri">https://youtu.be/D53dKL-pgeo</a>.</figcaption>
+</figure>
+<p>The wait actions need to execute with the walk action, not after it.
+To accomplish this, we set the execute after fields of the wait actions to the “ConcurrencyDemo.json” sequence node.
+The sequence node is never executing, but pointing to it achieves the effect that the wait actions always start with the walk action.
+This method also keeps the sequence logic self contained and reusable, as opposed to referencing a specific node earlier than the sequence node.
+We then set the execute after field of the right arm action to the first wait action and the execute after field of the left arm action to the second wait action.
+In <a href="#fig:guide_sim_concurrent_execute_after" data-reference-type="ref+label" data-reference="fig:guide_sim_concurrent_execute_after">3</a>, we show setting the execute after field of the second arm action to the second wait action.</p>
+<p>The figure also shows the execute after pointers as arrows on the right side of the tree view that point up from the defining action to the dependency action.
+You can see four such arrows that overlap.
+When the mouse hovers over a node, the corresponding arrow boldens to make it easy to verify dependencies when they are partially overlapping.
+At this point in time, the timeline view is updated to show the general structure of the new behavior configuration.
+In this prototype implementation of the timeline view, all wait actions are rendered as 1 second long.
+When we run the behavior, the timeline is redrawn with the actual timings.
+We will do that now.</p>
+<h2 id="concurrent-result"><a class="header" href="#concurrent-result">Concurrent Result</a></h2>
+<figure id="fig:guide_sim_concurrent_result">
+<img src="media/guide/2026-04-28 23-14-10_ConcurrentLayeringDemonstration-00.01.02.903.jpg" />
+<figcaption>The concurrently executed result.
+A video of this demonstration is available at <a href="https://youtu.be/D53dKL-pgeo" class="uri">https://youtu.be/D53dKL-pgeo</a>.</figcaption>
+</figure>
+<p>In <a href="#fig:guide_sim_concurrent_result" data-reference-type="ref+label" data-reference="fig:guide_sim_concurrent_result">4</a>, we show the result of executing our now concurrent behavior.
+The timeline has been updated to reflect the actual action start and stop times of the simulated behavior execution.
+As seen by comparing this timeline to the original, the behavior duration went from 11.7 seconds to 7.6 seconds, illustrating how this method can be used to speed up behaviors.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="5_tutorial_3_basic_example_move_the_arms_and_walk.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
 
-                            <a rel="next prefetch" href="2_metrics.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="5_tutorial_5_screw_primitives.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -216,8 +294,11 @@ Videos of the work presented in this dissertation are available online at <a hre
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="5_tutorial_3_basic_example_move_the_arms_and_walk.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
 
-                    <a rel="next prefetch" href="2_metrics.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="5_tutorial_5_screw_primitives.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-29b762a1.js";
+            window.path_to_searchindex_js = "searchindex-62645ed1.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-39201727.js"></script>
+        <script src="toc-58947f0e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -1084,10 +1084,11 @@ Our full demo was composed of seven main loco-manipulation behaviors:</p>
 <p>Move the couch.</p>
 </li>
 </ol>
-<p>Our observation was that even if each behavior had a success rate of 90% (which they didn’t), the full demo reliability is calculated as</p>
-<pre><code class="language-math">0.9^7 = 48.7\%
-</code></pre>
-<p>which is an alarmingly low (less than 50%) full-demo success rate even when the sub-behaviors have achieved very good reliability.
+<p>Our observation was that even if each behavior had a success rate of 90% (which they didn’t), the full demo reliability is calculated as
+$$
+0.9^7 = 48.7%
+$$
+which is an alarmingly low (less than 50%) full-demo success rate even when the sub-behaviors have achieved very good reliability.
 On the day of the final demo, where we were ultimately successful, our success likely hinged on sufficiently configuring and testing the initial conditions such that the chance of success was much higher.</p>
 <figure id="fig:2025_ai2r">
 <img src="media/nadia/2025-06-07_FullSimDemoNadia_LLMcoordination-00.02.42.631.jpg" />
@@ -1318,9 +1319,9 @@ By December 15, after trying at least five different control strategies, we fixe
 The on-board Ability Hand controller wants an alpha-filtered position setpoint input that is generated from an ideal velocity-limited trajectory, as presented in <a href="#alg:ability_hand_pos_vel_limit" data-reference-type="ref+label" data-reference="alg:ability_hand_pos_vel_limit">[alg:ability_hand_pos_vel_limit]</a>.
 This helps the hand reliably move at the desired velocity to the desired setpoint and hold the position without jittering.</p>
 <div class="algorithm">
-<p>$<code>f_c \gets 1.0</code>$
-$<code>\tau \gets \frac{1}{2 \pi f_c}</code>$
-$<code>\alpha \gets \frac{\Delta t}{\tau + \Delta t}</code>$</p>
+<p>\(f_c \gets 1.0\)
+\(\tau \gets \frac{1}{2 \pi f_c}\)
+\(\alpha \gets \frac{\Delta t}{\tau + \Delta t}\)</p>
 </div>
 
 <figure id="fig:unitree_hand_previewing">
@@ -1773,6 +1774,1124 @@ We are extremely proud of this work and the very large number of team members th
 At the same time, we are excited for the future.
 We want to see this system extended further and deployed on our new tetherless version of Alex for real-world use cases, not just tech demos.</p>
 <p>In the next chapter, we’ll provide a guide on the behavior authoring process in 2026.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="usage-guide"><a class="header" href="#usage-guide">Usage Guide</a></h1>
+<p><span id="ch:tutorial" label="ch:tutorial"></span></p>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>The behavior system presented in this thesis can be used to author fast, resilient, and adaptable loco-manipulation behaviors for humanoid robots.
+Examples include door traversals and sorting objects on tables.
+This is in the pursuit of automating useful work and providing robotic drop-in replacements for humans for dull, dirty, or dangerous jobs.
+In this chapter, we’ll cover the system’s limitations, prerequisites, and how to use it.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="limitations"><a class="header" href="#limitations">Limitations</a></h1>
+<h2 id="perception"><a class="header" href="#perception">Perception</a></h2>
+<p>We’ve made a lot of progress and performed some compelling demonstrations, but there is still a way to go.
+In 2026, we’ve had an uptick in the expressiveness of our behaviors demonstrated on Alex through authorable perceptive reactivity and an expanded set of YOLO models.
+However, we still do not have reliable object pose perception, which is why we have done so many demos with colored balls.
+We have integrated FoundationPose for this, but it still needs a bit of work.
+It is still possible to manipulate asymmetric objects if assumptions can be made about their initial state.</p>
+<h2 id="platform-bringup"><a class="header" href="#platform-bringup">Platform Bringup</a></h2>
+<p>Another main limitation is that, to get this working on a new robot platform, there is significant bringup work.
+Computer software and hardware engineering is required to bring up support for different sensors, hands, or controllers that your robot may have.</p>
+<p>Another major limitation of the current implementation is the lack of navigational components.
+It is possible to create room searching behaviors by turning in place and walking through doors or walking to objects if you see them, but there is no functionality in the scene for storing semantic topological maps or high-fidelity detailed map models.</p>
+<h2 id="behavior-tree-limits"><a class="header" href="#behavior-tree-limits">Behavior Tree Limits</a></h2>
+<p>There are some smaller limitations and user frustrations that are present as well.
+One of the bigger ones is the lack of the “GOSUB” functionality, where a sequence can be put on the stack and execution returned when it completes.
+All we have at the moment is GOTOs.
+Another is that when nested JSON-backed behaviors are included in multiple places in the tree, modifying one does not modify the other, and they will overwrite each other when saved.
+We would like to fix these soon.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h1>
+<h2 id="robot-platform-and-controller"><a class="header" href="#robot-platform-and-controller">Robot Platform and Controller</a></h2>
+<p>We have run our system with several humanoid robots over the years, including the Boston Dynamics DARPA Robotics Challenge Atlas, NASA’s Valkyrie, IHMC and Boardwalk Robotics’ Nadia, Unitree’s H1-2, and IHMC’s Alex.
+Our system is centered on the humanoid form factor with footstep, walk, arm, leg, spine, and neck actions.
+It is also centered on the presence of a whole body controller that can achieve those actions.
+Ideally, the whole body controller can triage and queue asynchronous commands of those actions, to support concurrently tracked motions of different parts of the body that may start and end at different times.
+For communication, we have been using a ROS 2 compatible DDS implementation, but other communication protocols could be subbed in with engineering work.
+The controller could also be operated through a programmatic API and some of the interprocess comms avoided.</p>
+<p>To get the best performance, the robot’s controller should have push-tolerant standing and walking.
+Even better if the robot can walk with the arms held up in front of the body.
+If it can do this, it would be sufficient for basic multi-station loco-manipulation tasks and door traversals.</p>
+<h2 id="motion-and-reachability"><a class="header" href="#motion-and-reachability">Motion and Reachability</a></h2>
+<p>We think longer arms generally work better than shorter ones.
+A human-proportioned robot arm yields significantly less reachability than a human arm since humanoid robots typically don’t have clavicle joints which extend a human’s arm reach.
+We tend to think that robot arms that are long enough such that the hands touch the knees when they are hanging are a good balance.
+DRC Atlas and Nadia had these longer-arm proportions, but Alex didn’t and we felt that it limited reachability and increased task complexity for the pull door behaviors and when reaching across tables.</p>
+<p>Similarly, a high degree of freedom spine can help simplify behaviors.
+For example, being able to yaw 90 degrees to the left and right can allow for faster scanning behaviors, increase arm reachability, and avoid unnecessary footsteps in tight spaces.</p>
+<h2 id="perception-and-teleoperation"><a class="header" href="#perception-and-teleoperation">Perception and Teleoperation</a></h2>
+<p>On the perception side, the most significant requirements are a color image, a high-accuracy depth image, and the availability of high quality YOLO models for any objects you want to interact with.
+There are many sensors available on the market that satisfy this requirement.
+We have tried the ZED X Mini and the RealSense D457.
+We think both of those would work.</p>
+<p>Our preference and the one we currently use is the ZED X Mini because it has a stereo RGB camera pair which is useful for direct VR teleoperation.
+To author complicated behaviors, an idea ahead of time of how the robot will accomplish the task is desirable.
+With humanoid robots, this is helped by our natural intuition since the robot shares our form factor, but how the robot’s capabilities differ from our own can be unintuitive.
+This is why teleoperating a task can be a good way to quickly experiment with task strategies that work within the bounds of the robot’s capabilities, and why we chose the ZED X Mini.
+The ZED X Mini also has a human-like inter-pupillary distance, which makes for a natural robot embodiment by a VR teleoperator.</p>
+<p>The other major thing you will need is a library of YOLO models for everything you need to interact with.
+We have been using YOLOv8 because it does detections and segmentation for objects of interest.
+Argyha Chatterjee crafted the models we used, but it took him weeks and weeks of hand labeling and a year or so of experimentation to get them to be high confidence.
+It might be good to find a vendor that provides professionally trained models.
+Typically the data needed is around five videos of the task, each on a different day and time, light and dark, where the videos orbit around the object and get close and far from it.</p>
+<h2 id="hands"><a class="header" href="#hands">Hands</a></h2>
+<p>For robot hands, we recommend a 5-finger anthropomorphic hand.
+We had a great experience with the Psyonic Ability Hand.
+One major advantage of a 5-finger anthropomorphic hand is that, similar to the rest of the robot’s body, it mirrors the human form, which allows for an increased level of intuition in task planning.
+For example, a good start for planning how to get the robot to do a task is to just do it yourself and look at how you naturally do it.</p>
+<p>Furthermore, this extends to teleoperation, where you can constrain the set of possible solutions to what is achievable by the robot while still leaning on natural intuition.
+We use the Valve Index Controller’s API to teleoperate the Ability Hands and it works great.
+In fact, the OpenVR software maps the Valve Index Controller’s finger estimation to six degrees of freedom which happens to match perfectly to the six degrees of freedom on the Ability Hand.</p>
+<h2 id="compute"><a class="header" href="#compute">Compute</a></h2>
+<p>Another thing you’ll need are NVIDIA GPUs if you want to use the ZED camera or if you want to use CUDA kernels.
+The ZED SDK requires NVIDIA GPUs to use its most essential features such as its neural-assisted stereo depth estimation.
+Additionally, we use CUDA heavily throughout the system, including for counting points and averaging color inside virtual shapes in the 3D point cloud, faster OpenCV functions, processing the output tensor of YOLO, non-maximum suppression of YOLO bounding boxes, and extraction of 3D points from the YOLO segmentation masks.</p>
+<p>We use a Jetson AGX Orin on-board the robot and a desktop computer with an NVIDIA Turing GPU for the operator computer.
+We run Linux on both except when doing VR teleoperation, when we use Windows.
+We have had success with VR on Linux in simulation tests, but not on the real robot.
+For VR headsets we’ve been using the Valve Index and the HTC Vive Focus 3.</p>
+<p>In the next several sections we will walk through some token behavior authoring examples while explaining how system components work as we encounter them.
+This is a guide to how the system works, but it’s meant for reading and understanding more than it’s meant to be literally followed as a tutorial.
+We’ll first use simulation examples to illustrate and explain some basic mechanisms without noise.
+Then, we’ll go through a real-robot authoring session: our 32 minute authoring session to get Unitree H1-2 opening a door repeatedly.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="basic-example-move-the-arms-and-walk"><a class="header" href="#basic-example-move-the-arms-and-walk">Basic Example: Move the Arms and Walk</a></h1>
+<h2 id="simulation-setup"><a class="header" href="#simulation-setup">Simulation Setup</a></h2>
+<p>To start, we’ll be working in a simulation environment that we call the “behavior test facilitator”.
+It allows an operator to exercise system functionality without a vision and physics accurate simulator and without addressing any sim-to-real gaps.
+We use a kinematics-only simulation of the robot that plays back the nominal motions without feedback from a physical environment.
+In effect, this means that the desireds ultimately get set to the actuals for free motions and a special heuristic is used to hold the feet in place when ground contact is expected.</p>
+<figure id="fig:guide_sim_initial">
+<img src="media/guide/2026-04-28 19-55-33_BasicTutorial-00.00.01.168.jpg" />
+<figcaption>The behavior test facilitator on startup.
+A video of this example is available at <a href="https://youtu.be/e3fk-EAJ5EQ" class="uri">https://youtu.be/e3fk-EAJ5EQ</a>.
+</figcaption>
+</figure>
+<p>To open the program, we will run the Java program <a href="https://github.com/ihmcrobotics/ihmc-open-robotics-software/blob/53f47de86106e996b657dae1c6a6fd0bd76e63ec/zulu/src/test/java/us/ihmc/zulu/rdx/ZuluRDXBehaviorTestFacilitator.java"><code>AlexRDXBehaviorTestFacilitator</code></a>.
+The initial view is shown in <a href="#fig:guide_sim_initial" data-reference-type="ref+label" data-reference="fig:guide_sim_initial">1</a>.
+The behavior tree panel is on the left and the 3D view is on the right.
+The behavior tree panel is where an interactive model of the currently loaded behavior tree is rendered.
+The 3D view renders the current, live robot state as an opaque, realistically colored robot model alongside virtual interactable elements that model planned actions and virtual scene elements.</p>
+<h2 id="3d-viewport-camera"><a class="header" href="#3d-viewport-camera">3D Viewport Camera</a></h2>
+<p>The 3D view camera is controlled using the scheme developed and used in the DARPA Robotics Challenge era user interface.
+We use this “focus based” camera view control algorithm because it simplifies getting the camera where you need it so it can be done quickly.
+Since robots typically exist in 2D spaces under gravity, the most common translation camera movements are in the X-Y plane.
+Additionally, our tasks most often focus on controlling a robot or inspecting specific things positioned in the environment.
+For this reason, our “focus based” camera is based on a movable focus point in 3D space, meant to be located at the thing you are inspecting or monitoring.
+The camera always faces this focal point and in the user interface it is represented as a small red sphere which is resized dynamically in 3D to be a constant small size in screen space, so it doesn’t get huge or too small to see.
+The keyboard controls, W, A, S, and D, translate the camera on the current X-Y plane that the focus point resides on.
+The Q and Z keys move the focal point up and down along the world frame Z axis.
+The camera orbits the focal point using a longitude and latitude.
+The longitude freely loops 360 degrees around the focal point about its world Z axis.
+The latitude, however, is bounded by +/- 90 degrees above and below the focal sphere’s “equator”.
+For example, the limits are top down and bottom up, preventing the view from going upside down on the other side.
+The full set of 3D view camera controls are presented in <a href="#tab:focus_based_camera_keys" data-reference-type="ref+label" data-reference="tab:focus_based_camera_keys">1</a>.</p>
+<div class="singlespace">
+<div id="tab:focus_based_camera_keys">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left"><strong>Focus based camera</strong></th><th style="text-align: left"><strong>Key</strong></th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left">Drag to orient camera</td><td style="text-align: left">Left mouse</td></tr>
+<tr><td style="text-align: left">Drag to pan camera</td><td style="text-align: left">Middle mouse</td></tr>
+<tr><td style="text-align: left">Fine adjustment</td><td style="text-align: left">Shift</td></tr>
+<tr><td style="text-align: left">Move camera back</td><td style="text-align: left">S</td></tr>
+<tr><td style="text-align: left">Move camera down</td><td style="text-align: left">Z</td></tr>
+<tr><td style="text-align: left">Move camera forward</td><td style="text-align: left">W</td></tr>
+<tr><td style="text-align: left">Move camera left</td><td style="text-align: left">A</td></tr>
+<tr><td style="text-align: left">Move camera right</td><td style="text-align: left">D</td></tr>
+<tr><td style="text-align: left">Move camera up</td><td style="text-align: left">Q</td></tr>
+<tr><td style="text-align: left">Zoom camera in</td><td style="text-align: left">C</td></tr>
+<tr><td style="text-align: left">Zoom camera in / out</td><td style="text-align: left">Mouse scroll</td></tr>
+<tr><td style="text-align: left">Zoom camera out</td><td style="text-align: left">E</td></tr>
+</tbody>
+</table>
+</div>
+<p>Focus based camera keyboard shortcuts</p>
+</div>
+
+</div>
+
+<h2 id="loading-the-tree"><a class="header" href="#loading-the-tree">Loading the Tree</a></h2>
+<p>On startup, no behavior tree is actively loaded, so the “Load existing tree from file menu” is shown.
+There are two options from here: starting from scratch with a new root node or loading an existing behavior from file.
+In this example, we’ll start from scratch and click “Root Node”.</p>
+<figure id="fig:guide_sim_root_only">
+<img src="media/guide/2026-04-28 19-55-33_BasicTutorial-00.00.04.565.jpg" />
+<figcaption>
+An empty behavior with just a root node.
+A video is available at <a href="https://youtu.be/e3fk-EAJ5EQ" class="uri">https://youtu.be/e3fk-EAJ5EQ</a>.
+</figcaption>
+</figure>
+<h2 id="behavior-operation"><a class="header" href="#behavior-operation">Behavior Operation</a></h2>
+<p>At this point, the view has transitioned into the primary working area for a loaded tree, as shown in <a href="#fig:guide_sim_root_only" data-reference-type="ref+label" data-reference="fig:guide_sim_root_only">2</a>.
+At the top of the behavior tree panel, Conflict-Free Replicated Data Type (CRDT) statistics are shown.
+This helps keep the operator informed about whether data is synchronizing correctly between the user interface and the robot-side autonomy process.
+Next to the file and view menus, the node count for the operator-side and robot-side are shown.
+These two numbers should be the same.
+The frequency rendered on that line should be approximately 30 Hz, which is the desired rate of synchronization.
+On the next line, a count of updates for the UI side (local) and robot side are shown.
+These should be monotonically increasing but don’t need to be the same.
+There is an out of order message counter which should be 0 and incrementing a little is likely okay, but going up quickly is indicative of a problem.</p>
+<p>The next lines regard execution operation.
+The left and right pointing arrows decrement and increment the next node index to execute, which is printed here as “Index: 000” for our new tree.
+On that line is a checkbox that toggles automatic execution and a button that manually executes the next concurrent action set.
+This checkbox and button will cause the robot to immediately begin executing the behavior and possibly move!
+In other words, these are the “go” buttons.
+Automatic execution is started by checking the box and stopped by unchecking the box, so keep your mouse near it.
+Automatic execution will also stop if any action fails that is not handled by a fallback catch or the end of the tree is reached.</p>
+<p>On the next line, leaf node failures can be reset with the “Reset failures” button.
+It is not normally necessary to do this, but can be nice if you want the blinking red to stop.
+Also on this line, concurrency can be enabled and disabled with a checkbox.
+This disables the concurrent functionality and every action will be run sequentially.
+This is sometimes useful during authoring if it is desirable to run only one action but it is a part of a concurrent sequence.
+The third widget on this line toggles on and off the preview mode, which retargets the executed behavior to a kinematics-only simulation robot.
+When preview mode is enabled, a transparent preview robot will appear in the scene and execute the behavior in place of the real robot.
+The preview mode is useful to verify compound motions in themselves and with respect to the scene.</p>
+<p>The area that currently displays “Nothing executing” will display live information about the currently executing action or actions.
+The final element in the view is the root node, with a representative icon with three circles connected by two lines.</p>
+<h2 id="building-the-first-behavior"><a class="header" href="#building-the-first-behavior">Building the First Behavior</a></h2>
+<figure id="fig:guide_sim_add_child">
+<img src="media/guide/2026-04-28 19-55-33_BasicTutorial-00.00.06.794.jpg" />
+<figcaption>
+The root node context menu where we are adding a child node.
+</figcaption>
+</figure>
+<p>Right clicking the root node prompts a context menu which offers the option to add our first child node, as shown in <a href="#fig:guide_sim_add_child" data-reference-type="ref+label" data-reference="fig:guide_sim_add_child">3</a>.
+In this first example, we’ll build a small, simple behavior that moves the arms and walks.</p>
+<figure id="fig:guide_sim_node_creation">
+<img src="media/guide/2026-04-28 19-55-33_BasicTutorial-00.00.08.758.jpg" />
+<figcaption>
+The node creation menu being used to create an action sequence node.
+</figcaption>
+</figure>
+<p><a href="#fig:guide_sim_node_creation" data-reference-type="ref+label" data-reference="fig:guide_sim_node_creation">4</a> shows the node creation menu, which allows the operator to create a new node of any available type or loading an existing tree from file.
+The available node types are sorted into control nodes and action nodes.
+For this behavior, we will select the action sequence type, which serves as an organization element and a mechanism by which we save the behavior to file.</p>
+<figure id="fig:guide_sim_sequence_rename">
+<img src="media/guide/2026-04-28 19-55-33_BasicTutorial-00.00.19.322.jpg" />
+<figcaption>The sequence node has been added and renamed to "Demo Behavior.json".</figcaption>
+</figure>
+<p>When the action sequence is created we double click the default name “Action sequence”, type in “Demo Behavior.json”, and hit the Enter key.
+This is shown in <a href="#fig:guide_sim_sequence_rename" data-reference-type="ref+label" data-reference="fig:guide_sim_sequence_rename">5</a>.
+Adding “.json” to the end of a node name is what makes it saveable to file.
+Saving is done by right clicking the node and selecting “Save to File”, pressing “Ctrl + S” while the mouse is hovering in the behavior tree panel, or using the file menu at the top of the panel.
+An asterisk symbol (*) is shown next to the node name when changes are present that have not been saved.
+When the tree is saved, the asterisk symbol should disappear.
+The behavior can safely be saved at any time and we do it often to avoid losing work.</p>
+<h2 id="arm-actions"><a class="header" href="#arm-actions">Arm Actions</a></h2>
+<figure id="fig:guide_sim_arm_action">
+<img src="media/guide/2026-04-28 19-55-33_BasicTutorial-00.00.29.885.jpg" />
+<figcaption>A right arm action has been created.</figcaption>
+</figure>
+<p>We then add an arm action by right clicking the sequence node and clicking “Add Child Node…” as before, then click “Right” on the Arm row which instantiates a new arm action node with side set to right.
+For sided actions, we currently don’t allow changing the side after creation, however, that isn’t an entirely purposeful design choice.
+Now that the arm action has been created, the node can be seen in the tree, beneath our sequence node and indented to the right, signifying that it is a child of the sequence node.</p>
+<p>When we single-click select the arm action node (anywhere except on the sideways arrow icon), the node’s line is highlighted, as shown in <a href="#fig:guide_sim_arm_action" data-reference-type="ref+label" data-reference="fig:guide_sim_arm_action">6</a>.
+In the lower portion of the behavior tree panel, there is a node settings area.
+This area can be closed using the “X” in the top right of its area, but will open whenever a node is selected, as we did above.
+This setting area renders the settings of whichever node is selected, but only for one node at a time.</p>
+<p>To make things go faster, we will reduce the arm action’s trajectory duration to 1 second by double clicking the current value, typing 1, and hitting the Enter key.
+There are two main ways to define this arm action: by adjusting the hand goal pose with a 3D pose gizmo and inverse kinematics solver, or by using sliders to define the arm’s joint angles directly.
+This is decided using the “Use Predefined Joint Angles” checkbox.</p>
+<figure id="fig:guide_sim_arm_gizmo">
+<img src="media/guide/20260518_120558_ArmGizmo.jpg" />
+<figcaption>A right arm action with the 3D pose gizmo activated.</figcaption>
+</figure>
+<h2 id="3d-pose-gizmo"><a class="header" href="#3d-pose-gizmo">3D Pose Gizmo</a></h2>
+<p>As shown in <a href="#fig:guide_sim_arm_gizmo" data-reference-type="ref+label" data-reference="fig:guide_sim_arm_gizmo">7</a>, to adjust the arm action via hand pose, check the “Adjust Goal Pose” box.
+A 3D pose gizmo appears in the 3D view.
+The gizmo’s axes are colored as Red, Green, and Blue, to match X, Y, and Z, and Roll, Pitch, and Yaw.
+A way to remember it is “RGB -&gt; XYZ”.
+The tori can be dragged with the mouse to adjust the orientation.
+The arrow heads and tails can be dragged with the mouse to adjust the translation.
+The gizmo can also be adjusted via the keyboard.
+A key for gizmo keyboard controls is presented in <a href="#tab:pose_3d_gizmo_keys" data-reference-type="ref+label" data-reference="tab:pose_3d_gizmo_keys">2</a>.
+Right clicking the gizmo will display a context menu that allows for numerical pose adjustment, fine and coarse increments, resetting to zero, and changing the modification frame.
+The gizmo is, by default, modified in camera Z up frame so it translates laterally on the world X-Y plane and vertically on the world Z axis, similar to the focus based camera.</p>
+<div class="singlespace">
+<div id="tab:pose_3d_gizmo_keys">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left"><strong>Pose 3D gizmo</strong></th><th style="text-align: left"><strong>Key</strong></th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left">Fine adjustment modifier</td><td style="text-align: left">Shift</td></tr>
+<tr><td style="text-align: left">Manipulate axes</td><td style="text-align: left">Left mouse drag</td></tr>
+<tr><td style="text-align: left">Open context menu</td><td style="text-align: left">Right mouse click</td></tr>
+<tr><td style="text-align: left">Pitch adjustment +</td><td style="text-align: left">Alt + Up arrow</td></tr>
+<tr><td style="text-align: left">Pitch adjustment -</td><td style="text-align: left">Alt + Down arrow</td></tr>
+<tr><td style="text-align: left">Roll adjustment +</td><td style="text-align: left">Alt + Right arrow</td></tr>
+<tr><td style="text-align: left">Roll adjustment -</td><td style="text-align: left">Alt + Left arrow</td></tr>
+<tr><td style="text-align: left">Translation adjustment X+</td><td style="text-align: left">Up arrow</td></tr>
+<tr><td style="text-align: left">Translation adjustment X-</td><td style="text-align: left">Down arrow</td></tr>
+<tr><td style="text-align: left">Translation adjustment Y+</td><td style="text-align: left">Left arrow</td></tr>
+<tr><td style="text-align: left">Translation adjustment Y-</td><td style="text-align: left">Right arrow</td></tr>
+<tr><td style="text-align: left">Translation adjustment Z+</td><td style="text-align: left">Ctrl + Up arrow</td></tr>
+<tr><td style="text-align: left">Translation adjustment Z-</td><td style="text-align: left">Ctrl + Down arrow</td></tr>
+<tr><td style="text-align: left">Yaw adjustment +</td><td style="text-align: left">Ctrl + Left arrow</td></tr>
+<tr><td style="text-align: left">Yaw adjustment +</td><td style="text-align: left">Ctrl + Mouse scroll down</td></tr>
+<tr><td style="text-align: left">Yaw adjustment -</td><td style="text-align: left">Ctrl + Mouse scroll up</td></tr>
+<tr><td style="text-align: left">Yaw adjustment -</td><td style="text-align: left">Ctrl + Right arrow</td></tr>
+</tbody>
+</table>
+</div>
+<p>Pose 3D gizmo keyboard shortcuts</p>
+</div>
+
+</div>
+
+<h2 id="frame-relative-action"><a class="header" href="#frame-relative-action">Frame-Relative Action</a></h2>
+<p>When an arm action is defined by a pose, it is specified in a selectable parent frame.
+By default, this frame is chest frame.
+Changing this frame to an object class such as “Door Lever” allows for a pose that will be relative to that object, wherever that object is in the scene.
+The “Hybrid” and “Jointspace Only” options and the weights can be ignored.
+They are specific to how our model based whole body controller tracks the arm command.
+What is important is to note that any whole body controller specific options you may have can be included in this arm action’s definition.
+It is meant to be extendable and flexible rather than a rigid specification.
+The inverse kinematics solution quality is displayed where values from 0 to 1 are good, and &gt;1 is bad.
+Bad solutions mean the pose is unreachable and will not be achieved consistently with our implementation.
+The transparent arm graphic will turn red to signify this.
+A “Set Pose to Synced Hand” option is available to reset the pose to where the hand currently is on the real robot.</p>
+<p>As seen in the bottom left of <a href="#fig:guide_sim_arm_gizmo" data-reference-type="ref+label" data-reference="fig:guide_sim_arm_gizmo">7</a>, position and orientation error tolerance settings are available.
+If the hand’s pose is not within the error tolerance of the goal pose by the end of the trajectory duration, the action will fail.
+This setting can be adjusted based on the required precision of the motion.
+This functionality is very context and controller dependent.
+For example, a controller may continuously try to achieve the goal pose or it may stop trying once the trajectory duration is over.
+As another example, when applying a force on something is desired, a position setpoint may be placed beyond an immovable object, resulting in a desired pose error.
+In these cases the error tolerances may not make sense or may need to be large.
+It may also be that we should add a timeout for achieving the motion in addition to the nominal trajectory duration.</p>
+<h2 id="jointspace-mode"><a class="header" href="#jointspace-mode">Jointspace Mode</a></h2>
+<figure id="fig:guide_sim_arm_jointspace">
+<img src="media/guide/20260518_120800_ArmJointspace.jpg" />
+<figcaption>A right arm action being adjusted in jointspace.</figcaption>
+</figure>
+<p>The other way to define arm actions is by specifying the joint angles directly.
+To do this, check the “Use Predefined Joint Angles” box.
+This will dynamically change the available settings in the panel, now showing sliders for all the joints.
+As shown in <a href="#fig:guide_sim_arm_jointspace" data-reference-type="ref+label" data-reference="fig:guide_sim_arm_jointspace">8</a>, these sliders can be used to set the joint angles.
+As the sliders are dragged, the full arm 3D preview is updated to provide an interactive experience.
+The sliders are bounded by the joint limits from the robot model.
+A joint angle can also be input as a number manually in the input box next to the slider.
+This mode has a “Set Configuration to Synced Arm” button to reset the values to match the real robot’s current configuration.
+It also has a position error tolerance setting which is the maximum allowable sum of joint angle errors throughout the arm.
+In our example behavior, we roll the arm out from the body and pull the forearm up.</p>
+<h2 id="arm-action-execution"><a class="header" href="#arm-action-execution">Arm Action Execution</a></h2>
+<p>To execute this arm action, we ensure the hollow arrow icon next to the action is green, meaning it is selected as the next action to execute.
+To execute the action, we click the (Execute) “Manually” button at the top of the panel.
+The simulated robot performs a 1 second trajectory to the goal configuration.</p>
+<p>We would like to extend our arm action to support N-length trajectories, as we do with our screw primitive covered later.
+One use case would be to record teleoperated motions, store them to a CSV file or something, and execute them with the arm action.
+Another option would be to allow the behavior author to add and remove waypoints tuned using gizmos.
+Using multi-waypoint trajectories would allow the arm to keep moving through poses instead of stopping at each one, as is currently enforced.</p>
+<h2 id="mirroring-an-arm-action"><a class="header" href="#mirroring-an-arm-action">Mirroring an Arm Action</a></h2>
+<figure id="fig:guide_sim_arm_mirroring">
+<img src="media/guide/2026-04-28 19-55-33_BasicTutorial-00.00.49.202.jpg" />
+<figcaption>The node mirroring context menu option.</figcaption>
+</figure>
+<p>Next, we will mirror this action for the left arm using the “Mirror Node” context menu entry on the arm node, as shown in <a href="#fig:guide_sim_arm_mirroring" data-reference-type="ref+label" data-reference="fig:guide_sim_arm_mirroring">9</a>.
+A second arm action appears, already in joint angle mode and mirroring the other arm action.
+We manually execute this action.</p>
+<h2 id="walk-action"><a class="header" href="#walk-action">Walk Action</a></h2>
+<figure id="fig:guide_sim_walk_settings">
+<img src="media/guide/20260518_144523_WalkAction.jpg" />
+<figcaption>The walk action settings and goal tuning.</figcaption>
+</figure>
+<p>As the final action in this first example behavior, we will walk forward a little bit.
+We right-click the second arm action, click “Insert Node After…”, and select the walk action.
+The walk action now appears in the tree.
+We click it to access its settings, which are shown in <a href="#fig:guide_sim_walk_settings" data-reference-type="ref+label" data-reference="fig:guide_sim_walk_settings">10</a>.
+For this example, we’ll keep the frame set to “Walking” frame, which is a frame on the ground underneath and facing the direction of the pelvis.</p>
+<p>The walk action supports setting controller specific settings such as the walking speed via the foot swing and double support transition durations.
+An “execution mode” setting specifies whether the robot should finish any steps it may have queued versus overriding those and taking the first step of this walk action after the current step is completed.
+This setting is also controller specific.</p>
+<p>The walk action is currently implemented to dispatch a list of footsteps as 3D sole poses to a controller for execution.
+The steps can be specified manually by adding and tuning them with gizmos or planned.
+Footstep plans can be converted to a manually defined plan for action definition, but otherwise, planning will happen on action execution.</p>
+<h2 id="walk-goal-specification"><a class="header" href="#walk-goal-specification">Walk Goal Specification</a></h2>
+<p>To define the planning goal, we use a mid-stance point and a focal point.
+The robot walks to the stance location and ends facing the point.
+We project the goal Z to the robot’s current walking frame Z, which lies on the ground between the feet.
+This format of goal specification works well to keep the robot from stepping in the air when on flat ground.
+It also makes the robot’s goal facing orientation easier to tune by placing the focal point farther from the stance point.
+This separation acts as a “lever arm” for goal orientation precision.</p>
+<p>The goal footsteps are also each tunable in this mid-stance goal frame.
+By default they are even at the controller’s default stance width for a squared up goal stance.
+However, for many task approaches, such as pull doors, we require a staggered stance.
+The “Left Foot to Goal” and “Right Foot to Goal” checkboxes toggle gizmos to tune the goal footsteps.
+In <a href="#fig:guide_sim_walk_settings" data-reference-type="ref+label" data-reference="fig:guide_sim_walk_settings">10</a>, the stance point, focus point, and the right footstep are all being tuned.</p>
+<h2 id="footstep-planning"><a class="header" href="#footstep-planning">Footstep Planning</a></h2>
+<p>We currently have three footstep planners available to the walk action: the quick footstep planner, the turn-walk-turn planner, and the A* planner.
+The quick footstep planner is the newest option.
+It is a procedural geometry-heuristic based planner that plans quickly and reliably.
+It is designed to have as few failure modes as possible and reduce unnecessary steps.
+Though the heuristics are general, we focused on ensuring the plan for approaching pull door and getting into the staggered stance was high quality.
+It supports walking to waypoints without specifying goal footsteps.
+The option to not specify goal footsteps can speed up behaviors by removing an unnecessary square-up step.
+It currently only supports flat ground, but we think it could be extended to plan over terrain maps.</p>
+<p>When the quick footstep planner is selected, an option for RRT-Connect path planning is available.
+The current implementation will simply maintain a tunable distance from objects in the behavior scene while taking the shortest path.
+This is an experimental mode that we would like to make more general using an occupancy map or something.</p>
+<p>The turn-walk-turn is another procedural heuristic planner for flat ground, but often has many unnecessary steps in the plan, reducing overall behavior speed.
+We don’t use this one much.
+It is mainly intended to be a backup option in case the other two don’t work for some reason in certain situations.</p>
+<p>The A* planner, as presented in , is a search based planner for flat ground and rough terrain.
+It uses a large set of parameters that define the ideal and boundary step criteria and then searches over an SE2 (X, Y, and Yaw) lattice to find the most optimal set of footsteps to the goal feet.
+The planner can snap footsteps to planar regions and wiggle them as part of the search and in the pursuit of achieving a stable foothold.
+It can also plan over a height map.
+In this way, the A* planner gives the behavior system a rough terrain capability.
+For flat ground, we don’t use it as much to avoid the extra planning time and increased number of failure modes.</p>
+<h2 id="manual-footsteps"><a class="header" href="#manual-footsteps">Manual Footsteps</a></h2>
+<p>The walk action also allows the operator to define a manual footstep plan by checking the “Manually place steps” box.
+Then, footsteps can be added, removed, and tuned with gizmos.
+A “Select All Footsteps” button is available to select all footstep gizmos in order to move the whole plan using the keyboard arrow keys.
+A “Reset footstep height” option is available to reset all the footstep Z heights to the current robot height, which is useful for flat ground plans.</p>
+<p>The manual footstep plan option is especially useful when the robot walks through the door frame, mainly because a planner has not been written for that case.
+Door traversal footstep plans have to straddle the door frame in order to not hit the shoulder on the door frame.
+It also helps to make the footstep plan narrower, to reduce side-to-side sway, which can reduce the severity of collisions with the door panel.</p>
+<h2 id="executing-a-walk-action"><a class="header" href="#executing-a-walk-action">Executing a Walk Action</a></h2>
+<figure id="fig:guide_sim_walk_executing">
+<img src="media/guide/2026-04-28 19-55-33_BasicTutorial-00.01.25.339.jpg" />
+<figcaption>The walk action executing.</figcaption>
+</figure>
+<p>In <a href="#fig:guide_sim_walk_executing" data-reference-type="ref+label" data-reference="fig:guide_sim_walk_executing">11</a>, we execute the walk action to complete our first example.
+A progress bar can be seen that is tracking the action.
+The 7.58 second total is calculated by adding up all the transfer and swing times of the planned footsteps.
+Virtual, numbered footsteps are displayed in the 3D view to show the robot controller’s current queue.</p>
+<h2 id="simple-behavior-json-file"><a class="header" href="#simple-behavior-json-file">Simple Behavior JSON File</a></h2>
+<p>A simplified version of the saved JSON for this simple example is presented in <a href="#fig:demo_behavior_json_part_1" data-reference-type="ref+label" data-reference="fig:demo_behavior_json_part_1">12</a> and <a href="#fig:demo_behavior_json_part_2" data-reference-type="ref+label" data-reference="fig:demo_behavior_json_part_2">13</a>.</p>
+<figure id="fig:demo_behavior_json_part_1">
+<div class="minipage">
+<pre><code>[
+            fontsize=\scriptsize,
+            breaklines=true,
+            breakanywhere=true,
+            frame=single,
+            rulecolor=\color{black!30},
+            framesep=2mm
+        ]
+{
+  "type" : "ActionSequenceDefinition",
+  "name" : "Demo Behavior.json",
+  "notes" : "",
+  "children" : [ {
+    "type" : "ArmActionDefinition",
+    "name" : "Move Right Arm",
+    "notes" : "",
+    "children" : [ ],
+    "executeAfterAction" : "Previous",
+    "side" : "right",
+    "trajectoryDuration" : 1.0,
+    "usePredefinedJointAngles" : true,
+    "preset" : "CUSTOM_ANGLES",
+    "j0Degrees" : 40.1,
+    "j1Degrees" : -22.92,
+    "j2Degrees" : 22.92,
+    "j3Degrees" : -108.86,
+    "j4Degrees" : 0.0,
+    "j5Degrees" : 0.0,
+    "j6Degrees" : 0.0,
+    "positionErrorTolerance" : 0.3,
+    "jointspaceWeight" : -1.0
+  }, {
+    "type" : "ArmActionDefinition",
+    "name" : "Move Left Arm",
+    "notes" : "",
+    "children" : [ ],
+    "executeAfterAction" : "Previous",
+    "side" : "left",
+    "trajectoryDuration" : 1.0,
+    "usePredefinedJointAngles" : true,
+    "preset" : "CUSTOM_ANGLES",
+    "j0Degrees" : 40.1,
+    "j1Degrees" : 22.92,
+    "j2Degrees" : -22.92,
+    "j3Degrees" : -108.86,
+    "j4Degrees" : 0.0,
+    "j5Degrees" : 0.0,
+    "j6Degrees" : 0.0,
+    "positionErrorTolerance" : 0.3,
+    "jointspaceWeight" : -1.0
+  },</code></pre>
+
+</div>
+
+<figcaption>Example behavior definition serialized as JSON (Part 1).</figcaption>
+</figure>
+<figure id="fig:demo_behavior_json_part_2">
+<div class="minipage">
+<pre><code>[
+            fontsize=\scriptsize,
+            breaklines=true,
+            breakanywhere=true,
+            frame=single,
+            rulecolor=\color{black!30},
+            framesep=2mm
+        ]
+     {
+    "type" : "WalkActionDefinition",
+    "name" : "Walk action",
+    "notes" : "",
+    "children" : [ ],
+    "executeAfterAction" : "Previous",
+    "swingDuration" : 0.8,
+    "transferDuration" : 0.5,
+    "executionMode" : "OVERRIDE",
+    "parentFrame" : "Walking",
+    "goalStancePoint" : {
+      "x" : 1.292,
+      "y" : -0.013,
+      "z" : 0.0
+    },
+    "goalFocalPoint" : {
+      "x" : 2.2745,
+      "y" : -0.002,
+      "z" : 0.0
+    },
+    "leftGoalFootToGoal" : {
+      "x" : 0.0,
+      "y" : 0.11,
+      "yawInDegrees" : 0.0
+    },
+    "rightGoalFootToGoal" : {
+      "x" : 0.0,
+      "y" : -0.11,
+      "yawInDegrees" : 0.0
+    },
+    "planner" : "QUICK",
+    "plannerParameters" : { }
+  } ]
+}</code></pre>
+
+</div>
+
+<figcaption>Example behavior definition serialized as JSON (Part 2).</figcaption>
+</figure>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="concurrent-actions-example"><a class="header" href="#concurrent-actions-example">Concurrent Actions Example</a></h1>
+<h2 id="behavior-timeline"><a class="header" href="#behavior-timeline">Behavior Timeline</a></h2>
+<figure id="fig:guide_sim_nonconcurrent">
+<img src="media/guide/2026-04-28 23-14-10_ConcurrentLayeringDemonstration-00.00.10.788.jpg" />
+<figcaption>The non-concurrent starting behavior for the concurrency example.
+A video of this demonstration is available at <a href="https://youtu.be/D53dKL-pgeo" class="uri">https://youtu.be/D53dKL-pgeo</a>.</figcaption>
+</figure>
+<p>In this example, we’ll show how we can schedule arm motions while walking using our concurrent action layering system.
+<a href="#fig:guide_sim_nonconcurrent" data-reference-type="ref+label" data-reference="fig:guide_sim_nonconcurrent">1</a> shows a behavior we have already built and run as the non-concurrent starting place.
+In this tree, we have added the pre-existing “Go Home” skill from a file, which allows us to reset the robot to the home configuration.
+This home configuration has the arms down by the sides in a natural position.
+Then there is a checkpoint node and a savable concurrency demo behavior, with a walk action followed by two arm actions and an always failing “STOP” condition.</p>
+<p>Our behavior timeline feature is presented in the bottom right of <a href="#fig:guide_sim_nonconcurrent" data-reference-type="ref+label" data-reference="fig:guide_sim_nonconcurrent">1</a>.
+It is a rendering of an action sequence over time meant to help with understanding the timing and concurrency of behavior actions.
+Here, it shows the tree as executed with each node running sequentially.</p>
+<h2 id="execute-after-layering-mechanism"><a class="header" href="#execute-after-layering-mechanism">“Execute After” Layering Mechanism</a></h2>
+<p>Concurrent action layering is implemented simply through an “Execute after” field in each action.
+It is selectable via a drop down menu in the node settings, which offers every prior node as an option.
+By default this field is set to “Previous”, which is a dynamic reference to whatever node is immediately before.
+A dynamic “Beginning” reference is also available, which points to before the root node, though it may be removed because it is functionally the same as pointing to the ever-present root node.</p>
+<p>When the behavior is running in autonomous mode, it triggers action execution in order.
+When deciding whether to trigger execution of the next one, it first checks the referenced node to execute after.
+If the node to execute after is currently executing, the next node is not triggered.
+Importantly, action execution does not wait for any nodes that may be in between the “execute after” node and itself.
+This is important for scheduling concurrent actions freely.</p>
+<p>The full algorithm is more complicated because the behavior can also be run step-by-step by clicking the “Manually” button.
+There is also a checkbox for disabling concurrency in the user interface, which effectively treats all “Execute after” fields as “Previous”.
+Further complexity is added to handle the fallback node’s try and catch mechanism.
+We present pseudocode in <a href="#alg:simplified_execution" data-reference-type="ref+label" data-reference="alg:simplified_execution">[alg:simplified_execution]</a> without the fallback part.</p>
+<h3 id="algorithm-simplified-action-execution-trigger-logic"><a class="header" href="#algorithm-simplified-action-execution-trigger-logic">Algorithm: Simplified Action Execution Trigger Logic</a></h3>
+<pre><code class="language-text">Function TickExecution(orderedLeaves, state):
+    # Halt if not autonomous and no manual step was requested
+    if not state.isAutonomous() and not state.isManualStepRequested():
+        return
+
+    nextIndex = state.getExecutionNextIndex()
+
+    for i in range(nextIndex, orderedLeaves.length):
+        node = orderedLeaves[i]
+
+        if node.isExecuting():
+            continue
+
+        # Determine the required dependency
+        afterIndex = node.getExecuteAfterIndex()
+        if not state.isConcurrencyEnabled():
+            afterIndex = i - 1  # Force sequential execution
+
+        # Break if the action to execute after is still executing
+        if afterIndex &gt;= 0 and orderedLeaves[afterIndex].isExecuting():
+            break
+
+        # Trigger execution and advance the index tracker
+        node.triggerExecution()
+        state.setExecutionNextIndex(i + 1)
+
+        # If running manually step-by-step, consume the step and halt
+        if not state.isAutonomous():
+            state.consumeManualStep()
+            break
+</code></pre>
+<h2 id="wait-nodes-and-dependencies"><a class="header" href="#wait-nodes-and-dependencies">Wait Nodes and Dependencies</a></h2>
+<figure id="fig:guide_sim_concurrent_waits">
+<img src="media/guide/2026-04-28 23-14-10_ConcurrentLayeringDemonstration-00.00.31.781.jpg" />
+<figcaption>Adding wait nodes after the walk action.
+A video of this demonstration is available at <a href="https://youtu.be/D53dKL-pgeo" class="uri">https://youtu.be/D53dKL-pgeo</a>.</figcaption>
+</figure>
+<p>Our example behavior in <a href="#fig:guide_sim_nonconcurrent" data-reference-type="ref+label" data-reference="fig:guide_sim_nonconcurrent">1</a> starts out as a non-concurrent sequence of a short walk and two arm motions.
+Now we’ll change it so the arm motions are scheduled during the walk.
+In <a href="#fig:guide_sim_concurrent_waits" data-reference-type="ref+label" data-reference="fig:guide_sim_concurrent_waits">2</a>, we add two wait actions, one for 1 second and one for 2.5 seconds.
+These waits are used to schedule the arm motions.
+We’ll move the right arm 1 second into the walk and the left arm 2.5 seconds into the walk.</p>
+<figure id="fig:guide_sim_concurrent_execute_after">
+<img src="media/guide/2026-04-28 23-14-10_ConcurrentLayeringDemonstration-00.00.45.014.jpg" />
+<figcaption>Setting the execute after fields of the arm actions to point to the wait actions.
+A video of this demonstration is available at <a href="https://youtu.be/D53dKL-pgeo" class="uri">https://youtu.be/D53dKL-pgeo</a>.</figcaption>
+</figure>
+<p>The wait actions need to execute with the walk action, not after it.
+To accomplish this, we set the execute after fields of the wait actions to the “ConcurrencyDemo.json” sequence node.
+The sequence node is never executing, but pointing to it achieves the effect that the wait actions always start with the walk action.
+This method also keeps the sequence logic self contained and reusable, as opposed to referencing a specific node earlier than the sequence node.
+We then set the execute after field of the right arm action to the first wait action and the execute after field of the left arm action to the second wait action.
+In <a href="#fig:guide_sim_concurrent_execute_after" data-reference-type="ref+label" data-reference="fig:guide_sim_concurrent_execute_after">3</a>, we show setting the execute after field of the second arm action to the second wait action.</p>
+<p>The figure also shows the execute after pointers as arrows on the right side of the tree view that point up from the defining action to the dependency action.
+You can see four such arrows that overlap.
+When the mouse hovers over a node, the corresponding arrow boldens to make it easy to verify dependencies when they are partially overlapping.
+At this point in time, the timeline view is updated to show the general structure of the new behavior configuration.
+In this prototype implementation of the timeline view, all wait actions are rendered as 1 second long.
+When we run the behavior, the timeline is redrawn with the actual timings.
+We will do that now.</p>
+<h2 id="concurrent-result"><a class="header" href="#concurrent-result">Concurrent Result</a></h2>
+<figure id="fig:guide_sim_concurrent_result">
+<img src="media/guide/2026-04-28 23-14-10_ConcurrentLayeringDemonstration-00.01.02.903.jpg" />
+<figcaption>The concurrently executed result.
+A video of this demonstration is available at <a href="https://youtu.be/D53dKL-pgeo" class="uri">https://youtu.be/D53dKL-pgeo</a>.</figcaption>
+</figure>
+<p>In <a href="#fig:guide_sim_concurrent_result" data-reference-type="ref+label" data-reference="fig:guide_sim_concurrent_result">4</a>, we show the result of executing our now concurrent behavior.
+The timeline has been updated to reflect the actual action start and stop times of the simulated behavior execution.
+As seen by comparing this timeline to the original, the behavior duration went from 11.7 seconds to 7.6 seconds, illustrating how this method can be used to speed up behaviors.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="screw-primitives"><a class="header" href="#screw-primitives">Screw Primitives</a></h1>
+<h2 id="motion-model"><a class="header" href="#motion-model">Motion Model</a></h2>
+<figure id="fig:guide_sim_screw_primitive">
+<img src="media/guide/20260519_161800_ScrewPrimitive.jpg" />
+<figcaption>Tuning a screw primitive action.
+A video of this demonstration is available at <a href="https://youtu.be/NkX0Jo9TlYs" class="uri">https://youtu.be/NkX0Jo9TlYs</a>.</figcaption>
+</figure>
+<p><a href="#fig:guide_sim_screw_primitive" data-reference-type="ref+label" data-reference="fig:guide_sim_screw_primitive">1</a> shows a screw primitive action being authored.
+Our screw primitive action is inspired by Pettinger’s 2022 paper but differs in implementation.</p>
+<p>Our screw primitive action is defined relative to a user-defined screw reference frame, where the axis of the screw is strictly aligned with the local x-axis (\(\hat{\mathbf{x}}\)).
+The motion is parameterized by a total axial translation \(\Delta x\) and a total rotation \(\Delta \theta\).
+<a href="#fig:guide_sim_screw_primitive" data-reference-type="ref+label" data-reference="fig:guide_sim_screw_primitive">1</a> illustrates one parameterization for reference and the reference video shows varied parameterizations.</p>
+<p>Let the initial position of the end-effector in the screw frame be \(\mathbf{p}_0 = [x_0, y_0, z_0]^T\).
+The radial distance \(r\) from the screw axis to the end-effector is calculated by projecting the position onto the y-z plane:
+$$
+r = \sqrt{y_0^2 + z_0^2}
+$$</p>
+<p>To compute motion bounds, the total Euclidean distance traversed by the end-effector, \(D\), combines both the axial displacement and the tangential arc length:
+$$
+D = \sqrt{(r \Delta \theta)^2 + (\Delta x)^2}
+$$</p>
+<p>The trajectory duration is determined by enforcing maximum velocity limits.
+Given a maximum linear velocity \(v_{max}\) and maximum angular velocity \(\omega_{max}\), the base duration \(T_{base}\) required to complete the motion is dominated by the most restrictive bound:
+$$
+T_{base} = \max\left( \frac{|\Delta \theta|}{\omega_{max}}, \frac{D}{v_{max}} \right)
+$$</p>
+<p>The trajectory is discretized into \(N\) waypoints (where \(N\) is limited by the system’s trajectory buffer size), yielding \(N-1\) segments.
+The nominal duration of a single segment is:
+$$
+\delta t = \frac{T_{base}}{N - 1}
+$$</p>
+<p>To account for smooth acceleration and deceleration without requiring complex spline generation, the implementation applies a temporal boundary condition: the duration of the first and last trajectory segments is doubled (i.e., \(2\delta t\)), while all intermediate segments retain duration \(\delta t\).
+Consequently, the total movement duration expands to \(T = T_{base} + 2\delta t\).</p>
+<h2 id="trajectory-construction"><a class="header" href="#trajectory-construction">Trajectory Construction</a></h2>
+<p>The trajectory maintains constant base velocities throughout the central portion of the motion.
+The scalar velocities are derived from the base duration:</p>
+<ul>
+<li>
+<p>Axial velocity: \(v_a = \frac{\Delta x}{T_{base}}\)</p>
+</li>
+<li>
+<p>Tangential velocity: \(v_t = \frac{r \Delta \theta}{T_{base}}\)</p>
+</li>
+<li>
+<p>Rotational velocity: \(\omega_x = \frac{\Delta \theta}{T_{base}}\)</p>
+</li>
+</ul>
+<p>At any intermediate waypoint \(i\), let the current position of the end-effector in the screw frame be \(\mathbf{p}_i = [x_i, y_i, z_i]^T\). The purely radial vector is \(\mathbf{r}_{\perp, i} = [0, y_i, z_i]^T\).</p>
+<p>The unit tangent vector \(\mathbf{u}_{t,i}\) describing the instantaneous direction of rotation is found via the cross product of the screw axis and the radial vector:
+$$
+\mathbf{u}_{t,i} = \frac{\hat{\mathbf{x}} \times \mathbf{r}_{\perp, i}}{|\hat{\mathbf{x}} \times \mathbf{r}_{\perp, i}|}
+$$</p>
+<p>The spatial velocity commands at waypoint \(i\), expressed in the local screw frame, are formulated as:
+$$
+\mathbf{v}_i = v_a \hat{\mathbf{x}} + v_t \mathbf{u}_{t,i}
+$$
+$$
+\boldsymbol{\omega}_i = \omega_x \hat{\mathbf{x}}
+$$
+Note that for the initial (\(t=0\)) and final (\(t=T\)) waypoints, the spatial velocities are strictly clamped to zero.</p>
+<p>The rigid-body poses are iteratively generated by applying incremental transformations in the screw frame. For \(K\) total segments (determined by spatial resolution limits), the incremental roll rotation \(\delta \theta = \Delta \theta / K\) and translation \(\delta x = \Delta x / K\) are calculated.</p>
+<p>The pose of the end-effector at step \(k\), denoted as \(\mathbf{T}_k \in SE(3)\), is generated by prepending the incremental transformation to the previous pose:
+$$
+\mathbf{T}_k = \mathbf{T}_{k-1} \begin{bmatrix} \mathbf{R}_x(\delta \theta) &amp; \begin{bmatrix} \delta x \ 0 \ 0 \end{bmatrix} \ \mathbf{0}^T &amp; 1 \end{bmatrix}
+$$
+This sequence of generated poses and spatial velocities is finally fed into an inverse kinematics solver to compute the joint-space trajectories.</p>
+<h2 id="tuning-and-preview"><a class="header" href="#tuning-and-preview">Tuning and Preview</a></h2>
+<p>As seen in <a href="#fig:guide_sim_screw_primitive" data-reference-type="ref+label" data-reference="fig:guide_sim_screw_primitive">1</a>, the total axial translation, total rotation, max linear velocity, and max angular velocity can be specified using sliders.
+The 3D trajectory visualization is updated in real time as the user drags these sliders to help dial in the motion.
+As with the single pose trajectory arm action, the screw primitive has settings for the position and orientation tolerance.
+If the final goal pose is not reached within these tolerances, the action fails.</p>
+<p>In order to provide a rich intuition about the motion, there is also a motion preview slider for the screw primitive.
+The slider may be dragged manually or played back at real time speed in a loop.
+The arm is blue when the IK solution is good and red when it is bad.
+The behavior author should strive to keep it blue throughout the motion.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="behavior-scene-management-example"><a class="header" href="#behavior-scene-management-example">Behavior Scene Management Example</a></h1>
+<h2 id="scene-setup"><a class="header" href="#scene-setup">Scene Setup</a></h2>
+<figure id="fig:guide_sim_scene_action">
+<img src="media/guide/2026-04-29 09-06-34_BehaviorSceneDemo-00.00.01.588.jpg" />
+<figcaption>The beginning of our behavior scene demonstration.
+A video of this demonstration is available at <a href="https://youtu.be/GN0_XoBxlv4" class="uri">https://youtu.be/GN0_XoBxlv4</a>.</figcaption>
+</figure>
+<p>In the next example, we’ll cover basic behavior scene management by locking on to a tennis ball and authoring a grasp approach arm pose.
+The point of our behavior scene functionality is to provide authorable perception which can increase the capability and adaptability of the robot-human team.
+Authorable perception allows the human operator to encode context-specific and expert knowledge into the behavior.
+The flexibility provided here can be used to work around several categories of issues both theoretical and practical and both environmental and digital.
+Some examples of issues are: the hand occluding an object, a YOLO model having low confidence, and a latency or timing issue in the system.</p>
+<p><a href="#fig:guide_sim_scene_action" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action">1</a> shows an example setting being played back in simulation but from a real data recording.
+The real environment contains a table with some transparent storage containers and tennis balls on it.
+An extension cord is on the table to prevent the balls from rolling off when the robot messes with them.</p>
+<p>On the left side of the figure, we see the behavior tree view with a look down action to get the table centered in the camera field of view and two scene actions, denoted by the clapperboard icon inspired by the film industry.
+In the bottom left, some scene action settings for the “configure YOLO” action type are shown.
+In the top center is the 3D scene with a live colored point cloud from the ZED and 3D coordinate frames for the current stable detections.
+The bottom center shows the first person ZED camera view with the YOLO detections and segmentations drawn over it.
+The detections are annotated with the class name and the confidence of the detection.
+In the top right, the behavior scene is shown with no privileged objects yet but with 3 stable detections: storage container, bottle, and robot hand.
+Finally, in the bottom right, our YOLO module is able to be turned on and off and each available mode is shown, which can each be toggled on and off and expanded to tune class specific options.</p>
+<h2 id="yolo-configuration"><a class="header" href="#yolo-configuration">YOLO Configuration</a></h2>
+<p>One of the first things we notice here is that the tennis ball is being detected as a bottle.
+This is because the initial YOLO model that is enabled, “best_multi_02_17_2026”, is one that we trained only for a specific set of classes which do not include the tennis ball.
+We aren’t sure why it’s detecting the ball as a bottle at 87% confidence.
+In any case, to fix this, as shown in <a href="#fig:guide_sim_scene_action" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action">1</a>, we author a scene action with type <code>CONFIGURE_YOLO</code> to switch the YOLO model to the “yolov8n-seg” model.
+Additionally, we disable all classes except for the “sports ball” class by unchecking the “Enabled” checkbox next to where it says “UNIVERSAL ADJUSTER”.
+Then, we scroll to find the sports ball row and check that box.</p>
+<p>Unfortunately, the yolov8n-seg model isn’t very confident in detecting our tennis balls.
+To work around this, on the sports ball row, we lower the minimum “Confidence” value from 0.7 to 0.1.
+The minimum confidence value acts as a gating filter for detections to be allowed into the persistent detections.
+Lowering this value allows us to track the tennis balls at super low confidence levels.
+This is okay because we can use this configure YOLO action to adjust the minimum confidence of each class individually.
+In behaviors that grasp tennis balls, we make the low confidence threshold safe by requiring each tennis ball object to be within a reachable boundary before grasping it.</p>
+<p>The configure YOLO action also supports enabling multiple YOLO models at once.
+The behavior author picks the set of YOLO models that will be available at this time and all the class settings for each.
+This is useful because sometimes we want to perform tasks involving objects which are detected by different YOLO models.</p>
+<h2 id="persistent-detections"><a class="header" href="#persistent-detections">Persistent Detections</a></h2>
+<figure id="fig:guide_sim_scene_action_persistent_detections">
+<img src="media/guide/2026-04-29 09-06-34_BehaviorSceneDemo-00.00.14.294.jpg" />
+<figcaption>The behavior scene demonstration, after configuring YOLO, we are now configuring persistent detections.
+Persistent detections are referred to in the user interface as "Stable Detections", as we only show the stable ones.
+A video of this demonstration is available at <a href="https://youtu.be/GN0_XoBxlv4" class="uri">https://youtu.be/GN0_XoBxlv4</a>.</figcaption>
+</figure>
+<p>Another thing we want to do is configure the persistent detection parameters themselves.
+This is accomplished via the <code>CONFIGURE_PERSISTENT_DETECTIONS</code> scene action type, seen in <a href="#fig:guide_sim_scene_action_persistent_detections" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action_persistent_detections">2</a>.
+There are four parameters for the persistent detections: pose filter alpha, acceptance confidence, stability frequency, and history duration.
+<a href="#fig:persistent-detection-lifecycle" data-reference-type="ref+label" data-reference="fig:persistent-detection-lifecycle">3</a> illustrates the instant and persistent detection management process, which happens continuously in the behavior scene.</p>
+<div class="singlespace">
+<figure id="fig:persistent-detection-lifecycle">
+<figcaption>Lifecycle of persistent detections in the behavior scene. New instantaneous detections are greedily associated to existing persistent detections by comparing detector type, semantic class, and a fixed spatial gate. Unmatched detections spawn new persistent detections initialized with the configured filtering and temporal parameters.</figcaption>
+</figure>
+</div>
+
+<p>The parameter \(\alpha\) is the pose filter coefficient used when initializing each persistent detection, \(c_{acc}\) is the acceptance confidence threshold, \(f_{stab}\) is the required stability frequency, and \(T_{hist}\) is the history duration maintained by the persistent detection.</p>
+<p>For the tennis balls, we set the acceptance confidence threshold to 0.1 and the stability frequency to 0.5 and execute the scene action.
+The result is shown in <a href="#fig:guide_sim_scene_action_persistent_detections" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action_persistent_detections">2</a> where 3 sports balls are tracked as persistent detections.
+Note the confidence levels are not too bad in this case at around 50–60% and the 3 labelled coordinate frames are shown in the 3D view.</p>
+<h2 id="setting-up-an-object"><a class="header" href="#setting-up-an-object">Setting up an Object</a></h2>
+<figure id="fig:guide_sim_scene_action_ball">
+<img src="media/guide/2026-04-29 09-06-34_BehaviorSceneDemo-00.00.41.452.jpg" />
+<figcaption>The behavior scene demonstration, after configuring persistent detections and setting up a sports ball object.
+A video of this demonstration is available at <a href="https://youtu.be/GN0_XoBxlv4" class="uri">https://youtu.be/GN0_XoBxlv4</a>.</figcaption>
+</figure>
+<p>Now that our list of stable persistent detections is populated, we will use a <code>SETUP_OBJECT</code> scene action to “lock on” to the closest tennis ball.
+In <a href="#fig:guide_sim_scene_action_ball" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action_ball">4</a> you can see we’ve added a scene action node called “Lock Onto Sports Ball”.
+In the settings area for that node, we’ve selected the <code>SETUP_OBJECT</code> type, the yolov8n-seg YOLO model, and the sports ball YOLO class.
+A timeout setting is also available.
+Because there may not be matching stable detections in the scene when this action is run, the timeout is a way to wait for one.
+The setup object scene action will wait up to the timeout while continuously searching for a match.
+If it finds one, the action will immediately complete successfully.
+Else, the action will fail when the timeout is reached.
+A minimum history size setting is available to further filter our selection of persistent detections.
+A shorter history size increases responsiveness but increases the risk of false positives and a longer history time requires tracking an object for longer before it becomes an object candidate.</p>
+<p>The setup object scene action, when successful, creates or updates an “object”.
+Our concept of an object does not have to be an actual object, even though it often is.
+They are privileged maintainers of reference frames that are subsequently usable for action definitions.
+There are two types of objects: direct and derived.
+The types are shown in <a href="#fig:setup-object-types" data-reference-type="ref+label" data-reference="fig:setup-object-types">5</a>.
+The derived types allow us to model articulated objects like doors and implement heuristic environmental feature extraction, such as for table edges.</p>
+<div class="singlespace">
+<figure id="fig:setup-object-types">
+<figcaption>Scene object types supported by the <code>SETUP_OBJECT</code> scene action. Direct objects are based on persistent detections, whereas derived objects are constructed from named frames, paired detections, or depth-based geometric calculations.</figcaption>
+</figure>
+</div>
+
+<p><a href="#fig:guide_sim_scene_action_ball" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action_ball">4</a> also shows the result of executing the setup object scene action.
+In the top right, a sports ball can be seen in the “Objects:” area.
+For each object, we show its world frame pose information and any referenced persistent detections.
+Here we can see the YOLOv8 persistent detection that’s attached.
+That persistent detection is still in the stable detections list, too – it doesn’t get removed.
+However, when a persistent detection attached to an object stops tracking, unlike in the stable detections area, it doesn’t get removed.
+Instead, it renders as grayed out but is still usable by behavior actions in its last seen pose.
+A larger coordinate frame is shown for the sports ball object in the 3D view.</p>
+<h2 id="freezing-scene-objects"><a class="header" href="#freezing-scene-objects">Freezing Scene Objects</a></h2>
+<figure id="fig:guide_sim_scene_action_freeze">
+<img src="media/guide/2026-04-29 09-06-34_BehaviorSceneDemo-00.01.07.672.jpg" />
+<figcaption>The behavior scene demonstration, after freezing the sports ball object.
+A video of this demonstration is available at <a href="https://youtu.be/GN0_XoBxlv4" class="uri">https://youtu.be/GN0_XoBxlv4</a>.</figcaption>
+</figure>
+<p>Another scene action type is <code>FREEZE_OBJECT</code>.
+Freezing an object disables its pose from being updated, causing it to stay in place with respect to world frame regardless of further perceptual tracking.
+The ability to freeze an object at any point in the course of a behavior is important for manipulation and dead reckoning.</p>
+<p>When grasping an object, it’s best to freeze it just before occluding it in any way.
+This is because partial occlusion can corrupt the object’s pose at the time when it matters most.
+For example, we usually have several pre-grasp hand poses with a freeze in between.
+The first pre-grasp gets the hand as close as possible without occluding the object.
+The second pre-grasp pose gets the hand where the fingers can grab the object.
+It’s best to put a freeze action between these two.</p>
+<p>The reason the pose will be corrupted is because our YOLO detections contain the 3D depth points that lie in the segmentation area.
+A YOLO persistent detection is posed at the position of the centroid of those depth points.
+If part of the object is occluded, the segmentation will be cropped, causing the centroid to move away from the hand.
+As the hand closes in on the object, the position of the object can vary drastically, depending on the shape of the object, the hand, and the viewpoint.</p>
+<p>Freezing objects can also be useful for dead reckoning with respect to objects that were seen in the past.
+For example, our door traversal footstep plan is authored with respect to the door frame, which is ultimately based on the detection of the door opening mechanism which we can usually no longer see or choose not to see after the door opening.
+The frozen frame from the handle pre-grasp is usually used throughout the remainder of the behavior.</p>
+<p>Setting up a freeze scene action is easy.
+As shown in <a href="#fig:guide_sim_scene_action_freeze" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action_freeze">6</a>, we created a scene action named “Freeze Sports Ball”, set the action type to <code>FREEZE_OBJECT</code>, and set the YOLO model and class for the sports ball.
+When executed, if there is a matched object in the list, it is frozen; otherwise it will wait until the timeout and fail if there is still no match.
+In the top right of <a href="#fig:guide_sim_scene_action_freeze" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action_freeze">6</a>, you can see the sports ball object is now marked as “FROZEN”.</p>
+<h2 id="other-scene-action-types"><a class="header" href="#other-scene-action-types">Other Scene Action Types</a></h2>
+<p>There are a few other simple scene action types at the moment.
+<code>DELETE_OBJECT</code> removes a matched object from the list and from being available for actions.
+<code>CLEAR_SCENE</code> removes all objects from the list.
+<code>FREEZE_SCENE</code> freezes every object in the scene.
+<code>CONFIGURE_FOUNDATION_POSE</code> is an unimplemented placeholder for configuring FoundationPose.</p>
+<h2 id="authoring-a-frame-based-arm-action"><a class="header" href="#authoring-a-frame-based-arm-action">Authoring a Frame Based Arm Action</a></h2>
+<figure id="fig:guide_sim_scene_action_arm">
+<img src="media/guide/2026-04-29 09-06-34_BehaviorSceneDemo-00.01.28.860.jpg" />
+<figcaption>The behavior scene demonstration, authoring an arm action with respect to a sports ball.
+A video of this demonstration is available at <a href="https://youtu.be/GN0_XoBxlv4" class="uri">https://youtu.be/GN0_XoBxlv4</a>.</figcaption>
+</figure>
+<p>Now that we have locked onto a sports ball, we’ll show how to move the arm with respect to it.
+We’ll go over a full grasp sequence later in the real robot example.
+In <a href="#fig:guide_sim_scene_action_arm" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action_arm">7</a>, we’ve added an arm action.
+When using the taskspace mode, as opposed to the “Use Predefined Joint Angles” mode, there is a “Parent frame” drop down.
+The list of available frames includes a frame for each privileged object in the scene.
+In this case, it’s just the sports ball.
+We select the sports ball from the list and that’s it!
+The action is now defined as a hand pose relative to the object.</p>
+<p>For position-only objects like the YOLO sports ball, we use the orientation of the robot’s chest so frame relative actions are always valid for the robot’s current approach angle.
+In <a href="#fig:guide_sim_scene_action_arm" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action_arm">7</a>, the sports ball frame is frozen, but when objects are not frozen and actively tracked, the arm goal pose will continuously update based on the objects current pose.
+The inverse kinematics solution for the arm will likewise continuously update and be displayed in the 3D view.</p>
+<p>When we save this behavior, the JSON will contain an object relative translation and rotation with respect to the object.
+This makes the action reusable for later runs and future instances of this object.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="door-traversal-footstep-plan-example"><a class="header" href="#door-traversal-footstep-plan-example">Door Traversal Footstep Plan Example</a></h1>
+<figure id="fig:guide_real_footstep_authoring">
+<img src="media/guide/2026-03-26 17-54-44_BreakRoom_AuthoringFootsteps-00.00.05.332.jpg" />
+<figcaption>A demonstration of re-authoring a footstep plan online.
+A video of this demonstration is available at <a href="https://youtu.be/YcX_Big6__Y" class="uri">https://youtu.be/YcX_Big6__Y</a>.</figcaption>
+</figure>
+<p>In this section we’ll recount an online, real robot session where we re-authored a set of door traversal footsteps.
+In <a href="#fig:guide_real_footstep_authoring" data-reference-type="ref+label" data-reference="fig:guide_real_footstep_authoring">1</a>, the robot is situated in front of a doorway and an existing footstep plan action is selected.
+At this point, we had tried executing this footstep plan a couple of times, but fell on each attempt.
+Since this footstep plan was designed to be robust in the presence of a spring closer, it has an overly difficult side stepping sequence in the beginning.
+In this case, the door was open and didn’t have a spring closer, so in the interest of task success we decided to re-author an easier to execute footstep plan on the spot.</p>
+<h2 id="manually-defining-a-footstep-plan"><a class="header" href="#manually-defining-a-footstep-plan">Manually Defining a Footstep Plan</a></h2>
+<p>In the walk action settings for the “Manually place steps” mode, there are several features that allow the operator to manage the footstep plan.
+To enter the editing mode, which makes the feet graphics selectable in the 3D view with gizmos, the “Edit Manually Placed Steps” box is checked.
+The settings area displays the current number of footsteps in the plan as a verification component and to be sure there isn’t one off the screen somewhere.
+On the next line, there are buttons to append a left or right footstep to the end of the plan.
+There is also a button to remove the last step of the plan.
+These editor features are simplistic but enough to get the job done.</p>
+<figure id="fig:guide_real_footstep_authoring_first_step">
+<img src="media/guide/2026-03-26 17-54-44_BreakRoom_AuthoringFootsteps-00.00.28.365.jpg" />
+<figcaption>Adding the first step of a manual footstep plan.
+A video of this demonstration is available at <a href="https://youtu.be/YcX_Big6__Y" class="uri">https://youtu.be/YcX_Big6__Y</a>.</figcaption>
+</figure>
+<p>To clear the plan, we first click the remove last button a bunch of times until the plan is empty.
+Then, we click the “Right” button to add a right footstep to the plan.
+We click the footstep in the 3D view and move it to the desired location using the gizmo, as seen in <a href="#fig:guide_real_footstep_authoring_first_step" data-reference-type="ref+label" data-reference="fig:guide_real_footstep_authoring_first_step">2</a>.
+This process is repeated until the plan is complete.
+The completed door traversal footstep plan can be seen in <a href="#fig:guide_real_footstep_authoring_complete" data-reference-type="ref+label" data-reference="fig:guide_real_footstep_authoring_complete">3</a>.
+This plan took about 1 minute and 30 seconds to create.</p>
+<figure id="fig:guide_real_footstep_authoring_complete">
+<img src="media/guide/2026-03-26 17-54-44_BreakRoom_AuthoringFootsteps-00.02.11.161.jpg" />
+<figcaption>A fully authored manual footstep plan that was executed successfully by the robot.
+A video of this demonstration is available at <a href="https://youtu.be/YcX_Big6__Y" class="uri">https://youtu.be/YcX_Big6__Y</a>.</figcaption>
+</figure>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="fallback-mechanism-example"><a class="header" href="#fallback-mechanism-example">Fallback Mechanism Example</a></h1>
+<figure id="fig:guide_sim_fallback">
+<img src="media/guide/2026-04-28 20-10-14_FallbackMechanismDemo-00.00.52.192.jpg" />
+<figcaption>The beginning of our fallback node demonstration.
+A video of this demonstration is available at <a href="https://youtu.be/mw4z4H4K9o0" class="uri">https://youtu.be/mw4z4H4K9o0</a>.</figcaption>
+</figure>
+<p>Now we will cover fallback node operation.
+A fallback node is like an if-else statement, but since the if condition evaluation is performing an action, we call it a try-catch.
+A fallback node therefore has two parts: the try and the catch.
+Each part can contain one or more actions, however, unlike a Behavior Tree fallback node from the literature, our fallback node has only one try clause and the catch clause is just an action sequence of unlimited length.</p>
+<p>We also support concurrent actions in the fallback node.
+To do this, we expand the try to contain the first concurrent action set.
+This could be one or more actions with the rule that they must execute together.
+If any action of the concurrent sequence fails, the try fails and the catch is executed once all try nodes are finished executing.
+Else, if the entire concurrent try set succeeds, the catch is skipped and the node after the fallback is next for execution.</p>
+<p>Our fallback node does not currently support nesting, but supporting it would be a desirable improvement.
+Nesting try-catch blocks could increase behavior expressiveness.
+In general, it would be good to look through the most used mechanisms in programming language and think about how they could be included as runtime-editable behavior elements.</p>
+<p>In <a href="#fig:guide_sim_fallback" data-reference-type="ref+label" data-reference="fig:guide_sim_fallback">1</a>, we have started on a fallback example demonstration, where we have added a fallback node and a try node.
+In this demonstration, we want to check if the right hand is raised to a certain position and raise it if it isn’t.
+Once the hand is raised, we will yaw the spine.
+To check the hand position, we have added a “shape contains” condition node as the try action and named it “Check hand”.</p>
+<h2 id="condition-nodes"><a class="header" href="#condition-nodes">Condition Nodes</a></h2>
+<p>We currently have six types of condition nodes: <code>ALWAYS_FAIL</code>, <code>ALWAYS_SUCCEED</code>, <code>COUNTER</code>, <code>LLM</code>, <code>PROXIMITY</code>, and <code>SHAPE_CONTAINS</code>.
+A condition node is different from an action in that it does not directly perform an action, but instead is responsible for making a decision resulting in success or failure.
+Success and failure for a condition node, however, have the same effect on behavior execution as actions: if the node succeeds, the behavior keeps going and, if the node fails, it halts execution by disabling autonomous mode.
+The exception is that when a node fails in the try part of a fallback node, the behavior keeps going by executing the catch.</p>
+<p>The “always succeed” and “always fail” condition node types are useful for testing and operation.
+The “always fail” node is especially useful if you want to test out a part of the behavior in autonomous mode but have it stop at a certain point.
+In this case, we’ll often add a temporary “always fail” condition node named “STOP”, as we did in <a href="#sec:wait_nodes_dependencies" data-reference-type="ref+label" data-reference="sec:wait_nodes_dependencies">[sec:wait_nodes_dependencies]</a>.</p>
+<p>The counter node maintains a persistent count and a tunable limit.
+Each time it is executed, the count is increased.
+If the count reaches the limit, the counter condition node fails.</p>
+<p>The LLM condition node provides the ability to query a large language model to determine success or failure.
+It has an authorable system prompt, repeated prompt, and boolean response matcher.
+We covered the LLM node in more detail near <a href="#fig:2025_llm_condition_node" data-reference-type="ref+label" data-reference="fig:2025_llm_condition_node">[fig:2025_llm_condition_node]</a>.</p>
+<p>The proximity node checks the distance between two behavior reference frames.
+If the distance is between the tunable minimum and maximum, the condition succeeds.
+We also covered the proximity node in some more detail near <a href="#fig:2025_proximity_condition" data-reference-type="ref+label" data-reference="fig:2025_proximity_condition">[fig:2025_proximity_condition]</a>.</p>
+<p>For this example, we’ll use the shape contains condition node to check that the right hand frame is within the bounds of a sphere.
+In <a href="#fig:guide_sim_fallback" data-reference-type="ref+label" data-reference="fig:guide_sim_fallback">1</a>, our shape contains condition node is selected with the settings showing in bottom left.
+There are two modes for the shape contains condition: contains frame and contains points.
+We’ll be using contains frame in this example, but the contains points functionality, which counts the number of live point cloud points in the virtual shape, is covered near <a href="#fig:alex_shape_contains_condition" data-reference-type="ref+label" data-reference="fig:alex_shape_contains_condition">[fig:alex_shape_contains_condition]</a>.</p>
+<h2 id="shape-contains-frame-condition"><a class="header" href="#shape-contains-frame-condition">Shape Contains Frame Condition</a></h2>
+<p>In <a href="#fig:guide_sim_fallback" data-reference-type="ref+label" data-reference="fig:guide_sim_fallback">1</a>, you’ll see there are four main settings for the shape contains frame functionality.
+The shape parent frame, the shape pose, the sphere radius, and the frame to check containment of.
+We allow defining the shape’s pose with respect to any robot or object frame just like we do for actions.
+Checking the “Adjust Shape Pose” box enables the shape to be moved in the 3D view with a pose gizmo, as shown in the figure.
+Currently, just spheres are supported, but adding more types of shapes would be a good improvement.</p>
+<figure id="fig:guide_sim_fallback_arm">
+<img src="media/guide/2026-04-28 20-10-14_FallbackMechanismDemo-00.01.09.399.jpg" />
+<figcaption>Adding an arm action to the fallback catch.
+A video of this demonstration is available at <a href="https://youtu.be/mw4z4H4K9o0" class="uri">https://youtu.be/mw4z4H4K9o0</a>.</figcaption>
+</figure>
+<p>Pairing this condition node with our fallback gives us a mechanism to react to an unknown state, like where the hand is.
+To robustify our behavior and apply corrective action if the hand is not where we want it, we will now add am arm action to the fallback catch, as shown in <a href="#fig:guide_sim_fallback_arm" data-reference-type="ref+label" data-reference="fig:guide_sim_fallback_arm">2</a>.
+When we add the catch action, because it is not concurrent with the condition in the try, we see a thin horizontal line in the tree editor.
+This line, between the “Check hand” and “Arm action” nodes, shows us where the try-catch delineation is.</p>
+<h2 id="the-goto-node"><a class="header" href="#the-goto-node">The Goto Node</a></h2>
+<figure id="fig:guide_sim_fallback_while">
+<img src="media/guide/2026-04-28 20-10-14_FallbackMechanismDemo-00.01.19.837.jpg" />
+<figcaption>Adding a goto node to implement a while loop.
+A video of this demonstration is available at <a href="https://youtu.be/mw4z4H4K9o0" class="uri">https://youtu.be/mw4z4H4K9o0</a>.</figcaption>
+</figure>
+<p>To show how you can implement while-loop-like behavior, we add a goto node after the arm action in the fallback catch, as shown in <a href="#fig:guide_sim_fallback_while" data-reference-type="ref+label" data-reference="fig:guide_sim_fallback_while">3</a>.
+The goto node has a goto field that refers to another node by name.
+When the goto node is executed, the next execution index is set to that node.
+Here we have selected the “Fallback node” as the node to goto, which is a general way of saying to reexecute the try, as the “Fallback node” is a control node, not an action.
+When we point to control nodes, it’s effectively the same as pointing to the next action.</p>
+<p>Since we want to be able to save this goto reference by name in the JSON, there is the possibility of ambiguity in the node’s name.
+To handle the case when there are multiple nodes of the same name in the tree, we search for the node to goto by proximity to the goto node.
+The closest matching node is chosen with levels of priority: children recursively come first, then siblings, then parents recursively.
+Our choice of priority is somewhat arbitrary.
+We recommend using unique node names where possible to avoid this ambiguity.</p>
+<h2 id="reactive-fallback-demonstration"><a class="header" href="#reactive-fallback-demonstration">Reactive Fallback Demonstration</a></h2>
+<figure id="fig:guide_sim_fallback_end">
+<img src="media/guide/2026-04-28 20-10-14_FallbackMechanismDemo-00.01.45.770.jpg" />
+<figcaption>Completing our fallback demonstration by reactively moving the arm to the correct location and executing the spine yaw motion.
+A video of this demonstration is available at <a href="https://youtu.be/mw4z4H4K9o0" class="uri">https://youtu.be/mw4z4H4K9o0</a>.</figcaption>
+</figure>
+<p>Finally, we add our spine action to turn the spine 17 degrees to the left as shown in <a href="#fig:guide_sim_fallback_end" data-reference-type="ref+label" data-reference="fig:guide_sim_fallback_end">4</a>.
+Notice this node is not a child of the fallback node, but a sibling.
+We run through the behavior in the manual mode, inspecting the flow of execution.
+We run check hand, it fails, then the arm action runs to move the hand into the correct location.
+The goto node causes us to re-evaluate the check, which now succeeds, sending us on to the spine action, which executes successfully.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="real-robot-example-repeated-door-opening"><a class="header" href="#real-robot-example-repeated-door-opening">Real Robot Example: Repeated Door Opening</a></h1>
+<p>In this final section of the usage guide, we’ll walk through a real robot authoring session in which we created a repeated door opening behavior from scratch in 32 minutes.
+For this experiment, we used the Unitree H1-2 robot.
+At the end of the authoring phase, we immediately entered a reliability test where we performed over 30 successful door openings with continuous autonomy.
+We didn’t run it until failure, just until we got bored.</p>
+<h2 id="starting-things-up"><a class="header" href="#starting-things-up">Starting Things Up</a></h2>
+<p>Starting things up typically requires powering on the robot and the operator computer.
+In this guide we’ll assume the robot is tetherless but starts on a hoist to get it into its initial standing state.
+We’ll assume powering on the robot will also power the computers and that they turn on and that the motors have power.</p>
+<p>After the robot’s on-board computers have started, we will deploy the latest version of the control and autonomy software if necessary.
+Once that is done, we launch the control and autonomy code on the robot via an SSH command line session and start the robot operator interface.
+The next step is to set the robot down and transition the controller to walking.
+We have a stand prep state and a walking state, with buttons in the operator interface to perform those transitions.</p>
+<h2 id="standing-and-the-operator-interface"><a class="header" href="#standing-and-the-operator-interface">Standing and the Operator Interface</a></h2>
+<figure id="fig:guide_unitree_initial_setup">
+<img src="media/unitree/2026-01-02_16-31-39_AuthoringRightPullLeverLoopingBehaviorFromScratch-00.05.03.061.jpg" />
+<figcaption>The initial state of the application after we’ve started the robot and the controller and autonomy processes and created a blank initial behavior action sequence.
+A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https://youtu.be/7VGFufJWaR4</a>.
+</figcaption>
+</figure>
+<p>The robot should now be standing, and the operator interface should be showing the robot state and perception data.
+It should look like <a href="#fig:guide_unitree_initial_setup" data-reference-type="ref+label" data-reference="fig:guide_unitree_initial_setup">1</a>.
+At this point we check a couple of things to make sure everything is ready to go:</p>
+<ol>
+<li>
+<p>The robot visualizer is enabled via the checkbox, the robot is visible in the 3D scene, and the update frequency is as expected, in this case 100 Hz.</p>
+</li>
+<li>
+<p>YOLOv8 is enabled with the checkbox and is running at some frequency in the 5-20 Hz range.</p>
+</li>
+<li>
+<p>The ZED X Mini colored point cloud is enabled with the checkbox, is running at  30 Hz and is being updated in the 3D scene.</p>
+</li>
+<li>
+<p>The YOLO annotated image is showing, with any detections shown that you would expect, in this case, the door lever and that it is at the expected confidence level.</p>
+</li>
+<li>
+<p>The behavior tree view shows the synchronization frequency at around 30 Hz.</p>
+</li>
+<li>
+<p>Stable detections appear for the YOLO detections in the scene panel.</p>
+</li>
+</ol>
+<p>To start, we’ve created sequence nodes for our door opening behavior, with the top level being saved to JSON with the “*.json” extension.
+Saving the behavior frequently is important to avoid losing work.
+We’ve also loaded the go home skill as a convenient way to reset the robot when we need to.</p>
+<h2 id="the-ability-hand-action"><a class="header" href="#the-ability-hand-action">The Ability Hand Action</a></h2>
+<figure id="fig:guide_unitree_hand">
+<img src="media/guide/2026-01-02_16-31-39_AuthoringRightPullLeverLoopingBehaviorFromScratch-00.06.37.509.jpg" />
+<figcaption>Adding a flat Ability Hand action.
+A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https://youtu.be/7VGFufJWaR4</a>.
+</figcaption>
+</figure>
+<p>We will be using the left arm and hand to turn the lever and open the door.
+The first thing we need to do is specify that the finger configuration should be “flat hand” at the start.
+To do this, we add a left Ability Hand action, as shown in <a href="#fig:guide_unitree_hand" data-reference-type="ref+label" data-reference="fig:guide_unitree_hand">2</a>, and set the “grip” field to <code>FLAT</code>.
+There are several common grip types available as presets, including <code>OPEN</code>, <code>CLOSE</code>, <code>PINCH</code>, <code>FLAT</code>, <code>HOOK</code>, <code>RELAX</code>, <code>DOOR_LEVER_OPEN</code>, <code>DOOR_LEVER_CLOSE</code>, <code>DOOR_LEVER_CRUSH</code>, <code>KEY_OPEN</code>, and <code>KEY_CLOSE</code>.</p>
+<figure id="fig:guide_unitree_fingers">
+<img src="media/guide/20260521_162902_AbilityHandJointAngles.jpg" />
+<figcaption>Specifying finger joint angles for an Ability Hand action.
+A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https://youtu.be/7VGFufJWaR4</a>.
+</figcaption>
+</figure>
+<p>It is also possible to set the individual finger joint angles for an Ability Hand action, as shown in <a href="#fig:guide_unitree_fingers" data-reference-type="ref+label" data-reference="fig:guide_unitree_fingers">3</a>.
+The Ability Hand has six degrees of freedom, each with a slider and a velocity setting.
+If the ability hand comes before an arm action and is concurrent with that arm action, it can be previewed as it is tuned, as shown in the figure.</p>
+<h2 id="arm-ready-action"><a class="header" href="#arm-ready-action">Arm Ready Action</a></h2>
+<figure id="fig:guide_unitree_arm_ready">
+<img src="media/guide/2026-01-02_16-31-39_AuthoringRightPullLeverLoopingBehaviorFromScratch-00.07.59.343.jpg" />
+<figcaption>Authoring a "left arm ready" action, in preparation for pre-grasp.
+A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https://youtu.be/7VGFufJWaR4</a>.
+</figcaption>
+</figure>
+<p>Next, we’ll add a “left arm ready” action, as shown in <a href="#fig:guide_unitree_arm_ready" data-reference-type="ref+label" data-reference="fig:guide_unitree_arm_ready">4</a>, which gets the hand and arm into a state where we can start to approach the handle from a known configuration.
+Constraining the grasp approach in this way helps to robustify the behavior.
+Otherwise, the hand might come from varying angles and may result in finger-handle collisions or unreliable inverse kinematics solutions.
+The ready action brings the hand up from the robot’s side and to roughly the orientation used for grasping the handle, but keeping a 10 cm or so distance away from the handle and any collisions.</p>
+<p>Additionally, we typically will use joint angles or a robot-relative hand pose to define the arm ready actions, as they don’t require a perceived object.
+This helps us in using the action as a reset, regardless of the state of the environment.
+We’ll reset back to this action later when testing out the door opening components.
+In this case, we define the hand pose in pelvis frame.</p>
+<figure id="fig:guide_unitree_lock_curl">
+<img src="media/guide/2026-01-02_16-31-39_AuthoringRightPullLeverLoopingBehaviorFromScratch-00.12.54.403.jpg" />
+<figcaption>Locking onto the lever handle and adding a curl fingers action.
+A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https://youtu.be/7VGFufJWaR4</a>.
+</figcaption>
+</figure>
+<p>Next, we’ll create a scene action to lock on to the lever handle and another Ability Hand action to curl the fingers and pull the thumb out and back in preparation for handle contact.
+In <a href="#fig:guide_unitree_lock_curl" data-reference-type="ref+label" data-reference="fig:guide_unitree_lock_curl">5</a>, we’ve already run the scene action and have tuned the finger positions.
+We used the sliders on the hand action to form our desired grasp for the lever handle.
+The Ability Hand rubber is actually grippy enough that we won’t need to close our fingers around the handle.
+We then execute the Ability Hand action.</p>
+<h2 id="pre-grasp-actions"><a class="header" href="#pre-grasp-actions">Pre-Grasp Actions</a></h2>
+<figure id="fig:guide_unitree_pregrasp1">
+<img src="media/guide/2026-01-02_16-31-39_AuthoringRightPullLeverLoopingBehaviorFromScratch-00.14.11.515.jpg" />
+<figcaption>Authoring first pre-grasp hand pose.
+A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https://youtu.be/7VGFufJWaR4</a>.
+</figcaption>
+</figure>
+<p>In <a href="#fig:guide_unitree_pregrasp1" data-reference-type="ref+label" data-reference="fig:guide_unitree_pregrasp1">6</a>, we create our “Pre-grasp 1” action.
+For this grasp, we will use two pre-grasp actions.
+The first one hovers the hand 3-4 cm above the handle so the fingers don’t hit the handle when getting into position.
+Avoiding finger collisions is important with our system, as it will try hard to get to the desired position.
+Given the somewhat delicate Ability Hand fingers, if you clip the fingers on things while moving the hands around, you run a real risk of breaking a finger.
+Plus, it’s just nice to not have unnecessary collision.</p>
+<p>This pre-grasp action is the first time in this behavior we need to be fairly precise in the range of a centimeter or two.
+It can be difficult to gauge the hand’s pose with respect to the lever using the desktop monitor point cloud and first person view.
+It’s a little easier in VR with stereo vision.
+Since we weren’t using VR for this demo, we addressed the problem by sitting in line-of-sight to the robot.
+The tuning process for this pre-grasp action is presented in <a href="#fig:guide_unitree_pregrasp_tuning_loop" data-reference-type="ref+label" data-reference="fig:guide_unitree_pregrasp_tuning_loop">7</a>.</p>
+<h2 id="manipulation-action-tuning-process"><a class="header" href="#manipulation-action-tuning-process">Manipulation Action Tuning Process</a></h2>
+<figure id="fig:guide_unitree_pregrasp_tuning_loop">
+<div class="singlespace">
+</div>
+
+<figcaption>Iterative tuning loop for the first pre-grasp hand pose. The pose is guessed with the 3D gizmo, executed, inspected visually, and adjusted until it is good enough.</figcaption>
+</figure>
+<figure id="fig:guide_unitree_pregrasp2">
+<img src="media/guide/2026-01-02_16-31-39_AuthoringRightPullLeverLoopingBehaviorFromScratch-00.15.50.234.jpg" />
+<figcaption>Authoring second pre-grasp hand pose, which contacts the handle.
+A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https://youtu.be/7VGFufJWaR4</a>.
+</figcaption>
+</figure>
+<p>We tune the first pre-grasp action until the only thing left to do to grasp the handle is to move the hand directly down such that it rests on the lever handle.
+<a href="#fig:guide_unitree_pregrasp2" data-reference-type="ref+label" data-reference="fig:guide_unitree_pregrasp2">8</a> shows us authoring this action.
+We repeat the visual guess-execute-inspect process for this pre-grasp action.</p>
+<h2 id="turning-a-door-handle"><a class="header" href="#turning-a-door-handle">Turning a Door Handle</a></h2>
+<figure id="fig:guide_unitree_screw_turn">
+<img src="media/guide/2026-01-02_16-31-39_AuthoringRightPullLeverLoopingBehaviorFromScratch-00.23.40.974.jpg" />
+<figcaption>Authoring the handle turn screw primitive.
+A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https://youtu.be/7VGFufJWaR4</a>.
+</figcaption>
+</figure>
+<p>Now that our hand is resting on the door lever handle, it’s time to turn the lever and unlatch the door.
+This is accomplished using a screw primitive action, as shown in <a href="#fig:guide_unitree_screw_turn" data-reference-type="ref+label" data-reference="fig:guide_unitree_screw_turn">9</a>.
+To tune a screw primitive, the first thing to do is set up the screw axis, which is the white dotted line shown in the figure.
+It is moved using a pose 3D gizmo, just like the hand.
+In general, the screw axis should be aligned with the rotational axis of the object you are manipulating.
+In practice, we tend to have to move it some to get the desired robot motion, which is, in the end, the important part.
+In addition to the axis, there are the translation and rotation amounts.
+In practice, we just have to use a tuning loop like in <a href="#fig:guide_unitree_pregrasp_tuning_loop" data-reference-type="ref+label" data-reference="fig:guide_unitree_pregrasp_tuning_loop">7</a> to guess at these values and re-execute until we get the desired result.</p>
+<p>For door lever turning we typically leave translation at zero and adjust the rotation to be more than necessary.
+We also have to move the axis above and to the side opposite to the hand in order to result in a position controlled motion that achieves the necessary forces to turn the lever properly.</p>
+<p>The iterative tuning process for a screw primitive requires an extra element for step two.
+Since the screw primitive is a motion relative to the hand’s current position, playing it back a second time will cause the hand to travel further and further along the helical motion profile, rather than resetting to the beginning.
+For this reason, we need to reset back to the next previous arm action, in this case pre-grasp 2, in order to re-execute the door lever turn action.</p>
+<p>Additionally, for the door lever turning action, we must make sure the handle is turned enough to unlatch the door sufficiently.
+This is why we also perform a direct visual inspection of the latch as part of this tuning process.</p>
+<h2 id="opening-a-door"><a class="header" href="#opening-a-door">Opening a Door</a></h2>
+<figure id="fig:guide_unitree_screw_open">
+<img src="media/guide/2026-01-02_16-31-39_AuthoringRightPullLeverLoopingBehaviorFromScratch-00.28.28.976.jpg" />
+<figcaption>Authoring the open door screw primitive.
+A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https://youtu.be/7VGFufJWaR4</a>.
+</figcaption>
+</figure>
+<p>The door opening is done as another screw primitive action, but along a different axis: the door panel hinge.
+Aligning the screw axis to the door panel hinge is done using the point cloud as shown in <a href="#fig:guide_unitree_screw_open" data-reference-type="ref+label" data-reference="fig:guide_unitree_screw_open">10</a>.
+It doesn’t have to be super precise – within a few centimeters in the X-Y axis and 5 degrees rotationally is fine.</p>
+<p>For door opening, the tuning process is a bit easier than the lever turning.
+This is because the hand is fairly compliant to the door since it’s applying a force on the handle and there is no unlatching requirement on this one.
+The direction of the axis alignment will determine whether the screw rotation value for opening is positive or negative.</p>
+<h2 id="looping-a-behavior"><a class="header" href="#looping-a-behavior">Looping a Behavior</a></h2>
+<p>Once we finish up the door opening action and execute it successfully, the repeated door opening behavior is pretty much done!
+We set the execute after field of the pre-grasp 1 action to the scene action to curl the fingers at the same time.
+Then, we add a goto action at the end that goes back to the beginning, to create an infinite loop.
+We then check the execute “Autonomously” checkbox and let it spin.
+This behavior executed 33 times in a row successfully before we stopped it.</p>
+<figure id="fig:guide_unitree_done">
+<img src="media/guide/2026-01-02_16-31-39_AuthoringRightPullLeverLoopingBehaviorFromScratch-00.33.09.816.jpg" />
+<figcaption>Running the repeated door opening behavior autonomously.
+A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https://youtu.be/7VGFufJWaR4</a>.
+</figcaption>
+</figure>
+<p>In this guide, we have covered what all the main action types do and how to use them.
+All behaviors presented in this thesis build on these basic concepts to create more complete and longer-horizon behaviors.
+In the next chapters we will cover the scientific and theoretical contributions of our work.</p>
 
                     </main>
 

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Abstract - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
+        <title>Fallback Mechanism Example - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
 
 
         <!-- Custom HTML head -->
@@ -176,37 +176,101 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="abstract"><a class="header" href="#abstract">Abstract</a></h1>
-<h2 id="a-system-for-fast-resilient-and-adaptable-loco-manipulation-behaviors-on-humanoid-robots"><a class="header" href="#a-system-for-fast-resilient-and-adaptable-loco-manipulation-behaviors-on-humanoid-robots">A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</a></h2>
-<p><strong>Author:</strong> Duncan William Calvert<br><strong>Department:</strong> Department of Intelligent Systems and Robotics<br><strong>College:</strong> College of Science and Engineering</p>
-<!-- AUTO-ABSTRACT-START -->
-<h2 id="abstract-1"><a class="header" href="#abstract-1">Abstract</a></h2>
-<p>Humanoid robots could be used to take on physically demanding, hazardous, and repetitive work in spaces built for humans, including shipyards, energy infrastructure, construction sites, and factories.
-However, a useful robot for these spaces must coordinate locomotion, whole body motion, perception, contact, and operator supervision.
-In this thesis we present a system doing this via a behavior authoring and runtime system.
-Furthermore, we argue that behavior coordination architecture is itself a measurable design variable affecting the ability to readily acheive these tasks in the real world.
-Specifically, we argue that architecture implicates speed, robustness across task variation, and adaptation time when modifying a behavior for a new task.</p>
-<p>We present a robot-local editable behavior architecture in which trees of action primitives execute with layered concurrency on the robot, while an operator interface remains continuously synchronized for runtime authoring, monitoring, and repair.
-Action primitives are built on top of a whole body controller that supports manipulation while walking.
-Perception actions are authored inside the behavior so that detection and scene reasoning are scheduled with the rest of the task rather than configured globally.
-The architecture supports rapid authoring of new behaviors and reuse of existing subtrees across related tasks.</p>
-<p>Door traversal is used as the main benchmark task because it exposes the full coordination problem in a compact and repeatable setting, requiring approach walking, body placement, mechanism perception, grasp selection, handle actuation, interaction with a moving obstacle, and a transition back to locomotion.
-The behavior library developed during this work covers more than twenty real-robot task variants, including push and pull doors with knob, push-bar, and lever-handle mechanisms, multi-step exploration sequences, obstacle clearing and breaching, and reactive table-to-table manipulation tasks.
-Versions of the same behavior system were run on Nadia, Boston Dynamics DRC Atlas, IHMC’s fully electric Alex humanoid robot, and Unitree H1-2, which shows that the architecture is not tied to one platform.</p>
-<p>We evaluate the system on speed, reliability, variation coverage, and authoring effort.
-A push bar door traversal in 14 seconds and a reactive pick and place demonstration for 6 balls in 42 seconds establish our speed direction.
-For reliability, we tested 11 successful push approach-and-opening repetitions in a row and 12 successful pull approach-and-opening repetitions in a row on Alex, and 32 successful right pull openings in a row on Unitree H1-2.
-Measured authoring sessions show that new door behaviors can be created from an empty tree to the start of autonomous repeated-run testing in 31 minutes, and that a mirrored real-door adaptation reaches first success in under two hours, both without code recompilation or redeployment.
-We compare against prior IHMC baselines and selected door systems from the literature across speed, reliability, variation coverage, and authoring effort, with execution boundary and sensing assumptions reported alongside as part of each comparison.
-Videos of the work presented in this dissertation are available online at <a href="https://www.youtube.com/playlist?list=PLJK5CTyotYqsfgfnXb-09YNFeBose6uEY">https://www.youtube.com/playlist?list=PLJK5CTyotYqsfgfnXb-09YNFeBose6uEY</a>.</p>
-<!-- AUTO-ABSTRACT-END -->
+                        <h1 id="fallback-mechanism-example"><a class="header" href="#fallback-mechanism-example">Fallback Mechanism Example</a></h1>
+<figure id="fig:guide_sim_fallback">
+<img src="media/guide/2026-04-28 20-10-14_FallbackMechanismDemo-00.00.52.192.jpg" />
+<figcaption>The beginning of our fallback node demonstration.
+A video of this demonstration is available at <a href="https://youtu.be/mw4z4H4K9o0" class="uri">https://youtu.be/mw4z4H4K9o0</a>.</figcaption>
+</figure>
+<p>Now we will cover fallback node operation.
+A fallback node is like an if-else statement, but since the if condition evaluation is performing an action, we call it a try-catch.
+A fallback node therefore has two parts: the try and the catch.
+Each part can contain one or more actions, however, unlike a Behavior Tree fallback node from the literature, our fallback node has only one try clause and the catch clause is just an action sequence of unlimited length.</p>
+<p>We also support concurrent actions in the fallback node.
+To do this, we expand the try to contain the first concurrent action set.
+This could be one or more actions with the rule that they must execute together.
+If any action of the concurrent sequence fails, the try fails and the catch is executed once all try nodes are finished executing.
+Else, if the entire concurrent try set succeeds, the catch is skipped and the node after the fallback is next for execution.</p>
+<p>Our fallback node does not currently support nesting, but supporting it would be a desirable improvement.
+Nesting try-catch blocks could increase behavior expressiveness.
+In general, it would be good to look through the most used mechanisms in programming language and think about how they could be included as runtime-editable behavior elements.</p>
+<p>In <a href="#fig:guide_sim_fallback" data-reference-type="ref+label" data-reference="fig:guide_sim_fallback">1</a>, we have started on a fallback example demonstration, where we have added a fallback node and a try node.
+In this demonstration, we want to check if the right hand is raised to a certain position and raise it if it isn’t.
+Once the hand is raised, we will yaw the spine.
+To check the hand position, we have added a “shape contains” condition node as the try action and named it “Check hand”.</p>
+<h2 id="condition-nodes"><a class="header" href="#condition-nodes">Condition Nodes</a></h2>
+<p>We currently have six types of condition nodes: <code>ALWAYS_FAIL</code>, <code>ALWAYS_SUCCEED</code>, <code>COUNTER</code>, <code>LLM</code>, <code>PROXIMITY</code>, and <code>SHAPE_CONTAINS</code>.
+A condition node is different from an action in that it does not directly perform an action, but instead is responsible for making a decision resulting in success or failure.
+Success and failure for a condition node, however, have the same effect on behavior execution as actions: if the node succeeds, the behavior keeps going and, if the node fails, it halts execution by disabling autonomous mode.
+The exception is that when a node fails in the try part of a fallback node, the behavior keeps going by executing the catch.</p>
+<p>The “always succeed” and “always fail” condition node types are useful for testing and operation.
+The “always fail” node is especially useful if you want to test out a part of the behavior in autonomous mode but have it stop at a certain point.
+In this case, we’ll often add a temporary “always fail” condition node named “STOP”, as we did in <a href="#sec:wait_nodes_dependencies" data-reference-type="ref+label" data-reference="sec:wait_nodes_dependencies">[sec:wait_nodes_dependencies]</a>.</p>
+<p>The counter node maintains a persistent count and a tunable limit.
+Each time it is executed, the count is increased.
+If the count reaches the limit, the counter condition node fails.</p>
+<p>The LLM condition node provides the ability to query a large language model to determine success or failure.
+It has an authorable system prompt, repeated prompt, and boolean response matcher.
+We covered the LLM node in more detail near <a href="#fig:2025_llm_condition_node" data-reference-type="ref+label" data-reference="fig:2025_llm_condition_node">[fig:2025_llm_condition_node]</a>.</p>
+<p>The proximity node checks the distance between two behavior reference frames.
+If the distance is between the tunable minimum and maximum, the condition succeeds.
+We also covered the proximity node in some more detail near <a href="#fig:2025_proximity_condition" data-reference-type="ref+label" data-reference="fig:2025_proximity_condition">[fig:2025_proximity_condition]</a>.</p>
+<p>For this example, we’ll use the shape contains condition node to check that the right hand frame is within the bounds of a sphere.
+In <a href="#fig:guide_sim_fallback" data-reference-type="ref+label" data-reference="fig:guide_sim_fallback">1</a>, our shape contains condition node is selected with the settings showing in bottom left.
+There are two modes for the shape contains condition: contains frame and contains points.
+We’ll be using contains frame in this example, but the contains points functionality, which counts the number of live point cloud points in the virtual shape, is covered near <a href="#fig:alex_shape_contains_condition" data-reference-type="ref+label" data-reference="fig:alex_shape_contains_condition">[fig:alex_shape_contains_condition]</a>.</p>
+<h2 id="shape-contains-frame-condition"><a class="header" href="#shape-contains-frame-condition">Shape Contains Frame Condition</a></h2>
+<p>In <a href="#fig:guide_sim_fallback" data-reference-type="ref+label" data-reference="fig:guide_sim_fallback">1</a>, you’ll see there are four main settings for the shape contains frame functionality.
+The shape parent frame, the shape pose, the sphere radius, and the frame to check containment of.
+We allow defining the shape’s pose with respect to any robot or object frame just like we do for actions.
+Checking the “Adjust Shape Pose” box enables the shape to be moved in the 3D view with a pose gizmo, as shown in the figure.
+Currently, just spheres are supported, but adding more types of shapes would be a good improvement.</p>
+<figure id="fig:guide_sim_fallback_arm">
+<img src="media/guide/2026-04-28 20-10-14_FallbackMechanismDemo-00.01.09.399.jpg" />
+<figcaption>Adding an arm action to the fallback catch.
+A video of this demonstration is available at <a href="https://youtu.be/mw4z4H4K9o0" class="uri">https://youtu.be/mw4z4H4K9o0</a>.</figcaption>
+</figure>
+<p>Pairing this condition node with our fallback gives us a mechanism to react to an unknown state, like where the hand is.
+To robustify our behavior and apply corrective action if the hand is not where we want it, we will now add am arm action to the fallback catch, as shown in <a href="#fig:guide_sim_fallback_arm" data-reference-type="ref+label" data-reference="fig:guide_sim_fallback_arm">2</a>.
+When we add the catch action, because it is not concurrent with the condition in the try, we see a thin horizontal line in the tree editor.
+This line, between the “Check hand” and “Arm action” nodes, shows us where the try-catch delineation is.</p>
+<h2 id="the-goto-node"><a class="header" href="#the-goto-node">The Goto Node</a></h2>
+<figure id="fig:guide_sim_fallback_while">
+<img src="media/guide/2026-04-28 20-10-14_FallbackMechanismDemo-00.01.19.837.jpg" />
+<figcaption>Adding a goto node to implement a while loop.
+A video of this demonstration is available at <a href="https://youtu.be/mw4z4H4K9o0" class="uri">https://youtu.be/mw4z4H4K9o0</a>.</figcaption>
+</figure>
+<p>To show how you can implement while-loop-like behavior, we add a goto node after the arm action in the fallback catch, as shown in <a href="#fig:guide_sim_fallback_while" data-reference-type="ref+label" data-reference="fig:guide_sim_fallback_while">3</a>.
+The goto node has a goto field that refers to another node by name.
+When the goto node is executed, the next execution index is set to that node.
+Here we have selected the “Fallback node” as the node to goto, which is a general way of saying to reexecute the try, as the “Fallback node” is a control node, not an action.
+When we point to control nodes, it’s effectively the same as pointing to the next action.</p>
+<p>Since we want to be able to save this goto reference by name in the JSON, there is the possibility of ambiguity in the node’s name.
+To handle the case when there are multiple nodes of the same name in the tree, we search for the node to goto by proximity to the goto node.
+The closest matching node is chosen with levels of priority: children recursively come first, then siblings, then parents recursively.
+Our choice of priority is somewhat arbitrary.
+We recommend using unique node names where possible to avoid this ambiguity.</p>
+<h2 id="reactive-fallback-demonstration"><a class="header" href="#reactive-fallback-demonstration">Reactive Fallback Demonstration</a></h2>
+<figure id="fig:guide_sim_fallback_end">
+<img src="media/guide/2026-04-28 20-10-14_FallbackMechanismDemo-00.01.45.770.jpg" />
+<figcaption>Completing our fallback demonstration by reactively moving the arm to the correct location and executing the spine yaw motion.
+A video of this demonstration is available at <a href="https://youtu.be/mw4z4H4K9o0" class="uri">https://youtu.be/mw4z4H4K9o0</a>.</figcaption>
+</figure>
+<p>Finally, we add our spine action to turn the spine 17 degrees to the left as shown in <a href="#fig:guide_sim_fallback_end" data-reference-type="ref+label" data-reference="fig:guide_sim_fallback_end">4</a>.
+Notice this node is not a child of the fallback node, but a sibling.
+We run through the behavior in the manual mode, inspecting the flow of execution.
+We run check hand, it fails, then the arm action runs to move the hand into the correct location.
+The goto node causes us to re-evaluate the check, which now succeeds, sending us on to the spine action, which executes successfully.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="5_tutorial_7_door_traversal_footstep_plan_example.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
 
-                            <a rel="next prefetch" href="2_metrics.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="5_tutorial_9_real_robot_example_repeated_door_opening.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -216,8 +280,11 @@ Videos of the work presented in this dissertation are available online at <a hre
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="5_tutorial_7_door_traversal_footstep_plan_example.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
 
-                    <a rel="next prefetch" href="2_metrics.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="5_tutorial_9_real_robot_example_repeated_door_opening.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

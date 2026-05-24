@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Abstract - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
+        <title>Behavior Scene Management Example - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
 
 
         <!-- Custom HTML head -->
@@ -176,37 +176,162 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="abstract"><a class="header" href="#abstract">Abstract</a></h1>
-<h2 id="a-system-for-fast-resilient-and-adaptable-loco-manipulation-behaviors-on-humanoid-robots"><a class="header" href="#a-system-for-fast-resilient-and-adaptable-loco-manipulation-behaviors-on-humanoid-robots">A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</a></h2>
-<p><strong>Author:</strong> Duncan William Calvert<br><strong>Department:</strong> Department of Intelligent Systems and Robotics<br><strong>College:</strong> College of Science and Engineering</p>
-<!-- AUTO-ABSTRACT-START -->
-<h2 id="abstract-1"><a class="header" href="#abstract-1">Abstract</a></h2>
-<p>Humanoid robots could be used to take on physically demanding, hazardous, and repetitive work in spaces built for humans, including shipyards, energy infrastructure, construction sites, and factories.
-However, a useful robot for these spaces must coordinate locomotion, whole body motion, perception, contact, and operator supervision.
-In this thesis we present a system doing this via a behavior authoring and runtime system.
-Furthermore, we argue that behavior coordination architecture is itself a measurable design variable affecting the ability to readily acheive these tasks in the real world.
-Specifically, we argue that architecture implicates speed, robustness across task variation, and adaptation time when modifying a behavior for a new task.</p>
-<p>We present a robot-local editable behavior architecture in which trees of action primitives execute with layered concurrency on the robot, while an operator interface remains continuously synchronized for runtime authoring, monitoring, and repair.
-Action primitives are built on top of a whole body controller that supports manipulation while walking.
-Perception actions are authored inside the behavior so that detection and scene reasoning are scheduled with the rest of the task rather than configured globally.
-The architecture supports rapid authoring of new behaviors and reuse of existing subtrees across related tasks.</p>
-<p>Door traversal is used as the main benchmark task because it exposes the full coordination problem in a compact and repeatable setting, requiring approach walking, body placement, mechanism perception, grasp selection, handle actuation, interaction with a moving obstacle, and a transition back to locomotion.
-The behavior library developed during this work covers more than twenty real-robot task variants, including push and pull doors with knob, push-bar, and lever-handle mechanisms, multi-step exploration sequences, obstacle clearing and breaching, and reactive table-to-table manipulation tasks.
-Versions of the same behavior system were run on Nadia, Boston Dynamics DRC Atlas, IHMC’s fully electric Alex humanoid robot, and Unitree H1-2, which shows that the architecture is not tied to one platform.</p>
-<p>We evaluate the system on speed, reliability, variation coverage, and authoring effort.
-A push bar door traversal in 14 seconds and a reactive pick and place demonstration for 6 balls in 42 seconds establish our speed direction.
-For reliability, we tested 11 successful push approach-and-opening repetitions in a row and 12 successful pull approach-and-opening repetitions in a row on Alex, and 32 successful right pull openings in a row on Unitree H1-2.
-Measured authoring sessions show that new door behaviors can be created from an empty tree to the start of autonomous repeated-run testing in 31 minutes, and that a mirrored real-door adaptation reaches first success in under two hours, both without code recompilation or redeployment.
-We compare against prior IHMC baselines and selected door systems from the literature across speed, reliability, variation coverage, and authoring effort, with execution boundary and sensing assumptions reported alongside as part of each comparison.
-Videos of the work presented in this dissertation are available online at <a href="https://www.youtube.com/playlist?list=PLJK5CTyotYqsfgfnXb-09YNFeBose6uEY">https://www.youtube.com/playlist?list=PLJK5CTyotYqsfgfnXb-09YNFeBose6uEY</a>.</p>
-<!-- AUTO-ABSTRACT-END -->
+                        <h1 id="behavior-scene-management-example"><a class="header" href="#behavior-scene-management-example">Behavior Scene Management Example</a></h1>
+<h2 id="scene-setup"><a class="header" href="#scene-setup">Scene Setup</a></h2>
+<figure id="fig:guide_sim_scene_action">
+<img src="media/guide/2026-04-29 09-06-34_BehaviorSceneDemo-00.00.01.588.jpg" />
+<figcaption>The beginning of our behavior scene demonstration.
+A video of this demonstration is available at <a href="https://youtu.be/GN0_XoBxlv4" class="uri">https://youtu.be/GN0_XoBxlv4</a>.</figcaption>
+</figure>
+<p>In the next example, we’ll cover basic behavior scene management by locking on to a tennis ball and authoring a grasp approach arm pose.
+The point of our behavior scene functionality is to provide authorable perception which can increase the capability and adaptability of the robot-human team.
+Authorable perception allows the human operator to encode context-specific and expert knowledge into the behavior.
+The flexibility provided here can be used to work around several categories of issues both theoretical and practical and both environmental and digital.
+Some examples of issues are: the hand occluding an object, a YOLO model having low confidence, and a latency or timing issue in the system.</p>
+<p><a href="#fig:guide_sim_scene_action" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action">1</a> shows an example setting being played back in simulation but from a real data recording.
+The real environment contains a table with some transparent storage containers and tennis balls on it.
+An extension cord is on the table to prevent the balls from rolling off when the robot messes with them.</p>
+<p>On the left side of the figure, we see the behavior tree view with a look down action to get the table centered in the camera field of view and two scene actions, denoted by the clapperboard icon inspired by the film industry.
+In the bottom left, some scene action settings for the “configure YOLO” action type are shown.
+In the top center is the 3D scene with a live colored point cloud from the ZED and 3D coordinate frames for the current stable detections.
+The bottom center shows the first person ZED camera view with the YOLO detections and segmentations drawn over it.
+The detections are annotated with the class name and the confidence of the detection.
+In the top right, the behavior scene is shown with no privileged objects yet but with 3 stable detections: storage container, bottle, and robot hand.
+Finally, in the bottom right, our YOLO module is able to be turned on and off and each available mode is shown, which can each be toggled on and off and expanded to tune class specific options.</p>
+<h2 id="yolo-configuration"><a class="header" href="#yolo-configuration">YOLO Configuration</a></h2>
+<p>One of the first things we notice here is that the tennis ball is being detected as a bottle.
+This is because the initial YOLO model that is enabled, “best_multi_02_17_2026”, is one that we trained only for a specific set of classes which do not include the tennis ball.
+We aren’t sure why it’s detecting the ball as a bottle at 87% confidence.
+In any case, to fix this, as shown in <a href="#fig:guide_sim_scene_action" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action">1</a>, we author a scene action with type <code>CONFIGURE_YOLO</code> to switch the YOLO model to the “yolov8n-seg” model.
+Additionally, we disable all classes except for the “sports ball” class by unchecking the “Enabled” checkbox next to where it says “UNIVERSAL ADJUSTER”.
+Then, we scroll to find the sports ball row and check that box.</p>
+<p>Unfortunately, the yolov8n-seg model isn’t very confident in detecting our tennis balls.
+To work around this, on the sports ball row, we lower the minimum “Confidence” value from 0.7 to 0.1.
+The minimum confidence value acts as a gating filter for detections to be allowed into the persistent detections.
+Lowering this value allows us to track the tennis balls at super low confidence levels.
+This is okay because we can use this configure YOLO action to adjust the minimum confidence of each class individually.
+In behaviors that grasp tennis balls, we make the low confidence threshold safe by requiring each tennis ball object to be within a reachable boundary before grasping it.</p>
+<p>The configure YOLO action also supports enabling multiple YOLO models at once.
+The behavior author picks the set of YOLO models that will be available at this time and all the class settings for each.
+This is useful because sometimes we want to perform tasks involving objects which are detected by different YOLO models.</p>
+<h2 id="persistent-detections"><a class="header" href="#persistent-detections">Persistent Detections</a></h2>
+<figure id="fig:guide_sim_scene_action_persistent_detections">
+<img src="media/guide/2026-04-29 09-06-34_BehaviorSceneDemo-00.00.14.294.jpg" />
+<figcaption>The behavior scene demonstration, after configuring YOLO, we are now configuring persistent detections.
+Persistent detections are referred to in the user interface as "Stable Detections", as we only show the stable ones.
+A video of this demonstration is available at <a href="https://youtu.be/GN0_XoBxlv4" class="uri">https://youtu.be/GN0_XoBxlv4</a>.</figcaption>
+</figure>
+<p>Another thing we want to do is configure the persistent detection parameters themselves.
+This is accomplished via the <code>CONFIGURE_PERSISTENT_DETECTIONS</code> scene action type, seen in <a href="#fig:guide_sim_scene_action_persistent_detections" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action_persistent_detections">2</a>.
+There are four parameters for the persistent detections: pose filter alpha, acceptance confidence, stability frequency, and history duration.
+<a href="#fig:persistent-detection-lifecycle" data-reference-type="ref+label" data-reference="fig:persistent-detection-lifecycle">3</a> illustrates the instant and persistent detection management process, which happens continuously in the behavior scene.</p>
+<div class="singlespace">
+<figure id="fig:persistent-detection-lifecycle">
+<figcaption>Lifecycle of persistent detections in the behavior scene. New instantaneous detections are greedily associated to existing persistent detections by comparing detector type, semantic class, and a fixed spatial gate. Unmatched detections spawn new persistent detections initialized with the configured filtering and temporal parameters.</figcaption>
+</figure>
+</div>
+
+<p>The parameter \(\alpha\) is the pose filter coefficient used when initializing each persistent detection, \(c_{acc}\) is the acceptance confidence threshold, \(f_{stab}\) is the required stability frequency, and \(T_{hist}\) is the history duration maintained by the persistent detection.</p>
+<p>For the tennis balls, we set the acceptance confidence threshold to 0.1 and the stability frequency to 0.5 and execute the scene action.
+The result is shown in <a href="#fig:guide_sim_scene_action_persistent_detections" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action_persistent_detections">2</a> where 3 sports balls are tracked as persistent detections.
+Note the confidence levels are not too bad in this case at around 50–60% and the 3 labelled coordinate frames are shown in the 3D view.</p>
+<h2 id="setting-up-an-object"><a class="header" href="#setting-up-an-object">Setting up an Object</a></h2>
+<figure id="fig:guide_sim_scene_action_ball">
+<img src="media/guide/2026-04-29 09-06-34_BehaviorSceneDemo-00.00.41.452.jpg" />
+<figcaption>The behavior scene demonstration, after configuring persistent detections and setting up a sports ball object.
+A video of this demonstration is available at <a href="https://youtu.be/GN0_XoBxlv4" class="uri">https://youtu.be/GN0_XoBxlv4</a>.</figcaption>
+</figure>
+<p>Now that our list of stable persistent detections is populated, we will use a <code>SETUP_OBJECT</code> scene action to “lock on” to the closest tennis ball.
+In <a href="#fig:guide_sim_scene_action_ball" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action_ball">4</a> you can see we’ve added a scene action node called “Lock Onto Sports Ball”.
+In the settings area for that node, we’ve selected the <code>SETUP_OBJECT</code> type, the yolov8n-seg YOLO model, and the sports ball YOLO class.
+A timeout setting is also available.
+Because there may not be matching stable detections in the scene when this action is run, the timeout is a way to wait for one.
+The setup object scene action will wait up to the timeout while continuously searching for a match.
+If it finds one, the action will immediately complete successfully.
+Else, the action will fail when the timeout is reached.
+A minimum history size setting is available to further filter our selection of persistent detections.
+A shorter history size increases responsiveness but increases the risk of false positives and a longer history time requires tracking an object for longer before it becomes an object candidate.</p>
+<p>The setup object scene action, when successful, creates or updates an “object”.
+Our concept of an object does not have to be an actual object, even though it often is.
+They are privileged maintainers of reference frames that are subsequently usable for action definitions.
+There are two types of objects: direct and derived.
+The types are shown in <a href="#fig:setup-object-types" data-reference-type="ref+label" data-reference="fig:setup-object-types">5</a>.
+The derived types allow us to model articulated objects like doors and implement heuristic environmental feature extraction, such as for table edges.</p>
+<div class="singlespace">
+<figure id="fig:setup-object-types">
+<figcaption>Scene object types supported by the <code>SETUP_OBJECT</code> scene action. Direct objects are based on persistent detections, whereas derived objects are constructed from named frames, paired detections, or depth-based geometric calculations.</figcaption>
+</figure>
+</div>
+
+<p><a href="#fig:guide_sim_scene_action_ball" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action_ball">4</a> also shows the result of executing the setup object scene action.
+In the top right, a sports ball can be seen in the “Objects:” area.
+For each object, we show its world frame pose information and any referenced persistent detections.
+Here we can see the YOLOv8 persistent detection that’s attached.
+That persistent detection is still in the stable detections list, too – it doesn’t get removed.
+However, when a persistent detection attached to an object stops tracking, unlike in the stable detections area, it doesn’t get removed.
+Instead, it renders as grayed out but is still usable by behavior actions in its last seen pose.
+A larger coordinate frame is shown for the sports ball object in the 3D view.</p>
+<h2 id="freezing-scene-objects"><a class="header" href="#freezing-scene-objects">Freezing Scene Objects</a></h2>
+<figure id="fig:guide_sim_scene_action_freeze">
+<img src="media/guide/2026-04-29 09-06-34_BehaviorSceneDemo-00.01.07.672.jpg" />
+<figcaption>The behavior scene demonstration, after freezing the sports ball object.
+A video of this demonstration is available at <a href="https://youtu.be/GN0_XoBxlv4" class="uri">https://youtu.be/GN0_XoBxlv4</a>.</figcaption>
+</figure>
+<p>Another scene action type is <code>FREEZE_OBJECT</code>.
+Freezing an object disables its pose from being updated, causing it to stay in place with respect to world frame regardless of further perceptual tracking.
+The ability to freeze an object at any point in the course of a behavior is important for manipulation and dead reckoning.</p>
+<p>When grasping an object, it’s best to freeze it just before occluding it in any way.
+This is because partial occlusion can corrupt the object’s pose at the time when it matters most.
+For example, we usually have several pre-grasp hand poses with a freeze in between.
+The first pre-grasp gets the hand as close as possible without occluding the object.
+The second pre-grasp pose gets the hand where the fingers can grab the object.
+It’s best to put a freeze action between these two.</p>
+<p>The reason the pose will be corrupted is because our YOLO detections contain the 3D depth points that lie in the segmentation area.
+A YOLO persistent detection is posed at the position of the centroid of those depth points.
+If part of the object is occluded, the segmentation will be cropped, causing the centroid to move away from the hand.
+As the hand closes in on the object, the position of the object can vary drastically, depending on the shape of the object, the hand, and the viewpoint.</p>
+<p>Freezing objects can also be useful for dead reckoning with respect to objects that were seen in the past.
+For example, our door traversal footstep plan is authored with respect to the door frame, which is ultimately based on the detection of the door opening mechanism which we can usually no longer see or choose not to see after the door opening.
+The frozen frame from the handle pre-grasp is usually used throughout the remainder of the behavior.</p>
+<p>Setting up a freeze scene action is easy.
+As shown in <a href="#fig:guide_sim_scene_action_freeze" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action_freeze">6</a>, we created a scene action named “Freeze Sports Ball”, set the action type to <code>FREEZE_OBJECT</code>, and set the YOLO model and class for the sports ball.
+When executed, if there is a matched object in the list, it is frozen; otherwise it will wait until the timeout and fail if there is still no match.
+In the top right of <a href="#fig:guide_sim_scene_action_freeze" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action_freeze">6</a>, you can see the sports ball object is now marked as “FROZEN”.</p>
+<h2 id="other-scene-action-types"><a class="header" href="#other-scene-action-types">Other Scene Action Types</a></h2>
+<p>There are a few other simple scene action types at the moment.
+<code>DELETE_OBJECT</code> removes a matched object from the list and from being available for actions.
+<code>CLEAR_SCENE</code> removes all objects from the list.
+<code>FREEZE_SCENE</code> freezes every object in the scene.
+<code>CONFIGURE_FOUNDATION_POSE</code> is an unimplemented placeholder for configuring FoundationPose.</p>
+<h2 id="authoring-a-frame-based-arm-action"><a class="header" href="#authoring-a-frame-based-arm-action">Authoring a Frame Based Arm Action</a></h2>
+<figure id="fig:guide_sim_scene_action_arm">
+<img src="media/guide/2026-04-29 09-06-34_BehaviorSceneDemo-00.01.28.860.jpg" />
+<figcaption>The behavior scene demonstration, authoring an arm action with respect to a sports ball.
+A video of this demonstration is available at <a href="https://youtu.be/GN0_XoBxlv4" class="uri">https://youtu.be/GN0_XoBxlv4</a>.</figcaption>
+</figure>
+<p>Now that we have locked onto a sports ball, we’ll show how to move the arm with respect to it.
+We’ll go over a full grasp sequence later in the real robot example.
+In <a href="#fig:guide_sim_scene_action_arm" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action_arm">7</a>, we’ve added an arm action.
+When using the taskspace mode, as opposed to the “Use Predefined Joint Angles” mode, there is a “Parent frame” drop down.
+The list of available frames includes a frame for each privileged object in the scene.
+In this case, it’s just the sports ball.
+We select the sports ball from the list and that’s it!
+The action is now defined as a hand pose relative to the object.</p>
+<p>For position-only objects like the YOLO sports ball, we use the orientation of the robot’s chest so frame relative actions are always valid for the robot’s current approach angle.
+In <a href="#fig:guide_sim_scene_action_arm" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action_arm">7</a>, the sports ball frame is frozen, but when objects are not frozen and actively tracked, the arm goal pose will continuously update based on the objects current pose.
+The inverse kinematics solution for the arm will likewise continuously update and be displayed in the 3D view.</p>
+<p>When we save this behavior, the JSON will contain an object relative translation and rotation with respect to the object.
+This makes the action reusable for later runs and future instances of this object.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="5_tutorial_5_screw_primitives.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
 
-                            <a rel="next prefetch" href="2_metrics.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="5_tutorial_7_door_traversal_footstep_plan_example.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -216,8 +341,11 @@ Videos of the work presented in this dissertation are available online at <a hre
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="5_tutorial_5_screw_primitives.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
 
-                    <a rel="next prefetch" href="2_metrics.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="5_tutorial_7_door_traversal_footstep_plan_example.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

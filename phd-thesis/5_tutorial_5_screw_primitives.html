@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Abstract - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
+        <title>Screw Primitives - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
 
 
         <!-- Custom HTML head -->
@@ -176,37 +176,91 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="abstract"><a class="header" href="#abstract">Abstract</a></h1>
-<h2 id="a-system-for-fast-resilient-and-adaptable-loco-manipulation-behaviors-on-humanoid-robots"><a class="header" href="#a-system-for-fast-resilient-and-adaptable-loco-manipulation-behaviors-on-humanoid-robots">A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</a></h2>
-<p><strong>Author:</strong> Duncan William Calvert<br><strong>Department:</strong> Department of Intelligent Systems and Robotics<br><strong>College:</strong> College of Science and Engineering</p>
-<!-- AUTO-ABSTRACT-START -->
-<h2 id="abstract-1"><a class="header" href="#abstract-1">Abstract</a></h2>
-<p>Humanoid robots could be used to take on physically demanding, hazardous, and repetitive work in spaces built for humans, including shipyards, energy infrastructure, construction sites, and factories.
-However, a useful robot for these spaces must coordinate locomotion, whole body motion, perception, contact, and operator supervision.
-In this thesis we present a system doing this via a behavior authoring and runtime system.
-Furthermore, we argue that behavior coordination architecture is itself a measurable design variable affecting the ability to readily acheive these tasks in the real world.
-Specifically, we argue that architecture implicates speed, robustness across task variation, and adaptation time when modifying a behavior for a new task.</p>
-<p>We present a robot-local editable behavior architecture in which trees of action primitives execute with layered concurrency on the robot, while an operator interface remains continuously synchronized for runtime authoring, monitoring, and repair.
-Action primitives are built on top of a whole body controller that supports manipulation while walking.
-Perception actions are authored inside the behavior so that detection and scene reasoning are scheduled with the rest of the task rather than configured globally.
-The architecture supports rapid authoring of new behaviors and reuse of existing subtrees across related tasks.</p>
-<p>Door traversal is used as the main benchmark task because it exposes the full coordination problem in a compact and repeatable setting, requiring approach walking, body placement, mechanism perception, grasp selection, handle actuation, interaction with a moving obstacle, and a transition back to locomotion.
-The behavior library developed during this work covers more than twenty real-robot task variants, including push and pull doors with knob, push-bar, and lever-handle mechanisms, multi-step exploration sequences, obstacle clearing and breaching, and reactive table-to-table manipulation tasks.
-Versions of the same behavior system were run on Nadia, Boston Dynamics DRC Atlas, IHMC’s fully electric Alex humanoid robot, and Unitree H1-2, which shows that the architecture is not tied to one platform.</p>
-<p>We evaluate the system on speed, reliability, variation coverage, and authoring effort.
-A push bar door traversal in 14 seconds and a reactive pick and place demonstration for 6 balls in 42 seconds establish our speed direction.
-For reliability, we tested 11 successful push approach-and-opening repetitions in a row and 12 successful pull approach-and-opening repetitions in a row on Alex, and 32 successful right pull openings in a row on Unitree H1-2.
-Measured authoring sessions show that new door behaviors can be created from an empty tree to the start of autonomous repeated-run testing in 31 minutes, and that a mirrored real-door adaptation reaches first success in under two hours, both without code recompilation or redeployment.
-We compare against prior IHMC baselines and selected door systems from the literature across speed, reliability, variation coverage, and authoring effort, with execution boundary and sensing assumptions reported alongside as part of each comparison.
-Videos of the work presented in this dissertation are available online at <a href="https://www.youtube.com/playlist?list=PLJK5CTyotYqsfgfnXb-09YNFeBose6uEY">https://www.youtube.com/playlist?list=PLJK5CTyotYqsfgfnXb-09YNFeBose6uEY</a>.</p>
-<!-- AUTO-ABSTRACT-END -->
+                        <h1 id="screw-primitives"><a class="header" href="#screw-primitives">Screw Primitives</a></h1>
+<h2 id="motion-model"><a class="header" href="#motion-model">Motion Model</a></h2>
+<figure id="fig:guide_sim_screw_primitive">
+<img src="media/guide/20260519_161800_ScrewPrimitive.jpg" />
+<figcaption>Tuning a screw primitive action.
+A video of this demonstration is available at <a href="https://youtu.be/NkX0Jo9TlYs" class="uri">https://youtu.be/NkX0Jo9TlYs</a>.</figcaption>
+</figure>
+<p><a href="#fig:guide_sim_screw_primitive" data-reference-type="ref+label" data-reference="fig:guide_sim_screw_primitive">1</a> shows a screw primitive action being authored.
+Our screw primitive action is inspired by Pettinger’s 2022 paper but differs in implementation.</p>
+<p>Our screw primitive action is defined relative to a user-defined screw reference frame, where the axis of the screw is strictly aligned with the local x-axis (\(\hat{\mathbf{x}}\)).
+The motion is parameterized by a total axial translation \(\Delta x\) and a total rotation \(\Delta \theta\).
+<a href="#fig:guide_sim_screw_primitive" data-reference-type="ref+label" data-reference="fig:guide_sim_screw_primitive">1</a> illustrates one parameterization for reference and the reference video shows varied parameterizations.</p>
+<p>Let the initial position of the end-effector in the screw frame be \(\mathbf{p}_0 = [x_0, y_0, z_0]^T\).
+The radial distance \(r\) from the screw axis to the end-effector is calculated by projecting the position onto the y-z plane:
+$$
+r = \sqrt{y_0^2 + z_0^2}
+$$</p>
+<p>To compute motion bounds, the total Euclidean distance traversed by the end-effector, \(D\), combines both the axial displacement and the tangential arc length:
+$$
+D = \sqrt{(r \Delta \theta)^2 + (\Delta x)^2}
+$$</p>
+<p>The trajectory duration is determined by enforcing maximum velocity limits.
+Given a maximum linear velocity \(v_{max}\) and maximum angular velocity \(\omega_{max}\), the base duration \(T_{base}\) required to complete the motion is dominated by the most restrictive bound:
+$$
+T_{base} = \max\left( \frac{|\Delta \theta|}{\omega_{max}}, \frac{D}{v_{max}} \right)
+$$</p>
+<p>The trajectory is discretized into \(N\) waypoints (where \(N\) is limited by the system’s trajectory buffer size), yielding \(N-1\) segments.
+The nominal duration of a single segment is:
+$$
+\delta t = \frac{T_{base}}{N - 1}
+$$</p>
+<p>To account for smooth acceleration and deceleration without requiring complex spline generation, the implementation applies a temporal boundary condition: the duration of the first and last trajectory segments is doubled (i.e., \(2\delta t\)), while all intermediate segments retain duration \(\delta t\).
+Consequently, the total movement duration expands to \(T = T_{base} + 2\delta t\).</p>
+<h2 id="trajectory-construction"><a class="header" href="#trajectory-construction">Trajectory Construction</a></h2>
+<p>The trajectory maintains constant base velocities throughout the central portion of the motion.
+The scalar velocities are derived from the base duration:</p>
+<ul>
+<li>
+<p>Axial velocity: \(v_a = \frac{\Delta x}{T_{base}}\)</p>
+</li>
+<li>
+<p>Tangential velocity: \(v_t = \frac{r \Delta \theta}{T_{base}}\)</p>
+</li>
+<li>
+<p>Rotational velocity: \(\omega_x = \frac{\Delta \theta}{T_{base}}\)</p>
+</li>
+</ul>
+<p>At any intermediate waypoint \(i\), let the current position of the end-effector in the screw frame be \(\mathbf{p}_i = [x_i, y_i, z_i]^T\). The purely radial vector is \(\mathbf{r}_{\perp, i} = [0, y_i, z_i]^T\).</p>
+<p>The unit tangent vector \(\mathbf{u}_{t,i}\) describing the instantaneous direction of rotation is found via the cross product of the screw axis and the radial vector:
+$$
+\mathbf{u}_{t,i} = \frac{\hat{\mathbf{x}} \times \mathbf{r}_{\perp, i}}{|\hat{\mathbf{x}} \times \mathbf{r}_{\perp, i}|}
+$$</p>
+<p>The spatial velocity commands at waypoint \(i\), expressed in the local screw frame, are formulated as:
+$$
+\mathbf{v}_i = v_a \hat{\mathbf{x}} + v_t \mathbf{u}_{t,i}
+$$
+$$
+\boldsymbol{\omega}_i = \omega_x \hat{\mathbf{x}}
+$$
+Note that for the initial (\(t=0\)) and final (\(t=T\)) waypoints, the spatial velocities are strictly clamped to zero.</p>
+<p>The rigid-body poses are iteratively generated by applying incremental transformations in the screw frame. For \(K\) total segments (determined by spatial resolution limits), the incremental roll rotation \(\delta \theta = \Delta \theta / K\) and translation \(\delta x = \Delta x / K\) are calculated.</p>
+<p>The pose of the end-effector at step \(k\), denoted as \(\mathbf{T}_k \in SE(3)\), is generated by prepending the incremental transformation to the previous pose:
+$$
+\mathbf{T}_k = \mathbf{T}_{k-1} \begin{bmatrix} \mathbf{R}_x(\delta \theta) &amp; \begin{bmatrix} \delta x \ 0 \ 0 \end{bmatrix} \ \mathbf{0}^T &amp; 1 \end{bmatrix}
+$$
+This sequence of generated poses and spatial velocities is finally fed into an inverse kinematics solver to compute the joint-space trajectories.</p>
+<h2 id="tuning-and-preview"><a class="header" href="#tuning-and-preview">Tuning and Preview</a></h2>
+<p>As seen in <a href="#fig:guide_sim_screw_primitive" data-reference-type="ref+label" data-reference="fig:guide_sim_screw_primitive">1</a>, the total axial translation, total rotation, max linear velocity, and max angular velocity can be specified using sliders.
+The 3D trajectory visualization is updated in real time as the user drags these sliders to help dial in the motion.
+As with the single pose trajectory arm action, the screw primitive has settings for the position and orientation tolerance.
+If the final goal pose is not reached within these tolerances, the action fails.</p>
+<p>In order to provide a rich intuition about the motion, there is also a motion preview slider for the screw primitive.
+The slider may be dragged manually or played back at real time speed in a loop.
+The arm is blue when the IK solution is good and red when it is bad.
+The behavior author should strive to keep it blue throughout the motion.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="5_tutorial_4_concurrent_actions_example.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
 
-                            <a rel="next prefetch" href="2_metrics.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="5_tutorial_6_behavior_scene_management_example.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -216,8 +270,11 @@ Videos of the work presented in this dissertation are available online at <a hre
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="5_tutorial_4_concurrent_actions_example.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
 
-                    <a rel="next prefetch" href="2_metrics.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="5_tutorial_6_behavior_scene_management_example.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
