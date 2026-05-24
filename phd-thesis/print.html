@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>PhD Thesis</title>
+        <title>A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
         <meta name="robots" content="noindex">
 
 
@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-ae97acae.js";
+            window.path_to_searchindex_js = "searchindex-beb89d45.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-039d0267.js"></script>
+        <script src="toc-0e01bacc.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -140,7 +140,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">PhD Thesis</h1>
+                    <h1 class="menu-title">A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -177,7 +177,31 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <p><span id="ch:metrics" label="ch:metrics"></span></p>
+                        <h1 id="a-system-for-fast-resilient-and-adaptable-loco-manipulation-behaviors-on-humanoid-robots"><a class="header" href="#a-system-for-fast-resilient-and-adaptable-loco-manipulation-behaviors-on-humanoid-robots">A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</a></h1>
+<p><strong>Author:</strong> Duncan William Calvert<br><strong>Department:</strong> Department of Intelligent Systems and Robotics<br><strong>College:</strong> College of Science and Engineering</p>
+<!-- AUTO-ABSTRACT-START -->
+<h2 id="abstract"><a class="header" href="#abstract">Abstract</a></h2>
+<p>Humanoid robots could be used to take on physically demanding, hazardous, and repetitive work in spaces built for humans, including shipyards, energy infrastructure, construction sites, and factories.
+However, a useful robot for these spaces must coordinate locomotion, whole body motion, perception, contact, and operator supervision.
+In this thesis we present a system doing this via a behavior authoring and runtime system.
+Furthermore, we argue that behavior coordination architecture is itself a measurable design variable affecting the ability to readily acheive these tasks in the real world.
+Specifically, we argue that architecture implicates speed, robustness across task variation, and adaptation time when modifying a behavior for a new task.</p>
+<p>We present a robot-local editable behavior architecture in which trees of action primitives execute with layered concurrency on the robot, while an operator interface remains continuously synchronized for runtime authoring, monitoring, and repair.
+Action primitives are built on top of a whole body controller that supports manipulation while walking.
+Perception actions are authored inside the behavior so that detection and scene reasoning are scheduled with the rest of the task rather than configured globally.
+The architecture supports rapid authoring of new behaviors and reuse of existing subtrees across related tasks.</p>
+<p>Door traversal is used as the main benchmark task because it exposes the full coordination problem in a compact and repeatable setting, requiring approach walking, body placement, mechanism perception, grasp selection, handle actuation, interaction with a moving obstacle, and a transition back to locomotion.
+The behavior library developed during this work covers more than twenty real-robot task variants, including push and pull doors with knob, push-bar, and lever-handle mechanisms, multi-step exploration sequences, obstacle clearing and breaching, and reactive table-to-table manipulation tasks.
+Versions of the same behavior system were run on Nadia, Boston Dynamics DRC Atlas, IHMC’s fully electric Alex humanoid robot, and Unitree H1-2, which shows that the architecture is not tied to one platform.</p>
+<p>We evaluate the system on speed, reliability, variation coverage, and authoring effort.
+A push bar door traversal in 14 seconds and a reactive pick and place demonstration for 6 balls in 42 seconds establish our speed direction.
+For reliability, we tested 11 successful push approach-and-opening repetitions in a row and 12 successful pull approach-and-opening repetitions in a row on Alex, and 32 successful right pull openings in a row on Unitree H1-2.
+Measured authoring sessions show that new door behaviors can be created from an empty tree to the start of autonomous repeated-run testing in 31 minutes, and that a mirrored real-door adaptation reaches first success in under two hours, both without code recompilation or redeployment.
+We compare against prior IHMC baselines and selected door systems from the literature across speed, reliability, variation coverage, and authoring effort, with execution boundary and sensing assumptions reported alongside as part of each comparison.
+Videos of the work presented in this dissertation are available online at <a href="https://www.youtube.com/playlist?list=PLJK5CTyotYqsfgfnXb-09YNFeBose6uEY">https://www.youtube.com/playlist?list=PLJK5CTyotYqsfgfnXb-09YNFeBose6uEY</a>.</p>
+<!-- AUTO-ABSTRACT-END -->
+<div style="break-before: page; page-break-before: always;"></div>
+<p><span id="ch:metrics" label="ch:metrics"></span></p>
 <p>In this chapter, we’ll discuss some of our dream requirements for a behavior architecture, in order to set up our goals and the desired properties of a particular implementation.
 In this thesis we focus on behavior systems that require human expertise to dream up, create, adapt, and modify.
 It is conceivable that a generally intelligent AI could replace this role in the future, but nevertheless we do not consider that here.

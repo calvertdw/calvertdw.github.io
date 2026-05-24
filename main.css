@@ -1,15 +1,34 @@
 body {
+    background: #0f1115;
+    color: #e7eaf0;
     margin-left: 150px;
 	max-width: 750px;
 }
 h1, h2, h3 {
     font-family: "Verdana", Verdana, serif;
+    color: #f4f6fb;
 }
 p {
     font-family: "Verdana", Verdana, serif;
 	line-height: 1.7;
-	color: #0c0c0c;
+	color: #d4dae6;
 	max-width: 750px;
+}
+a {
+    color: #8ab4ff;
+}
+a:visited {
+    color: #c19cff;
+}
+.highlight-entry {
+    border: 1px solid #2d3340;
+    background: #171b23;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 26px;
+}
+.highlight-entry h2 {
+    margin-top: 0;
 }
 
 .hytPlayerWrap {
