@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-62645ed1.js";
+            window.path_to_searchindex_js = "searchindex-14326c61.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-58947f0e.js"></script>
+        <script src="toc-83e275b8.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -225,12 +225,9 @@ A video of this demonstration is available at <a href="https://youtu.be/GN0_XoBx
 This is accomplished via the <code>CONFIGURE_PERSISTENT_DETECTIONS</code> scene action type, seen in <a href="#fig:guide_sim_scene_action_persistent_detections" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action_persistent_detections">2</a>.
 There are four parameters for the persistent detections: pose filter alpha, acceptance confidence, stability frequency, and history duration.
 <a href="#fig:persistent-detection-lifecycle" data-reference-type="ref+label" data-reference="fig:persistent-detection-lifecycle">3</a> illustrates the instant and persistent detection management process, which happens continuously in the behavior scene.</p>
-<div class="singlespace">
 <figure id="fig:persistent-detection-lifecycle">
 <figcaption>Lifecycle of persistent detections in the behavior scene. New instantaneous detections are greedily associated to existing persistent detections by comparing detector type, semantic class, and a fixed spatial gate. Unmatched detections spawn new persistent detections initialized with the configured filtering and temporal parameters.</figcaption>
 </figure>
-</div>
-
 <p>The parameter \(\alpha\) is the pose filter coefficient used when initializing each persistent detection, \(c_{acc}\) is the acceptance confidence threshold, \(f_{stab}\) is the required stability frequency, and \(T_{hist}\) is the history duration maintained by the persistent detection.</p>
 <p>For the tennis balls, we set the acceptance confidence threshold to 0.1 and the stability frequency to 0.5 and execute the scene action.
 The result is shown in <a href="#fig:guide_sim_scene_action_persistent_detections" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action_persistent_detections">2</a> where 3 sports balls are tracked as persistent detections.
@@ -257,12 +254,9 @@ They are privileged maintainers of reference frames that are subsequently usable
 There are two types of objects: direct and derived.
 The types are shown in <a href="#fig:setup-object-types" data-reference-type="ref+label" data-reference="fig:setup-object-types">5</a>.
 The derived types allow us to model articulated objects like doors and implement heuristic environmental feature extraction, such as for table edges.</p>
-<div class="singlespace">
 <figure id="fig:setup-object-types">
 <figcaption>Scene object types supported by the <code>SETUP_OBJECT</code> scene action. Direct objects are based on persistent detections, whereas derived objects are constructed from named frames, paired detections, or depth-based geometric calculations.</figcaption>
 </figure>
-</div>
-
 <p><a href="#fig:guide_sim_scene_action_ball" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action_ball">4</a> also shows the result of executing the setup object scene action.
 In the top right, a sports ball can be seen in the “Objects:” area.
 For each object, we show its world frame pose information and any referenced persistent detections.

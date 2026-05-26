@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Page not found - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
-        <base href="/">
+        <title>Architectural Foundations - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
 
 
         <!-- Custom HTML head -->
@@ -177,14 +176,106 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="document-not-found-404"><a class="header" href="#document-not-found-404">Document not found (404)</a></h1>
-<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
+                        <h1 id="architectural-foundations"><a class="header" href="#architectural-foundations">Architectural Foundations</a></h1>
+<p>Affordance Templates, Behavior Trees, and Coactive Design form the strongest theoretical foundations of the work in this thesis.
+Affordance Templates provide a theoretical foundation for reusable behavior with respect to recurring tasks in the environment.
+Behavior Trees provide a data structure for organizing behavior functionality and logic.
+Coactive Design poses three questions that drive the design of a system to leverage the synergistic opportunities of human-robot teams.</p>
+<h2 id="affordance-templates"><a class="header" href="#affordance-templates">Affordance Templates</a></h2>
+<p>The Affordance Template Framework was developed and used for the DARPA Robotics Challenge Trials in 2013.
+Affordance templates were first presented in the literature in 2014.
+The work was performed on NASA’s Valkyrie humanoid robot, where it demonstrated a valve turning task.
+The Affordance Template framework provides a way to parameterize and reuse robot loco-manipulation behaviors with respect to environmental affordances.
+A number of affordance templates were developed for use on the Valkyrie robot including templates for door opening, walking, hose mating, valve turning, and ladder and stair climbing.</p>
+<p>The word “affordance” comes from James Gibson’s 1979 book, <em>The Ecological Approach to Visual Perception</em> .
+It is used in the sense that an environmental feature “affords” an action.
+For example, the ground is an affordance for walking and a handle is an affordance for turning.
+An affordance template is a robotics construct providing a theoretical foundation for defining and parameterizing robot behavior with respect to environmental affordances.
+This makes it one of the most consequential design inspirations for our work.</p>
+<figure id="fig:affordance_template_reference">
+<img src="media/affordance_templates/ValveTemplate.png" />
+<figcaption>"Placing a wheel-turning template in RViz.", taken from <span class="citation" data-cites="Hart_2014"></span>.
+(a) shows NASA Valkyrie turning a valve using an affordance template in the DARPA Robotics Challenge Trials.
+(b) shows the perceptual 3D point cloud scan, colored by depth.
+(c) shows a virtual affordance template before it is aligned to the object.
+(d) shows the affordance template after it has been aligned to the object by a human operator.
+</figcaption>
+</figure>
+<p>In 2022, Hart et. al. generalized and further demonstrated the power of this approach, as shown in <a href="#fig:affordance_template_2" data-reference-type="ref+label" data-reference="fig:affordance_template_2">2</a>.
+Tools for footstep planning, motion planning, stance generation, and grasping were incorporated to enable increased autonomous functionality.
+This was demonstrated on NASA Valkyrie for integrated task execution, including car-door interaction and explosive-device handling .
+In this work, the operator could load, edit, and execute templates at runtime.</p>
+<p>Related works on affordance primitives   emphasize constrained interaction motions such as turning a valve or closing a drawer.
+The screw primitive in particular shows how a reusable low-level action can capture a class of constrained manipulation motions without hard coding them.</p>
+<figure id="fig:affordance_template_2">
+<img src="media/affordance_templates/AT2022.png" />
+<figcaption>"NASA Valkyrie using an AT to remove a bag from a table", taken from <span class="citation" data-cites="Hart_2022"></span>.
+(a) shows the alignment of an affordance for picking up a bag to the point cloud.
+Tools are then invoked for footstep planning, stance generation, and manipulation and visualized as shown.
+(b) shows the robot’s state at the conclusion of the bag pickup task.
+(c) shows the state of the robot and the environment at the start of the task and (d) shows it at the end.
+</figcaption>
+</figure>
+<h2 id="behavior-trees"><a class="header" href="#behavior-trees">Behavior Trees</a></h2>
+<p>Behavior Trees are a data structure that coordinates low-level actions through structured reactive task logic.
+They define logical operator nodes such as sequence, fallback, and parallel which work to control the execution flow of a behavior.
+Actions are performed by the leaf nodes which command the robot and gather environmental data.
+They provide reactivity though a ticking system in which each tick starts at the root node.
+This is in contrast to state machines in which each tick starts from the previous state.
+By continuously re-evaluating from the top down, from tick to tick there are pathways to ending up in very different parts of the tree without explicit connections between those parts.</p>
+<p>A Behavior Tree is “ticked” from the root node at a constant frequency.
+The tick is a signal which propagates through the tree, causing nodes to evaluate or execute.
+Control nodes redirect the tick and condition and action nodes return results: success, failure, or running.
+A node is executed if and only if it receives ticks.
+If an action is underway, it returns running to the parent.
+When it is done it returns success or failure.</p>
+<p>A sequence node is the most fundamental Behavior Tree control node.
+It runs each node in order while they are successful, as shown in <a href="#fig:behavior_tree_sequence" data-reference-type="ref+label" data-reference="fig:behavior_tree_sequence">3</a> and <a href="#alg:sequence_node" data-reference-type="ref+label" data-reference="alg:sequence_node">[alg:sequence_node]</a>.</p>
+<figure id="fig:behavior_tree_sequence">
+<img src="media/generated/BehaviorTreeSequenceTikz.jpg" />
+<figcaption>A sequence node with N children.</figcaption>
+</figure>
+<div class="algorithm">
+<p>Success</p>
+</div>
+
+<p>A fallback node runs each node in order while they are failing.
+This is shown in <a href="#fig:behavior_tree_fallback" data-reference-type="ref+label" data-reference="fig:behavior_tree_fallback">4</a> and <a href="#alg:fallback_node" data-reference-type="ref+label" data-reference="alg:fallback_node">[alg:fallback_node]</a>.</p>
+<figure id="fig:behavior_tree_fallback">
+<img src="media/generated/BehaviorTreeFallbackTikz.jpg" />
+<figcaption>A fallback node with N children.</figcaption>
+</figure>
+<div class="algorithm">
+<p>Failure</p>
+</div>
+
+<p>The remaining types of nodes are summarized in <a href="#fig:behavior_tree_nodes" data-reference-type="ref+label" data-reference="fig:behavior_tree_nodes">5</a>.</p>
+<figure id="fig:behavior_tree_nodes">
+<img src="media/generated/BehaviorTreeNodeTable.jpg" />
+<figcaption>The different types of Behavior Tree nodes.</figcaption>
+</figure>
+<h2 id="coactive-design"><a class="header" href="#coactive-design">Coactive Design</a></h2>
+<p>The Coactive Design method is an iterative process comprised of three main processes: an identification process, a selection and implementation process, and an evaluation of change process.
+The most complex process is in the identification process in which requirements, alternatives, and interdependence relationships are explored.
+A set of desired interdependence relationships are determined and selected for implementation.
+The result is then evaluated using human feedback and performance analysis.
+This methodology was used for the design and development of IHMC’s operator interface in the 2015 DRC.
+A later analysis details how that methodology led to success in the competition.</p>
+<p>Coactive Design treats human-machine systems as interdependent and emphasizes making the system observable, predictable, and directable, with interdependence analysis charts used to document those relationships.
+The architecture in this thesis is meant to be developed, debugged, and adapted by expert operators on real hardware.
+Coactive Design directly motivates the authoring and supervision interfaces in Chapter <a href="#ch:architecture" data-reference-type="ref" data-reference="ch:architecture">[ch:architecture]</a>.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="3_prior_work_1_introduction.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
 
+                            <a rel="next prefetch" href="3_prior_work_3_architectural_influences.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -192,7 +283,13 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="3_prior_work_1_introduction.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
 
+                    <a rel="next prefetch" href="3_prior_work_3_architectural_influences.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
             </nav>
 
         </div>

@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Page not found - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
-        <base href="/">
+        <title>Architectural Influences - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
 
 
         <!-- Custom HTML head -->
@@ -177,14 +176,46 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="document-not-found-404"><a class="header" href="#document-not-found-404">Document not found (404)</a></h1>
-<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
+                        <h1 id="architectural-influences"><a class="header" href="#architectural-influences">Architectural Influences</a></h1>
+<h2 id="mit-director"><a class="header" href="#mit-director">MIT Director</a></h2>
+<p>MIT’s DRC system Director  is an earlier example of a structured autonomy framework that integrated operator supervision, planners, a 3D scene, and behavior-level scripting.
+It combined locomotion and manipulation planning with an operator-in-the-loop execution pipeline and an embedded Python editor for writing task scripts.
+It is a relevant precedent for integrating high-level autonomy and operator tooling in one environment, but its behavior representation remained scripting-heavy and it did not target the combination of robot-local runtime editing, synchronized state sharing, and fast loco-manipulation studied here.</p>
+<h2 id="flexbe"><a class="header" href="#flexbe">FlexBE</a></h2>
+<p>Schillinger et al. introduced FlexBE, a high-level control framework for rescue robotics built on hierarchical state machines, adjustable-autonomy guards on state outcomes, and runtime modification of executing behaviors .
+FlexBE is a particularly important precedent because it treats runtime behavior adaptation as a normal operational capability rather than an offline development step.
+The paper reports qualitative success in example scenarios and competition use, but it does not provide overlapping numerical measures of door traversal speed, door-task reliability, or authoring effort.
+FlexBE therefore contributes as an architectural design influence rather than as a direct quantitative baseline.</p>
+<h2 id="dlr-rafcon"><a class="header" href="#dlr-rafcon">DLR RAFCON</a></h2>
+<p>In the same year, Brunner et al. introduced RAFCON, a DLR tool for engineering robotic tasks as hierarchical state machines with first-class concurrency .
+RAFCON exposes preemptive and barrier concurrency states alongside hierarchy and library states, allows the structure of a state machine and the Python code inside execution states to be modified while it is running, and supports stepping, an execution history with full data context, and backwards stepping for debugging.
+The state machine is persisted as a folder of JSON files that mirrors the tree, which makes it readable, version controllable, and amenable to multi-developer collaboration.
+The most complete demonstration is the SpaceBotCamp 2015 mission, in which a state machine of more than 700 states across 8 hierarchy levels orchestrated navigation, exploration, perception, and manipulation; it is therefore a strong precedent for runtime-modifiable graphical authoring at scale, but, like FlexBE, it does not provide overlapping numerical evidence on door-task speed, reliability, or authoring effort, and it remains a host-side orchestration tool over ROS components rather than a robot-local synchronized runtime.</p>
+<h2 id="drawing-board"><a class="header" href="#drawing-board">Drawing Board</a></h2>
+<p>Senft et al.  present <em>Drawing Board</em>, a task-level authoring interface for remote teleoperation of a tabletop Franka Emika Panda arm.
+The system is built around four principles relevant here: interleaving observation and planning, action-level robot control, a unified augmented-reality interface, and graphical specification of actions.
+An 18-participant study showed that novices produced longer and more frequent autonomous periods with task-level authoring than with direct or point-and-click control.
+The architecture in this thesis shares the action-level authoring stance and unified-interface principle, and extends them to humanoid loco-manipulation, robot-local execution under degraded communications, and reactive tree structure with behavior-time perception authored as scene actions.</p>
+<h2 id="behaviors-on-centauro"><a class="header" href="#behaviors-on-centauro">Behaviors on CENTAURO</a></h2>
+<p>More recent CENTAURO work shows how structured task coordination can extend into perception-aware execution.
+De Luca et al. used BehaviorTree.CPP and Groot to manage online replanning and recovery for rough-terrain navigation on the CENTAURO wheeled-legged robot .
+That system is a useful reference point for BT-managed online planning, but it remains navigation only and does not demonstrate fast execution, with real-robot runs reported between 225 s and 335 s.
+A later paper by Wang et al.  moved into simple loco-manipulation by combining a predefined behavior library with task graphs executed as behavior trees.
+That paper is especially relevant because perceptual operations such as object detection, grip-force sensing, and visual question answering are inserted into the task structure as authored behaviors, which is a precedent for the scene action idea developed here.
+The reported real-world execution remains slow, with pick-and-place times of 160.6 s in the nominal case and 203.2 s with failure recovery.
+Together these structured systems show important pieces of the design space, but they do not establish fast humanoid loco-manipulation with editable authored structure and task-local perception.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="3_prior_work_2_architectural_foundations.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
 
+                            <a rel="next prefetch" href="3_prior_work_4_door_traversal_systems.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -192,7 +223,13 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="3_prior_work_2_architectural_foundations.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
 
+                    <a rel="next prefetch" href="3_prior_work_4_door_traversal_systems.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
             </nav>
 
         </div>

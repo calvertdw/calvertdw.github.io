@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Page not found - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
-        <base href="/">
+        <title>Introduction - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
 
 
         <!-- Custom HTML head -->
@@ -177,14 +176,143 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="document-not-found-404"><a class="header" href="#document-not-found-404">Document not found (404)</a></h1>
-<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
+                        <p><span id="ch:introduction2" label="ch:introduction2"></span></p>
+<h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p>There is tremendous value in humanoid robots taking on the dull, dirty, and dangerous work in spaces built for humans.
+However, a useful system must coordinate locomotion, whole body motion, perception, contact, and operator supervision.
+It must also support adaptation to new tasks.
+This chapter introduces the problem addressed by this dissertation and situates the proposed behavior architecture in the relevant literature.</p>
+<p>The central claim of this thesis is that our behavior architecture enables fast, resilient, and adaptive humanoid robot behaviors.
+Different architectural choices affect how quickly a behavior executes, how robustly it tolerates task variation and disturbance, and how much effort is required to adapt an existing behavior to a new variant.
+The work therefore focuses on the runtime structure that makes the task faster, more resilient, and easier to modify than prior versions.
+In <a href="#ch:building" data-reference-type="ref+label" data-reference="ch:building">[ch:building]</a>, we tell the story of how we arrived at our current design choices.</p>
+<p>This thesis demonstrates its relevance through performant real-robot demos on a variety of humanoid robot platforms, including IHMC’s recently developed Alex, a fully-electric humanoid robot with 29 degrees of freedom, as shown in <a href="#fig:20260309_AlexRightPullDoorProfessionalStill" data-reference-type="ref+label" data-reference="fig:20260309_AlexRightPullDoorProfessionalStill">1</a>.
+Alex uses the Psyonic Ability Hands, which are anthropomorphic 5-finger hands with 6 degrees of freedom each.
+It also perceives the world on-board, using just two stereo color cameras in the head with a human-like interpupillary distance.</p>
+<p>We have run our system with several humanoid robots over the years, including the Boston Dynamics DARPA Robotics Challenge Atlas, NASA’s Valkyrie, IHMC and Boardwalk Robotics’ Nadia, Unitree’s H1-2, and IHMC’s Alex.
+This reflects the generality of our approach: it can run on a variety of humanoid robots.
+We describe the prerequisites in more detail in <a href="#ch:tutorial" data-reference-type="ref+label" data-reference="ch:tutorial">[ch:tutorial]</a>.</p>
+<figure id="fig:20260309_AlexRightPullDoorProfessionalStill">
+<img src="media/alex/20260309_AlexRightPullDoorProfessionalStill.jpg" style="width:62.0%" />
+<figcaption>IHMC’s fully electric Alex humanoid robot traversing a right pull door.
+Alex is the primary platform in the final dissertation evaluations.</figcaption>
+</figure>
+<h2 id="problem-statement-and-scope"><a class="header" href="#problem-statement-and-scope">Problem Statement and Scope</a></h2>
+<p>This dissertation addresses the problem of local robot behavior authoring and execution for humanoid loco-manipulation tasks.
+The specific setting considered here is a robot operating in human scale environments, where it must walk, reach, manipulate objects, perceive doors and tables, and respond to operator input without relying on external tracking infrastructure.
+The scope is centered on a robot local behavior system in which you can compose, edit, and retarget behaviors.</p>
+<p>The work presented here focuses on a behavior architecture that unifies task execution, authorable perception, and operator-robot teaming.
+In this architecture, behaviors are authored as reusable structures that can be executed on the robot and inspected and modified at runtime.
+This design can improve task speed, robustness under variation, and the time required to adapt a behavior to a new task variant such as a door or station.
+In <a href="#ch:tutorial" data-reference-type="ref+label" data-reference="ch:tutorial">[ch:tutorial]</a>, we provide a guide on composing and editing humanoid robot loco-manipulation behaviors using our system.</p>
+<p>We compare our system to prior versions over a 10-year development period and to published results in the literature.
+However, we do not experimentally reproduce results from the literature.
+We also do not experimentally evaluate off-the-shelf alternatives such as MoveIt , MoveIt Pro , BehaviorTree.CPP , and Groot .</p>
+<h2 id="research-questions"><a class="header" href="#research-questions">Research Questions</a></h2>
+<p>This scope can be defined more formally by asking three research questions:</p>
+<ol>
+<li>
+<p>What concrete behavior architecture is sufficient to enable fast and robust humanoid loco-manipulation on real doors, and why are nearby alternatives insufficient?</p>
+</li>
+<li>
+<p>How does this architecture compare with prior IHMC baselines and reported reinforcement learning door systems on overlapping metrics such as traversal time, reliability, and task variation coverage?</p>
+</li>
+<li>
+<p>How does runtime-editable behavior structure change the time and sequence of steps required for an expert operator to adapt an existing behavior to a new door or task variant?</p>
+</li>
+</ol>
+<h2 id="research-hypotheses"><a class="header" href="#research-hypotheses">Research Hypotheses</a></h2>
+<p>To answer these questions, we establish the following research hypotheses, which are essentially the characteristics of the architecture we committed to building.</p>
+<ol>
+<li>
+<p>Robot-local execution with synchronized UI state, concurrent action layering, reactive tree logic, and behavior-time semantic perception yield door behaviors that are faster and more reliable than prior IHMC baselines and competitive with reported reinforcement learning systems on overlapping door tasks.</p>
+</li>
+<li>
+<p>Runtime-editable behaviors and perception modules reduce the iteration loop required to diagnose failures, modify logic, and re-test on the robot, relative to redeploy, restart, or retrain workflows.</p>
+</li>
+<li>
+<p>Decomposing behaviors into reusable primitives, subtrees, and scene actions allows new door and loco-manipulation variants to be brought up by editing a small part of a working behavior rather than rebuilding the task from scratch.</p>
+</li>
+</ol>
+<h2 id="three-pillars"><a class="header" href="#three-pillars">Three Pillars</a></h2>
+<p>More simply, and as the core metrics by which we will judge and organize this work, we present the three pillars of this thesis: Speed, Resilience, and Adaptability.
+Speed means fast execution of loco-manipulation behaviors.
+Resilience means robust and reactive behavior under disturbance and task variation.
+Adaptability means runtime-editable behaviors for rapid task retargeting.
+These pillars provide the main lens for evaluating the architecture and the results presented throughout the dissertation.
+In <a href="#ch:metrics" data-reference-type="ref+label" data-reference="ch:metrics">[ch:metrics]</a>, we cover the full set of desirable characteristics of a humanoid robot behavior architecture.</p>
+<h1 id="door-traversals-as-a-benchmark-task"><a class="header" href="#door-traversals-as-a-benchmark-task">Door Traversals as a Benchmark Task</a></h1>
+<p>We use door traversal as a benchmark task because it exposes the full coordination problem in a compact and repeatable setting.
+There are three main phases of door traversal: the approach, the opening, and the traversal walk.
+For the approach, footsteps must be precise to provide arm reachability while avoiding collisions between the door and the robot.
+Since the doors often have spring closers, a complex manipulation sequence is required to open the door all the way without failure.
+Finally, the traversal walk is difficult because the robot must maintain balance while avoiding collisions with the door frame and resisting lateral impacts from the spring loaded door panel.
+<a href="#fig:2024NadiaRightPullLeverHandleCycloid" data-reference-type="ref+label" data-reference="fig:2024NadiaRightPullLeverHandleCycloid">2</a> shows a circa-2024 door behavior being executed on the Boardwalk Robotics and IHMC Nadia humanoid robot.</p>
+<figure id="fig:2024NadiaRightPullLeverHandleCycloid">
+<img src="media/nadia/2024NadiaRightPullLeverHandleCycloid.jpg" />
+<figcaption>The Nadia humanoid robot performing a right pull lever handle door traversal using cycloidal drive forearms and Sake grippers.</figcaption>
+</figure>
+<p>There are many publications on door opening with wheeled base robots and arms, such as , , , and .
+By contrast, there is relatively little published work on door traversal with bipedal humanoid robots .
+That gap matters because humanoids must manage foot placement, balance, reachability, body orientation, and environmental contact at the same time.
+The humanoid form is also especially well suited for navigating complex spaces that already assume a human body plan .</p>
+<p>Although doors are the primary benchmark, the architecture is intended for loco-manipulation more broadly.
+The behavior library developed during this work spans more than twenty real robot task variants.
+<a href="#fig:behavior_library_taxonomy" data-reference-type="ref+label" data-reference="fig:behavior_library_taxonomy">3</a> groups the distinct behavior types by category.
+In addition to door traversals, the evaluation set includes a behavior in which the robot walks between two tables and sorts colored balls into the correct containers.
+That result shows the architecture extends beyond the canonical door task without changing the overall approach.</p>
+<figure id="fig:behavior_library_taxonomy">
+<img src="media/generated/BehaviorLibraryTaxonomyTikz.jpg" />
+<figcaption>Distinct real-robot behavior types developed during this work, grouped by category.</figcaption>
+</figure>
+<h1 id="contributed-works"><a class="header" href="#contributed-works">Contributed Works</a></h1>
+<p>We contributed to the following publications while working on this thesis.
+The first paper in this list received the Humanoids 2022 Best Oral Paper Award .
+The second paper in this list earned a Bronze Medal in Benjie Holson’s Humanoid Olympic Games for a round knob push door traversal timed at 18 s .</p>
+<ol>
+<li>
+<p><strong>Duncan Calvert</strong>, Bhavyansh Mishra, Stephen McCrory, Sylvain Bertrand, Robert Griffin and Jerry Pratt (2022). A Fast, Autonomous, Bipedal Walking Behavior over Rapid Regions. <em>2022 IEEE-RAS 21st International Conference on Humanoid Robots (Humanoids)</em> .</p>
+</li>
+<li>
+<p><strong>Duncan Calvert</strong>, Luigi Penco, Dexton Anderson, Tomasz Bialek, Arghya Chatterjee, Bhavyansh Mishra, Geoffrey Clark, Sylvain Bertrand and Robert Griffin (2024). A Behavior Architecture for Fast Humanoid Robot Door Traversals. <em>Robotics and Autonomous Systems</em> .</p>
+</li>
+<li>
+<p><strong>Duncan Calvert</strong>, Luigi Penco, Dexton Anderson, Tomasz Bialek, Arghya Chatterjee, Beomyeong Park, and Robert Griffin (2026). A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots. <em>IEEE Robotics and Automation Letters</em> (in preparation) .</p>
+</li>
+<li>
+<p>Bhavyansh Mishra, <strong>Duncan Calvert</strong>, Sylvain Bertrand, Jerry Pratt, Hakki Erhan Sevil, and Robert Griffin (2024). Efficient Terrain Map Using Planar Regions for Footstep Planning on Humanoid Robots. Accepted for publication in the <em>Proceedings of the 2024 IEEE International Conference on Robotics and Automation (ICRA)</em> .</p>
+</li>
+<li>
+<p>Bhavyansh Mishra, <strong>Duncan Calvert</strong>, Brendon Ortolano, Max Asselmeier, Luke Fina, Stephen McCrory, Hakki Erhan Sevil, and Robert Griffin (2022). Perception engine using a multi-sensor head to enable high-level humanoid robot behaviors. Published in the <em>Proceedings of the 2022 International Conference on Robotics and Automation (ICRA)</em> .</p>
+</li>
+<li>
+<p>Bhavyansh Mishra, <strong>Duncan Calvert</strong>, Sylvain Bertrand, Stephen McCrory, Robert Griffin, and Hakki Erhan Sevil (2024). GPU-Accelerated Rapid Planar Region Extraction for Dynamic Behaviors on Legged Robots. Published in the <em>Proceedings of the 2021 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</em> .</p>
+</li>
+<li>
+<p>Luigi Penco, Kazuhiko Momose, Stephen McCrory, Dexton Anderson, Nicholas Kitchel, <strong>Duncan Calvert</strong>, and Robert J Griffin (2024). Mixed reality teleoperation assistance for direct control of humanoids. <em>IEEE Robotics and Automation Letters</em>, 9(2), 1937-1944 .</p>
+</li>
+<li>
+<p>Sylvain Bertrand, Luigi Penco, Dexton Anderson, <strong>Duncan Calvert</strong>, Valentine Roy, Stephen McCrory, Khizar Mohammed, Sebastian Sanchez, Will Griffith, Steve Morfey, Alexis Maslyczyk, Achintya Mohan, Cody Castello, Bingyin Ma, Kartik Suryavanshi, Patrick Dills, Jerry Pratt, Victor Ragusila, Brandon Shrewsbury, and Robert Griffin (2024). High-Speed and Impact Resilient Teleoperation of Humanoid Robots. <em>2024 IEEE-RAS 23rd International Conference on Humanoid Robots (Humanoids)</em> .</p>
+</li>
+<li>
+<p>Stephen McCrory, Sylvain Bertrand, Achintya Mohan, <strong>Duncan Calvert</strong>, Jerry Pratt, and Robert Griffin (2023). Generating humanoid multi-contact through feasibility visualization. <em>2023 IEEE-RAS 22nd International Conference on Humanoid Robots (Humanoids)</em> .</p>
+</li>
+<li>
+<p>Sylvain Bertrand, Inho Lee, Bhavyansh Mishra, <strong>Duncan Calvert</strong>, Jerry Pratt, and Robert Griffin (2020). Detecting Usable Planar Regions for Legged Robot Locomotion. <em>2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</em> .</p>
+</li>
+</ol>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="abstract.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
 
+                            <a rel="next prefetch" href="2_metrics.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -192,7 +320,13 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="abstract.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
 
+                    <a rel="next prefetch" href="2_metrics.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
             </nav>
 
         </div>

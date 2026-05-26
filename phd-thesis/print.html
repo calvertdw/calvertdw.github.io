@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-62645ed1.js";
+            window.path_to_searchindex_js = "searchindex-14326c61.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-58947f0e.js"></script>
+        <script src="toc-83e275b8.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -202,7 +202,133 @@ We compare against prior IHMC baselines and selected door systems from the liter
 Videos of the work presented in this dissertation are available online at <a href="https://www.youtube.com/playlist?list=PLJK5CTyotYqsfgfnXb-09YNFeBose6uEY">https://www.youtube.com/playlist?list=PLJK5CTyotYqsfgfnXb-09YNFeBose6uEY</a>.</p>
 <!-- AUTO-ABSTRACT-END -->
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="metrics"><a href="#metrics" class="header">Metrics</a></h1>
+<p><span id="ch:introduction2" label="ch:introduction2"></span></p>
+<h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p>There is tremendous value in humanoid robots taking on the dull, dirty, and dangerous work in spaces built for humans.
+However, a useful system must coordinate locomotion, whole body motion, perception, contact, and operator supervision.
+It must also support adaptation to new tasks.
+This chapter introduces the problem addressed by this dissertation and situates the proposed behavior architecture in the relevant literature.</p>
+<p>The central claim of this thesis is that our behavior architecture enables fast, resilient, and adaptive humanoid robot behaviors.
+Different architectural choices affect how quickly a behavior executes, how robustly it tolerates task variation and disturbance, and how much effort is required to adapt an existing behavior to a new variant.
+The work therefore focuses on the runtime structure that makes the task faster, more resilient, and easier to modify than prior versions.
+In <a href="#ch:building" data-reference-type="ref+label" data-reference="ch:building">[ch:building]</a>, we tell the story of how we arrived at our current design choices.</p>
+<p>This thesis demonstrates its relevance through performant real-robot demos on a variety of humanoid robot platforms, including IHMC’s recently developed Alex, a fully-electric humanoid robot with 29 degrees of freedom, as shown in <a href="#fig:20260309_AlexRightPullDoorProfessionalStill" data-reference-type="ref+label" data-reference="fig:20260309_AlexRightPullDoorProfessionalStill">1</a>.
+Alex uses the Psyonic Ability Hands, which are anthropomorphic 5-finger hands with 6 degrees of freedom each.
+It also perceives the world on-board, using just two stereo color cameras in the head with a human-like interpupillary distance.</p>
+<p>We have run our system with several humanoid robots over the years, including the Boston Dynamics DARPA Robotics Challenge Atlas, NASA’s Valkyrie, IHMC and Boardwalk Robotics’ Nadia, Unitree’s H1-2, and IHMC’s Alex.
+This reflects the generality of our approach: it can run on a variety of humanoid robots.
+We describe the prerequisites in more detail in <a href="#ch:tutorial" data-reference-type="ref+label" data-reference="ch:tutorial">[ch:tutorial]</a>.</p>
+<figure id="fig:20260309_AlexRightPullDoorProfessionalStill">
+<img src="media/alex/20260309_AlexRightPullDoorProfessionalStill.jpg" style="width:62.0%" />
+<figcaption>IHMC’s fully electric Alex humanoid robot traversing a right pull door.
+Alex is the primary platform in the final dissertation evaluations.</figcaption>
+</figure>
+<h2 id="problem-statement-and-scope"><a class="header" href="#problem-statement-and-scope">Problem Statement and Scope</a></h2>
+<p>This dissertation addresses the problem of local robot behavior authoring and execution for humanoid loco-manipulation tasks.
+The specific setting considered here is a robot operating in human scale environments, where it must walk, reach, manipulate objects, perceive doors and tables, and respond to operator input without relying on external tracking infrastructure.
+The scope is centered on a robot local behavior system in which you can compose, edit, and retarget behaviors.</p>
+<p>The work presented here focuses on a behavior architecture that unifies task execution, authorable perception, and operator-robot teaming.
+In this architecture, behaviors are authored as reusable structures that can be executed on the robot and inspected and modified at runtime.
+This design can improve task speed, robustness under variation, and the time required to adapt a behavior to a new task variant such as a door or station.
+In <a href="#ch:tutorial" data-reference-type="ref+label" data-reference="ch:tutorial">[ch:tutorial]</a>, we provide a guide on composing and editing humanoid robot loco-manipulation behaviors using our system.</p>
+<p>We compare our system to prior versions over a 10-year development period and to published results in the literature.
+However, we do not experimentally reproduce results from the literature.
+We also do not experimentally evaluate off-the-shelf alternatives such as MoveIt , MoveIt Pro , BehaviorTree.CPP , and Groot .</p>
+<h2 id="research-questions"><a class="header" href="#research-questions">Research Questions</a></h2>
+<p>This scope can be defined more formally by asking three research questions:</p>
+<ol>
+<li>
+<p>What concrete behavior architecture is sufficient to enable fast and robust humanoid loco-manipulation on real doors, and why are nearby alternatives insufficient?</p>
+</li>
+<li>
+<p>How does this architecture compare with prior IHMC baselines and reported reinforcement learning door systems on overlapping metrics such as traversal time, reliability, and task variation coverage?</p>
+</li>
+<li>
+<p>How does runtime-editable behavior structure change the time and sequence of steps required for an expert operator to adapt an existing behavior to a new door or task variant?</p>
+</li>
+</ol>
+<h2 id="research-hypotheses"><a class="header" href="#research-hypotheses">Research Hypotheses</a></h2>
+<p>To answer these questions, we establish the following research hypotheses, which are essentially the characteristics of the architecture we committed to building.</p>
+<ol>
+<li>
+<p>Robot-local execution with synchronized UI state, concurrent action layering, reactive tree logic, and behavior-time semantic perception yield door behaviors that are faster and more reliable than prior IHMC baselines and competitive with reported reinforcement learning systems on overlapping door tasks.</p>
+</li>
+<li>
+<p>Runtime-editable behaviors and perception modules reduce the iteration loop required to diagnose failures, modify logic, and re-test on the robot, relative to redeploy, restart, or retrain workflows.</p>
+</li>
+<li>
+<p>Decomposing behaviors into reusable primitives, subtrees, and scene actions allows new door and loco-manipulation variants to be brought up by editing a small part of a working behavior rather than rebuilding the task from scratch.</p>
+</li>
+</ol>
+<h2 id="three-pillars"><a class="header" href="#three-pillars">Three Pillars</a></h2>
+<p>More simply, and as the core metrics by which we will judge and organize this work, we present the three pillars of this thesis: Speed, Resilience, and Adaptability.
+Speed means fast execution of loco-manipulation behaviors.
+Resilience means robust and reactive behavior under disturbance and task variation.
+Adaptability means runtime-editable behaviors for rapid task retargeting.
+These pillars provide the main lens for evaluating the architecture and the results presented throughout the dissertation.
+In <a href="#ch:metrics" data-reference-type="ref+label" data-reference="ch:metrics">[ch:metrics]</a>, we cover the full set of desirable characteristics of a humanoid robot behavior architecture.</p>
+<h1 id="door-traversals-as-a-benchmark-task"><a class="header" href="#door-traversals-as-a-benchmark-task">Door Traversals as a Benchmark Task</a></h1>
+<p>We use door traversal as a benchmark task because it exposes the full coordination problem in a compact and repeatable setting.
+There are three main phases of door traversal: the approach, the opening, and the traversal walk.
+For the approach, footsteps must be precise to provide arm reachability while avoiding collisions between the door and the robot.
+Since the doors often have spring closers, a complex manipulation sequence is required to open the door all the way without failure.
+Finally, the traversal walk is difficult because the robot must maintain balance while avoiding collisions with the door frame and resisting lateral impacts from the spring loaded door panel.
+<a href="#fig:2024NadiaRightPullLeverHandleCycloid" data-reference-type="ref+label" data-reference="fig:2024NadiaRightPullLeverHandleCycloid">2</a> shows a circa-2024 door behavior being executed on the Boardwalk Robotics and IHMC Nadia humanoid robot.</p>
+<figure id="fig:2024NadiaRightPullLeverHandleCycloid">
+<img src="media/nadia/2024NadiaRightPullLeverHandleCycloid.jpg" />
+<figcaption>The Nadia humanoid robot performing a right pull lever handle door traversal using cycloidal drive forearms and Sake grippers.</figcaption>
+</figure>
+<p>There are many publications on door opening with wheeled base robots and arms, such as , , , and .
+By contrast, there is relatively little published work on door traversal with bipedal humanoid robots .
+That gap matters because humanoids must manage foot placement, balance, reachability, body orientation, and environmental contact at the same time.
+The humanoid form is also especially well suited for navigating complex spaces that already assume a human body plan .</p>
+<p>Although doors are the primary benchmark, the architecture is intended for loco-manipulation more broadly.
+The behavior library developed during this work spans more than twenty real robot task variants.
+<a href="#fig:behavior_library_taxonomy" data-reference-type="ref+label" data-reference="fig:behavior_library_taxonomy">3</a> groups the distinct behavior types by category.
+In addition to door traversals, the evaluation set includes a behavior in which the robot walks between two tables and sorts colored balls into the correct containers.
+That result shows the architecture extends beyond the canonical door task without changing the overall approach.</p>
+<figure id="fig:behavior_library_taxonomy">
+<img src="media/generated/BehaviorLibraryTaxonomyTikz.jpg" />
+<figcaption>Distinct real-robot behavior types developed during this work, grouped by category.</figcaption>
+</figure>
+<h1 id="contributed-works"><a class="header" href="#contributed-works">Contributed Works</a></h1>
+<p>We contributed to the following publications while working on this thesis.
+The first paper in this list received the Humanoids 2022 Best Oral Paper Award .
+The second paper in this list earned a Bronze Medal in Benjie Holson’s Humanoid Olympic Games for a round knob push door traversal timed at 18 s .</p>
+<ol>
+<li>
+<p><strong>Duncan Calvert</strong>, Bhavyansh Mishra, Stephen McCrory, Sylvain Bertrand, Robert Griffin and Jerry Pratt (2022). A Fast, Autonomous, Bipedal Walking Behavior over Rapid Regions. <em>2022 IEEE-RAS 21st International Conference on Humanoid Robots (Humanoids)</em> .</p>
+</li>
+<li>
+<p><strong>Duncan Calvert</strong>, Luigi Penco, Dexton Anderson, Tomasz Bialek, Arghya Chatterjee, Bhavyansh Mishra, Geoffrey Clark, Sylvain Bertrand and Robert Griffin (2024). A Behavior Architecture for Fast Humanoid Robot Door Traversals. <em>Robotics and Autonomous Systems</em> .</p>
+</li>
+<li>
+<p><strong>Duncan Calvert</strong>, Luigi Penco, Dexton Anderson, Tomasz Bialek, Arghya Chatterjee, Beomyeong Park, and Robert Griffin (2026). A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots. <em>IEEE Robotics and Automation Letters</em> (in preparation) .</p>
+</li>
+<li>
+<p>Bhavyansh Mishra, <strong>Duncan Calvert</strong>, Sylvain Bertrand, Jerry Pratt, Hakki Erhan Sevil, and Robert Griffin (2024). Efficient Terrain Map Using Planar Regions for Footstep Planning on Humanoid Robots. Accepted for publication in the <em>Proceedings of the 2024 IEEE International Conference on Robotics and Automation (ICRA)</em> .</p>
+</li>
+<li>
+<p>Bhavyansh Mishra, <strong>Duncan Calvert</strong>, Brendon Ortolano, Max Asselmeier, Luke Fina, Stephen McCrory, Hakki Erhan Sevil, and Robert Griffin (2022). Perception engine using a multi-sensor head to enable high-level humanoid robot behaviors. Published in the <em>Proceedings of the 2022 International Conference on Robotics and Automation (ICRA)</em> .</p>
+</li>
+<li>
+<p>Bhavyansh Mishra, <strong>Duncan Calvert</strong>, Sylvain Bertrand, Stephen McCrory, Robert Griffin, and Hakki Erhan Sevil (2024). GPU-Accelerated Rapid Planar Region Extraction for Dynamic Behaviors on Legged Robots. Published in the <em>Proceedings of the 2021 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</em> .</p>
+</li>
+<li>
+<p>Luigi Penco, Kazuhiko Momose, Stephen McCrory, Dexton Anderson, Nicholas Kitchel, <strong>Duncan Calvert</strong>, and Robert J Griffin (2024). Mixed reality teleoperation assistance for direct control of humanoids. <em>IEEE Robotics and Automation Letters</em>, 9(2), 1937-1944 .</p>
+</li>
+<li>
+<p>Sylvain Bertrand, Luigi Penco, Dexton Anderson, <strong>Duncan Calvert</strong>, Valentine Roy, Stephen McCrory, Khizar Mohammed, Sebastian Sanchez, Will Griffith, Steve Morfey, Alexis Maslyczyk, Achintya Mohan, Cody Castello, Bingyin Ma, Kartik Suryavanshi, Patrick Dills, Jerry Pratt, Victor Ragusila, Brandon Shrewsbury, and Robert Griffin (2024). High-Speed and Impact Resilient Teleoperation of Humanoid Robots. <em>2024 IEEE-RAS 23rd International Conference on Humanoid Robots (Humanoids)</em> .</p>
+</li>
+<li>
+<p>Stephen McCrory, Sylvain Bertrand, Achintya Mohan, <strong>Duncan Calvert</strong>, Jerry Pratt, and Robert Griffin (2023). Generating humanoid multi-contact through feasibility visualization. <em>2023 IEEE-RAS 22nd International Conference on Humanoid Robots (Humanoids)</em> .</p>
+</li>
+<li>
+<p>Sylvain Bertrand, Inho Lee, Bhavyansh Mishra, <strong>Duncan Calvert</strong>, Jerry Pratt, and Robert Griffin (2020). Detecting Usable Planar Regions for Legged Robot Locomotion. <em>2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</em> .</p>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="desirable-characteristics"><a class="header" href="#desirable-characteristics">Desirable Characteristics</a></h1>
 <p><span id="ch:metrics" label="ch:metrics"></span></p>
 <p>In this chapter, we’ll discuss some of our dream requirements for a behavior architecture, in order to set up our goals and the desired properties of a particular implementation.
 In this thesis we focus on behavior systems that require human expertise to dream up, create, adapt, and modify.
@@ -391,6 +517,255 @@ We think this will vary from system to system and ultimately is based on the con
 For example, if you have high trust in your controller’s ability to walk and balance, you may not show balance information to the operator.
 Conversely, if you depend on a semantic object detection subsystem that is always failing to detect objects, you will likely want that visible in high detail at all times so you can monitor and learn how to either exploit its properties or make informed improvements.</p>
 <p>Now that we have defined some desirable characteristics of a good behavior architecture, we’ll tell the story of our journey in navigating the tradeoffs and building one from near-scratch that met our requirements.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="related-work"><a class="header" href="#related-work">Related Work</a></h1>
+<p><span id="ch:prior_work" label="ch:prior_work"></span></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="introduction-1"><a class="header" href="#introduction-1">Introduction</a></h1>
+<p>In this chapter we’ll cover literature that relates to this dissertation on reusable action structure, reactive task coordination, human-machine coordination, perception, and real robot door task demonstrations.
+Architectural references include CLARAty, Affordance Templates, Affordance Primitives, Coactive Design, Director, FlexBE, RAFCON, Drawing Board, and the CENTAURO behavior tree systems.
+Door task references span from classical and model-based mobile-manipulator and humanoid systems to recent learned legged and humanoid policies.
+The systems with metrics that overlap our benchmark are compared with each other and this thesis in Chapter <a href="#ch:evaluation" data-reference-type="ref" data-reference="ch:evaluation">[ch:evaluation]</a>.</p>
+<p><a href="#fig:design_space_map" data-reference-type="ref+label" data-reference="fig:design_space_map">1</a> maps every system reviewed in this chapter across four dimensions: execution boundary, runtime editability, perception model, and door evidence.
+The execution boundary refers to where the process that controls the robot runs.
+It can be off-board, operator-in-the-loop, or purely on-board/robot-local.
+This one part of qualifying our “Independence from External Systems” characteristic in <a href="#ch:metrics" data-reference-type="ref+label" data-reference="ch:metrics">[ch:metrics]</a></p>
+<p>In <a href="#fig:design_space_map" data-reference-type="ref+label" data-reference="fig:design_space_map">1</a>, each row is one system.
+The filled cells place that row on the execution-boundary axis (left band) and the runtime-editability axis (right band).
+The two rightmost columns encode the perception model used at task time, distinguishing behavior-time authored perception from a fixed onboard pipeline, learned end-to-end perception, and reliance on external measurement, alongside the strength of the system’s door-task evidence on a four-level scale from none to repeated-trial real-world.
+This thesis is the only row that combines robot-local execution, runtime structural and perception edits, behavior-time authored perception, and repeated-trial real-world door evidence.
+DoorMan is the only off-board entry, and the learned door systems concentrate on the policy-retrain column rather than runtime structural edits.</p>
+<figure id="fig:design_space_map">
+<img src="media/generated/DesignSpaceMapTikz.jpg" />
+<figcaption>
+Design-space placement of every prior system reviewed in this chapter.
+</figcaption>
+</figure>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="architectural-foundations"><a class="header" href="#architectural-foundations">Architectural Foundations</a></h1>
+<p>Affordance Templates, Behavior Trees, and Coactive Design form the strongest theoretical foundations of the work in this thesis.
+Affordance Templates provide a theoretical foundation for reusable behavior with respect to recurring tasks in the environment.
+Behavior Trees provide a data structure for organizing behavior functionality and logic.
+Coactive Design poses three questions that drive the design of a system to leverage the synergistic opportunities of human-robot teams.</p>
+<h2 id="affordance-templates"><a class="header" href="#affordance-templates">Affordance Templates</a></h2>
+<p>The Affordance Template Framework was developed and used for the DARPA Robotics Challenge Trials in 2013.
+Affordance templates were first presented in the literature in 2014.
+The work was performed on NASA’s Valkyrie humanoid robot, where it demonstrated a valve turning task.
+The Affordance Template framework provides a way to parameterize and reuse robot loco-manipulation behaviors with respect to environmental affordances.
+A number of affordance templates were developed for use on the Valkyrie robot including templates for door opening, walking, hose mating, valve turning, and ladder and stair climbing.</p>
+<p>The word “affordance” comes from James Gibson’s 1979 book, <em>The Ecological Approach to Visual Perception</em> .
+It is used in the sense that an environmental feature “affords” an action.
+For example, the ground is an affordance for walking and a handle is an affordance for turning.
+An affordance template is a robotics construct providing a theoretical foundation for defining and parameterizing robot behavior with respect to environmental affordances.
+This makes it one of the most consequential design inspirations for our work.</p>
+<figure id="fig:affordance_template_reference">
+<img src="media/affordance_templates/ValveTemplate.png" />
+<figcaption>"Placing a wheel-turning template in RViz.", taken from <span class="citation" data-cites="Hart_2014"></span>.
+(a) shows NASA Valkyrie turning a valve using an affordance template in the DARPA Robotics Challenge Trials.
+(b) shows the perceptual 3D point cloud scan, colored by depth.
+(c) shows a virtual affordance template before it is aligned to the object.
+(d) shows the affordance template after it has been aligned to the object by a human operator.
+</figcaption>
+</figure>
+<p>In 2022, Hart et. al. generalized and further demonstrated the power of this approach, as shown in <a href="#fig:affordance_template_2" data-reference-type="ref+label" data-reference="fig:affordance_template_2">2</a>.
+Tools for footstep planning, motion planning, stance generation, and grasping were incorporated to enable increased autonomous functionality.
+This was demonstrated on NASA Valkyrie for integrated task execution, including car-door interaction and explosive-device handling .
+In this work, the operator could load, edit, and execute templates at runtime.</p>
+<p>Related works on affordance primitives   emphasize constrained interaction motions such as turning a valve or closing a drawer.
+The screw primitive in particular shows how a reusable low-level action can capture a class of constrained manipulation motions without hard coding them.</p>
+<figure id="fig:affordance_template_2">
+<img src="media/affordance_templates/AT2022.png" />
+<figcaption>"NASA Valkyrie using an AT to remove a bag from a table", taken from <span class="citation" data-cites="Hart_2022"></span>.
+(a) shows the alignment of an affordance for picking up a bag to the point cloud.
+Tools are then invoked for footstep planning, stance generation, and manipulation and visualized as shown.
+(b) shows the robot’s state at the conclusion of the bag pickup task.
+(c) shows the state of the robot and the environment at the start of the task and (d) shows it at the end.
+</figcaption>
+</figure>
+<h2 id="behavior-trees"><a class="header" href="#behavior-trees">Behavior Trees</a></h2>
+<p>Behavior Trees are a data structure that coordinates low-level actions through structured reactive task logic.
+They define logical operator nodes such as sequence, fallback, and parallel which work to control the execution flow of a behavior.
+Actions are performed by the leaf nodes which command the robot and gather environmental data.
+They provide reactivity though a ticking system in which each tick starts at the root node.
+This is in contrast to state machines in which each tick starts from the previous state.
+By continuously re-evaluating from the top down, from tick to tick there are pathways to ending up in very different parts of the tree without explicit connections between those parts.</p>
+<p>A Behavior Tree is “ticked” from the root node at a constant frequency.
+The tick is a signal which propagates through the tree, causing nodes to evaluate or execute.
+Control nodes redirect the tick and condition and action nodes return results: success, failure, or running.
+A node is executed if and only if it receives ticks.
+If an action is underway, it returns running to the parent.
+When it is done it returns success or failure.</p>
+<p>A sequence node is the most fundamental Behavior Tree control node.
+It runs each node in order while they are successful, as shown in <a href="#fig:behavior_tree_sequence" data-reference-type="ref+label" data-reference="fig:behavior_tree_sequence">3</a> and <a href="#alg:sequence_node" data-reference-type="ref+label" data-reference="alg:sequence_node">[alg:sequence_node]</a>.</p>
+<figure id="fig:behavior_tree_sequence">
+<img src="media/generated/BehaviorTreeSequenceTikz.jpg" />
+<figcaption>A sequence node with N children.</figcaption>
+</figure>
+<div class="algorithm">
+<p>Success</p>
+</div>
+
+<p>A fallback node runs each node in order while they are failing.
+This is shown in <a href="#fig:behavior_tree_fallback" data-reference-type="ref+label" data-reference="fig:behavior_tree_fallback">4</a> and <a href="#alg:fallback_node" data-reference-type="ref+label" data-reference="alg:fallback_node">[alg:fallback_node]</a>.</p>
+<figure id="fig:behavior_tree_fallback">
+<img src="media/generated/BehaviorTreeFallbackTikz.jpg" />
+<figcaption>A fallback node with N children.</figcaption>
+</figure>
+<div class="algorithm">
+<p>Failure</p>
+</div>
+
+<p>The remaining types of nodes are summarized in <a href="#fig:behavior_tree_nodes" data-reference-type="ref+label" data-reference="fig:behavior_tree_nodes">5</a>.</p>
+<figure id="fig:behavior_tree_nodes">
+<img src="media/generated/BehaviorTreeNodeTable.jpg" />
+<figcaption>The different types of Behavior Tree nodes.</figcaption>
+</figure>
+<h2 id="coactive-design"><a class="header" href="#coactive-design">Coactive Design</a></h2>
+<p>The Coactive Design method is an iterative process comprised of three main processes: an identification process, a selection and implementation process, and an evaluation of change process.
+The most complex process is in the identification process in which requirements, alternatives, and interdependence relationships are explored.
+A set of desired interdependence relationships are determined and selected for implementation.
+The result is then evaluated using human feedback and performance analysis.
+This methodology was used for the design and development of IHMC’s operator interface in the 2015 DRC.
+A later analysis details how that methodology led to success in the competition.</p>
+<p>Coactive Design treats human-machine systems as interdependent and emphasizes making the system observable, predictable, and directable, with interdependence analysis charts used to document those relationships.
+The architecture in this thesis is meant to be developed, debugged, and adapted by expert operators on real hardware.
+Coactive Design directly motivates the authoring and supervision interfaces in Chapter <a href="#ch:architecture" data-reference-type="ref" data-reference="ch:architecture">[ch:architecture]</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="architectural-influences"><a class="header" href="#architectural-influences">Architectural Influences</a></h1>
+<h2 id="mit-director"><a class="header" href="#mit-director">MIT Director</a></h2>
+<p>MIT’s DRC system Director  is an earlier example of a structured autonomy framework that integrated operator supervision, planners, a 3D scene, and behavior-level scripting.
+It combined locomotion and manipulation planning with an operator-in-the-loop execution pipeline and an embedded Python editor for writing task scripts.
+It is a relevant precedent for integrating high-level autonomy and operator tooling in one environment, but its behavior representation remained scripting-heavy and it did not target the combination of robot-local runtime editing, synchronized state sharing, and fast loco-manipulation studied here.</p>
+<h2 id="flexbe"><a class="header" href="#flexbe">FlexBE</a></h2>
+<p>Schillinger et al. introduced FlexBE, a high-level control framework for rescue robotics built on hierarchical state machines, adjustable-autonomy guards on state outcomes, and runtime modification of executing behaviors .
+FlexBE is a particularly important precedent because it treats runtime behavior adaptation as a normal operational capability rather than an offline development step.
+The paper reports qualitative success in example scenarios and competition use, but it does not provide overlapping numerical measures of door traversal speed, door-task reliability, or authoring effort.
+FlexBE therefore contributes as an architectural design influence rather than as a direct quantitative baseline.</p>
+<h2 id="dlr-rafcon"><a class="header" href="#dlr-rafcon">DLR RAFCON</a></h2>
+<p>In the same year, Brunner et al. introduced RAFCON, a DLR tool for engineering robotic tasks as hierarchical state machines with first-class concurrency .
+RAFCON exposes preemptive and barrier concurrency states alongside hierarchy and library states, allows the structure of a state machine and the Python code inside execution states to be modified while it is running, and supports stepping, an execution history with full data context, and backwards stepping for debugging.
+The state machine is persisted as a folder of JSON files that mirrors the tree, which makes it readable, version controllable, and amenable to multi-developer collaboration.
+The most complete demonstration is the SpaceBotCamp 2015 mission, in which a state machine of more than 700 states across 8 hierarchy levels orchestrated navigation, exploration, perception, and manipulation; it is therefore a strong precedent for runtime-modifiable graphical authoring at scale, but, like FlexBE, it does not provide overlapping numerical evidence on door-task speed, reliability, or authoring effort, and it remains a host-side orchestration tool over ROS components rather than a robot-local synchronized runtime.</p>
+<h2 id="drawing-board"><a class="header" href="#drawing-board">Drawing Board</a></h2>
+<p>Senft et al.  present <em>Drawing Board</em>, a task-level authoring interface for remote teleoperation of a tabletop Franka Emika Panda arm.
+The system is built around four principles relevant here: interleaving observation and planning, action-level robot control, a unified augmented-reality interface, and graphical specification of actions.
+An 18-participant study showed that novices produced longer and more frequent autonomous periods with task-level authoring than with direct or point-and-click control.
+The architecture in this thesis shares the action-level authoring stance and unified-interface principle, and extends them to humanoid loco-manipulation, robot-local execution under degraded communications, and reactive tree structure with behavior-time perception authored as scene actions.</p>
+<h2 id="behaviors-on-centauro"><a class="header" href="#behaviors-on-centauro">Behaviors on CENTAURO</a></h2>
+<p>More recent CENTAURO work shows how structured task coordination can extend into perception-aware execution.
+De Luca et al. used BehaviorTree.CPP and Groot to manage online replanning and recovery for rough-terrain navigation on the CENTAURO wheeled-legged robot .
+That system is a useful reference point for BT-managed online planning, but it remains navigation only and does not demonstrate fast execution, with real-robot runs reported between 225 s and 335 s.
+A later paper by Wang et al.  moved into simple loco-manipulation by combining a predefined behavior library with task graphs executed as behavior trees.
+That paper is especially relevant because perceptual operations such as object detection, grip-force sensing, and visual question answering are inserted into the task structure as authored behaviors, which is a precedent for the scene action idea developed here.
+The reported real-world execution remains slow, with pick-and-place times of 160.6 s in the nominal case and 203.2 s with failure recovery.
+Together these structured systems show important pieces of the design space, but they do not establish fast humanoid loco-manipulation with editable authored structure and task-local perception.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="door-traversal-systems"><a class="header" href="#door-traversal-systems">Door Traversal Systems</a></h1>
+<p>Door traversal is the benchmark task for this dissertation, so the most relevant prior systems execute a substantial portion of the full sequence from approach through passage.
+The literature spans behavior-based reactive systems, motion-planning formulations, and learned policies.
+The comparison is bounded to systems that overlap enough with the benchmark task to clarify the architectural design space.</p>
+<h2 id="classical-and-model-based-systems"><a class="header" href="#classical-and-model-based-systems">Classical and Model-Based Systems</a></h2>
+<h3 id="2008-2010-jain-and-kemp"><a class="header" href="#2008-2010-jain-and-kemp">2008-2010: Jain and Kemp</a></h3>
+<p>Before recent learned door systems, much of the door-opening literature focused on mobile manipulators.
+Jain and Kemp address two complementary halves of the task across a pair of papers.
+The 2008 system, El-E , is a statically stable mobile manipulator with a 5-DOF Katana arm and custom force-sensing fingers; it decomposes the push-side task into a serial chain of behaviors, with branches to explicit failure states, for locating the handle, deciding whether the door is locked, twisting the handle, deciding whether the door can be pushed, and pushing through the doorway.
+Across 30 trials on 6 doors, 5 per door (1 locked, 4 unlocked), the robot completed the full unlocked task in 21/24 trials (87.5%) and correctly detected the locked condition in 6/6 trials, stopping safely on every failure rather than requiring intervention.
+The 2010 system  switches platform to a hooked compliant manipulator on an omnidirectional base and addresses the pull-side task using equilibrium point control to coordinate the base and the compliant arm without a prior kinematic model of the mechanism.
+Across 40 trials on 10 different doors and drawers, the robot succeeded on 37/40, opening rotary mechanisms more than 60 on 26/28 trials and pulling drawers more than 30 cm on 11/12 trials.
+These are important early benchmark-oriented references: they take on the whole task on real hardware, report substantial repeated-trial evidence on diverse mechanisms, and treat handle perception, force-based contact, and recovery as first-class parts of the behavior.
+The platforms remain statically stable wheeled mobile manipulators and the task still begins from an externally provided handle cue, by laser pointer in 2008 and by 3D handle pose plus hook orientation in 2010, rather than from authored task-time perception.
+The behavior set in each paper is also fixed at deploy time rather than runtime-editable, so changing recovery logic, swapping perception, or adding a new variant requires returning to source.</p>
+<h3 id="2010-chitta"><a class="header" href="#2010-chitta">2010: Chitta</a></h3>
+<p>Chitta et al.  address coordinated base-and-arm motion planning for autonomous door opening on the Willow Garage PR2.
+Their key idea is to partition the planning problem rather than search a full whole-body state space: a graph search in \((x, y, \theta, d)\) plans the omnidirectional base trajectory, where \(d\) is a binary “door interval” variable indicating whether the door is connected to the closed or open configuration, while the arm trajectory is recovered by inverse kinematics at each base waypoint so that the gripper stays on the handle and the door remains within the arm’s reachable workspace.
+The system was evaluated for 5/5 push and 5/5 pull trials on the PR2, demonstrating that opening and passage can be posed as a coupled base-arm planning problem rather than a hard-coded motion sequence.
+The contribution is planning-focused and assumes that the door has already been grasped and unlatched, that an initial door model is available from a building map, and that the world is static during execution; the paper explicitly does not handle disturbances such as a person holding the door closed.
+By contrast, this dissertation focuses on editable reactive task structure operating from task-time perception, and treats grasp acquisition, retries, and disturbance recovery as authored parts of the same behavior rather than as preconditions of the planner.</p>
+<h3 id="2015-axelrod-and-huang"><a class="header" href="#2015-axelrod-and-huang">2015: Axelrod and Huang</a></h3>
+<p>Axelrod and Huang  report autonomous door opening and traversal on an iRobot 510 PackBot, a tracked skid-steer base with a 5-DoF arm and no wrist yaw joint.
+A custom Honeybee Robotics gripper provides a passive 2-DoF compliant wrist and fingertip Takktile tactile sensors in place of a wrist force/torque sensor, and a 2D laser rangefinder on the arm base tracks door pose throughout the task.
+The system is shared autonomy: the operator drives to a starting pose, specifies door type and handle type, confirms the visual handle detection, and then lets the robot execute the rest of the sequence.
+It is the most variation-broad classical reference here, covering push and pull, knobs and levers, and crucially the pull lever with a self-closing mechanism, where the robot uses its flipper to cage the door open before re-grasping from the inside and driving through.
+Reported task times are 63 s for push knob, 128 s for pull knob, 83 s for push lever with closer, and 118 s for pull lever with closer, measured from first robot motion until the back of the robot clears the doorway, with the robot starting 1 m from the door.
+Reliability is reported only qualitatively at approximately 60% because, as the authors note, any phase failure aborts the run and no recovery behavior is authored.
+The behavior runtime executes on a laptop tethered to the robot, the operator-classified door and handle inputs gate which fixed sub-behavior runs, and the per-handle perception is hard coded with Hough circles and Sobel-filtered Hough lines.
+Axelrod and Huang therefore extends the variation coverage of behavior-decomposed door traversal in classical mobile manipulation, while reinforcing the same architectural distance from this thesis: fixed shared-autonomy decomposition, off-robot execution, and no editable recovery structure.</p>
+<h3 id="2015-banerjee-et-al"><a class="header" href="#2015-banerjee-et-al">2015: Banerjee et al.</a></h3>
+<p>Banerjee et al. , WPI-CMU’s DARPA Robotics Challenge entry, is a particularly relevant classical humanoid door traversal reference.
+It reports a human-supervised semi-autonomous system in which Atlas detects a door, approaches it, opens it, and walks through it in the DRC setting.
+The system uses an event-driven finite-state machine executed on the robot, with human validation at critical transitions, motion planning for the manipulation phases, and both autonomous and operator-aided door detection.
+This is an important example of full-task humanoid door traversal under shared autonomy.
+Reported execution is slow by modern standards, at 9 min 23 s for the pull door case and 7 min 40 s for the push door case, and the DRC Finals deployment used the operator-aided detection mode for reliability.
+Relative to the system developed here, the key adaptability difference is that Banerjee et al. executes a pre-defined supervised FSM rather than a runtime-editable one, so it does not address fast behavior iteration, tighter perception-behavior integration, or repeated reactive execution.</p>
+<h3 id="2023-jang-et-al"><a class="header" href="#2023-jang-et-al">2023: Jang et al.</a></h3>
+<p>Jang et al.  extends the partitioned base-plus-arm planning idea from Chitta et al. to the full navigation problem on a Husky-based mobile manipulator with a Franka Emika Panda arm.
+A graph search in \((x, y, \theta, a)\) plans the base pose and an <em>area indicator</em> \(a \in {0,\dots,4}\) that records where the robot is relative to the door, from approaching, to opening, to crossing the doorsill, to closing, to navigating to a goal beyond the door, and an inverse kinematics solver then recovers the arm path along the planned base trajectory.
+The integer area indicator generalizes the binary door interval from Chitta et al. and lets approach, opening, traversal, closing, and goal navigation be solved in a single search.
+In simulation across 25 push and 25 pull trials, the framework reaches 100% planning success against 76–80% for the equivalent separate-planning baseline, and is 8.7\(\times\) faster on pull doors and 2.3\(\times\) faster on push doors while producing shorter, lower-cost paths.
+The framework is offline and assumes the door type, joint range, and handle position as inputs, so adapting to a new door, recovering from a failed grasp, or reacting to scene change at task time falls outside the planner; the authors note closed-loop replanning as future work.</p>
+<h3 id="2023-sleiman-et-al"><a class="header" href="#2023-sleiman-et-al">2023: Sleiman et al.</a></h3>
+<p>Sleiman et al.  take a planning-centered approach to loco-manipulation on a quadrupedal mobile manipulator, an ANYmal with a 6-DoF arm.
+Their framework casts multi-contact loco-manipulation as a Task and Motion Planning problem solved by sampling-based bilevel optimization combined with informed graph search, and it is demonstrated on the real robot for opening and closing a heavy dishwasher and for traversing a spring-loaded pull door using both prehensile and non-prehensile contacts.
+This is the strongest planning-based reference for spring-loaded door traversal in the recent literature, and it complements the learned door results discussed below by showing that multi-contact loco-manipulation can also be produced by holistic offline planning.
+The system is a quadruped rather than a humanoid, the planner runs offline from a known object model, and the executed behavior is not represented as an editable task graph that an operator can modify at runtime.</p>
+<h3 id="2024-thamrongaphichartkul-and-vongbunyong"><a class="header" href="#2024-thamrongaphichartkul-and-vongbunyong">2024: Thamrongaphichartkul and Vongbunyong</a></h3>
+<p>Thamrongaphichartkul and Vongbunyong  pair a mobile manipulator door-traversal task with a behavior tree implemented over ROS 2 and evaluated in Gazebo.
+The platform is a differential-drive base with a 6-effective-DoF arm augmented by two added base-side degrees of freedom, and the authored tree covers both an initially closed door and an initially open door, including approach, handle grasp, opening, traversal, and closing as reusable subtrees.
+This is the closest published precedent that explicitly combines a behavior-tree task model with the full door-traversal task on a mobile manipulator and reports honestly on the limitations of classical behavior trees: the authors find that small base-positioning errors propagate into incorrect tree decisions because the leaf actions do not adapt at task time.
+That observation lines up directly with the reactive structure and behavior-time perception emphasized in this dissertation, and it explains why a behavior tree alone is not sufficient for fast humanoid loco-manipulation.</p>
+<h3 id="2024-kang-et-al"><a class="header" href="#2024-kang-et-al">2024: Kang et al.</a></h3>
+<p>Kang et al.  is a more recent system-level reference because it presents a complete door opening and passage pipeline on a wheeled mobile manipulator rather than an isolated perception or control component.
+The system combines handle segmentation and pose estimation, exploratory force-based identification of the door opening direction, an adaptive position-force controller, and an SAC-based reinforcement learning controller for the opening and passing phase.
+It targets a complete benchmark task with varied handle types, door widths, and both push and pull doors, and explicitly compares a classical adaptive controller against a learned alternative inside one integrated system.
+The platform is a wheeled mobile manipulator rather than a legged humanoid, and the RL portion was trained only for a Push-CCW door while the other phases remained fixed procedural modules.
+In the real-world results, the RL controller was evaluated only on a single 0.9 m Push-CCW case, where it completed ST4 19% faster than the adaptive controller, while the broader real-world door-variation coverage came from the adaptive position-force controller.
+Kang et al. concentrates adaptability inside a controller layer within an otherwise fixed procedural pipeline, whereas this dissertation focuses on editing the task structure itself, including perception, coordination, and recovery logic, directly on the robot during development.
+Kang et al. is therefore prior art for full-sequence door opening and passage with a mobile manipulator and a benchmark-oriented comparison point, but not for fast editable loco-manipulation behavior structure on a humanoid robot.</p>
+<h3 id="2025-schulze-et-al"><a class="header" href="#2025-schulze-et-al">2025: Schulze et al.</a></h3>
+<p>Schulze et al.  report a deployed transport-and-messaging service on a SCITOS G5 differential-drive base with a Kinova Gen II 7-DoF arm, integrated to traverse closed doors and ride elevators in a populated multi-story environment.
+Across long-term field tests in an elderly-care facility and a university office building, the full system reported overall task success of 88.6% across 79 runs in one site and 80.0% across 40 runs in the other, with door manipulation alone exceeding 88% in both sites.
+This is one of the few real-world deployment references that integrates door manipulation with a longer mission and reports honest failure analysis at the system level, which makes it a useful precedent for the multi-step exploration and three-door composite behaviors discussed in <a href="#ch:evaluation" data-reference-type="ref+label" data-reference="ch:evaluation">[ch:evaluation]</a>.
+The platform is a wheeled differential-drive service robot rather than a bipedal humanoid, and the authored skill set is not a runtime-editable behavior tree, but the operating point and failure-mode discussion are directly relevant to deploying door behaviors in cluttered, populated environments.</p>
+<h2 id="learning-based-systems"><a class="header" href="#learning-based-systems">Learning-Based Systems</a></h2>
+<h3 id="2024-zhang-et-al"><a class="header" href="#2024-zhang-et-al">2024: Zhang et al.</a></h3>
+<p>Zhang et al.  presents a teacher-student reinforcement learning policy for an ANYmal-based legged manipulator to open and traverse doors.
+The paper targets the combined task of opening and passing through the doorway on a legged platform rather than stopping at door opening alone.
+It claims a single learned policy that handles both push and pull doors without being given the opening direction a priori, and reports repeated-trial results on a single spring-loaded door of 20/20 traversals on the pull side and 18/20 on the push side, for an overall success rate of 95.0%.
+The two failures were not failures to open the door itself, but push-side traversal failures in which the robot got stuck on protruding doorway geometry that was not represented in the simulation model.
+This is a strong recent reference point for learned door traversal on a legged robot.
+The method is a monolithic learned controller rather than a runtime-editable behavior architecture, and the hardware experiments rely on externally provided handle and doorway measurements from motion capture or AprilTags rather than the onboard authored perception pipeline studied here.
+That failure mode also illustrates a low-adaptability workflow: because the issue arises from a simulation mismatch inside a learned monolithic policy, addressing it requires changing the simulation or training setup and retraining rather than making a runtime behavior edit, a turnaround on the order of at least a day in our own development terms.
+Zhang et al. is a learned door traversal comparator on a legged platform, but it does not address the behavior authoring speed, editable task structure, or robot-local behavior coordination that are central here.</p>
+<h3 id="2025-zue-et-al"><a class="header" href="#2025-zue-et-al">2025: Zue et al.</a></h3>
+<p>The closest learned humanoid comparison point is Xue et al. , which presents DoorMan, a teacher-student-bootstrap sim-to-real learning pipeline for humanoid door loco-manipulation from pure RGB perception.
+It closes several gaps left by earlier learned door systems: it uses a humanoid platform rather than a quadruped with arm or a wheeled manipulator, it does not rely on externally provided door measurements as in Zhang et al., and it evaluates real-world door interaction across three categories: push lever, pull lever, and push bar.
+DoorMan reports an overall task success rate of 83% and an average completion time of 15.40 s across those categories, while outperforming expert teleoperators on the same whole-body controller in task completion time.
+That places it in roughly the same coarse speed regime targeted in this dissertation and makes it the most important learned humanoid baseline.
+The reported runtime deployment is not robot-local: DoorMan policy inference runs on a desktop workstation with an Intel i9-14900K CPU and an NVIDIA RTX 4090 GPU rather than on the humanoid itself , so the robot depends on active external communications during execution and cannot continue functioning autonomously if that link is lost.
+The method is a monolithic learned policy trained through privileged-state teacher learning, DAgger-based RGB distillation, GRPO fine-tuning, and large-scale simulation randomization, rather than a runtime-editable behavior architecture.
+DoorMan uses multi-stage decomposition to shape rewards and resets during training, but the demonstrated runtime result is a single end-to-end door-interaction policy, with no reported task-level branching across multiple authored behaviors or composition of heterogeneous behaviors into longer autonomous sequences.
+Adaptation in DoorMan is therefore retraining-centered rather than edit-centered: changing the policy behavior requires revisiting simulation assets, reward shaping, and the training pipeline rather than modifying the executing task logic on the robot.
+Xue et al. is a major comparison point for high-performance RGB door execution on a humanoid, but not a baseline for robot-local autonomy, authoring effort, or targeted runtime adaptation.</p>
+<p>There is also broader recent work on learning for articulated-object manipulation, such as Xiong et al. .
+That work is relevant at the level of general manipulation direction, but the detailed comparison in <a href="#ch:evaluation" data-reference-type="ref+label" data-reference="ch:evaluation">[ch:evaluation]</a> stays bounded to door systems with overlapping task scope and reported speed or success metrics.</p>
+<h3 id="2026-zhang-et-al"><a class="header" href="#2026-zhang-et-al">2026: Zhang et al.</a></h3>
+<p>Zhang et al.  present Sumo, a hybrid loco-manipulation framework that uses sample-based model-predictive control at runtime to steer a pre-trained whole-body reinforcement-learning policy.
+Sumo is most extensively evaluated on a Boston Dynamics Spot quadruped on dynamic whole-body tasks such as uprighting a tire and dragging a crowd-control barrier, and it also demonstrates the same hybrid framework in simulation on a Unitree G1 humanoid for door opening, table pushing, and box pushing.
+Architecturally it inverts the more common high-level RL plus low-level MPC stack by keeping the high-level decision in MPC and the low-level locomotion in RL, which lets the system adapt to new objects or new task objectives at deployment by changing only the planner’s cost function and object model rather than retraining the policy.
+This is closer in spirit to the edit-centered adaptation argued for in this thesis than a monolithic policy is, but the published humanoid door evidence is in simulation only, so Sumo is a recency-aware design-space comparison rather than a real-world humanoid door baseline alongside Xue et al.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="design-space-summary"><a class="header" href="#design-space-summary">Design Space Summary</a></h1>
+<p><a href="#fig:design_space_map" data-reference-type="ref+label" data-reference="fig:design_space_map">[fig:design_space_map]</a> makes the gap explicit.
+The prior work reviewed here contributes ingredients used in this dissertation, but not their combination.
+Affordance Templates and Affordance Primitives provide precedent for reusable authored action structure.
+Behavior Trees provide precedent for reactive task coordination.
+Coactive Design, Director, FlexBE, RAFCON, and Drawing Board provide precedent for making autonomy inspectable and adaptable under human supervision.
+The CENTAURO papers show that perception can be elevated into task structure rather than left as a global background service.
+Classical and learned door systems demonstrate several ways to achieve substantial portions of the benchmark task, from shared-autonomy humanoid FSMs to mobile-manipulator planners to monolithic learned door policies.</p>
+<p>We are not aware of a prior system that combines reusable authored task structure, reactive execution, robot-local runtime behavior state synchronized to an operator interface, behavior-time perception configuration, and fast real-robot humanoid door behaviors in one architecture with an edit-centered adaptation workflow.
+Some prior systems are structured and editable but do not demonstrate fast humanoid loco-manipulation.
+Others are strong door-performance references but depend on fixed procedural pipelines, external measurements, heavy supervision, off-board inference with active communications, or retraining-centered adaptation.
+This is the gap the thesis addresses, evaluated in later chapters on speed, robustness across task variation, and adaptation time.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="building-our-behavior-architecture"><a class="header" href="#building-our-behavior-architecture">Building our Behavior Architecture</a></h1>
 <p><span id="ch:building" label="ch:building"></span></p>
@@ -658,7 +1033,7 @@ A video is available at <a href="https://youtu.be/qAtfV7hTzYg" class="uri">https
 Bhavyansh Mishra developed a planar region extractor using OpenCL which enabled the development of a perceptive locomotion behavior with active perception while walking.
 This led to one of the first autonomous behaviors that used RDX as the user interface, as shown in <a href="#fig:atlas_rdx_perceptive_locomotion_demo" data-reference-type="ref+label" data-reference="fig:atlas_rdx_perceptive_locomotion_demo">2</a>.
 This work is covered in the 2022 paper .</p>
-<h2 id="behavior-trees"><a class="header" href="#behavior-trees">Behavior Trees</a></h2>
+<h2 id="behavior-trees-1"><a class="header" href="#behavior-trees-1">Behavior Trees</a></h2>
 <p>After the initial development of the perceptive locomotion behavior, “look and step”, we sought to build out multi-task behaviors as part of our building exploration demo.
 To assemble a hybrid teleoperated and autonomous multi-stage behavior, we looked to behavior trees.
 <a href="#fig:atlas_2d_behavior_tree_view" data-reference-type="ref+label" data-reference="fig:atlas_2d_behavior_tree_view">3</a> shows the very beginning of that effort in May of 2021.
@@ -1053,9 +1428,11 @@ A test run is shown in <a href="#fig:2024_onr_demo_partial" data-reference-type=
 At the time of writing, we have been unable to recover video of the full run, but we recall having searched all three rooms, including moving the couch to check under it and performing a salute behavior in the third room.</p>
 <p>We have printed the structure of the behavior, generated from the actual JSON in <a href="#fig:onr_demo_tikz" data-reference-type="ref+label" data-reference="fig:onr_demo_tikz">11</a> and <a href="#fig:onr_demo_tikz2" data-reference-type="ref+label" data-reference="fig:onr_demo_tikz2">12</a>.</p>
 <figure id="fig:onr_demo_tikz">
+<img src="media/generated/ONRDemoTikz.jpg" />
 <figcaption>The ONR Demo behavior tree (Part 1).</figcaption>
 </figure>
 <figure id="fig:onr_demo_tikz2">
+<img src="media/generated/ONRDemoTikz2.jpg" />
 <figcaption>The ONR Demo behavior tree (Part 2).</figcaption>
 </figure>
 <p>On the day of the ONR Demo demonstration, we were able to accomplish each task without a failure.
@@ -1887,7 +2264,6 @@ The longitude freely loops 360 degrees around the focal point about its world Z 
 The latitude, however, is bounded by +/- 90 degrees above and below the focal sphere’s “equator”.
 For example, the limits are top down and bottom up, preventing the view from going upside down on the other side.
 The full set of 3D view camera controls are presented in <a href="#tab:focus_based_camera_keys" data-reference-type="ref+label" data-reference="tab:focus_based_camera_keys">1</a>.</p>
-<div class="singlespace">
 <div id="tab:focus_based_camera_keys">
 <div class="table-wrapper">
 <table>
@@ -1911,8 +2287,6 @@ The full set of 3D view camera controls are presented in <a href="#tab:focus_bas
 </table>
 </div>
 <p>Focus based camera keyboard shortcuts</p>
-</div>
-
 </div>
 
 <h2 id="loading-the-tree"><a class="header" href="#loading-the-tree">Loading the Tree</a></h2>
@@ -2012,7 +2386,6 @@ The gizmo can also be adjusted via the keyboard.
 A key for gizmo keyboard controls is presented in <a href="#tab:pose_3d_gizmo_keys" data-reference-type="ref+label" data-reference="tab:pose_3d_gizmo_keys">2</a>.
 Right clicking the gizmo will display a context menu that allows for numerical pose adjustment, fine and coarse increments, resetting to zero, and changing the modification frame.
 The gizmo is, by default, modified in camera Z up frame so it translates laterally on the world X-Y plane and vertically on the world Z axis, similar to the focus based camera.</p>
-<div class="singlespace">
 <div id="tab:pose_3d_gizmo_keys">
 <div class="table-wrapper">
 <table>
@@ -2041,8 +2414,6 @@ The gizmo is, by default, modified in camera Z up frame so it translates lateral
 </table>
 </div>
 <p>Pose 3D gizmo keyboard shortcuts</p>
-</div>
-
 </div>
 
 <h2 id="frame-relative-action"><a class="header" href="#frame-relative-action">Frame-Relative Action</a></h2>
@@ -2497,12 +2868,9 @@ A video of this demonstration is available at <a href="https://youtu.be/GN0_XoBx
 This is accomplished via the <code>CONFIGURE_PERSISTENT_DETECTIONS</code> scene action type, seen in <a href="#fig:guide_sim_scene_action_persistent_detections" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action_persistent_detections">2</a>.
 There are four parameters for the persistent detections: pose filter alpha, acceptance confidence, stability frequency, and history duration.
 <a href="#fig:persistent-detection-lifecycle" data-reference-type="ref+label" data-reference="fig:persistent-detection-lifecycle">3</a> illustrates the instant and persistent detection management process, which happens continuously in the behavior scene.</p>
-<div class="singlespace">
 <figure id="fig:persistent-detection-lifecycle">
 <figcaption>Lifecycle of persistent detections in the behavior scene. New instantaneous detections are greedily associated to existing persistent detections by comparing detector type, semantic class, and a fixed spatial gate. Unmatched detections spawn new persistent detections initialized with the configured filtering and temporal parameters.</figcaption>
 </figure>
-</div>
-
 <p>The parameter \(\alpha\) is the pose filter coefficient used when initializing each persistent detection, \(c_{acc}\) is the acceptance confidence threshold, \(f_{stab}\) is the required stability frequency, and \(T_{hist}\) is the history duration maintained by the persistent detection.</p>
 <p>For the tennis balls, we set the acceptance confidence threshold to 0.1 and the stability frequency to 0.5 and execute the scene action.
 The result is shown in <a href="#fig:guide_sim_scene_action_persistent_detections" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action_persistent_detections">2</a> where 3 sports balls are tracked as persistent detections.
@@ -2529,12 +2897,9 @@ They are privileged maintainers of reference frames that are subsequently usable
 There are two types of objects: direct and derived.
 The types are shown in <a href="#fig:setup-object-types" data-reference-type="ref+label" data-reference="fig:setup-object-types">5</a>.
 The derived types allow us to model articulated objects like doors and implement heuristic environmental feature extraction, such as for table edges.</p>
-<div class="singlespace">
 <figure id="fig:setup-object-types">
 <figcaption>Scene object types supported by the <code>SETUP_OBJECT</code> scene action. Direct objects are based on persistent detections, whereas derived objects are constructed from named frames, paired detections, or depth-based geometric calculations.</figcaption>
 </figure>
-</div>
-
 <p><a href="#fig:guide_sim_scene_action_ball" data-reference-type="ref+label" data-reference="fig:guide_sim_scene_action_ball">4</a> also shows the result of executing the setup object scene action.
 In the top right, a sports ball can be seen in the “Objects:” area.
 For each object, we show its world frame pose information and any referenced persistent detections.
@@ -2828,9 +3193,6 @@ Since we weren’t using VR for this demo, we addressed the problem by sitting i
 The tuning process for this pre-grasp action is presented in <a href="#fig:guide_unitree_pregrasp_tuning_loop" data-reference-type="ref+label" data-reference="fig:guide_unitree_pregrasp_tuning_loop">7</a>.</p>
 <h2 id="manipulation-action-tuning-process"><a class="header" href="#manipulation-action-tuning-process">Manipulation Action Tuning Process</a></h2>
 <figure id="fig:guide_unitree_pregrasp_tuning_loop">
-<div class="singlespace">
-</div>
-
 <figcaption>Iterative tuning loop for the first pre-grasp hand pose. The pose is guessed with the 3D gizmo, executed, inspected visually, and adjusted until it is good enough.</figcaption>
 </figure>
 <figure id="fig:guide_unitree_pregrasp2">
