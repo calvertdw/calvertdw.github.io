@@ -28,6 +28,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme-figures-e3dffecf.css">
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -37,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-14326c61.js";
+            window.path_to_searchindex_js = "searchindex-fc500df7.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-83e275b8.js"></script>
+        <script src="toc-a4fbf44e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -197,7 +198,7 @@ A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https
 </figcaption>
 </figure>
 <p>The robot should now be standing, and the operator interface should be showing the robot state and perception data.
-It should look like <a href="#fig:guide_unitree_initial_setup" data-reference-type="ref+label" data-reference="fig:guide_unitree_initial_setup">1</a>.
+It should look like <a href="#fig:guide_unitree_initial_setup">1</a>.
 At this point we check a couple of things to make sure everything is ready to go:</p>
 <ol>
 <li>
@@ -231,7 +232,7 @@ A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https
 </figure>
 <p>We will be using the left arm and hand to turn the lever and open the door.
 The first thing we need to do is specify that the finger configuration should be “flat hand” at the start.
-To do this, we add a left Ability Hand action, as shown in <a href="#fig:guide_unitree_hand" data-reference-type="ref+label" data-reference="fig:guide_unitree_hand">2</a>, and set the “grip” field to <code>FLAT</code>.
+To do this, we add a left Ability Hand action, as shown in <a href="#fig:guide_unitree_hand">2</a>, and set the “grip” field to <code>FLAT</code>.
 There are several common grip types available as presets, including <code>OPEN</code>, <code>CLOSE</code>, <code>PINCH</code>, <code>FLAT</code>, <code>HOOK</code>, <code>RELAX</code>, <code>DOOR_LEVER_OPEN</code>, <code>DOOR_LEVER_CLOSE</code>, <code>DOOR_LEVER_CRUSH</code>, <code>KEY_OPEN</code>, and <code>KEY_CLOSE</code>.</p>
 <figure id="fig:guide_unitree_fingers">
 <img src="media/guide/20260521_162902_AbilityHandJointAngles.jpg" />
@@ -239,7 +240,7 @@ There are several common grip types available as presets, including <code>OPEN</
 A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https://youtu.be/7VGFufJWaR4</a>.
 </figcaption>
 </figure>
-<p>It is also possible to set the individual finger joint angles for an Ability Hand action, as shown in <a href="#fig:guide_unitree_fingers" data-reference-type="ref+label" data-reference="fig:guide_unitree_fingers">3</a>.
+<p>It is also possible to set the individual finger joint angles for an Ability Hand action, as shown in <a href="#fig:guide_unitree_fingers">3</a>.
 The Ability Hand has six degrees of freedom, each with a slider and a velocity setting.
 If the ability hand comes before an arm action and is concurrent with that arm action, it can be previewed as it is tuned, as shown in the figure.</p>
 <h2 id="arm-ready-action"><a class="header" href="#arm-ready-action">Arm Ready Action</a></h2>
@@ -249,7 +250,7 @@ If the ability hand comes before an arm action and is concurrent with that arm a
 A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https://youtu.be/7VGFufJWaR4</a>.
 </figcaption>
 </figure>
-<p>Next, we’ll add a “left arm ready” action, as shown in <a href="#fig:guide_unitree_arm_ready" data-reference-type="ref+label" data-reference="fig:guide_unitree_arm_ready">4</a>, which gets the hand and arm into a state where we can start to approach the handle from a known configuration.
+<p>Next, we’ll add a “left arm ready” action, as shown in <a href="#fig:guide_unitree_arm_ready">4</a>, which gets the hand and arm into a state where we can start to approach the handle from a known configuration.
 Constraining the grasp approach in this way helps to robustify the behavior.
 Otherwise, the hand might come from varying angles and may result in finger-handle collisions or unreliable inverse kinematics solutions.
 The ready action brings the hand up from the robot’s side and to roughly the orientation used for grasping the handle, but keeping a 10 cm or so distance away from the handle and any collisions.</p>
@@ -264,7 +265,7 @@ A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https
 </figcaption>
 </figure>
 <p>Next, we’ll create a scene action to lock on to the lever handle and another Ability Hand action to curl the fingers and pull the thumb out and back in preparation for handle contact.
-In <a href="#fig:guide_unitree_lock_curl" data-reference-type="ref+label" data-reference="fig:guide_unitree_lock_curl">5</a>, we’ve already run the scene action and have tuned the finger positions.
+In <a href="#fig:guide_unitree_lock_curl">5</a>, we’ve already run the scene action and have tuned the finger positions.
 We used the sliders on the hand action to form our desired grasp for the lever handle.
 The Ability Hand rubber is actually grippy enough that we won’t need to close our fingers around the handle.
 We then execute the Ability Hand action.</p>
@@ -275,7 +276,7 @@ We then execute the Ability Hand action.</p>
 A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https://youtu.be/7VGFufJWaR4</a>.
 </figcaption>
 </figure>
-<p>In <a href="#fig:guide_unitree_pregrasp1" data-reference-type="ref+label" data-reference="fig:guide_unitree_pregrasp1">6</a>, we create our “Pre-grasp 1” action.
+<p>In <a href="#fig:guide_unitree_pregrasp1">6</a>, we create our “Pre-grasp 1” action.
 For this grasp, we will use two pre-grasp actions.
 The first one hovers the hand 3-4 cm above the handle so the fingers don’t hit the handle when getting into position.
 Avoiding finger collisions is important with our system, as it will try hard to get to the desired position.
@@ -285,7 +286,7 @@ Plus, it’s just nice to not have unnecessary collision.</p>
 It can be difficult to gauge the hand’s pose with respect to the lever using the desktop monitor point cloud and first person view.
 It’s a little easier in VR with stereo vision.
 Since we weren’t using VR for this demo, we addressed the problem by sitting in line-of-sight to the robot.
-The tuning process for this pre-grasp action is presented in <a href="#fig:guide_unitree_pregrasp_tuning_loop" data-reference-type="ref+label" data-reference="fig:guide_unitree_pregrasp_tuning_loop">7</a>.</p>
+The tuning process for this pre-grasp action is presented in <a href="#fig:guide_unitree_pregrasp_tuning_loop">7</a>.</p>
 <h2 id="manipulation-action-tuning-process"><a class="header" href="#manipulation-action-tuning-process">Manipulation Action Tuning Process</a></h2>
 <figure id="fig:guide_unitree_pregrasp_tuning_loop">
 <figcaption>Iterative tuning loop for the first pre-grasp hand pose. The pose is guessed with the 3D gizmo, executed, inspected visually, and adjusted until it is good enough.</figcaption>
@@ -297,7 +298,7 @@ A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https
 </figcaption>
 </figure>
 <p>We tune the first pre-grasp action until the only thing left to do to grasp the handle is to move the hand directly down such that it rests on the lever handle.
-<a href="#fig:guide_unitree_pregrasp2" data-reference-type="ref+label" data-reference="fig:guide_unitree_pregrasp2">8</a> shows us authoring this action.
+<a href="#fig:guide_unitree_pregrasp2">8</a> shows us authoring this action.
 We repeat the visual guess-execute-inspect process for this pre-grasp action.</p>
 <h2 id="turning-a-door-handle"><a class="header" href="#turning-a-door-handle">Turning a Door Handle</a></h2>
 <figure id="fig:guide_unitree_screw_turn">
@@ -307,13 +308,13 @@ A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https
 </figcaption>
 </figure>
 <p>Now that our hand is resting on the door lever handle, it’s time to turn the lever and unlatch the door.
-This is accomplished using a screw primitive action, as shown in <a href="#fig:guide_unitree_screw_turn" data-reference-type="ref+label" data-reference="fig:guide_unitree_screw_turn">9</a>.
+This is accomplished using a screw primitive action, as shown in <a href="#fig:guide_unitree_screw_turn">9</a>.
 To tune a screw primitive, the first thing to do is set up the screw axis, which is the white dotted line shown in the figure.
 It is moved using a pose 3D gizmo, just like the hand.
 In general, the screw axis should be aligned with the rotational axis of the object you are manipulating.
 In practice, we tend to have to move it some to get the desired robot motion, which is, in the end, the important part.
 In addition to the axis, there are the translation and rotation amounts.
-In practice, we just have to use a tuning loop like in <a href="#fig:guide_unitree_pregrasp_tuning_loop" data-reference-type="ref+label" data-reference="fig:guide_unitree_pregrasp_tuning_loop">7</a> to guess at these values and re-execute until we get the desired result.</p>
+In practice, we just have to use a tuning loop like in <a href="#fig:guide_unitree_pregrasp_tuning_loop">7</a> to guess at these values and re-execute until we get the desired result.</p>
 <p>For door lever turning we typically leave translation at zero and adjust the rotation to be more than necessary.
 We also have to move the axis above and to the side opposite to the hand in order to result in a position controlled motion that achieves the necessary forces to turn the lever properly.</p>
 <p>The iterative tuning process for a screw primitive requires an extra element for step two.
@@ -329,7 +330,7 @@ A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https
 </figcaption>
 </figure>
 <p>The door opening is done as another screw primitive action, but along a different axis: the door panel hinge.
-Aligning the screw axis to the door panel hinge is done using the point cloud as shown in <a href="#fig:guide_unitree_screw_open" data-reference-type="ref+label" data-reference="fig:guide_unitree_screw_open">10</a>.
+Aligning the screw axis to the door panel hinge is done using the point cloud as shown in <a href="#fig:guide_unitree_screw_open">10</a>.
 It doesn’t have to be super precise – within a few centimeters in the X-Y axis and 5 degrees rotationally is fine.</p>
 <p>For door opening, the tuning process is a bit easier than the lever turning.
 This is because the hand is fairly compliant to the door since it’s applying a force on the handle and there is no unlatching requirement on this one.
@@ -358,6 +359,9 @@ In the next chapters we will cover the scientific and theoretical contributions 
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
+                            <a rel="next prefetch" href="5_current_architecture.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -369,6 +373,9 @@ In the next chapters we will cover the scientific and theoretical contributions 
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
+                    <a rel="next prefetch" href="5_current_architecture.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
             </nav>
 
         </div>

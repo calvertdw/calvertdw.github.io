@@ -28,6 +28,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme-figures-e3dffecf.css">
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -37,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-14326c61.js";
+            window.path_to_searchindex_js = "searchindex-fc500df7.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-83e275b8.js"></script>
+        <script src="toc-a4fbf44e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -183,7 +184,7 @@ This was the beginning of the architecture we still use in 2026.
 The initial goal was to replicate the door behaviors we had before, but in a runtime editable way.
 To do this, the behavior state was implemented as a synchronized Conflict-Free Replicated Data Type (CRDT).
 This allows the operator and robot to share and co-modify the behavior action definitions and run modes.
-A screenshot from an early demo can be seen in <a href="#fig:atlas_sim_early_editable_sequence" data-reference-type="ref+label" data-reference="fig:atlas_sim_early_editable_sequence">1</a>.
+A screenshot from an early demo can be seen in <a href="#fig:atlas_sim_early_editable_sequence">1</a>.
 This version of the behavior system had 4 action types: Walk, Hand Pose, Hand Configuration, and Chest Orientation.
 The Walk and Hand Pose actions were defined in task frames.
 It saved and loaded behaviors to and from JSON.
@@ -191,7 +192,7 @@ However, it only supported a linear sequence of actions and they were only execu
 <h2 id="milestone-1"><a class="header" href="#milestone-1">Milestone 1</a></h2>
 <figure id="fig:atlas_sim_early_editable_sequence">
 <img src="media/atlas/2022-04-06 13-52-47_AtlasPullDoorBehaviorLiveAuthoring-00.02.29.391.jpg" />
-<figcaption>A Bullet <span class="citation" data-cites="coumans2021"></span> physics simulation of Atlas with a new runtime behavior authoring implementation.
+<figcaption>A Bullet [62](references.md#ref-coumans2021) physics simulation of Atlas with a new runtime behavior authoring implementation.
 A pull door opening behavior is being authored.
 At this time there were only 4 action types: Walk, Hand Pose, Hand Configuration, and Chest Orientation.
 A video is available at <a href="https://youtu.be/KfUFNM7SWz8" class="uri">https://youtu.be/KfUFNM7SWz8</a>.
@@ -200,9 +201,9 @@ April 6, 2022.
 </figure>
 <p>Also in 2022, we switched to IHMC and Boardwalk Robotics’s Nadia humanoid robot and set some milestones for the next few years.
 Milestone 1 was a teleoperation-only multi-task demo.
-Milestone 1 was performed on the robot on September 9, 2022 using the RDX teleoperation UI, using an upgraded set of teleoperation features shown in <a href="#fig:nadia_interactables" data-reference-type="ref+label" data-reference="fig:nadia_interactables">2</a>.
+Milestone 1 was performed on the robot on September 9, 2022 using the RDX teleoperation UI, using an upgraded set of teleoperation features shown in <a href="#fig:nadia_interactables">2</a>.
 In that demo, Nadia traversed rough terrain, traversed a push door, cleared debris, and traversed another push door in 7 minutes.
-The tasks for Milestone 1 can be seen in <a href="#fig:milestone_1_tasks" data-reference-type="ref+label" data-reference="fig:milestone_1_tasks">3</a>.
+The tasks for Milestone 1 can be seen in <a href="#fig:milestone_1_tasks">3</a>.
 During this demo and with this set of functionality we found that some methods of teleoperation were faster in VR and some were faster with mouse and keyboard.
 RDX supported switching between them quickly.
 We used mouse and keyboard to place individual footsteps over a cinder block field and then switched to VR for debris clearing and the push doors, where we used the VR controllers to continuously stream the hand poses and the VR controller trigger buttons to open and close the hands.
@@ -240,9 +241,9 @@ We started with a can pick and place behavior and the push and pull door travers
 A videos are available at <a href="https://youtu.be/V8jMvhVdP8k" class="uri">https://youtu.be/V8jMvhVdP8k</a> and <a href="https://youtu.be/ZBj8zs1wzik" class="uri">https://youtu.be/ZBj8zs1wzik</a>.
 </figcaption>
 </figure>
-<p>On June 20, 2023, we executed a can of soup pick and place behavior in 1 minute and 50 seconds as shown in <a href="#fig:nadia_pick_soup" data-reference-type="ref+label" data-reference="fig:nadia_pick_soup">4</a>.
+<p>On June 20, 2023, we executed a can of soup pick and place behavior in 1 minute and 50 seconds as shown in <a href="#fig:nadia_pick_soup">4</a>.
 This behavior was slow, not autonomous, and used an ArUco marker instead of detecting the can directly.
-Our control of the SAKE Robotics EZGripper in Nadia at this time was unreliable and there was no fallback node yet so the operator had to keep trying the gripper open and close actions.
+Our control of the SAKE Robotics EZGripper <a href="references.html#ref-sakerobotics">53</a> in Nadia at this time was unreliable and there was no fallback node yet so the operator had to keep trying the gripper open and close actions.
 The operator had to visually check the state of the gripper fingers and re-execute the action if necessary.
 There was no way to get the state of the gripper from the user interface at this time.
 The operator also had to wait for each action to complete before starting the next because action completion conditions were not finished.
@@ -254,7 +255,7 @@ This was the first autonomous door traversal on Nadia.
 A video is available at <a href="https://youtu.be/sMw1A72bqNo" class="uri">https://youtu.be/sMw1A72bqNo</a>.
 </figcaption>
 </figure>
-<p>Our first autonomous push door traversal on Nadia using this system was on June 27, 2023, as shown in <a href="#fig:nadia_first_auto_push_door" data-reference-type="ref+label" data-reference="fig:nadia_first_auto_push_door">5</a>.
+<p>Our first autonomous push door traversal on Nadia using this system was on June 27, 2023, as shown in <a href="#fig:nadia_first_auto_push_door">5</a>.
 UI improvements were made to condense each action node’s settings into collapsible areas so we could display larger sequences.
 Several new action types were added: hand wrench, pelvis height, arm joint angles, manual footsteps, and wait.
 We were able to autonomously traverse the push door in 36 seconds with this version of the system.
@@ -271,7 +272,7 @@ Later, we decided to change the box picking strategy to using the grippers to pi
 A video is available at <a href="https://youtu.be/XY7We5PYQds" class="uri">https://youtu.be/XY7We5PYQds</a>.
 </figcaption>
 </figure>
-<p><a href="#fig:aug_push_door_behavior" data-reference-type="ref+label" data-reference="fig:aug_push_door_behavior">6</a> shows an improved version of the push door behavior executing on August 22, 2023.
+<p><a href="#fig:aug_push_door_behavior">6</a> shows an improved version of the push door behavior executing on August 22, 2023.
 In this version, there are several enhancements to the behavior user interface.
 The first person view was included in the interface, allowing the operator to monitor the robot’s view of the door and the hands without needing line of sight.
 Other enhancements included 3D force and torque indicators on the hands.
@@ -287,13 +288,13 @@ The behavior author is able to append footsteps to the walk action footstep plan
 A video is available at <a href="https://youtu.be/FZrVUsMcG7s" class="uri">https://youtu.be/FZrVUsMcG7s</a>.
 </figcaption>
 </figure>
-<p>In September 2023 we made enhancements to the walk action as seen in <a href="#fig:2023_footstep_authoring" data-reference-type="ref+label" data-reference="fig:2023_footstep_authoring">7</a>, allowing the behavior author to interactively edit a multi-step footstep plan.
+<p>In September 2023 we made enhancements to the walk action as seen in <a href="#fig:2023_footstep_authoring">7</a>, allowing the behavior author to interactively edit a multi-step footstep plan.
 This was especially useful for authoring door traversal walk-throughs, as a very specific set of footsteps are required to satisfy controller stability limits while avoiding collisions between the robot’s shoulders and the door frame.</p>
 <figure id="fig:2023_code_refactor">
 <img src="media/nadia/20230929_BehaviorCodeRefactor.png" />
 <figcaption>An architecture diagram for the code structure of behavior nodes that was established in September 2023.</figcaption>
 </figure>
-<p>Also in September of 2023, we established the code structure for the behavior nodes as seen in <a href="#fig:2023_code_refactor" data-reference-type="ref+label" data-reference="fig:2023_code_refactor">8</a>.
+<p>Also in September of 2023, we established the code structure for the behavior nodes as seen in <a href="#fig:2023_code_refactor">8</a>.
 This structure separated the concerns of a behavior node into four layers: the definition, the state, the executor, and the user interface (RDX) implementation.
 Each of the four layers was implemented in a separate code file to keep similar code in similar files.
 The definition layer was responsible for defining and serializing the data that defines the node to and from JSON files.
@@ -309,7 +310,7 @@ The UI layer is also contained in a UI-specific folder that has access to the gr
 <figcaption>An early version of the behavior tree version of the runtime-editable behavior system.
 Screenshot from November 3, 2023.</figcaption>
 </figure>
-<p>In November 2023, we started to convert the sequence into a tree, as seen in <a href="#fig:2023_tree_view" data-reference-type="ref+label" data-reference="fig:2023_tree_view">9</a>.
+<p>In November 2023, we started to convert the sequence into a tree, as seen in <a href="#fig:2023_tree_view">9</a>.
 Here, the root node “WalkingTest” can be seen at the top with an expanded arrow and the root node control widgets.
 Two child walk action nodes can be seen below it.</p>
 <figure id="fig:2023_green_arrow_context">
@@ -317,7 +318,7 @@ Two child walk action nodes can be seen below it.</p>
 <figcaption>A screenshot from November 14, 2023, showing the introduction of the green arrow to mark the action’s next execution index as well as a right-click context menu for inserting nodes.</figcaption>
 </figure>
 <p>Further enhancements to the behavior system were made in November of 2023.
-As seen in <a href="#fig:2023_green_arrow_context" data-reference-type="ref+label" data-reference="fig:2023_green_arrow_context">10</a>, a green arrow was introduced to highlight the currently selected next node to execute.
+As seen in <a href="#fig:2023_green_arrow_context">10</a>, a green arrow was introduced to highlight the currently selected next node to execute.
 This created a uniquely identifiable marker for the operator to focus on that was distinct from the default ImGui widgets.
 Clicking the green arrow is used to set the index.
 Later the arrow would blink blue to signal the action was currently executing.</p>
@@ -325,7 +326,7 @@ Later the arrow would blink blue to signal the action was currently executing.</
 <img src="media/nadia/20231116_MoveNodesUI.png" />
 <figcaption>A screenshot from November 16, 2023, showing the introduction of a move nodes context menu, which was used to reorder the nodes and place them under different parents.</figcaption>
 </figure>
-<p><a href="#fig:2023_move_nodes" data-reference-type="ref+label" data-reference="fig:2023_move_nodes">11</a> shows a context menu feature used to reorder nodes and place them under different parents.
+<p><a href="#fig:2023_move_nodes">11</a> shows a context menu feature used to reorder nodes and place them under different parents.
 This was especially useful if a node needed to be moved far away.
 Since switching to the tree-based view, this was the first time the nodes could be reordered or moved under new parents.</p>
 <figure id="fig:2023_nesting_json">
@@ -334,7 +335,7 @@ Since switching to the tree-based view, this was the first time the nodes could 
 A gif is available at <a href="https://giphy.com/gifs/N1sLeoz3z1zJeJfw8T" class="uri">https://giphy.com/gifs/N1sLeoz3z1zJeJfw8T</a>.
 </figcaption>
 </figure>
-<p>A feature developed on November 16, 2023, can be seen in <a href="#fig:2023_nesting_json" data-reference-type="ref+label" data-reference="fig:2023_nesting_json">12</a>, which shows how a node can be converted into a nested JSON file via the context menu.
+<p>A feature developed on November 16, 2023, can be seen in <a href="#fig:2023_nesting_json">12</a>, which shows how a node can be converted into a nested JSON file via the context menu.
 The JSON behavior loader now supported recursively loading behavior trees with nested JSON files.
 This supported the separation of skills into their own JSON files and kept larger tree files from getting too large.</p>
 <figure id="fig:2023_screw_primitive">
@@ -346,11 +347,17 @@ On the right, under the "Right hand screw primitive" action, sliders for rotatio
 A video is available at <a href="https://youtu.be/_9qtUpvAAso" class="uri">https://youtu.be/_9qtUpvAAso</a>.
 </figcaption>
 </figure>
-<p>In December of 2023, we developed a screw primitive action to open doors, which can be seen in <a href="#fig:2023_screw_primitive" data-reference-type="ref+label" data-reference="fig:2023_screw_primitive">13</a>.
-This parameterized helical screw trajectory option was inspired by .
+<p>In December of 2023, we developed a screw primitive action to open doors, which can be seen in <a href="#fig:2023_screw_primitive">13</a>.
+This parameterized helical screw trajectory option was inspired by <a href="references.html#ref-Pettinger_2022">14</a>.
 It allows the operator to define revolving motions useful for turning handles and swinging door panels.
 It is defined by a 3D axis (dashed white line), an angle of revolution, and a translation amount to move along the axis.
 The trajectory is also grasp-invariant, as it generates the trajectory online from the hand’s pose just before execution.</p>
+<!-- PAGE-REFERENCES-START -->
+<p><strong>References cited on this page</strong></p>
+<p><strong>[14]</strong> A. Pettinger, F. Alambeigi, and M. Pryor, “A versatile affordance modeling framework using screw primitives to increase autonomy during manipulation contact tasks,” <em>IEEE Robotics and Automation Letters</em>, vol. 7, no. 3, pp. 7224–7231, 2022, doi: <a href="https://doi.org/10.1109/LRA.2022.3181732">10.1109/LRA.2022.3181732</a>.</p>
+<p><strong>[53]</strong> SAKE Robotics, “EZGripper™ robotic grippers.” <a href="https://sakerobotics.com/">https://sakerobotics.com/</a>, 2024.</p>
+<p><strong>[62]</strong> E. Coumans and Y. Bai, “PyBullet, a python module for physics simulation for games, robotics and machine learning.” <a href="http://pybullet.org">http://pybullet.org</a>, 2016–2021.</p>
+<!-- PAGE-REFERENCES-END -->
 
                     </main>
 

@@ -28,6 +28,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme-figures-e3dffecf.css">
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -37,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-14326c61.js";
+            window.path_to_searchindex_js = "searchindex-fc500df7.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-83e275b8.js"></script>
+        <script src="toc-a4fbf44e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -190,7 +191,7 @@ The challenge featured low bandwidth communication with the robot at all times a
 Teams that had autonomous functionalities on-board the robot would have had the advantage of being able to proceed without waiting through the challenge’s communication blackouts.
 Teams that did not rely on human-guided perceptual registration would have been able to teleoperate more quickly, with less risk of needing to wait through multiple communications blackouts.</p>
 <p>Even through teleoperation, the challenge taught us a lot about the effectiveness of a particular style of user interface for humanoid robot-operator teaming.
-In the challenge, Team IHMC used a hybrid operator interface comprised of two 3D views: a third-person view with a posable viewport camera and a first-person view that looks at the world from the perspective of the robot’s head camera, such that virtual graphics could be situated within the scene to provide an augmented reality experience, as shown in <a href="#fig:drc_ui_valve_task" data-reference-type="ref+label" data-reference="fig:drc_ui_valve_task">1</a> and <a href="#fig:drc_ui_door_task" data-reference-type="ref+label" data-reference="fig:drc_ui_door_task">2</a>.</p>
+In the challenge, Team IHMC used a hybrid operator interface comprised of two 3D views: a third-person view with a posable viewport camera and a first-person view that looks at the world from the perspective of the robot’s head camera, such that virtual graphics could be situated within the scene to provide an augmented reality experience, as shown in <a href="#fig:drc_ui_valve_task">1</a> and <a href="#fig:drc_ui_door_task">2</a>.</p>
 <figure id="fig:drc_ui_valve_task">
 <img src="media/atlas/IHMC DRC Finals Run June 6th _ValveTask.jpg" />
 <figcaption>The IHMC DRC operator interface during the Valve Task in the DARPA Robotics Challenge Finals.
@@ -201,7 +202,7 @@ A video is available at <a href="https://youtu.be/TstdKAvPfEs" class="uri">https
 </figcaption>
 </figure>
 <p>The DRC UI introduced a lot of highly useful user interface mechanisms for managing a humanoid robot in accomplishing tasks.
-It was based on the Java Swing widget library and jMonkeyEngine for the 3D graphics engine.
+It was based on the Java Swing <a href="references.html#ref-Java_Swing">11</a> widget library and jMonkeyEngine <a href="references.html#ref-jMonkeyEngine">12</a> for the 3D graphics engine.
 The DRC UI had a collection of competition-hardened interaction features that worked very well for operating humanoid robots.
 These included a unique 3D scene camera control and orbit system, quick access buttons with icons, 3D interactable pose gizmos, virtual modifiable plan footsteps, a walk path control ring, sliders for head and spine joint-space commands, virtual object placement, and object action templates.</p>
 <figure id="fig:drc_ui_door_task">
@@ -215,25 +216,25 @@ On the right, the virtual door modifiable has been placed at the pose of the rea
 The small red arc shows the door panel edge arc if it were to swing open.</figcaption>
 </figure>
 <p>Gizmo has become a colloquial term in robotics to describe a virtual interactable 3D set of widgets that assist a user in defining or modifying a 3D position, orientation, or pose.
-There are a few implementations out there such as in RViz and ImGuizmo , with a representative MoveIt pose-gizmo example shown in <a href="#fig:rviz_gizmo" data-reference-type="ref+label" data-reference="fig:rviz_gizmo">3</a>.
+There are a few implementations out there such as in RViz <a href="references.html#ref-Rviz">9</a> and ImGuizmo <a href="references.html#ref-Imguizmo">10</a>, with a representative MoveIt pose-gizmo example shown in <a href="#fig:rviz_gizmo">3</a>.
 The DRC UI featured a custom one built by John Carff in jMonkeyEngine (JME) using colored torii for controlling orientation.
 The DRC UI gizmo was mainly controlled by keyboard shortcuts, with the F keys being used to select the axis and the arrow keys being used to move the gizmo along or about that axis.
 It featured orientation and position control and was used to specify poses of the virtual interactable objects such as hands, footsteps, torso motions, and scene objects.</p>
 <h2 id="virtually-placeable-objects"><a class="header" href="#virtually-placeable-objects">Virtually Placeable Objects</a></h2>
 <figure id="fig:rviz_gizmo">
 <img src="media/atlas/rviz_plugin_visualize_robots.jpg" />
-<figcaption>A still from the MoveIt tutorial <span class="citation" data-cites="MoveIt_quickstart_rviz_tutorial"></span> showing the red, green, and blue pose gizmo used to move the robot’s end effector.
+<figcaption>A still from the MoveIt tutorial [3](references.md#ref-MoveIt_quickstart_rviz_tutorial) showing the red, green, and blue pose gizmo used to move the robot’s end effector.
 The user can drag the circular planes to reorient the pose and drag the arrows to translate it.</figcaption>
 </figure>
 <p>Virtually placeable objects included a door, a hand drill, and variable-sized valves.
 These virtually placed objects had hand-coded, steppable action scripts in code that were executable with respect to the object.
-This was very similar, unknowingly, to the Affordance Template framework being designed at TracLabs at around the same time by Steve Hart .
+This was very similar, unknowingly, to the Affordance Template framework being designed at TracLabs at around the same time by Steve Hart <a href="references.html#ref-Hart_2014">19</a>.
 Hart’s use of the word affordance was to establish a moniker for the concept of reusable behaviors for common things you might encounter in the environment.
-The word affordance comes from Gibson’s book, <em>The Ecological Approach to Visual Perception</em> .
+The word affordance comes from Gibson’s book, <em>The Ecological Approach to Visual Perception</em> <a href="references.html#ref-Gibson_1979">20</a>.
 It is used in the sense that an environmental feature affords an action.
 For example, the ground is an affordance for walking and a handle is an affordance for turning.</p>
 <h2 id="scripted-behaviors"><a class="header" href="#scripted-behaviors">Scripted Behaviors</a></h2>
-<p>The DRC-era behaviors were scripts executed from the user interface as seen in <a href="#fig:drc_ui_door_task" data-reference-type="ref+label" data-reference="fig:drc_ui_door_task">2</a>.
+<p>The DRC-era behaviors were scripts executed from the user interface as seen in <a href="#fig:drc_ui_door_task">2</a>.
 The operator would step through the actions one by one.
 They also did not close the loop on perception.
 Tasks were aligned to the scene manually by the operator using the point cloud and images.</p>
@@ -247,6 +248,16 @@ Script actions could be previewed before executing them.
 A video is available at <a href="https://youtu.be/TstdKAvPfEs" class="uri">https://youtu.be/TstdKAvPfEs</a>.
 </figcaption>
 </figure>
+<!-- PAGE-REFERENCES-START -->
+**References cited on this page**
+<p><strong>[3]</strong> MoveIt, “Quickstart in RViz tutorial.” 2026. Available: <a href="https://moveit.picknik.ai/main/doc/tutorials/quickstart_in_rviz/quickstart_in_rviz_tutorial.html">https://moveit.picknik.ai/main/doc/tutorials/quickstart_in_rviz/quickstart_in_rviz_tutorial.html</a></p>
+<p><strong>[9]</strong> ROS 2, “Rviz.” 2026. Available: <a href="https://github.com/ros2/rviz">https://github.com/ros2/rviz</a></p>
+<p><strong>[10]</strong> C. Guillemet, “Imguizmo.” 2026. Available: <a href="https://github.com/cedricguillemet/imguizmo">https://github.com/cedricguillemet/imguizmo</a></p>
+<p><strong>[11]</strong> Wikipedia contributors, “Swing (java).” 2026. Available: <a href="https://en.wikipedia.org/wiki/Swing_(Java)">https://en.wikipedia.org/wiki/Swing_(Java)</a></p>
+<p><strong>[12]</strong> jMonkeyEngine, “jMonkeyEngine.” 2026. Available: <a href="https://jmonkeyengine.org/">https://jmonkeyengine.org/</a></p>
+<p><strong>[19]</strong> S. Hart, P. Dinh, and K. A. Hambuchen, “Affordance templates for shared robot control,” in <em>AAAI fall symposium on artificial intelligence and human-robot interaction</em>, Arlington, VA, USA: AAAI, Nov. 2014. Available: <a href="https://ntrs.nasa.gov/citations/20140012413">https://ntrs.nasa.gov/citations/20140012413</a></p>
+<p><strong>[20]</strong> J. J. Gibson, <em>The ecological approach to visual perception</em>. Houghton Mifflin, 1979.</p>
+<!-- PAGE-REFERENCES-END -->
 
                     </main>
 

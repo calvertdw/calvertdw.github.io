@@ -28,6 +28,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme-figures-e3dffecf.css">
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -37,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-14326c61.js";
+            window.path_to_searchindex_js = "searchindex-fc500df7.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-83e275b8.js"></script>
+        <script src="toc-a4fbf44e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -185,7 +186,7 @@ A video of this demonstration is available at <a href="https://youtu.be/mw4z4H4K
 <p>Now we will cover fallback node operation.
 A fallback node is like an if-else statement, but since the if condition evaluation is performing an action, we call it a try-catch.
 A fallback node therefore has two parts: the try and the catch.
-Each part can contain one or more actions, however, unlike a Behavior Tree fallback node from the literature, our fallback node has only one try clause and the catch clause is just an action sequence of unlimited length.</p>
+Each part can contain one or more actions, however, unlike a Behavior Tree fallback node from the literature <a href="references.html#ref-2018_colledanchise">52</a>, our fallback node has only one try clause and the catch clause is just an action sequence of unlimited length.</p>
 <p>We also support concurrent actions in the fallback node.
 To do this, we expand the try to contain the first concurrent action set.
 This could be one or more actions with the rule that they must execute together.
@@ -194,7 +195,7 @@ Else, if the entire concurrent try set succeeds, the catch is skipped and the no
 <p>Our fallback node does not currently support nesting, but supporting it would be a desirable improvement.
 Nesting try-catch blocks could increase behavior expressiveness.
 In general, it would be good to look through the most used mechanisms in programming language and think about how they could be included as runtime-editable behavior elements.</p>
-<p>In <a href="#fig:guide_sim_fallback" data-reference-type="ref+label" data-reference="fig:guide_sim_fallback">1</a>, we have started on a fallback example demonstration, where we have added a fallback node and a try node.
+<p>In <a href="#fig:guide_sim_fallback">1</a>, we have started on a fallback example demonstration, where we have added a fallback node and a try node.
 In this demonstration, we want to check if the right hand is raised to a certain position and raise it if it isn’t.
 Once the hand is raised, we will yaw the spine.
 To check the hand position, we have added a “shape contains” condition node as the try action and named it “Check hand”.</p>
@@ -205,22 +206,22 @@ Success and failure for a condition node, however, have the same effect on behav
 The exception is that when a node fails in the try part of a fallback node, the behavior keeps going by executing the catch.</p>
 <p>The “always succeed” and “always fail” condition node types are useful for testing and operation.
 The “always fail” node is especially useful if you want to test out a part of the behavior in autonomous mode but have it stop at a certain point.
-In this case, we’ll often add a temporary “always fail” condition node named “STOP”, as we did in <a href="#sec:wait_nodes_dependencies" data-reference-type="ref+label" data-reference="sec:wait_nodes_dependencies">[sec:wait_nodes_dependencies]</a>.</p>
+In this case, we’ll often add a temporary “always fail” condition node named “STOP”, as we did in <a href="5_tutorial_4_concurrent_actions_example.html#sec:wait_nodes_dependencies">[sec:wait_nodes_dependencies]</a>.</p>
 <p>The counter node maintains a persistent count and a tunable limit.
 Each time it is executed, the count is increased.
 If the count reaches the limit, the counter condition node fails.</p>
 <p>The LLM condition node provides the ability to query a large language model to determine success or failure.
 It has an authorable system prompt, repeated prompt, and boolean response matcher.
-We covered the LLM node in more detail near <a href="#fig:2025_llm_condition_node" data-reference-type="ref+label" data-reference="fig:2025_llm_condition_node">[fig:2025_llm_condition_node]</a>.</p>
+We covered the LLM node in more detail near <a href="4_story_of_building_and_architecture_6_2024_2026_h1_2_5_fingers_manipulation_era.html#fig:2025_llm_condition_node">[fig:2025_llm_condition_node]</a>.</p>
 <p>The proximity node checks the distance between two behavior reference frames.
 If the distance is between the tunable minimum and maximum, the condition succeeds.
-We also covered the proximity node in some more detail near <a href="#fig:2025_proximity_condition" data-reference-type="ref+label" data-reference="fig:2025_proximity_condition">[fig:2025_proximity_condition]</a>.</p>
+We also covered the proximity node in some more detail near <a href="4_story_of_building_and_architecture_6_2024_2026_h1_2_5_fingers_manipulation_era.html#fig:2025_proximity_condition">[fig:2025_proximity_condition]</a>.</p>
 <p>For this example, we’ll use the shape contains condition node to check that the right hand frame is within the bounds of a sphere.
-In <a href="#fig:guide_sim_fallback" data-reference-type="ref+label" data-reference="fig:guide_sim_fallback">1</a>, our shape contains condition node is selected with the settings showing in bottom left.
+In <a href="#fig:guide_sim_fallback">1</a>, our shape contains condition node is selected with the settings showing in bottom left.
 There are two modes for the shape contains condition: contains frame and contains points.
-We’ll be using contains frame in this example, but the contains points functionality, which counts the number of live point cloud points in the virtual shape, is covered near <a href="#fig:alex_shape_contains_condition" data-reference-type="ref+label" data-reference="fig:alex_shape_contains_condition">[fig:alex_shape_contains_condition]</a>.</p>
+We’ll be using contains frame in this example, but the contains points functionality, which counts the number of live point cloud points in the virtual shape, is covered near <a href="4_story_of_building_and_architecture_7_2026_alex_resilience_adaptability_era.html#fig:alex_shape_contains_condition">[fig:alex_shape_contains_condition]</a>.</p>
 <h2 id="shape-contains-frame-condition"><a class="header" href="#shape-contains-frame-condition">Shape Contains Frame Condition</a></h2>
-<p>In <a href="#fig:guide_sim_fallback" data-reference-type="ref+label" data-reference="fig:guide_sim_fallback">1</a>, you’ll see there are four main settings for the shape contains frame functionality.
+<p>In <a href="#fig:guide_sim_fallback">1</a>, you’ll see there are four main settings for the shape contains frame functionality.
 The shape parent frame, the shape pose, the sphere radius, and the frame to check containment of.
 We allow defining the shape’s pose with respect to any robot or object frame just like we do for actions.
 Checking the “Adjust Shape Pose” box enables the shape to be moved in the 3D view with a pose gizmo, as shown in the figure.
@@ -231,7 +232,7 @@ Currently, just spheres are supported, but adding more types of shapes would be 
 A video of this demonstration is available at <a href="https://youtu.be/mw4z4H4K9o0" class="uri">https://youtu.be/mw4z4H4K9o0</a>.</figcaption>
 </figure>
 <p>Pairing this condition node with our fallback gives us a mechanism to react to an unknown state, like where the hand is.
-To robustify our behavior and apply corrective action if the hand is not where we want it, we will now add am arm action to the fallback catch, as shown in <a href="#fig:guide_sim_fallback_arm" data-reference-type="ref+label" data-reference="fig:guide_sim_fallback_arm">2</a>.
+To robustify our behavior and apply corrective action if the hand is not where we want it, we will now add am arm action to the fallback catch, as shown in <a href="#fig:guide_sim_fallback_arm">2</a>.
 When we add the catch action, because it is not concurrent with the condition in the try, we see a thin horizontal line in the tree editor.
 This line, between the “Check hand” and “Arm action” nodes, shows us where the try-catch delineation is.</p>
 <h2 id="the-goto-node"><a class="header" href="#the-goto-node">The Goto Node</a></h2>
@@ -240,7 +241,7 @@ This line, between the “Check hand” and “Arm action” nodes, shows us whe
 <figcaption>Adding a goto node to implement a while loop.
 A video of this demonstration is available at <a href="https://youtu.be/mw4z4H4K9o0" class="uri">https://youtu.be/mw4z4H4K9o0</a>.</figcaption>
 </figure>
-<p>To show how you can implement while-loop-like behavior, we add a goto node after the arm action in the fallback catch, as shown in <a href="#fig:guide_sim_fallback_while" data-reference-type="ref+label" data-reference="fig:guide_sim_fallback_while">3</a>.
+<p>To show how you can implement while-loop-like behavior, we add a goto node after the arm action in the fallback catch, as shown in <a href="#fig:guide_sim_fallback_while">3</a>.
 The goto node has a goto field that refers to another node by name.
 When the goto node is executed, the next execution index is set to that node.
 Here we have selected the “Fallback node” as the node to goto, which is a general way of saying to reexecute the try, as the “Fallback node” is a control node, not an action.
@@ -256,11 +257,15 @@ We recommend using unique node names where possible to avoid this ambiguity.</p>
 <figcaption>Completing our fallback demonstration by reactively moving the arm to the correct location and executing the spine yaw motion.
 A video of this demonstration is available at <a href="https://youtu.be/mw4z4H4K9o0" class="uri">https://youtu.be/mw4z4H4K9o0</a>.</figcaption>
 </figure>
-<p>Finally, we add our spine action to turn the spine 17 degrees to the left as shown in <a href="#fig:guide_sim_fallback_end" data-reference-type="ref+label" data-reference="fig:guide_sim_fallback_end">4</a>.
+<p>Finally, we add our spine action to turn the spine 17 degrees to the left as shown in <a href="#fig:guide_sim_fallback_end">4</a>.
 Notice this node is not a child of the fallback node, but a sibling.
 We run through the behavior in the manual mode, inspecting the flow of execution.
 We run check hand, it fails, then the arm action runs to move the hand into the correct location.
 The goto node causes us to re-evaluate the check, which now succeeds, sending us on to the spine action, which executes successfully.</p>
+<!-- PAGE-REFERENCES-START -->
+<p><strong>References cited on this page</strong></p>
+<p><strong>[52]</strong> M. Colledanchise and P. “Ogren, <em>Behavior trees in robotics and AI: An introduction</em>. CRC Press, Taylor; Francis Group, 2018. doi: <a href="https://doi.org/10.1201/9780429489105">10.1201/9780429489105</a>.</p>
+<!-- PAGE-REFERENCES-END -->
 
                     </main>
 

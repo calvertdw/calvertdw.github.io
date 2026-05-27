@@ -28,6 +28,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme-figures-e3dffecf.css">
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -37,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-14326c61.js";
+            window.path_to_searchindex_js = "searchindex-fc500df7.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-83e275b8.js"></script>
+        <script src="toc-a4fbf44e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -185,22 +186,22 @@ We wanted the 3D scene to be shared between VR and the mouse and keyboard interf
 <p>Another desirable characteristic of this new framework was ease of creating user interface widgets.
 Often for designing, tuning, and interacting with experimental planners, controllers, and perception algorithms, the engineer wants to tweak variables quickly and easily to see the effects on the process and the data.
 This is in stark contrast to considering user experience for every UI element.
-In our survey, we found a library called ImGui which fit this bill perfectly, allowing user interface elements to be rendered in application code, in the same place as the interaction logic is handled, and in very few lines of code.
+In our survey, we found a library called ImGui <a href="references.html#ref-dearimgui">57</a> which fit this bill perfectly, allowing user interface elements to be rendered in application code, in the same place as the interaction logic is handled, and in very few lines of code.
 It turned out to be a great way to provide base functionalities quickly while still allowing for custom rendered widgets that consider user experience.</p>
 <p>Another goal of the new framework was to stay within the current software ecosystem so lab developers could seamlessly use it and contribute to it and so that existing lab tools could be used and not rewritten.
 Our existing code was in Java so this meant we wanted to stick with Java.
 Our thought was also to build on the most popular open-source tools in the community in order to avoid any rug pulls and also ride the wave of community maintenance and development.</p>
-<p>For 3D graphics engines, there were two major competitors: jMonkeyEngine and libGDX .
+<p>For 3D graphics engines, there were two major competitors: jMonkeyEngine and libGDX <a href="references.html#ref-libgdx">58</a>.
 The DRC UI was implemented using jMonkeyEngine but was on an old version.
 libGDX had more stars on GitHub, a vibrant community, and an API that was closer to plain OpenGL, the underlying library.
 Because we needed to maintain the DRC UI usability as a legacy app and it was somewhat tangled in an aging codebase, it was unclear if bringing it directly forward to modern libraries would work.</p>
 <p>When designing the new framework, a few things were clear:</p>
 <ol>
 <li>
-<p>We wanted to adopt the pattern used by Eclipse IDE , where the application was a set of dockable panels.
+<p>We wanted to adopt the pattern used by Eclipse IDE <a href="references.html#ref-eclipseide">60</a>, where the application was a set of dockable panels.
 These panels should be showable and hideable, and the docking configurations should be easily savable and loadable.
 This system of UI design was shown to be very adaptable to different workflows and tasks.
-It is also similar to how other popular and versatile apps work, such as Blender .</p>
+It is also similar to how other popular and versatile apps work, such as Blender <a href="references.html#ref-blender">61</a>.</p>
 </li>
 <li>
 <p>We wanted to build in virtual reality (VR) support at the base level.
@@ -212,8 +213,8 @@ An element of the VR support was that the 3D view on the monitor would remain vi
 <p>We wanted to implement the main features of the DRC UI such as the gizmos, the walk path control ring, modifiable footsteps, and affordance templates.</p>
 </li>
 </ol>
-<p>ImGui included support for the dockspaces of panels, multi-window support, and even saving those entire layouts to .ini files.
-OpenVR was available for Java and supported any VR headset that would work in SteamVR, which is nearly all of them.
+<p>ImGui <a href="references.html#ref-dearimgui">57</a> included support for the dockspaces of panels, multi-window support, and even saving those entire layouts to .ini files.
+OpenVR <a href="references.html#ref-openvr">59</a> was available for Java and supported any VR headset that would work in SteamVR, which is nearly all of them.
 We decided to rewrite the new framework from scratch and use libGDX, ImGui, and OpenVR.</p>
 <h2 id="robot-data-explorer"><a class="header" href="#robot-data-explorer">Robot Data eXplorer</a></h2>
 <figure id="fig:rdx_early">
@@ -225,7 +226,7 @@ It is designed as a sandbox for general robotics data computation and exploratio
 A video is available at <a href="https://youtu.be/APSf1y6VryQ" class="uri">https://youtu.be/APSf1y6VryQ</a>.
 </figcaption>
 </figure>
-<p>This effort ultimately culminated in the robotics sandbox application suite later named Robot Data eXplorer (RDX), shown in <a href="#fig:rdx_early" data-reference-type="ref+label" data-reference="fig:rdx_early">1</a>.
+<p>This effort ultimately culminated in the robotics sandbox application suite later named Robot Data eXplorer (RDX), shown in <a href="#fig:rdx_early">1</a>.
 We wanted this set of tools to be useful for teleoperation, simulation, and perception and control algorithm development.
 It was designed in a similar spirit to SCS in that the user would first create a main entry point for their project and implement what they needed programmatically.
 For example, the application could be a test of a point cloud renderer, displaying it in 3D while also providing tuning widgets for point size, color, etc.
@@ -238,7 +239,7 @@ We implemented a mouse ray projection into the 3D scene in RDX which was general
 For the gizmo, this was used to intersect with the gizmo orientation control tori and translation control cylinders and cones.
 The gizmo’s axes are colored as Red, Green, and Blue, to match X, Y, and Z, and Roll, Pitch, and Yaw.
 The way to remember it is “RGB -&gt; XYZ”.
-We also re-implemented the walk path control ring and virtual interactable footsteps, as shown in a 2022 screenshot in <a href="#fig:nadia_interactables" data-reference-type="ref+label" data-reference="fig:nadia_interactables">[fig:nadia_interactables]</a>.</p>
+We also re-implemented the walk path control ring and virtual interactable footsteps, as shown in a 2022 screenshot in <a href="4_story_of_building_and_architecture_4_2022_2023_nadia_runtime_editable_sequences_era.html#fig:nadia_interactables">[fig:nadia_interactables]</a>.</p>
 <p>The VR mode in RDX also featured ImGui widgets.
 The same panels available in the monitor, mouse, and keyboard modalities were also available as panels mounted on the wrist in VR, and they were operable via point and click with the VR controller.
 This continued the RDX design goals of reusability and versatility into the VR modality.
@@ -248,7 +249,7 @@ Additionally, we wanted switching between the monitor, keyboard, and mouse and v
 <figure id="fig:atlas_rdx_perceptive_locomotion_demo">
 <img src="media/atlas/2021-04-19 14-57-50_AtlasLookAndStepSuccessfulRunOverRoughTerrain-00.01.09.505.jpg" />
 <figcaption>A perceptive locomotion behavior on Atlas in 2021 using RDX for operation.
-This behavior used the rapid planar region extractor from <span class="citation" data-cites="Mishra_2021_RapidRegions"></span> as an input to a hard-coded reactive perceptive locomotion behavior called “look and step”.
+This behavior used the rapid planar region extractor from [65](references.md#ref-Mishra_2021_RapidRegions) as an input to a hard-coded reactive perceptive locomotion behavior called “look and step”.
 In the top left, the 3D scene is shown featuring the live robot configuration, the perceived 3D planar regions, and the walk path.
 The input to the behavior was a waypoint, as shown by the small teal ball and arrow at the end of the green, yellow, and red path.
 The behavior would continuously walk along the path, planning 1-3 steps at a time while doing a percept on every step.
@@ -257,14 +258,14 @@ Additionally, a plot of the current behavior state is shown.
 A video is available at <a href="https://youtu.be/qAtfV7hTzYg" class="uri">https://youtu.be/qAtfV7hTzYg</a>.
 </figcaption>
 </figure>
-<p>In 2020, we started using the RealSense L515 depth sensor for perceptive locomotion.
-Bhavyansh Mishra developed a planar region extractor using OpenCL which enabled the development of a perceptive locomotion behavior with active perception while walking.
-This led to one of the first autonomous behaviors that used RDX as the user interface, as shown in <a href="#fig:atlas_rdx_perceptive_locomotion_demo" data-reference-type="ref+label" data-reference="fig:atlas_rdx_perceptive_locomotion_demo">2</a>.
-This work is covered in the 2022 paper .</p>
+<p>In 2020, we started using the RealSense L515 depth sensor <a href="references.html#ref-l515">33</a> for perceptive locomotion.
+Bhavyansh Mishra developed a planar region extractor using OpenCL <a href="references.html#ref-Mishra_2021_RapidRegions">65</a> which enabled the development of a perceptive locomotion behavior with active perception while walking.
+This led to one of the first autonomous behaviors that used RDX as the user interface, as shown in <a href="#fig:atlas_rdx_perceptive_locomotion_demo">2</a>.
+This work is covered in the 2022 paper <a href="references.html#ref-lookandstep">63</a>.</p>
 <h2 id="behavior-trees"><a class="header" href="#behavior-trees">Behavior Trees</a></h2>
 <p>After the initial development of the perceptive locomotion behavior, “look and step”, we sought to build out multi-task behaviors as part of our building exploration demo.
 To assemble a hybrid teleoperated and autonomous multi-stage behavior, we looked to behavior trees.
-<a href="#fig:atlas_2d_behavior_tree_view" data-reference-type="ref+label" data-reference="fig:atlas_2d_behavior_tree_view">3</a> shows the very beginning of that effort in May of 2021.
+<a href="#fig:atlas_2d_behavior_tree_view">3</a> shows the very beginning of that effort in May of 2021.
 We pulled in an ImGui library called ImNodes and started rendering a tree of behaviors in a 2D canvas.</p>
 <figure id="fig:atlas_2d_behavior_tree_view">
 <img src="media/atlas/2021-05-28 13-34-49_ImNodes-00.00.08.664.jpg" />
@@ -277,13 +278,13 @@ A video is available at <a href="https://youtu.be/kpWE3UVIIvM" class="uri">https
 A video is available at <a href="https://youtu.be/CFiFaO-ENPw" class="uri">https://youtu.be/CFiFaO-ENPw</a>.</figcaption>
 </figure>
 <p>In June 2021, we worked on a building exploration demo which consisted of seven tasks with a hybrid autonomy model: an autonomous rough terrain traversal using perceptive locomotion, an automatic pull door behavior, VR teleoperated debris clearing, and automatic push door traversal, obtaining a mock pipe bomb from the top of a flight of stairs, walking back down, and placing the mock pipe bomb in a trash can.
-The tasks are shown in <a href="#fig:2021_building_exploration_demo" data-reference-type="ref+label" data-reference="fig:2021_building_exploration_demo">4</a>.
+The tasks are shown in <a href="#fig:2021_building_exploration_demo">4</a>.
 We successfully performed the demo on June 23, 2021, in 22 minutes.</p>
 <p>This demo tested our ability to incorporate autonomous behaviors with operator supervision and teleoperation.
 Major innovations in the demo with respect to the DRC were VR kinematics streaming, continuous perceptive locomotion, and automatic push and pull door behaviors.
 However, the behavior structure for the locomotion, the door traversals, and the building exploration assembly were still hard-coded and not runtime editable, and perception of semantic objects was still reliant on fiducial markers.
 Push and pull door and stairs behaviors were selected by the fiducial IDs.
-The UI for this demo can be seen in <a href="#fig:2021_building_exploration_demo_ui" data-reference-type="ref+label" data-reference="fig:2021_building_exploration_demo_ui">5</a>.</p>
+The UI for this demo can be seen in <a href="#fig:2021_building_exploration_demo_ui">5</a>.</p>
 <figure id="fig:2021_building_exploration_demo_ui">
 <img src="media/atlas/2021-06-23 16-23-54_AtlasDemoFullRunOneFall-00.10.31.758.jpg" />
 <figcaption>The June 23, 2021 building exploration demo user interface.
@@ -294,17 +295,31 @@ It consists of the root node, named "Behavior Module", a "Building Exploration" 
 This hard-coded but interactable behavior tree allows the operator to monitor and guide the building exploration behavior at several levels of autonomy.
 A video is available at <a href="https://youtu.be/CFiFaO-ENPw" class="uri">https://youtu.be/CFiFaO-ENPw</a>.</figcaption>
 </figure>
-<p>After the building exploration demo, we switched from the MultiSense SL to the Ouster OS0-128 lidar sensor in combination with a stereo pair of Blackfly cameras with fisheye lenses.
-A paper about this sensor suite is available at .
+<p>After the building exploration demo, we switched from the MultiSense SL to the Ouster OS0-128 lidar sensor <a href="references.html#ref-ouster_os0_lidar_sensor">34</a> in combination with a stereo pair of Blackfly cameras with fisheye lenses.
+A paper about this sensor suite is available at <a href="references.html#ref-Mishra_2022_PerceptionEngine">66</a>.
 With the new sensor configuration, we had instantaneous dense lidar scans instead of needing to wait for the MultiSense SL to spin.
-This enabled us to develop the person following behavior shown in <a href="#fig:atlas_follow_person_over_rough_terrain" data-reference-type="ref+label" data-reference="fig:atlas_follow_person_over_rough_terrain">6</a>.</p>
+This enabled us to develop the person following behavior shown in <a href="#fig:atlas_follow_person_over_rough_terrain">6</a>.</p>
 <figure id="fig:atlas_follow_person_over_rough_terrain">
 <img src="media/atlas/2021-09-11 20-06-28_FollowPersonOverRoughTerrainFlatGroundDetectionFall-00.00.30.482.jpg" />
-<figcaption>A person following behavior which used a YOLO<span class="citation" data-cites="redmon2016yolo"></span> person detection and segmentation model in combination with the Ouster point cloud to provide a continuously updating position of a person.
+<figcaption>A person following behavior which used a YOLO [36](references.md#ref-redmon2016yolo) person detection and segmentation model in combination with the Ouster point cloud to provide a continuously updating position of a person.
 The existing "Look and Step" locomotion behavior was adapted to walk towards the person in a loop.
 This demo was conducted in September, 2021.
 A video is available at <a href="https://youtu.be/z51BHiq3OQs" class="uri">https://youtu.be/z51BHiq3OQs</a>.</figcaption>
 </figure>
+<!-- PAGE-REFERENCES-START -->
+**References cited on this page**
+<p><strong>[33]</strong> “Intel RealSense LiDAR camera L515,” <em>Realsense</em>. Available: <a href="https://www.intelrealsense.com/lidar-camera-l515/">https://www.intelrealsense.com/lidar-camera-l515/</a></p>
+<p><strong>[34]</strong> Ouster, “OS0 ultra-wide field-of-view lidar sensor for autonomous vehicles and robotics.” <a href="https://ouster.com/products/hardware/os0-lidar-sensor">https://ouster.com/products/hardware/os0-lidar-sensor</a>, Apr. 2024.</p>
+<p><strong>[36]</strong> J. Redmon, S. Divvala, R. Girshick, and A. Farhadi, “You only look once: Unified, real-time object detection,” <em>Proceedings of the IEEE conference on computer vision and pattern recognition</em>, pp. 779–788, 2016.</p>
+<p><strong>[57]</strong> O. Cornut, “Dear ImGui.” 2024. Available: <a href="https://www.dearimgui.com/">https://www.dearimgui.com/</a></p>
+<p><strong>[58]</strong> libGDX Community, “libGDX.” 2024. Available: <a href="https://libgdx.com">https://libgdx.com</a></p>
+<p><strong>[59]</strong> Valve Software, “OpenVR.” 2024. Available: <a href="https://github.com/ValveSoftware/openvr">https://github.com/ValveSoftware/openvr</a></p>
+<p><strong>[60]</strong> Eclipse Foundation, “Eclipse IDE.” 2026. Available: <a href="https://eclipseide.org/">https://eclipseide.org/</a></p>
+<p><strong>[61]</strong> Blender Foundation, “Blender.” 2026. Available: <a href="https://www.blender.org/">https://www.blender.org/</a></p>
+<p><strong>[63]</strong> D. Calvert, B. Mishra, S. McCrory, S. Bertrand, R. Griffin, and J. Pratt, “A fast, autonomous, bipedal walking behavior over rapid regions,” in <em>2022 IEEE-RAS 21st international conference on humanoid robots (humanoids)</em>, 2022, pp. 24–31. doi: <a href="https://doi.org/10.1109/Humanoids53995.2022.10000120">10.1109/Humanoids53995.2022.10000120</a>.</p>
+<p><strong>[65]</strong> B. Mishra, D. Calvert, S. Bertrand, S. McCrory, R. Griffin, and H. E. Sevil, “GPU-accelerated rapid planar region extraction for dynamic behaviors on legged robots,” in <em>2021 IEEE/RSJ international conference on intelligent robots and systems (IROS)</em>, 2021, pp. 8493–8499. doi: <a href="https://doi.org/10.1109/IROS51168.2021.9636009">10.1109/IROS51168.2021.9636009</a>.</p>
+<p><strong>[66]</strong> B. Mishra <em>et al.</em>, “Perception engine using a multi-sensor head to enable high-level humanoid robot behaviors,” in <em>2022 international conference on robotics and automation (ICRA)</em>, 2022, pp. 9251–9257. doi: <a href="https://doi.org/10.1109/ICRA46639.2022.9812178">10.1109/ICRA46639.2022.9812178</a>.</p>
+<!-- PAGE-REFERENCES-END -->
 
                     </main>
 

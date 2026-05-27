@@ -28,6 +28,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme-figures-e3dffecf.css">
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -37,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-14326c61.js";
+            window.path_to_searchindex_js = "searchindex-fc500df7.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-83e275b8.js"></script>
+        <script src="toc-a4fbf44e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -184,21 +185,21 @@ The comparison is bounded to systems that overlap enough with the benchmark task
 <h3 id="2008-2010-jain-and-kemp"><a class="header" href="#2008-2010-jain-and-kemp">2008-2010: Jain and Kemp</a></h3>
 <p>Before recent learned door systems, much of the door-opening literature focused on mobile manipulators.
 Jain and Kemp address two complementary halves of the task across a pair of papers.
-The 2008 system, El-E , is a statically stable mobile manipulator with a 5-DOF Katana arm and custom force-sensing fingers; it decomposes the push-side task into a serial chain of behaviors, with branches to explicit failure states, for locating the handle, deciding whether the door is locked, twisting the handle, deciding whether the door can be pushed, and pushing through the doorway.
+The 2008 system, El-E  <a href="references.html#ref-Jain2008dooropening">41</a>, is a statically stable mobile manipulator with a 5-DOF Katana arm and custom force-sensing fingers; it decomposes the push-side task into a serial chain of behaviors, with branches to explicit failure states, for locating the handle, deciding whether the door is locked, twisting the handle, deciding whether the door can be pushed, and pushing through the doorway.
 Across 30 trials on 6 doors, 5 per door (1 locked, 4 unlocked), the robot completed the full unlocked task in 21/24 trials (87.5%) and correctly detected the locked condition in 6/6 trials, stopping safely on every failure rather than requiring intervention.
-The 2010 system  switches platform to a hooked compliant manipulator on an omnidirectional base and addresses the pull-side task using equilibrium point control to coordinate the base and the compliant arm without a prior kinematic model of the mechanism.
+The 2010 system  <a href="references.html#ref-Jain2010EPC">42</a> switches platform to a hooked compliant manipulator on an omnidirectional base and addresses the pull-side task using equilibrium point control to coordinate the base and the compliant arm without a prior kinematic model of the mechanism.
 Across 40 trials on 10 different doors and drawers, the robot succeeded on 37/40, opening rotary mechanisms more than 60 on 26/28 trials and pulling drawers more than 30 cm on 11/12 trials.
 These are important early benchmark-oriented references: they take on the whole task on real hardware, report substantial repeated-trial evidence on diverse mechanisms, and treat handle perception, force-based contact, and recovery as first-class parts of the behavior.
 The platforms remain statically stable wheeled mobile manipulators and the task still begins from an externally provided handle cue, by laser pointer in 2008 and by 3D handle pose plus hook orientation in 2010, rather than from authored task-time perception.
 The behavior set in each paper is also fixed at deploy time rather than runtime-editable, so changing recovery logic, swapping perception, or adding a new variant requires returning to source.</p>
 <h3 id="2010-chitta"><a class="header" href="#2010-chitta">2010: Chitta</a></h3>
-<p>Chitta et al.  address coordinated base-and-arm motion planning for autonomous door opening on the Willow Garage PR2.
-Their key idea is to partition the planning problem rather than search a full whole-body state space: a graph search in \((x, y, \theta, d)\) plans the omnidirectional base trajectory, where \(d\) is a binary “door interval” variable indicating whether the door is connected to the closed or open configuration, while the arm trajectory is recovered by inverse kinematics at each base waypoint so that the gripper stays on the handle and the door remains within the arm’s reachable workspace.
+<p>Chitta et al.  <a href="references.html#ref-2010ChittaDoorOpening">48</a> address coordinated base-and-arm motion planning for autonomous door opening on the Willow Garage PR2.
+Their key idea is to partition the planning problem rather than search a full whole-body state space: a graph search in ((x, y, \theta, d)) plans the omnidirectional base trajectory, where (d) is a binary “door interval” variable indicating whether the door is connected to the closed or open configuration, while the arm trajectory is recovered by inverse kinematics at each base waypoint so that the gripper stays on the handle and the door remains within the arm’s reachable workspace.
 The system was evaluated for 5/5 push and 5/5 pull trials on the PR2, demonstrating that opening and passage can be posed as a coupled base-arm planning problem rather than a hard-coded motion sequence.
 The contribution is planning-focused and assumes that the door has already been grasped and unlatched, that an initial door model is available from a building map, and that the world is static during execution; the paper explicitly does not handle disturbances such as a person holding the door closed.
 By contrast, this dissertation focuses on editable reactive task structure operating from task-time perception, and treats grasp acquisition, retries, and disturbance recovery as authored parts of the same behavior rather than as preconditions of the planner.</p>
 <h3 id="2015-axelrod-and-huang"><a class="header" href="#2015-axelrod-and-huang">2015: Axelrod and Huang</a></h3>
-<p>Axelrod and Huang  report autonomous door opening and traversal on an iRobot 510 PackBot, a tracked skid-steer base with a 5-DoF arm and no wrist yaw joint.
+<p>Axelrod and Huang  <a href="references.html#ref-Axelrod_2015">26</a> report autonomous door opening and traversal on an iRobot 510 PackBot, a tracked skid-steer base with a 5-DoF arm and no wrist yaw joint.
 A custom Honeybee Robotics gripper provides a passive 2-DoF compliant wrist and fingertip Takktile tactile sensors in place of a wrist force/torque sensor, and a 2D laser rangefinder on the arm base tracks door pose throughout the task.
 The system is shared autonomy: the operator drives to a starting pose, specifies door type and handle type, confirms the visual handle detection, and then lets the robot execute the rest of the sequence.
 It is the most variation-broad classical reference here, covering push and pull, knobs and levers, and crucially the pull lever with a self-closing mechanism, where the robot uses its flipper to cage the door open before re-grasping from the inside and driving through.
@@ -207,30 +208,30 @@ Reliability is reported only qualitatively at approximately 60% because, as the 
 The behavior runtime executes on a laptop tethered to the robot, the operator-classified door and handle inputs gate which fixed sub-behavior runs, and the per-handle perception is hard coded with Hough circles and Sobel-filtered Hough lines.
 Axelrod and Huang therefore extends the variation coverage of behavior-decomposed door traversal in classical mobile manipulation, while reinforcing the same architectural distance from this thesis: fixed shared-autonomy decomposition, off-robot execution, and no editable recovery structure.</p>
 <h3 id="2015-banerjee-et-al"><a class="header" href="#2015-banerjee-et-al">2015: Banerjee et al.</a></h3>
-<p>Banerjee et al. , WPI-CMU’s DARPA Robotics Challenge entry, is a particularly relevant classical humanoid door traversal reference.
+<p>Banerjee et al.  <a href="references.html#ref-Banerjee_2015">25</a>, WPI-CMU’s DARPA Robotics Challenge entry, is a particularly relevant classical humanoid door traversal reference.
 It reports a human-supervised semi-autonomous system in which Atlas detects a door, approaches it, opens it, and walks through it in the DRC setting.
 The system uses an event-driven finite-state machine executed on the robot, with human validation at critical transitions, motion planning for the manipulation phases, and both autonomous and operator-aided door detection.
 This is an important example of full-task humanoid door traversal under shared autonomy.
 Reported execution is slow by modern standards, at 9 min 23 s for the pull door case and 7 min 40 s for the push door case, and the DRC Finals deployment used the operator-aided detection mode for reliability.
 Relative to the system developed here, the key adaptability difference is that Banerjee et al. executes a pre-defined supervised FSM rather than a runtime-editable one, so it does not address fast behavior iteration, tighter perception-behavior integration, or repeated reactive execution.</p>
 <h3 id="2023-jang-et-al"><a class="header" href="#2023-jang-et-al">2023: Jang et al.</a></h3>
-<p>Jang et al.  extends the partitioned base-plus-arm planning idea from Chitta et al. to the full navigation problem on a Husky-based mobile manipulator with a Franka Emika Panda arm.
-A graph search in \((x, y, \theta, a)\) plans the base pose and an <em>area indicator</em> \(a \in {0,\dots,4}\) that records where the robot is relative to the door, from approaching, to opening, to crossing the doorsill, to closing, to navigating to a goal beyond the door, and an inverse kinematics solver then recovers the arm path along the planned base trajectory.
+<p>Jang et al.  <a href="references.html#ref-2023JangDoorTraversal">43</a> extends the partitioned base-plus-arm planning idea from Chitta et al. to the full navigation problem on a Husky-based mobile manipulator with a Franka Emika Panda arm.
+A graph search in ((x, y, \theta, a)) plans the base pose and an <em>area indicator</em> (a \in {0,\dots,4}) that records where the robot is relative to the door, from approaching, to opening, to crossing the doorsill, to closing, to navigating to a goal beyond the door, and an inverse kinematics solver then recovers the arm path along the planned base trajectory.
 The integer area indicator generalizes the binary door interval from Chitta et al. and lets approach, opening, traversal, closing, and goal navigation be solved in a single search.
-In simulation across 25 push and 25 pull trials, the framework reaches 100% planning success against 76–80% for the equivalent separate-planning baseline, and is 8.7\(\times\) faster on pull doors and 2.3\(\times\) faster on push doors while producing shorter, lower-cost paths.
+In simulation across 25 push and 25 pull trials, the framework reaches 100% planning success against 76–80% for the equivalent separate-planning baseline, and is 8.7(\times) faster on pull doors and 2.3(\times) faster on push doors while producing shorter, lower-cost paths.
 The framework is offline and assumes the door type, joint range, and handle position as inputs, so adapting to a new door, recovering from a failed grasp, or reacting to scene change at task time falls outside the planner; the authors note closed-loop replanning as future work.</p>
 <h3 id="2023-sleiman-et-al"><a class="header" href="#2023-sleiman-et-al">2023: Sleiman et al.</a></h3>
-<p>Sleiman et al.  take a planning-centered approach to loco-manipulation on a quadrupedal mobile manipulator, an ANYmal with a 6-DoF arm.
+<p>Sleiman et al.  <a href="references.html#ref-Sleiman_2023">45</a> take a planning-centered approach to loco-manipulation on a quadrupedal mobile manipulator, an ANYmal with a 6-DoF arm.
 Their framework casts multi-contact loco-manipulation as a Task and Motion Planning problem solved by sampling-based bilevel optimization combined with informed graph search, and it is demonstrated on the real robot for opening and closing a heavy dishwasher and for traversing a spring-loaded pull door using both prehensile and non-prehensile contacts.
 This is the strongest planning-based reference for spring-loaded door traversal in the recent literature, and it complements the learned door results discussed below by showing that multi-contact loco-manipulation can also be produced by holistic offline planning.
 The system is a quadruped rather than a humanoid, the planner runs offline from a known object model, and the executed behavior is not represented as an editable task graph that an operator can modify at runtime.</p>
 <h3 id="2024-thamrongaphichartkul-and-vongbunyong"><a class="header" href="#2024-thamrongaphichartkul-and-vongbunyong">2024: Thamrongaphichartkul and Vongbunyong</a></h3>
-<p>Thamrongaphichartkul and Vongbunyong  pair a mobile manipulator door-traversal task with a behavior tree implemented over ROS 2 and evaluated in Gazebo.
+<p>Thamrongaphichartkul and Vongbunyong  <a href="references.html#ref-Thamrongaphichartkul_2024">44</a> pair a mobile manipulator door-traversal task with a behavior tree implemented over ROS 2 and evaluated in Gazebo.
 The platform is a differential-drive base with a 6-effective-DoF arm augmented by two added base-side degrees of freedom, and the authored tree covers both an initially closed door and an initially open door, including approach, handle grasp, opening, traversal, and closing as reusable subtrees.
 This is the closest published precedent that explicitly combines a behavior-tree task model with the full door-traversal task on a mobile manipulator and reports honestly on the limitations of classical behavior trees: the authors find that small base-positioning errors propagate into incorrect tree decisions because the leaf actions do not adapt at task time.
 That observation lines up directly with the reactive structure and behavior-time perception emphasized in this dissertation, and it explains why a behavior tree alone is not sufficient for fast humanoid loco-manipulation.</p>
 <h3 id="2024-kang-et-al"><a class="header" href="#2024-kang-et-al">2024: Kang et al.</a></h3>
-<p>Kang et al.  is a more recent system-level reference because it presents a complete door opening and passage pipeline on a wheeled mobile manipulator rather than an isolated perception or control component.
+<p>Kang et al.  <a href="references.html#ref-kang2024door">50</a> is a more recent system-level reference because it presents a complete door opening and passage pipeline on a wheeled mobile manipulator rather than an isolated perception or control component.
 The system combines handle segmentation and pose estimation, exploratory force-based identification of the door opening direction, an adaptive position-force controller, and an SAC-based reinforcement learning controller for the opening and passing phase.
 It targets a complete benchmark task with varied handle types, door widths, and both push and pull doors, and explicitly compares a classical adaptive controller against a learned alternative inside one integrated system.
 The platform is a wheeled mobile manipulator rather than a legged humanoid, and the RL portion was trained only for a Push-CCW door while the other phases remained fixed procedural modules.
@@ -238,13 +239,13 @@ In the real-world results, the RL controller was evaluated only on a single 0.9�
 Kang et al. concentrates adaptability inside a controller layer within an otherwise fixed procedural pipeline, whereas this dissertation focuses on editing the task structure itself, including perception, coordination, and recovery logic, directly on the robot during development.
 Kang et al. is therefore prior art for full-sequence door opening and passage with a mobile manipulator and a benchmark-oriented comparison point, but not for fast editable loco-manipulation behavior structure on a humanoid robot.</p>
 <h3 id="2025-schulze-et-al"><a class="header" href="#2025-schulze-et-al">2025: Schulze et al.</a></h3>
-<p>Schulze et al.  report a deployed transport-and-messaging service on a SCITOS G5 differential-drive base with a Kinova Gen II 7-DoF arm, integrated to traverse closed doors and ride elevators in a populated multi-story environment.
+<p>Schulze et al.  <a href="references.html#ref-Schulze_2025">46</a> report a deployed transport-and-messaging service on a SCITOS G5 differential-drive base with a Kinova Gen II 7-DoF arm, integrated to traverse closed doors and ride elevators in a populated multi-story environment.
 Across long-term field tests in an elderly-care facility and a university office building, the full system reported overall task success of 88.6% across 79 runs in one site and 80.0% across 40 runs in the other, with door manipulation alone exceeding 88% in both sites.
 This is one of the few real-world deployment references that integrates door manipulation with a longer mission and reports honest failure analysis at the system level, which makes it a useful precedent for the multi-step exploration and three-door composite behaviors discussed in <a href="#ch:evaluation" data-reference-type="ref+label" data-reference="ch:evaluation">[ch:evaluation]</a>.
 The platform is a wheeled differential-drive service robot rather than a bipedal humanoid, and the authored skill set is not a runtime-editable behavior tree, but the operating point and failure-mode discussion are directly relevant to deploying door behaviors in cluttered, populated environments.</p>
 <h2 id="learning-based-systems"><a class="header" href="#learning-based-systems">Learning-Based Systems</a></h2>
 <h3 id="2024-zhang-et-al"><a class="header" href="#2024-zhang-et-al">2024: Zhang et al.</a></h3>
-<p>Zhang et al.  presents a teacher-student reinforcement learning policy for an ANYmal-based legged manipulator to open and traverse doors.
+<p>Zhang et al.  <a href="references.html#ref-zhang2024learningopentraversedoors">49</a> presents a teacher-student reinforcement learning policy for an ANYmal-based legged manipulator to open and traverse doors.
 The paper targets the combined task of opening and passing through the doorway on a legged platform rather than stopping at door opening alone.
 It claims a single learned policy that handles both push and pull doors without being given the opening direction a priori, and reports repeated-trial results on a single spring-loaded door of 20/20 traversals on the pull side and 18/20 on the push side, for an overall success rate of 95.0%.
 The two failures were not failures to open the door itself, but push-side traversal failures in which the robot got stuck on protruding doorway geometry that was not represented in the simulation model.
@@ -253,22 +254,57 @@ The method is a monolithic learned controller rather than a runtime-editable beh
 That failure mode also illustrates a low-adaptability workflow: because the issue arises from a simulation mismatch inside a learned monolithic policy, addressing it requires changing the simulation or training setup and retraining rather than making a runtime behavior edit, a turnaround on the order of at least a day in our own development terms.
 Zhang et al. is a learned door traversal comparator on a legged platform, but it does not address the behavior authoring speed, editable task structure, or robot-local behavior coordination that are central here.</p>
 <h3 id="2025-zue-et-al"><a class="header" href="#2025-zue-et-al">2025: Zue et al.</a></h3>
-<p>The closest learned humanoid comparison point is Xue et al. , which presents DoorMan, a teacher-student-bootstrap sim-to-real learning pipeline for humanoid door loco-manipulation from pure RGB perception.
+<p>The closest learned humanoid comparison point is Xue et al.  <a href="references.html#ref-xue2025opening">74</a>, which presents DoorMan, a teacher-student-bootstrap sim-to-real learning pipeline for humanoid door loco-manipulation from pure RGB perception.
 It closes several gaps left by earlier learned door systems: it uses a humanoid platform rather than a quadruped with arm or a wheeled manipulator, it does not rely on externally provided door measurements as in Zhang et al., and it evaluates real-world door interaction across three categories: push lever, pull lever, and push bar.
 DoorMan reports an overall task success rate of 83% and an average completion time of 15.40 s across those categories, while outperforming expert teleoperators on the same whole-body controller in task completion time.
 That places it in roughly the same coarse speed regime targeted in this dissertation and makes it the most important learned humanoid baseline.
-The reported runtime deployment is not robot-local: DoorMan policy inference runs on a desktop workstation with an Intel i9-14900K CPU and an NVIDIA RTX 4090 GPU rather than on the humanoid itself , so the robot depends on active external communications during execution and cannot continue functioning autonomously if that link is lost.
-The method is a monolithic learned policy trained through privileged-state teacher learning, DAgger-based RGB distillation, GRPO fine-tuning, and large-scale simulation randomization, rather than a runtime-editable behavior architecture.
-DoorMan uses multi-stage decomposition to shape rewards and resets during training, but the demonstrated runtime result is a single end-to-end door-interaction policy, with no reported task-level branching across multiple authored behaviors or composition of heterogeneous behaviors into longer autonomous sequences.
+The reported runtime deployment is not robot-local: DoorMan policy inference runs on a desktop workstation with an Intel i9-14900K CPU and an NVIDIA RTX 4090 GPU rather than on the humanoid itself  <a href="references.html#ref-xue2025opening">74</a>, so the robot depends on active external communications during execution and cannot continue functioning autonomously if that link is lost.
+The method is a monolithic learned policy trained through privileged-state teacher learning, DAgger-based RGB distillation, GRPO fine-tuning, and large-scale simulation randomization, rather than a runtime-editable behavior architecture.</p>
+<p>The rough pipeline for training a behavior is:</p>
+<ol>
+<li>
+<p>Build an ultra realistic and randomized physics simulation of the task.</p>
+</li>
+<li>
+<p>Tune PPO policy to get desired whole body motion with ground truth info.</p>
+</li>
+<li>
+<p>Run Dagger to convert to vision based model.</p>
+</li>
+<li>
+<p>GRPO to wean dependence from ground truth to vision.</p>
+</li>
+<li>
+<p>Test on real robot.</p>
+</li>
+</ol>
+<p>DoorMan uses multi-stage decomposition to shape rewards and resets during training, but the demonstrated runtime result is a single end-to-end door-interaction policy, with no reported task-level branching across multiple authored behaviors or composition of heterogeneous behaviors into longer autonomous sequences.
 Adaptation in DoorMan is therefore retraining-centered rather than edit-centered: changing the policy behavior requires revisiting simulation assets, reward shaping, and the training pipeline rather than modifying the executing task logic on the robot.
 Xue et al. is a major comparison point for high-performance RGB door execution on a humanoid, but not a baseline for robot-local autonomy, authoring effort, or targeted runtime adaptation.</p>
-<p>There is also broader recent work on learning for articulated-object manipulation, such as Xiong et al. .
+<p>There is also broader recent work on learning for articulated-object manipulation, such as Xiong et al.  <a href="references.html#ref-xiong2024adaptive">40</a>.
 That work is relevant at the level of general manipulation direction, but the detailed comparison in <a href="#ch:evaluation" data-reference-type="ref+label" data-reference="ch:evaluation">[ch:evaluation]</a> stays bounded to door systems with overlapping task scope and reported speed or success metrics.</p>
 <h3 id="2026-zhang-et-al"><a class="header" href="#2026-zhang-et-al">2026: Zhang et al.</a></h3>
-<p>Zhang et al.  present Sumo, a hybrid loco-manipulation framework that uses sample-based model-predictive control at runtime to steer a pre-trained whole-body reinforcement-learning policy.
+<p>Zhang et al.  <a href="references.html#ref-Zhang_2026_Sumo">47</a> present Sumo, a hybrid loco-manipulation framework that uses sample-based model-predictive control at runtime to steer a pre-trained whole-body reinforcement-learning policy.
 Sumo is most extensively evaluated on a Boston Dynamics Spot quadruped on dynamic whole-body tasks such as uprighting a tire and dragging a crowd-control barrier, and it also demonstrates the same hybrid framework in simulation on a Unitree G1 humanoid for door opening, table pushing, and box pushing.
 Architecturally it inverts the more common high-level RL plus low-level MPC stack by keeping the high-level decision in MPC and the low-level locomotion in RL, which lets the system adapt to new objects or new task objectives at deployment by changing only the planner’s cost function and object model rather than retraining the policy.
 This is closer in spirit to the edit-centered adaptation argued for in this thesis than a monolithic policy is, but the published humanoid door evidence is in simulation only, so Sumo is a recency-aware design-space comparison rather than a real-world humanoid door baseline alongside Xue et al.</p>
+<!-- PAGE-REFERENCES-START -->
+<p><strong>References cited on this page</strong></p>
+<p><strong>[25]</strong> N. Banerjee <em>et al.</em>, “Human-supervised control of the ATLAS humanoid robot for traversing doors,” in <em>2015 IEEE-RAS 15th international conference on humanoid robots (humanoids)</em>, 2015, pp. 722–729. doi: <a href="https://doi.org/10.1109/HUMANOIDS.2015.7363442">10.1109/HUMANOIDS.2015.7363442</a>.</p>
+<p><strong>[26]</strong> B. Axelrod and W. H. Huang, “Autonomous door opening and traversal,” in <em>2015 IEEE international conference on technologies for practical robot applications (TePRA)</em>, IEEE, 2015. doi: <a href="https://doi.org/10.1109/TePRA.2015.7219680">10.1109/TePRA.2015.7219680</a>.</p>
+<p><strong>[40]</strong> H. Xiong, R. Mendonca, K. Shaw, and D. Pathak, “Adaptive mobile manipulation for articulated objects in the open world.” 2024. Available: <a href="https://arxiv.org/abs/2401.14403">https://arxiv.org/abs/2401.14403</a></p>
+<p><strong>[41]</strong> A. Jain and C. C. Kemp, “Behaviors for robust door opening and doorway traversal with a force-sensing mobile manipulator,” in <em>RSS manipulation workshop: Intelligence in human environments</em>, Zurich: Georgia Institute of Technology, Jun. 2008. Available: <a href="http://hdl.handle.net/1853/37399">http://hdl.handle.net/1853/37399</a></p>
+<p><strong>[42]</strong> A. Jain and C. C. Kemp, “Pulling open doors and drawers: Coordinating an omni-directional base and a compliant arm with equilibrium point control,” in <em>2010 IEEE international conference on robotics and automation</em>, 2010, pp. 1807–1814. doi: <a href="https://doi.org/10.1109/ROBOT.2010.5509445">10.1109/ROBOT.2010.5509445</a>.</p>
+<p><strong>[43]</strong> K. Jang, S. Kim, and J. Park, “Motion planning of mobile manipulator for navigation including door traversal,” <em>IEEE Robotics and Automation Letters</em>, vol. 8, no. 7, pp. 4147–4154, 2023, doi: <a href="https://doi.org/10.1109/LRA.2023.3279612">10.1109/LRA.2023.3279612</a>.</p>
+<p><strong>[44]</strong> K. Thamrongaphichartkul and S. Vongbunyong, “Enhancing autonomous door traversal for mobile manipulators using behavior trees,” <em>IEEE Access</em>, vol. 12, pp. 90317–90330, 2024, doi: <a href="https://doi.org/10.1109/ACCESS.2024.3420819">10.1109/ACCESS.2024.3420819</a>.</p>
+<p><strong>[45]</strong> J.-P. Sleiman, F. Farshidian, and M. Hutter, “Versatile multi-contact planning and control for legged loco-manipulation,” <em>Science Robotics</em>, 2023, doi: <a href="https://doi.org/10.1126/scirobotics.adg5014">10.1126/scirobotics.adg5014</a>.</p>
+<p><strong>[46]</strong> P. R. Schulze, S. Müller, T. Müller, and H.-M. Gross, “On realizing autonomous transport services in multi story buildings with doors and elevators,” <em>Frontiers in Robotics and AI</em>, vol. 12, p. 1546894, 2025, doi: <a href="https://doi.org/10.3389/frobt.2025.1546894">10.3389/frobt.2025.1546894</a>.</p>
+<p><strong>[47]</strong> J. Z. Zhang <em>et al.</em>, “Sumo: Dynamic and generalizable whole-body loco-manipulation.” 2026. Available: <a href="https://arxiv.org/abs/2604.08508">https://arxiv.org/abs/2604.08508</a></p>
+<p><strong>[48]</strong> S. Chitta, B. Cohen, and M. Likhachev, “Planning for autonomous door opening with a mobile manipulator,” in <em>2010 IEEE international conference on robotics and automation</em>, 2010, pp. 1799–1806. doi: <a href="https://doi.org/10.1109/ROBOT.2010.5509475">10.1109/ROBOT.2010.5509475</a>.</p>
+<p><strong>[49]</strong> M. Zhang, Y. Ma, T. Miki, and M. Hutter, “Learning to open and traverse doors with a legged manipulator.” 2024. Available: <a href="https://arxiv.org/abs/2409.04882">https://arxiv.org/abs/2409.04882</a></p>
+<p><strong>[50]</strong> G. Kang, H. Seong, D. Lee, and D. H. Shim, “A versatile door opening system with mobile manipulator through adaptive position-force control and reinforcement learning,” <em>Robotics and Autonomous Systems</em>, vol. 180, p. 104760, 2024, doi: <a href="https://doi.org/10.1016/j.robot.2024.104760">https://doi.org/10.1016/j.robot.2024.104760</a>.</p>
+<p><strong>[74]</strong> H. Xue <em>et al.</em>, “Opening the sim-to-real door for humanoid pixel-to-action policy transfer,” <em>arXiv preprint arXiv:2512.01061</em>, 2025.</p>
+<!-- PAGE-REFERENCES-END -->
 
                     </main>
 

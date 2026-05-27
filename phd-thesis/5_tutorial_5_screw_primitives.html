@@ -28,6 +28,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme-figures-e3dffecf.css">
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -37,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-14326c61.js";
+            window.path_to_searchindex_js = "searchindex-fc500df7.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-83e275b8.js"></script>
+        <script src="toc-a4fbf44e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -183,67 +184,67 @@
 <figcaption>Tuning a screw primitive action.
 A video of this demonstration is available at <a href="https://youtu.be/NkX0Jo9TlYs" class="uri">https://youtu.be/NkX0Jo9TlYs</a>.</figcaption>
 </figure>
-<p><a href="#fig:guide_sim_screw_primitive" data-reference-type="ref+label" data-reference="fig:guide_sim_screw_primitive">1</a> shows a screw primitive action being authored.
-Our screw primitive action is inspired by Pettinger’s 2022 paper but differs in implementation.</p>
-<p>Our screw primitive action is defined relative to a user-defined screw reference frame, where the axis of the screw is strictly aligned with the local x-axis (\(\hat{\mathbf{x}}\)).
-The motion is parameterized by a total axial translation \(\Delta x\) and a total rotation \(\Delta \theta\).
-<a href="#fig:guide_sim_screw_primitive" data-reference-type="ref+label" data-reference="fig:guide_sim_screw_primitive">1</a> illustrates one parameterization for reference and the reference video shows varied parameterizations.</p>
-<p>Let the initial position of the end-effector in the screw frame be \(\mathbf{p}_0 = [x_0, y_0, z_0]^T\).
-The radial distance \(r\) from the screw axis to the end-effector is calculated by projecting the position onto the y-z plane:
+<p><a href="#fig:guide_sim_screw_primitive">1</a> shows a screw primitive action being authored.
+Our screw primitive action is inspired by Pettinger’s 2022 paper <a href="references.html#ref-Pettinger_2022">14</a> but differs in implementation.</p>
+<p>Our screw primitive action is defined relative to a user-defined screw reference frame, where the axis of the screw is strictly aligned with the local x-axis ((\hat{\mathbf{x}})).
+The motion is parameterized by a total axial translation (\Delta x) and a total rotation (\Delta \theta).
+<a href="#fig:guide_sim_screw_primitive">1</a> illustrates one parameterization for reference and the reference video shows varied parameterizations.</p>
+<p>Let the initial position of the end-effector in the screw frame be (\mathbf{p}_0 = [x_0, y_0, z_0]^T).
+The radial distance (r) from the screw axis to the end-effector is calculated by projecting the position onto the y-z plane:
 $$
 r = \sqrt{y_0^2 + z_0^2}
 $$</p>
-<p>To compute motion bounds, the total Euclidean distance traversed by the end-effector, \(D\), combines both the axial displacement and the tangential arc length:
+<p>To compute motion bounds, the total Euclidean distance traversed by the end-effector, (D), combines both the axial displacement and the tangential arc length:
 $$
 D = \sqrt{(r \Delta \theta)^2 + (\Delta x)^2}
 $$</p>
 <p>The trajectory duration is determined by enforcing maximum velocity limits.
-Given a maximum linear velocity \(v_{max}\) and maximum angular velocity \(\omega_{max}\), the base duration \(T_{base}\) required to complete the motion is dominated by the most restrictive bound:
+Given a maximum linear velocity (v_{max}) and maximum angular velocity (\omega_{max}), the base duration (T_{base}) required to complete the motion is dominated by the most restrictive bound:
 $$
 T_{base} = \max\left( \frac{|\Delta \theta|}{\omega_{max}}, \frac{D}{v_{max}} \right)
 $$</p>
-<p>The trajectory is discretized into \(N\) waypoints (where \(N\) is limited by the system’s trajectory buffer size), yielding \(N-1\) segments.
+<p>The trajectory is discretized into (N) waypoints (where (N) is limited by the system’s trajectory buffer size), yielding (N-1) segments.
 The nominal duration of a single segment is:
 $$
 \delta t = \frac{T_{base}}{N - 1}
 $$</p>
-<p>To account for smooth acceleration and deceleration without requiring complex spline generation, the implementation applies a temporal boundary condition: the duration of the first and last trajectory segments is doubled (i.e., \(2\delta t\)), while all intermediate segments retain duration \(\delta t\).
-Consequently, the total movement duration expands to \(T = T_{base} + 2\delta t\).</p>
+<p>To account for smooth acceleration and deceleration without requiring complex spline generation, the implementation applies a temporal boundary condition: the duration of the first and last trajectory segments is doubled (i.e., (2\delta t)), while all intermediate segments retain duration (\delta t).
+Consequently, the total movement duration expands to (T = T_{base} + 2\delta t).</p>
 <h2 id="trajectory-construction"><a class="header" href="#trajectory-construction">Trajectory Construction</a></h2>
 <p>The trajectory maintains constant base velocities throughout the central portion of the motion.
 The scalar velocities are derived from the base duration:</p>
 <ul>
 <li>
-<p>Axial velocity: \(v_a = \frac{\Delta x}{T_{base}}\)</p>
+<p>Axial velocity: (v_a = \frac{\Delta x}{T_{base}})</p>
 </li>
 <li>
-<p>Tangential velocity: \(v_t = \frac{r \Delta \theta}{T_{base}}\)</p>
+<p>Tangential velocity: (v_t = \frac{r \Delta \theta}{T_{base}})</p>
 </li>
 <li>
-<p>Rotational velocity: \(\omega_x = \frac{\Delta \theta}{T_{base}}\)</p>
+<p>Rotational velocity: (\omega_x = \frac{\Delta \theta}{T_{base}})</p>
 </li>
 </ul>
-<p>At any intermediate waypoint \(i\), let the current position of the end-effector in the screw frame be \(\mathbf{p}_i = [x_i, y_i, z_i]^T\). The purely radial vector is \(\mathbf{r}_{\perp, i} = [0, y_i, z_i]^T\).</p>
-<p>The unit tangent vector \(\mathbf{u}_{t,i}\) describing the instantaneous direction of rotation is found via the cross product of the screw axis and the radial vector:
+<p>At any intermediate waypoint (i), let the current position of the end-effector in the screw frame be (\mathbf{p}_i = [x_i, y_i, z_i]^T). The purely radial vector is (\mathbf{r}_{\perp, i} = [0, y_i, z_i]^T).</p>
+<p>The unit tangent vector (\mathbf{u}_{t,i}) describing the instantaneous direction of rotation is found via the cross product of the screw axis and the radial vector:
 $$
 \mathbf{u}_{t,i} = \frac{\hat{\mathbf{x}} \times \mathbf{r}_{\perp, i}}{|\hat{\mathbf{x}} \times \mathbf{r}_{\perp, i}|}
 $$</p>
-<p>The spatial velocity commands at waypoint \(i\), expressed in the local screw frame, are formulated as:
+<p>The spatial velocity commands at waypoint (i), expressed in the local screw frame, are formulated as:
 $$
 \mathbf{v}_i = v_a \hat{\mathbf{x}} + v_t \mathbf{u}_{t,i}
 $$
 $$
 \boldsymbol{\omega}_i = \omega_x \hat{\mathbf{x}}
 $$
-Note that for the initial (\(t=0\)) and final (\(t=T\)) waypoints, the spatial velocities are strictly clamped to zero.</p>
-<p>The rigid-body poses are iteratively generated by applying incremental transformations in the screw frame. For \(K\) total segments (determined by spatial resolution limits), the incremental roll rotation \(\delta \theta = \Delta \theta / K\) and translation \(\delta x = \Delta x / K\) are calculated.</p>
-<p>The pose of the end-effector at step \(k\), denoted as \(\mathbf{T}_k \in SE(3)\), is generated by prepending the incremental transformation to the previous pose:
+Note that for the initial ((t=0)) and final ((t=T)) waypoints, the spatial velocities are strictly clamped to zero.</p>
+<p>The rigid-body poses are iteratively generated by applying incremental transformations in the screw frame. For (K) total segments (determined by spatial resolution limits), the incremental roll rotation (\delta \theta = \Delta \theta / K) and translation (\delta x = \Delta x / K) are calculated.</p>
+<p>The pose of the end-effector at step (k), denoted as (\mathbf{T}_k \in SE(3)), is generated by prepending the incremental transformation to the previous pose:
 $$
 \mathbf{T}_k = \mathbf{T}_{k-1} \begin{bmatrix} \mathbf{R}_x(\delta \theta) &amp; \begin{bmatrix} \delta x \ 0 \ 0 \end{bmatrix} \ \mathbf{0}^T &amp; 1 \end{bmatrix}
 $$
 This sequence of generated poses and spatial velocities is finally fed into an inverse kinematics solver to compute the joint-space trajectories.</p>
 <h2 id="tuning-and-preview"><a class="header" href="#tuning-and-preview">Tuning and Preview</a></h2>
-<p>As seen in <a href="#fig:guide_sim_screw_primitive" data-reference-type="ref+label" data-reference="fig:guide_sim_screw_primitive">1</a>, the total axial translation, total rotation, max linear velocity, and max angular velocity can be specified using sliders.
+<p>As seen in <a href="#fig:guide_sim_screw_primitive">1</a>, the total axial translation, total rotation, max linear velocity, and max angular velocity can be specified using sliders.
 The 3D trajectory visualization is updated in real time as the user drags these sliders to help dial in the motion.
 As with the single pose trajectory arm action, the screw primitive has settings for the position and orientation tolerance.
 If the final goal pose is not reached within these tolerances, the action fails.</p>
@@ -251,6 +252,10 @@ If the final goal pose is not reached within these tolerances, the action fails.
 The slider may be dragged manually or played back at real time speed in a loop.
 The arm is blue when the IK solution is good and red when it is bad.
 The behavior author should strive to keep it blue throughout the motion.</p>
+<!-- PAGE-REFERENCES-START -->
+<p><strong>References cited on this page</strong></p>
+<p><strong>[14]</strong> A. Pettinger, F. Alambeigi, and M. Pryor, “A versatile affordance modeling framework using screw primitives to increase autonomy during manipulation contact tasks,” <em>IEEE Robotics and Automation Letters</em>, vol. 7, no. 3, pp. 7224–7231, 2022, doi: <a href="https://doi.org/10.1109/LRA.2022.3181732">10.1109/LRA.2022.3181732</a>.</p>
+<!-- PAGE-REFERENCES-END -->
 
                     </main>
 

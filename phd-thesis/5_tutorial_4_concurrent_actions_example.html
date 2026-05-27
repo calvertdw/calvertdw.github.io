@@ -28,6 +28,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme-figures-e3dffecf.css">
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -37,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-14326c61.js";
+            window.path_to_searchindex_js = "searchindex-fc500df7.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-83e275b8.js"></script>
+        <script src="toc-a4fbf44e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -184,11 +185,11 @@
 A video of this demonstration is available at <a href="https://youtu.be/D53dKL-pgeo" class="uri">https://youtu.be/D53dKL-pgeo</a>.</figcaption>
 </figure>
 <p>In this example, we’ll show how we can schedule arm motions while walking using our concurrent action layering system.
-<a href="#fig:guide_sim_nonconcurrent" data-reference-type="ref+label" data-reference="fig:guide_sim_nonconcurrent">1</a> shows a behavior we have already built and run as the non-concurrent starting place.
+<a href="#fig:guide_sim_nonconcurrent">1</a> shows a behavior we have already built and run as the non-concurrent starting place.
 In this tree, we have added the pre-existing “Go Home” skill from a file, which allows us to reset the robot to the home configuration.
 This home configuration has the arms down by the sides in a natural position.
 Then there is a checkpoint node and a savable concurrency demo behavior, with a walk action followed by two arm actions and an always failing “STOP” condition.</p>
-<p>Our behavior timeline feature is presented in the bottom right of <a href="#fig:guide_sim_nonconcurrent" data-reference-type="ref+label" data-reference="fig:guide_sim_nonconcurrent">1</a>.
+<p>Our behavior timeline feature is presented in the bottom right of <a href="#fig:guide_sim_nonconcurrent">1</a>.
 It is a rendering of an action sequence over time meant to help with understanding the timing and concurrency of behavior actions.
 Here, it shows the tree as executed with each node running sequentially.</p>
 <h2 id="execute-after-layering-mechanism"><a class="header" href="#execute-after-layering-mechanism">“Execute After” Layering Mechanism</a></h2>
@@ -204,7 +205,7 @@ This is important for scheduling concurrent actions freely.</p>
 <p>The full algorithm is more complicated because the behavior can also be run step-by-step by clicking the “Manually” button.
 There is also a checkbox for disabling concurrency in the user interface, which effectively treats all “Execute after” fields as “Previous”.
 Further complexity is added to handle the fallback node’s try and catch mechanism.
-We present pseudocode in <a href="#alg:simplified_execution" data-reference-type="ref+label" data-reference="alg:simplified_execution">[alg:simplified_execution]</a> without the fallback part.</p>
+We present pseudocode in <a href="#alg:simplified_execution">[alg:simplified_execution]</a> without the fallback part.</p>
 <h3 id="algorithm-simplified-action-execution-trigger-logic"><a class="header" href="#algorithm-simplified-action-execution-trigger-logic">Algorithm: Simplified Action Execution Trigger Logic</a></h3>
 <pre><code class="language-text">Function TickExecution(orderedLeaves, state):
     # Halt if not autonomous and no manual step was requested
@@ -243,9 +244,9 @@ We present pseudocode in <a href="#alg:simplified_execution" data-reference-type
 <figcaption>Adding wait nodes after the walk action.
 A video of this demonstration is available at <a href="https://youtu.be/D53dKL-pgeo" class="uri">https://youtu.be/D53dKL-pgeo</a>.</figcaption>
 </figure>
-<p>Our example behavior in <a href="#fig:guide_sim_nonconcurrent" data-reference-type="ref+label" data-reference="fig:guide_sim_nonconcurrent">1</a> starts out as a non-concurrent sequence of a short walk and two arm motions.
+<p>Our example behavior in <a href="#fig:guide_sim_nonconcurrent">1</a> starts out as a non-concurrent sequence of a short walk and two arm motions.
 Now we’ll change it so the arm motions are scheduled during the walk.
-In <a href="#fig:guide_sim_concurrent_waits" data-reference-type="ref+label" data-reference="fig:guide_sim_concurrent_waits">2</a>, we add two wait actions, one for 1 second and one for 2.5 seconds.
+In <a href="#fig:guide_sim_concurrent_waits">2</a>, we add two wait actions, one for 1 second and one for 2.5 seconds.
 These waits are used to schedule the arm motions.
 We’ll move the right arm 1 second into the walk and the left arm 2.5 seconds into the walk.</p>
 <figure id="fig:guide_sim_concurrent_execute_after">
@@ -258,7 +259,7 @@ To accomplish this, we set the execute after fields of the wait actions to the �
 The sequence node is never executing, but pointing to it achieves the effect that the wait actions always start with the walk action.
 This method also keeps the sequence logic self contained and reusable, as opposed to referencing a specific node earlier than the sequence node.
 We then set the execute after field of the right arm action to the first wait action and the execute after field of the left arm action to the second wait action.
-In <a href="#fig:guide_sim_concurrent_execute_after" data-reference-type="ref+label" data-reference="fig:guide_sim_concurrent_execute_after">3</a>, we show setting the execute after field of the second arm action to the second wait action.</p>
+In <a href="#fig:guide_sim_concurrent_execute_after">3</a>, we show setting the execute after field of the second arm action to the second wait action.</p>
 <p>The figure also shows the execute after pointers as arrows on the right side of the tree view that point up from the defining action to the dependency action.
 You can see four such arrows that overlap.
 When the mouse hovers over a node, the corresponding arrow boldens to make it easy to verify dependencies when they are partially overlapping.
@@ -272,7 +273,7 @@ We will do that now.</p>
 <figcaption>The concurrently executed result.
 A video of this demonstration is available at <a href="https://youtu.be/D53dKL-pgeo" class="uri">https://youtu.be/D53dKL-pgeo</a>.</figcaption>
 </figure>
-<p>In <a href="#fig:guide_sim_concurrent_result" data-reference-type="ref+label" data-reference="fig:guide_sim_concurrent_result">4</a>, we show the result of executing our now concurrent behavior.
+<p>In <a href="#fig:guide_sim_concurrent_result">4</a>, we show the result of executing our now concurrent behavior.
 The timeline has been updated to reflect the actual action start and stop times of the simulated behavior execution.
 As seen by comparing this timeline to the original, the behavior duration went from 11.7 seconds to 7.6 seconds, illustrating how this method can be used to speed up behaviors.</p>
 

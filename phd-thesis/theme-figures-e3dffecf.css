@@ -1,0 +1,17 @@
+/* Default: show light variant (covers light, rust, and pre-JS/no-class fallback) */
+.tikz-figure .tikz-dark {
+  display: none;
+}
+
+/* Dark mdBook themes */
+html.coal .tikz-figure .tikz-light,
+html.navy .tikz-figure .tikz-light,
+html.ayu .tikz-figure .tikz-light {
+  display: none;
+}
+
+html.coal .tikz-figure .tikz-dark,
+html.navy .tikz-figure .tikz-dark,
+html.ayu .tikz-figure .tikz-dark {
+  display: block;
+}

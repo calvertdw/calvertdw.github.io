@@ -28,6 +28,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme-figures-e3dffecf.css">
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -37,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-14326c61.js";
+            window.path_to_searchindex_js = "searchindex-fc500df7.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-83e275b8.js"></script>
+        <script src="toc-a4fbf44e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -181,17 +182,17 @@
 Architectural references include CLARAty, Affordance Templates, Affordance Primitives, Coactive Design, Director, FlexBE, RAFCON, Drawing Board, and the CENTAURO behavior tree systems.
 Door task references span from classical and model-based mobile-manipulator and humanoid systems to recent learned legged and humanoid policies.
 The systems with metrics that overlap our benchmark are compared with each other and this thesis in Chapter <a href="#ch:evaluation" data-reference-type="ref" data-reference="ch:evaluation">[ch:evaluation]</a>.</p>
-<p><a href="#fig:design_space_map" data-reference-type="ref+label" data-reference="fig:design_space_map">1</a> maps every system reviewed in this chapter across four dimensions: execution boundary, runtime editability, perception model, and door evidence.
+<p><a href="#fig:design_space_map">1</a> maps every system reviewed in this chapter across four dimensions: execution boundary, runtime editability, perception model, and door evidence.
 The execution boundary refers to where the process that controls the robot runs.
 It can be off-board, operator-in-the-loop, or purely on-board/robot-local.
-This one part of qualifying our “Independence from External Systems” characteristic in <a href="#ch:metrics" data-reference-type="ref+label" data-reference="ch:metrics">[ch:metrics]</a></p>
-<p>In <a href="#fig:design_space_map" data-reference-type="ref+label" data-reference="fig:design_space_map">1</a>, each row is one system.
+This one part of qualifying our “Independence from External Systems” characteristic in <a href="2_metrics.html#ch:metrics">Desirable Characteristics</a></p>
+<p>In <a href="#fig:design_space_map">1</a>, each row is one system.
 The filled cells place that row on the execution-boundary axis (left band) and the runtime-editability axis (right band).
 The two rightmost columns encode the perception model used at task time, distinguishing behavior-time authored perception from a fixed onboard pipeline, learned end-to-end perception, and reliance on external measurement, alongside the strength of the system’s door-task evidence on a four-level scale from none to repeated-trial real-world.
 This thesis is the only row that combines robot-local execution, runtime structural and perception edits, behavior-time authored perception, and repeated-trial real-world door evidence.
 DoorMan is the only off-board entry, and the learned door systems concentrate on the policy-retrain column rather than runtime structural edits.</p>
 <figure id="fig:design_space_map">
-<img src="media/generated/DesignSpaceMapTikz.jpg" />
+<span class="tikz-figure"><img class="tikz-light" src="media/generated/DesignSpaceMapTikz.light.jpg" /><img class="tikz-dark" src="media/generated/DesignSpaceMapTikz.dark.jpg" /></span>
 <figcaption>
 Design-space placement of every prior system reviewed in this chapter.
 </figcaption>
