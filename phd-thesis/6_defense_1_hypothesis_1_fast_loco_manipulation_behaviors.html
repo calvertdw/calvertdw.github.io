@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Hypothesis 1: Fast and Reliable Door and Loco-Manipulation Behaviors - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
+        <title>Hypothesis 1: Fast Loco-Manipulation Behaviors - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
 
 
         <!-- Custom HTML head -->
@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-1b66add3.js";
+            window.path_to_searchindex_js = "searchindex-d4fcb9f8.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-a369f1be.js"></script>
+        <script src="toc-0183a582.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,7 +177,7 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="hypothesis-1-fast-and-reliable-door-and-loco-manipulation-behaviors"><a class="header" href="#hypothesis-1-fast-and-reliable-door-and-loco-manipulation-behaviors">Hypothesis 1: Fast and Reliable Door and Loco-Manipulation Behaviors</a></h1>
+                        <h1 id="hypothesis-1-fast-loco-manipulation-behaviors"><a class="header" href="#hypothesis-1-fast-loco-manipulation-behaviors">Hypothesis 1: Fast Loco-Manipulation Behaviors</a></h1>
 <h2 id="speed-and-capability-evidence"><a class="header" href="#speed-and-capability-evidence">Speed and Capability Evidence</a></h2>
 <p>In <a href="#fig:in_house_speed_phase_timeline">1</a>, we present a representative sample of our loco-manipulation behaviors.
 This table shows that our door behaviors were very slow on atlas, over a minute, when we had hard-coded behaviors.
@@ -583,18 +583,229 @@ Pull doors can take longer because you need to avoid the panel as it opens towar
 </figure>
 <h2 id="reliability-and-resilience-evidence"><a class="header" href="#reliability-and-resilience-evidence">Reliability and Resilience Evidence</a></h2>
 <p>In <a href="#fig:in_house_reliability_resilience_summary">14</a>, we summarize our main in-house reliability and resilience anchors.
-The top band shows consecutive successful real-robot trials for repeated door approach-and-opening tests on Alex and Unitree H1-2.
-The bottom band shows authored tree recovery under human disturbance: reactive pull-door retries, doorway waits, and manipulation abort-and-resume.
-These are qualitative resilience demonstrations rather than repeat-rate statistics; detailed photos and timelines follow in the subsections below.</p>
+The top band shows consecutive successful trials for repeated door approach and opening on Alex and Unitree H1-2.
+The bottom band shows disturbed runs where the robot retried and recovered.
+Photos and event tables for each run follow in the subsections below.</p>
 <figure id="fig:in_house_reliability_resilience_summary">
 <figcaption>
 In-house reliability and resilience evidence at a glance.
-The repeated-run band encodes each successful trial as a green cell (11/11, 12/12, and 32/32).
-The disturbance-resilience band encodes human disturbances, authored retries, doorway waits, and successful recovery; the Alex reactive pull row reflects the March 13, 2026 demo mechanisms rather than a repeat fraction.
+The repeated run band encodes each successful trial as a green cell (11/11, 12/12, and 32/32).
+The disturbance resilience band shows elapsed time phases with disturbances, retries, and opening success marked at measured timestamps (Nadia reactive pull 44 s, Alex reactive pull 65 s, ball sort 45.2 s).
 </figcaption>
 </figure>
+<h3 id="alex-left-push-approach-and-opening-repeat"><a class="header" href="#alex-left-push-approach-and-opening-repeat">Alex Left Push Approach and Opening Repeat</a></h3>
+<p>On April 14, 2026, we ran the left push door behavior on Alex with a goal of at least 10 approach and opening trials.
+We lost count during the session and kept going so we would not stop short.
+The test ended with 11 successes in a row.
+All trials used the same lab left push door on the same night.
+An operator was present at the UI.
+We did not run the test to failure.
+Each run completed the approach and opening phases without failure.
+We did not repeat full doorway traversal in this test.
+The test is shown in <a href="#fig:alex_push_reliability_20260414">15</a>.
+Trial outcomes are presented in <a href="#tab:alex_push_reliability_runs">13</a>.</p>
+<figure id="fig:alex_push_reliability_20260414">
+<img src="media/alex/20260309_AlexLeftPushDoorProfessional.jpg" />
+<figcaption>April 14, 2026 Alex left push door approach and opening reliability test.
+Key frames from the behavior repeated in the test.
+A video is available at <a href="https://youtu.be/N4rzKOKUjIA" class="uri">https://youtu.be/N4rzKOKUjIA</a>.</figcaption>
+</figure>
+<div id="tab:alex_push_reliability_runs">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: center">Run</th><th style="text-align: center">Outcome</th><th style="text-align: left">Phase completed</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: center">1</td><td style="text-align: center">Success</td><td style="text-align: left">Approach and opening</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">Success</td><td style="text-align: left">Approach and opening</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">Success</td><td style="text-align: left">Approach and opening</td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">Success</td><td style="text-align: left">Approach and opening</td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center">Success</td><td style="text-align: left">Approach and opening</td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: center">Success</td><td style="text-align: left">Approach and opening</td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: center">Success</td><td style="text-align: left">Approach and opening</td></tr>
+<tr><td style="text-align: center">8</td><td style="text-align: center">Success</td><td style="text-align: left">Approach and opening</td></tr>
+<tr><td style="text-align: center">9</td><td style="text-align: center">Success</td><td style="text-align: left">Approach and opening</td></tr>
+<tr><td style="text-align: center">10</td><td style="text-align: center">Success</td><td style="text-align: left">Approach and opening</td></tr>
+<tr><td style="text-align: center">11</td><td style="text-align: center">Success</td><td style="text-align: left">Approach and opening</td></tr>
+</tbody>
+</table>
+</div>
+<p>Trial outcomes for the April 14, 2026 Alex left push approach and opening reliability test shown in <a href="#fig:alex_push_reliability_20260414">15</a>.</p>
+</div>
+
+<p><span id="tab:alex_push_reliability_runs" label="tab:alex_push_reliability_runs"></span></p>
+<h3 id="alex-right-pull-approach-and-opening-repeat"><a class="header" href="#alex-right-pull-approach-and-opening-repeat">Alex Right Pull Approach and Opening Repeat</a></h3>
+<p>On April 14, 2026, we ran the right pull door behavior on Alex with a goal of at least 10 approach and opening trials.
+We lost count during the session and kept going so we would not stop short.
+The test ended with 12 successes in a row.
+All trials used the same lab right pull door on the same night as the push repeat test.
+An operator was present at the UI.
+We did not run the test to failure.
+Each run completed the approach and opening phases without failure.
+We did not repeat full doorway traversal in this test.
+The test is shown in <a href="#fig:alex_pull_reliability_20260414">16</a>.
+Trial outcomes are presented in <a href="#tab:alex_pull_reliability_runs">14</a>.</p>
+<figure id="fig:alex_pull_reliability_20260414">
+<img src="media/alex/20260309_AlexRightPullDoorProfessional.jpg" />
+<figcaption>April 14, 2026 Alex right pull door approach and opening reliability test.
+Key frames from the behavior repeated in the test.
+A video is available at <a href="https://youtu.be/l2piKf40ea4" class="uri">https://youtu.be/l2piKf40ea4</a>.</figcaption>
+</figure>
+<div id="tab:alex_pull_reliability_runs">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: center">Run</th><th style="text-align: center">Outcome</th><th style="text-align: left">Phase completed</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: center">1</td><td style="text-align: center">Success</td><td style="text-align: left">Approach and opening</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">Success</td><td style="text-align: left">Approach and opening</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">Success</td><td style="text-align: left">Approach and opening</td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">Success</td><td style="text-align: left">Approach and opening</td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: center">Success</td><td style="text-align: left">Approach and opening</td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: center">Success</td><td style="text-align: left">Approach and opening</td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: center">Success</td><td style="text-align: left">Approach and opening</td></tr>
+<tr><td style="text-align: center">8</td><td style="text-align: center">Success</td><td style="text-align: left">Approach and opening</td></tr>
+<tr><td style="text-align: center">9</td><td style="text-align: center">Success</td><td style="text-align: left">Approach and opening</td></tr>
+<tr><td style="text-align: center">10</td><td style="text-align: center">Success</td><td style="text-align: left">Approach and opening</td></tr>
+<tr><td style="text-align: center">11</td><td style="text-align: center">Success</td><td style="text-align: left">Approach and opening</td></tr>
+<tr><td style="text-align: center">12</td><td style="text-align: center">Success</td><td style="text-align: left">Approach and opening</td></tr>
+</tbody>
+</table>
+</div>
+<p>Trial outcomes for the April 14, 2026 Alex right pull approach and opening reliability test shown in <a href="#fig:alex_pull_reliability_20260414">16</a>.</p>
+</div>
+
+<p><span id="tab:alex_pull_reliability_runs" label="tab:alex_pull_reliability_runs"></span></p>
+<h3 id="unitree-h1-2-standing-right-pull-opening-repeat"><a class="header" href="#unitree-h1-2-standing-right-pull-opening-repeat">Unitree H1-2 Standing Right Pull Opening Repeat</a></h3>
+<p>On January 2, 2026, we ran the standing right pull lever opening behavior 32 times in a row on Unitree H1-2.
+All trials used the same lab right pull door during the same session.
+An operator was present at the UI.
+We stopped after 32 successes; we did not run the test to failure.
+The robot opened the door from a standing start each time.
+The full test took about five minutes.
+The test is shown in <a href="#fig:unitree_pull_opening_reliability_20260102">17</a>.
+The test protocol is presented in <a href="#tab:unitree_pull_opening_reliability_protocol">15</a>.</p>
+<figure id="fig:unitree_pull_opening_reliability_20260102">
+<img src="media/unitree/2026-01-02_17-08-16_NeverFailingFastPullLeverHandle31x.jpg" />
+<figcaption>January 2, 2026 Unitree H1-2 right pull opening reliability test.
+The left three panels show operator UI key frames.
+The right panel shows a third person view.
+The behavior opened the door 32 times in a row from a standing start.
+The test took about five minutes.
+A video is available at <a href="https://youtu.be/fQCNuXEF9xg" class="uri">https://youtu.be/fQCNuXEF9xg</a>.</figcaption>
+</figure>
+<div id="tab:unitree_pull_opening_reliability_protocol">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">Item</th><th style="text-align: left">Description</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left">Start condition</td><td style="text-align: left">Standing at the door with the opening loop behavior loaded</td></tr>
+<tr><td style="text-align: left">Same door</td><td style="text-align: left">One lab right pull lever door for all 32 trials</td></tr>
+<tr><td style="text-align: left">Operator</td><td style="text-align: left">Present at the UI throughout the session</td></tr>
+<tr><td style="text-align: left">Test scope</td><td style="text-align: left">Opening only; no approach or doorway traversal</td></tr>
+<tr><td style="text-align: left">Stop rule</td><td style="text-align: left">Stopped after 32 successes; not run to failure</td></tr>
+<tr><td style="text-align: left">Loop structure</td><td style="text-align: left">Goto action returns to the start of the opening sequence after each success</td></tr>
+<tr><td style="text-align: left">Measured result</td><td style="text-align: left">32/32 successful openings</td></tr>
+<tr><td style="text-align: left">Elapsed time</td><td style="text-align: left">About five minutes</td></tr>
+</tbody>
+</table>
+</div>
+<p>Protocol summary for the January 2, 2026 Unitree H1-2 standing right pull opening repeat test shown in <a href="#fig:unitree_pull_opening_reliability_20260102">17</a>.</p>
+</div>
+
+<p><span id="tab:unitree_pull_opening_reliability_protocol" label="tab:unitree_pull_opening_reliability_protocol"></span></p>
+<h3 id="nadia-reactive-left-pull-handle-opening"><a class="header" href="#nadia-reactive-left-pull-handle-opening">Nadia Reactive Left Pull Handle Opening</a></h3>
+<p>On April 12, 2024, we disturbed a Nadia left pull door opening five times during one run.
+The hard coded door traversal node detected each failure and retried until the door opened.
+The robot finished the full traversal without operator intervention.
+The run is shown in <a href="#fig:nadia_reactive_pull_20240412">18</a>.
+Timestamps are presented in <a href="#tab:nadia_reactive_pull_event_timeline">16</a>.</p>
+<figure id="fig:nadia_reactive_pull_20240412">
+<img src="media/nadia/20240412_NadiaDisturbanceReactiveLeftPullHandleTmotor.jpg" />
+<figcaption>April 12, 2024 Nadia reactive left pull handle opening under human disturbance.
+The robot retried five times and completed the full door traversal.
+A video is available at <a href="https://youtu.be/j_rzh5cAP2E" class="uri">https://youtu.be/j_rzh5cAP2E</a>.</figcaption>
+</figure>
+<div id="tab:nadia_reactive_pull_event_timeline">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: center">Time</th><th style="text-align: left">Event</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: center">0:00</td><td style="text-align: left">Robot begins approach to left pull door.</td></tr>
+<tr><td style="text-align: center">0:06</td><td style="text-align: left">Robot begins to grasp and turn door handle.</td></tr>
+<tr><td style="text-align: center">0:08</td><td style="text-align: left">Human holds door closed; robot gripper slips off handle (disturbance 1).</td></tr>
+<tr><td style="text-align: center">0:11</td><td style="text-align: left">Robot attempts 2nd grasp and turn of handle.</td></tr>
+<tr><td style="text-align: center">0:13</td><td style="text-align: left">Human allows partial opening, then pulls door back; robot hand slips off again (disturbance 2).</td></tr>
+<tr><td style="text-align: center">0:16</td><td style="text-align: left">With door closed again, robot attempts 3rd grasp and turn.</td></tr>
+<tr><td style="text-align: center">0:18</td><td style="text-align: left">Human allows partial opening, pulls back; grasp slips off again (disturbance 3).</td></tr>
+<tr><td style="text-align: center">0:20</td><td style="text-align: left">Human pushes robot arm back during 4th reach attempt, preventing grasp (disturbance 4).</td></tr>
+<tr><td style="text-align: center">0:22</td><td style="text-align: left">Robot arm pushed during reach for 5th grasp attempt in the same way (disturbance 5).</td></tr>
+<tr><td style="text-align: center">0:26</td><td style="text-align: left">Robot begins 6th grasp attempt.</td></tr>
+<tr><td style="text-align: center">0:29</td><td style="text-align: left">Robot is allowed to successfully open the door.</td></tr>
+<tr><td style="text-align: center">0:34</td><td style="text-align: left">Robot completes opening the door; begins traversal steps.</td></tr>
+<tr><td style="text-align: center">0:39</td><td style="text-align: left">Robot shoulders even with door frame.</td></tr>
+<tr><td style="text-align: center">0:44</td><td style="text-align: left">Robot fully clears doorway.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Event times for the April 12, 2024 Nadia reactive left pull handle opening shown in <a href="#fig:nadia_reactive_pull_20240412">18</a>.</p>
+</div>
+
+<p><span id="tab:nadia_reactive_pull_event_timeline" label="tab:nadia_reactive_pull_event_timeline"></span></p>
+<h3 id="alex-reactive-right-pull-lever-door"><a class="header" href="#alex-reactive-right-pull-lever-door">Alex Reactive Right Pull Lever Door</a></h3>
+<p>On March 13, 2026, we disturbed an Alex right pull lever door opening four times during the opening phase.
+A human also blocked the doorway before traversal.
+The behavior retried the opening and waited until the doorway was clear.
+The run is shown in <a href="#fig:alex_reactive_pull_20260313">19</a>.
+Timestamps are presented in <a href="#tab:alex_reactive_pull_event_timeline">17</a>.</p>
+<figure id="fig:alex_reactive_pull_20260313">
+<img src="media/alex/20260313_AlexRightPullDoorReactivityProfessional.jpg" />
+<figcaption>March 13, 2026 Alex right pull door reactivity demonstration.
+The opening retries and blocked doorway wait are authored in the behavior tree.
+A video is available at <a href="https://youtu.be/pWxptD5j8b4" class="uri">https://youtu.be/pWxptD5j8b4</a>.</figcaption>
+</figure>
+<div id="tab:alex_reactive_pull_event_timeline">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: center">Time</th><th style="text-align: left">Event</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: center">0:01</td><td style="text-align: left">Robot begins coarse door approach.</td></tr>
+<tr><td style="text-align: center">0:10</td><td style="text-align: left">Robot begins fine door approach.</td></tr>
+<tr><td style="text-align: center">0:18</td><td style="text-align: left">Robot begins 1st grasp and turn lever handle attempt.</td></tr>
+<tr><td style="text-align: center">0:19</td><td style="text-align: left">Door partially opens; human pulls door back shut; robot grasp slips (disturbance 1).</td></tr>
+<tr><td style="text-align: center">0:22</td><td style="text-align: left">Robot begins 2nd grasp attempt; human holds door shut; robot grasp slips (disturbance 2).</td></tr>
+<tr><td style="text-align: center">0:26</td><td style="text-align: left">Robot begins 3rd grasp attempt; human allows partial opening again; robot grasp slips (disturbance 3).</td></tr>
+<tr><td style="text-align: center">0:30</td><td style="text-align: left">Robot begins 4th grasp attempt; human pulls door back again; robot grasp slips (disturbance 4).</td></tr>
+<tr><td style="text-align: center">0:34</td><td style="text-align: left">Robot begins 5th grasp attempt.</td></tr>
+<tr><td style="text-align: center">0:36</td><td style="text-align: left">Robot is allowed to open the door.</td></tr>
+<tr><td style="text-align: center">0:45</td><td style="text-align: left">Robot completes opening door all the way; human is now blocking doorway.</td></tr>
+<tr><td style="text-align: center">0:51</td><td style="text-align: left">Human moves out of doorway.</td></tr>
+<tr><td style="text-align: center">0:53</td><td style="text-align: left">Robot begins door traversal steps.</td></tr>
+<tr><td style="text-align: center">1:01</td><td style="text-align: left">Robot shoulders even with door frame.</td></tr>
+<tr><td style="text-align: center">1:05</td><td style="text-align: left">Robot fully clears doorway.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Event times for the March 13, 2026 Alex reactive right pull lever door run shown in <a href="#fig:alex_reactive_pull_20260313">19</a>.</p>
+</div>
+
+<p><span id="tab:alex_reactive_pull_event_timeline" label="tab:alex_reactive_pull_event_timeline"></span></p>
+<h3 id="reactive-single-table-ball-sorting-disturbance"><a class="header" href="#reactive-single-table-ball-sorting-disturbance">Reactive Single Table Ball Sorting Disturbance</a></h3>
+<p>On April 4, 2026, a human removed a ball from the table while Alex was reaching to grasp it.
+The behavior detected the failed pick and returned to search.
+The robot still sorted all six balls in the run.
+The run is shown in <a href="#fig:ReactiveRobustBallSortingDisturbance">11</a>.
+Timestamps are presented in <a href="#tab:AlexReactiveRobustBallSortingTimeline">11</a>.</p>
 <!-- PAGE-REFERENCES-START -->
-**References cited on this page**
+<p><strong>References cited on this page</strong></p>
 <p><strong>[29]</strong> M. F. Fallon <em>et al.</em>, “Continuous humanoid locomotion over uneven terrain using stereo fusion,” in <em>2015 IEEE-RAS 15th international conference on humanoid robots (humanoids)</em>, 2015, pp. 881–888.</p>
 <p><strong>[63]</strong> D. Calvert, B. Mishra, S. McCrory, S. Bertrand, R. Griffin, and J. Pratt, “A fast, autonomous, bipedal walking behavior over rapid regions,” in <em>2022 IEEE-RAS 21st international conference on humanoid robots (humanoids)</em>, 2022, pp. 24–31. doi: <a href="https://doi.org/10.1109/Humanoids53995.2022.10000120">10.1109/Humanoids53995.2022.10000120</a>.</p>
 <!-- PAGE-REFERENCES-END -->
