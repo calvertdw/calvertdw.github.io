@@ -39,7 +39,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a2dbb1dd.js";
+            window.path_to_searchindex_js = "searchindex-40a3f8e3.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-c7bdbe9b.js"></script>
@@ -222,7 +222,8 @@ We describe the prerequisites in more detail in <a href="#ch:tutorial">Usage Gui
 <figure id="fig:20260309_AlexRightPullDoorProfessionalStill">
 <img src="media/alex/20260309_AlexRightPullDoorProfessionalStill.jpg" style="width:62.0%" />
 <figcaption>IHMC’s fully electric Alex humanoid robot traversing a right pull door.
-Alex is the primary platform in the final dissertation evaluations.</figcaption>
+Alex is the primary platform in the final dissertation evaluations.
+A video is available at <a href="https://youtu.be/fP-9DfGFvW8" class="uri">https://youtu.be/fP-9DfGFvW8</a>.</figcaption>
 </figure>
 <h2 id="problem-statement-and-scope"><a class="header" href="#problem-statement-and-scope">Problem Statement and Scope</a></h2>
 <p>This dissertation addresses the problem of local robot behavior authoring and execution for humanoid loco-manipulation tasks.
@@ -3758,9 +3759,9 @@ Scene actions are used to manage the privileged objects and the underlying perce
 <p>Decomposing behaviors into reusable primitives, subtrees, and scene actions allows new door and loco-manipulation variants to be brought up by editing a small part of a working behavior rather than rebuilding the task from scratch.</p>
 </li>
 </ol>
-<p>We’ll present evidence that supports our first hypothesis with speed and reliability results for real robot tasks in <a href="#sec:h1_fast_loco_manipulation_behaviors">[sec:h1_fast_loco_manipulation_behaviors]</a>, our second hypothesis by showing the speed with which we can create and modify behaviors in <a href="#sec:h2_fast_behavior_authoring">[sec:h2_fast_behavior_authoring]</a>, and our third hypothesis by showing that we can readily adapt existing behaviors to new tasks in <a href="#sec:h3_fast_adaptation">[sec:h3_fast_adaptation]</a>.</p>
-<p>We’ll then do a comparative analysis to the literature to see how our results stack up in <a href="#sec:comparative_analysis">[sec:comparative_analysis]</a>.</p>
-<p>Finally, we’ll evaluate to what degree our hypotheses held in <a href="#sec:evaluation">[sec:evaluation]</a>.</p>
+<p>We’ll present evidence that supports our first hypothesis with speed and reliability results for real robot tasks in <a href="#sec:h1_fast_loco_manipulation_behaviors">[sec:h1_fast_loco_manipulation_behaviors]</a>, our second hypothesis by showing the speed with which we can create and modify behaviors in <a href="#sec:h2_fast_behavior_authoring">[sec:h2_fast_behavior_authoring]</a>, and our third hypothesis by showing that we can readily adapt existing behaviors to new tasks in <a href="#sec:h3_fast_adaptation">[sec:h3_fast_adaptation]</a>.
+We’ll then do a comparative analysis to the literature to see how our results stack up in <a href="#sec:comparative_analysis">[sec:comparative_analysis]</a>.
+Finally, we’ll evaluate to what degree our hypotheses held in <a href="#sec:evaluation">[sec:evaluation]</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="hypothesis-1-fast-loco-manipulation-behaviors"><a class="header" href="#hypothesis-1-fast-loco-manipulation-behaviors">Hypothesis 1: Fast Loco-Manipulation Behaviors</a></h1>
 <p>To support our first hypothesis, we’ll present the demonstrations that highlight the system’s capabilities and breadth while also executing with high speed relative to prior and comparative works.
@@ -3770,9 +3771,10 @@ This section also includes demonstration of the reliability when repeated and re
 This table shows that our door behaviors were very slow on atlas, over a minute, when we had hard-coded behaviors.
 Door behaviors were drastically sped up on Nadia with runtime-editable structure and concurrent action layering.
 Later on Alex, we demonstate new manipulation tasks and locomotion transitions that are in the same seconds and minutes speed regime.</p>
-<p>Door rows use approach, opening, and traversal phases; loco-manipulation rows use walking and manipulation phases.
-Triangle and square markers indicate grasps and placements.
-The dashed vertical marks the fastest IHMC door traversal on record (14 s, Nadia 2024 left push-bar).</p>
+<p>In the figure, the rows are color coded to show different phases of the behaviors.
+For door behaviors, it shows approach, opening, and traversal phases and for loco-manipulation behaviors it shows walking and manipulation phases.
+Triangle and square markers indicate object grasps and placements.
+The dashed vertical line marks the fastest IHMC door traversal on record (14 s, Nadia 2024 left push-bar).</p>
 <figure id="fig:in_house_speed_phase_timeline">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/InHouseSpeedPhaseTimeline.light.jpg" /><img class="tikz-dark" src="media/generated/InHouseSpeedPhaseTimeline.dark.jpg" /></span>
 <figcaption>
@@ -3914,7 +3916,8 @@ Timestamps are presented in <a href="#tab:nadia_right_pull_handle_event_timeline
 <figure id="fig:20240719_ONRDemoRun2PullHandleDoorNadia">
 <img src="media/nadia/20240719_ONRDemoRun2PullHandleDoorNadia.jpg" style="height:32.0%" />
 <figcaption>July 19, 2024 Nadia right pull-handle traversal with hook hands.
-This representative pull-side run completed in 27 s from approach start.</figcaption>
+This representative pull-side run completed in 27 s from approach start.
+A video of the full mock-building demo run is available at <a href="https://youtu.be/D0gylAJEdZw" class="uri">https://youtu.be/D0gylAJEdZw</a>.</figcaption>
 </figure>
 <div id="tab:nadia_right_pull_handle_event_timeline">
 <div class="table-wrapper">
@@ -3984,8 +3987,9 @@ A video is available at <a href="https://youtu.be/D0gylAJEdZw" class="uri">https
 Timestamps are presented in <a href="#tab:alex_right_pull_event_timeline-1">7</a>.</p>
 <figure id="fig:AlexRightPullDoorProfessional">
 <img src="media/alex/20260309_AlexRightPullDoorProfessional.jpg" />
-<figcaption>Current Alex right pull lever-handle traversal key frames from the March 9, 2026 professional video.
-From left to right and top to bottom: coarse approach begins at 0:02, fine approach begins at 0:09, opening stance is achieved at 0:14, the door is unlatched at 0:18, the door is opened and traversal begins at 0:33, the shoulders align with the frame at 0:42, and traversal completes at 0:47.</figcaption>
+<figcaption>Current Alex right pull lever-handle traversal key frames from the March 9, 2026 run.
+From left to right and top to bottom: coarse approach begins at 0:02, fine approach begins at 0:09, opening stance is achieved at 0:14, the door is unlatched at 0:18, the door is opened and traversal begins at 0:33, the shoulders align with the frame at 0:42, and traversal completes at 0:47.
+A video is available at <a href="https://youtu.be/fP-9DfGFvW8" class="uri">https://youtu.be/fP-9DfGFvW8</a>.</figcaption>
 </figure>
 <div id="tab:alex_right_pull_event_timeline">
 <div class="table-wrapper">
@@ -4031,8 +4035,9 @@ From left to right and top to bottom: coarse approach begins at 0:02, fine appro
 Timestamps are presented in <a href="#tab:alex_left_push_event_timeline-1">9</a>.</p>
 <figure id="fig:AlexLeftPushDoorProfessional">
 <img src="media/alex/20260309_AlexLeftPushDoorProfessional.jpg" />
-<figcaption>Current Alex left push lever-handle traversal key frames from the March 9, 2026 professional video.
-From left to right and top to bottom: coarse approach begins at 0:03, fine approach begins at 0:12, opening stance is achieved at 0:17, the lever is unlatched at 0:20, the door is open and traversal begins at 0:26, the shoulders align with the frame at 0:27, and traversal completes at 0:34.</figcaption>
+<figcaption>Current Alex left push lever-handle traversal key frames from the March 9, 2026 run.
+From left to right and top to bottom: coarse approach begins at 0:03, fine approach begins at 0:12, opening stance is achieved at 0:17, the lever is unlatched at 0:20, the door is open and traversal begins at 0:26, the shoulders align with the frame at 0:27, and traversal completes at 0:34.
+A video is available at <a href="https://youtu.be/rKOUzo2sZ70" class="uri">https://youtu.be/rKOUzo2sZ70</a>.</figcaption>
 </figure>
 <div id="tab:alex_left_push_event_timeline">
 <div class="table-wrapper">
@@ -4693,15 +4698,52 @@ A video is available at <a href="https://youtu.be/_3lqvcd_5WE" class="uri">https
 <h2 id="creation-and-adaptability"><a class="header" href="#creation-and-adaptability">Creation and Adaptability</a></h2>
 <figure id="fig:hero_authoring_process_comparison">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/HeroAuthoringProcessComparison.light.jpg" /><img class="tikz-dark" src="media/generated/HeroAuthoringProcessComparison.dark.jpg" /></span>
-<figcaption>Authoring and adaptation process contrast: on-robot edit-test (measured) vs DoorMan sim-to-train pipeline (estimated).</figcaption>
+<figcaption>This thesis versus DoorMan in from-scratch behavior creation (A) and a hypothetical behavior adaptation of an existing pull door traversal behavior to a sliding door behavior.</figcaption>
 </figure>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="evaluation-1"><a class="header" href="#evaluation-1">Evaluation</a></h1>
+<p>So how well did our hypotheses hold up?
+First, let’s state them again:</p>
+<ol>
+<li>
+<p>Robot-local execution with synchronized UI state, concurrent action layering, reactive tree logic, and behavior-time semantic perception yield door behaviors that are faster and more reliable than prior IHMC baselines and competitive with reported reinforcement learning systems on overlapping door tasks.</p>
+</li>
+<li>
+<p>Runtime-editable behaviors and perception modules reduce the iteration loop required to diagnose failures, modify logic, and re-test on the robot, relative to redeploy, restart, or retrain workflows.</p>
+</li>
+<li>
+<p>Decomposing behaviors into reusable primitives, subtrees, and scene actions allows new door and loco-manipulation variants to be brought up by editing a small part of a working behavior rather than rebuilding the task from scratch.</p>
+</li>
+</ol>
+<p>We can say that our first hypothesis holds.
+We showed that our system with robot-local execution, synchronized UI state, concurrent action layering, reactive tree logic, and behavior-time semantic perception is sufficient to yield door behaviors that are faster a than a prior IHMC baseline in <a href="#fig:in_house_speed_phase_timeline">[fig:in_house_speed_phase_timeline]</a>.
+The 2021 Atlas door behavior took 3.9x longer to execute than our 2024 Alex pull door behavior.
+We also showed that it was competitive on speed to reinforcement learning policies in <a href="#fig:hero_speed_comparison">[fig:hero_speed_comparison]</a>.
+Our door behavior are in the same tens of seconds regime as Zhang et al. <a href="#ref-zhang2024learningopentraversedoors">49</a> and DoorMan <a href="#ref-xue2025opening">74</a>.</p>
+<p>For reliability, unfortunately, there is a lack of data for prior IHMC baselines, but in <a href="#fig:in_house_reliability_resilience_summary">[fig:in_house_reliability_resilience_summary]</a>, we show that our loco-motion behaviors, namely, door approach and opening, were able to be repeated 11 and 12 times without failure.
+Likewise, evidence for door behavior reliability on leanrned systems is limited.
+Zhang et al. <a href="#ref-zhang2024learningopentraversedoors">49</a> shows the most convincing reliability with their 20/20 and 18/20 trial sets for full door traversals.
+DoorMan <a href="#ref-xue2025opening">74</a> claims “83%” reliability, but does not share the data from which that number is calculated.
+We can say that the reliability of our system is competitive with learned door systems, especially when the resilience capabilities are factored in, which are also presented in <a href="#fig:in_house_reliability_resilience_summary">[fig:in_house_reliability_resilience_summary]</a>.</p>
+<p>We can also say that our second hypothesis holds.
+<a href="#fig:ihmc_behavior_development_timeline">1</a> summarizes a decade of IHMC real-robot behavior milestones from the 2015 DRC Finals through the Alex loco-manipulation demos in 2026.
+Each marker is placed on a calendar axis and grouped by robot platform; color indicates how the demo was operated, from teleoperation and hybrid supervision through legacy hard-coded autonomy to runtime-authored door, manipulation, and loco-manipulation behaviors.
+Together with the measured from-scratch authoring durations in <a href="#fig:in_house_authoring_from_scratch_timeline">[fig:in_house_authoring_from_scratch_timeline]</a>, the timeline shows that fast behavior authoring emerged across many task types and platforms, not only on the door behaviors used for quantitative comparison in this chapter.</p>
+<figure id="fig:ihmc_behavior_development_timeline">
+<span class="tikz-figure"><img class="tikz-light" src="media/generated/IhmcBehaviorDevelopmentTimeline.light.jpg" /><img class="tikz-dark" src="media/generated/IhmcBehaviorDevelopmentTimeline.dark.jpg" /></span>
+<figcaption>
+Calendar timeline of IHMC real-robot behavior milestones since the 2015 DRC Finals.
+Colors distinguish teleoperation, hybrid or supervised operation, legacy hard-coded autonomy, and runtime-authored door, manipulation, and loco-manipulation behaviors.
+Entries include teleoperated and non-loco-manipulation demos from the development story in [Building our Behavior Architecture](4_story_of_building_and_architecture.md#ch:building).
+</figcaption>
+</figure>
+<!-- PAGE-REFERENCES-START -->
+**References cited on this page**
+<p><strong>[49]</strong> M. Zhang, Y. Ma, T. Miki, and M. Hutter, “Learning to open and traverse doors with a legged manipulator.” 2024. Available: <a href="https://arxiv.org/abs/2409.04882">https://arxiv.org/abs/2409.04882</a></p>
+<p><strong>[74]</strong> H. Xue <em>et al.</em>, “Opening the sim-to-real door for humanoid pixel-to-action policy transfer,” <em>arXiv preprint arXiv:2512.01061</em>, 2025.</p>
+<!-- PAGE-REFERENCES-END -->
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="discussion"><a class="header" href="#discussion">Discussion</a></h1>
-<p>It’s pretty hard to find convincing applications of behavior trees, because they often miss that many of the logic they put in the trees are already inherent to the system. Like for instance, “gather perception data” and “wait for user approval” should not be nodes in my opinion. If you take a look at MoveIt’s door opening demo video, that’s all the behavior tree is for.</p>
-<p>https://x.com/MomijiStudios/status/1705860576117707049
-https://x.com/XorDev/status/1834966384855368108</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="references"><a class="header" href="#references">References</a></h1>
 <div id="refs" class="references csl-bib-body" entry-spacing="0">
