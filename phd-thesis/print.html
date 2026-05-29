@@ -39,10 +39,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-d4fcb9f8.js";
+            window.path_to_searchindex_js = "searchindex-a2dbb1dd.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-0183a582.js"></script>
+        <script src="toc-c7bdbe9b.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -3758,11 +3758,13 @@ Scene actions are used to manage the privileged objects and the underlying perce
 <p>Decomposing behaviors into reusable primitives, subtrees, and scene actions allows new door and loco-manipulation variants to be brought up by editing a small part of a working behavior rather than rebuilding the task from scratch.</p>
 </li>
 </ol>
-<p>We’ll present evidence that supports our first hypothesis with speed and reliability results for real robot tasks.
-Then we’ll present evidence that supports our second hypothesis by showing the speed with which we can create and modify behaviors.
-Finally, we’ll present evidence that supports our third hypothesis by showing that we can readily adapt existing behaviors to new tasks.</p>
+<p>We’ll present evidence that supports our first hypothesis with speed and reliability results for real robot tasks in <a href="#sec:h1_fast_loco_manipulation_behaviors">[sec:h1_fast_loco_manipulation_behaviors]</a>, our second hypothesis by showing the speed with which we can create and modify behaviors in <a href="#sec:h2_fast_behavior_authoring">[sec:h2_fast_behavior_authoring]</a>, and our third hypothesis by showing that we can readily adapt existing behaviors to new tasks in <a href="#sec:h3_fast_adaptation">[sec:h3_fast_adaptation]</a>.</p>
+<p>We’ll then do a comparative analysis to the literature to see how our results stack up in <a href="#sec:comparative_analysis">[sec:comparative_analysis]</a>.</p>
+<p>Finally, we’ll evaluate to what degree our hypotheses held in <a href="#sec:evaluation">[sec:evaluation]</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="hypothesis-1-fast-loco-manipulation-behaviors"><a class="header" href="#hypothesis-1-fast-loco-manipulation-behaviors">Hypothesis 1: Fast Loco-Manipulation Behaviors</a></h1>
+<p>To support our first hypothesis, we’ll present the demonstrations that highlight the system’s capabilities and breadth while also executing with high speed relative to prior and comparative works.
+This section also includes demonstration of the reliability when repeated and resilience to external disturbances when trying to traverse doors and pick and place objects.</p>
 <h2 id="speed-and-capability-evidence"><a class="header" href="#speed-and-capability-evidence">Speed and Capability Evidence</a></h2>
 <p>In <a href="#fig:in_house_speed_phase_timeline">1</a>, we present a representative sample of our loco-manipulation behaviors.
 This table shows that our door behaviors were very slow on atlas, over a minute, when we had hard-coded behaviors.
@@ -3772,6 +3774,7 @@ Later on Alex, we demonstate new manipulation tasks and locomotion transitions t
 Triangle and square markers indicate grasps and placements.
 The dashed vertical marks the fastest IHMC door traversal on record (14 s, Nadia 2024 left push-bar).</p>
 <figure id="fig:in_house_speed_phase_timeline">
+<span class="tikz-figure"><img class="tikz-light" src="media/generated/InHouseSpeedPhaseTimeline.light.jpg" /><img class="tikz-dark" src="media/generated/InHouseSpeedPhaseTimeline.dark.jpg" /></span>
 <figcaption>
 In-house real robot task durations on a log-second axis with internal phase structure.
 </figcaption>
@@ -4172,6 +4175,7 @@ The top band shows consecutive successful trials for repeated door approach and 
 The bottom band shows disturbed runs where the robot retried and recovered.
 Photos and event tables for each run follow in the subsections below.</p>
 <figure id="fig:in_house_reliability_resilience_summary">
+<span class="tikz-figure"><img class="tikz-light" src="media/generated/InHouseReliabilityResilienceSummary.light.jpg" /><img class="tikz-dark" src="media/generated/InHouseReliabilityResilienceSummary.dark.jpg" /></span>
 <figcaption>
 In-house reliability and resilience evidence at a glance.
 The repeated run band encodes each successful trial as a green cell (11/11, 12/12, and 32/32).
@@ -4394,6 +4398,305 @@ Timestamps are presented in <a href="#tab:AlexReactiveRobustBallSortingTimeline-
 <p><strong>[29]</strong> M. F. Fallon <em>et al.</em>, “Continuous humanoid locomotion over uneven terrain using stereo fusion,” in <em>2015 IEEE-RAS 15th international conference on humanoid robots (humanoids)</em>, 2015, pp. 881–888.</p>
 <p><strong>[63]</strong> D. Calvert, B. Mishra, S. McCrory, S. Bertrand, R. Griffin, and J. Pratt, “A fast, autonomous, bipedal walking behavior over rapid regions,” in <em>2022 IEEE-RAS 21st international conference on humanoid robots (humanoids)</em>, 2022, pp. 24–31. doi: <a href="https://doi.org/10.1109/Humanoids53995.2022.10000120">10.1109/Humanoids53995.2022.10000120</a>.</p>
 <!-- PAGE-REFERENCES-END -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="hypothesis-2-fast-behavior-authoring"><a class="header" href="#hypothesis-2-fast-behavior-authoring">Hypothesis 2: Fast Behavior Authoring</a></h1>
+<p>To support our second hypothesis, we’ll show how quickly new behaviors can be authored on the real robot using the runtime edit-test loop, rather than redeploy, restart, or retrain workflows.</p>
+<p>In <a href="#fig:in_house_authoring_from_scratch_timeline">1</a>, we summarize measured from-scratch authoring sessions on real hardware.
+Each row shows normalized active authoring time on a log-second axis with internal milestone structure recovered from screen recordings.
+Checkmarks mark first autonomous success.
+Gaps between daily sessions are excluded for the multi-day Alex bring-up.</p>
+<figure id="fig:in_house_authoring_from_scratch_timeline">
+<span class="tikz-figure"><img class="tikz-light" src="media/generated/InHouseAuthoringFromScratchTimeline.light.jpg" /><img class="tikz-dark" src="media/generated/InHouseAuthoringFromScratchTimeline.dark.jpg" /></span>
+<figcaption>
+In-house real-robot from-scratch authoring durations on a log-second axis with internal milestone structure.
+Rows are grouped by robot era.
+The Nadia 2023 row does a stand-in-place opening with ArUco perception and teleoperated traversal in the final segment.
+Checkmarks mark first autonomous success.
+Times are normalized active authoring; gaps between daily sessions are excluded for the Alex bring-up.
+</figcaption>
+</figure>
+<p>The subsections below walk through each row in <a href="#fig:in_house_authoring_from_scratch_timeline">1</a> with a representative still, the authoring-time table, and a link to the screen recording.</p>
+<h2 id="scratch-right-push-opening-nadia-2023"><a class="header" href="#scratch-right-push-opening-nadia-2023">Scratch Right Push Opening (Nadia 2023)</a></h2>
+<p>This row is our earliest measured scratch door opening on Nadia, at 33 minutes.
+However, the behavior used ArUco marker perception, a squared up approach, and teleoperation for the final traversal steps.
+The session is shown in <a href="#fig:h2_nadia_scratch_push_authoring">2</a>.
+Authoring times are presented in <a href="#tab:h2_nadia_scratch_push_authoring_timeline-1">1</a>.</p>
+<figure id="fig:h2_nadia_scratch_push_authoring">
+<img src="media/nadia/2023_Calvert_NadiaRightPushDoorAuthoring.jpg" />
+<figcaption>Nadia during the 2023 scratch right push door authoring session.
+A video is available at <a href="https://youtu.be/SbBGpRHY_eE" class="uri">https://youtu.be/SbBGpRHY_eE</a>.</figcaption>
+</figure>
+<div id="tab:h2_nadia_scratch_push_authoring_timeline">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">Elapsed time</th><th style="text-align: left">Authoring milestone</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left">:00</td><td style="text-align: left">Create new action sequence.</td></tr>
+<tr><td style="text-align: left">:02</td><td style="text-align: left">Approach door.</td></tr>
+<tr><td style="text-align: left">:05</td><td style="text-align: left">Right hand approaches handle.</td></tr>
+<tr><td style="text-align: left">:07</td><td style="text-align: left">Pre-grasp hand pose.</td></tr>
+<tr><td style="text-align: left">:09</td><td style="text-align: left">First handle-turn contact.</td></tr>
+<tr><td style="text-align: left">:14</td><td style="text-align: left">Latch disengaged.</td></tr>
+<tr><td style="text-align: left">:20</td><td style="text-align: left">Door pushed open with right hand.</td></tr>
+<tr><td style="text-align: left">:24</td><td style="text-align: left">Door pushed open more with left hand.</td></tr>
+<tr><td style="text-align: left">:25</td><td style="text-align: left">Door pushed open all the way with left hand.</td></tr>
+<tr><td style="text-align: left">:26</td><td style="text-align: left">Arms in collision-avoidance configuration.</td></tr>
+<tr><td style="text-align: left">:32</td><td style="text-align: left">Step forward a little.</td></tr>
+<tr><td style="text-align: left">:33</td><td style="text-align: left">Walk through the door frame.</td></tr>
+<tr><td style="text-align: left"></td><td style="text-align: left"></td></tr>
+</tbody>
+</table>
+</div>
+<p>Historical 2023 Nadia right push door authoring milestones for the session summarized in <a href="#fig:in_house_authoring_from_scratch_timeline">1</a>.</p>
+</div>
+
+<p><span id="tab:h2_nadia_scratch_push_authoring_timeline-1" label="tab:h2_nadia_scratch_push_authoring_timeline"></span></p>
+<h2 id="right-pull-opening-loop-unitree-h1-2-2026-01-02"><a class="header" href="#right-pull-opening-loop-unitree-h1-2-2026-01-02">Right Pull Opening Loop (Unitree H1-2, 2026-01-02)</a></h2>
+<p>On January 2, 2026, we authored a looping standing right pull lever handle opening behavior on the Unitree H1-2 from an empty behavior tree.
+The session reached first autonomous looping execution in 31 minutes and 43 seconds of active authoring time.
+The progression is shown in <a href="#fig:h2_unitree_scratch_authoring">3</a>.
+Authoring times are presented in <a href="#tab:h2_unitree_scratch_authoring_timeline-1">2</a>.</p>
+<figure id="fig:h2_unitree_scratch_authoring">
+<img src="media/unitree/2026-01-02_16-31-39_AuthoringRightPullLeverLoopingBehaviorFromScratch.jpg" />
+<figcaption>Key frames from the Unitree H1-2 scratch authoring session on January 2, 2026, from sequence creation through screw primitive tuning to looping autonomous opening.
+A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https://youtu.be/7VGFufJWaR4</a>.</figcaption>
+</figure>
+<div id="tab:h2_unitree_scratch_authoring_timeline">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: right">Time</th><th style="text-align: left">Authoring milestone</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: right">1:15</td><td style="text-align: left">Sequence <code>door/RightPullLeverHandle.json</code> created.</td></tr>
+<tr><td style="text-align: right">6:26</td><td style="text-align: left">Ability hand and arm pose actions created.</td></tr>
+<tr><td style="text-align: right">8:28</td><td style="text-align: left">Scene action node <code>Lock onto lever handle</code> added.</td></tr>
+<tr><td style="text-align: right">14:45</td><td style="text-align: left"><code>Pre-grasp 1</code> arm action tuned.</td></tr>
+<tr><td style="text-align: right">16:48</td><td style="text-align: left">Pre-grasps complete; handle-turn screw primitive created.</td></tr>
+<tr><td style="text-align: right">27:29</td><td style="text-align: left">Handle-turn screw primitive tuned; <code>Open door</code> screw primitive created.</td></tr>
+<tr><td style="text-align: right">30:28</td><td style="text-align: left"><code>Pre-grasp 1</code> set to execute concurrently with finger curl for speed.</td></tr>
+<tr><td style="text-align: right">31:27</td><td style="text-align: left">Goto action added at the end to loop the opening sequence indefinitely.</td></tr>
+<tr><td style="text-align: right">31:43</td><td style="text-align: left">Behavior set to autonomous execution; repeated-run testing begins.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Scratch authoring milestones for the January 2, 2026 Unitree H1-2 looping right pull lever handle opening behavior shown in <a href="#fig:h2_unitree_scratch_authoring">3</a>.</p>
+</div>
+
+<p><span id="tab:h2_unitree_scratch_authoring_timeline-1" label="tab:h2_unitree_scratch_authoring_timeline"></span></p>
+<h2 id="first-right-pull-door-bring-up-alex-2026-01-20-to-24"><a class="header" href="#first-right-pull-door-bring-up-alex-2026-01-20-to-24">First Right Pull Door Bring Up (Alex, 2026-01-20 to 24)</a></h2>
+<p>From January 20 through 24, 2026, we brought up the first full Alex pull lever door traversal from scratch.
+The measured active authoring total is 11 hours, 10 minutes, and 17 seconds.
+That total is cumulative across five daily sessions and excludes inactive gaps between sessions.
+A frame from the bring up period is shown in <a href="#fig:h2_alex_first_pull_authoring">4</a>.
+Authoring times are presented in <a href="#tab:h2_alex_first_pull_authoring_timeline-1">3</a>.</p>
+<figure id="fig:h2_alex_first_pull_authoring">
+<img src="media/alex/20260124_AlexFirstPullDoor.jpg" />
+<figcaption>Alex during the January 20–24, 2026 first right pull door bring up, culminating in the first successful full traversal.
+A video is available at <a href="https://youtu.be/zYYnatMz3wU" class="uri">https://youtu.be/zYYnatMz3wU</a>.</figcaption>
+</figure>
+<div id="tab:h2_alex_first_pull_authoring_timeline">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">Day</th><th style="text-align: left">Time</th><th style="text-align: left">Authoring milestone</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left">Day 1</td><td style="text-align: left">:00:00</td><td style="text-align: left">Create <code>door/RightPullLeverHandle.json</code>.</td></tr>
+<tr><td style="text-align: left">Day 1</td><td style="text-align: left">:32:59</td><td style="text-align: left">Closed unlatch-and-open loop from a squared-up stance.</td></tr>
+<tr><td style="text-align: left">Day 2</td><td style="text-align: left">:02:50</td><td style="text-align: left">Approach sequence created; footstep-planning issues encountered.</td></tr>
+<tr><td style="text-align: left">Day 3</td><td style="text-align: left">:27:57</td><td style="text-align: left">Approach finalized; pre-grasp work begins.</td></tr>
+<tr><td style="text-align: left">Day 3</td><td style="text-align: left">:15:35</td><td style="text-align: left">Knee-clearance check against the swinging panel.</td></tr>
+<tr><td style="text-align: left">Day 3</td><td style="text-align: left">:57:05</td><td style="text-align: left">First open from a staggered approach stance.</td></tr>
+<tr><td style="text-align: left">Day 4</td><td style="text-align: left">:32:44</td><td style="text-align: left">Pull-and-hold sequence begins.</td></tr>
+<tr><td style="text-align: left">Day 4</td><td style="text-align: left">:14:21</td><td style="text-align: left">Door opens farther but not fully by end of session.</td></tr>
+<tr><td style="text-align: left">Day 5</td><td style="text-align: left">:52:57</td><td style="text-align: left">Door fully open; first traversal step attempted.</td></tr>
+<tr><td style="text-align: left">Day 5</td><td style="text-align: left">:52:47</td><td style="text-align: left">Full traversal footstep plan authored.</td></tr>
+<tr><td style="text-align: left">Day 5</td><td style="text-align: left">:54:06</td><td style="text-align: left">Hold-open fallback added after force-related trouble.</td></tr>
+<tr><td style="text-align: left">Day 5</td><td style="text-align: left">:01:58</td><td style="text-align: left">Pre-authored <code>Pull right arm in</code> clearance pose added.</td></tr>
+<tr><td style="text-align: left">Day 5</td><td style="text-align: left">:10:17</td><td style="text-align: left">First successful full pull-door traversal.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Normalized authoring timeline for the January 20–24, 2026 first Alex right pull lever handle door traversal shown in <a href="#fig:h2_alex_first_pull_authoring">4</a>.
+The time column is cumulative across days but excludes inactive gaps between daily sessions.</p>
+</div>
+
+<p><span id="tab:h2_alex_first_pull_authoring_timeline-1" label="tab:h2_alex_first_pull_authoring_timeline"></span></p>
+<h2 id="scratch-left-push-door-alex-2026-02-22"><a class="header" href="#scratch-left-push-door-alex-2026-02-22">Scratch Left Push Door (Alex, 2026-02-22)</a></h2>
+<p>On February 22, 2026, we authored a left push door traversal on Alex from an empty <code>Left Push Door</code> sequence to first fully automatic success in 1 hour, 59 minutes, and 48 seconds of active authoring.
+This is the measured scratch case used in the comparative authoring process figure.
+The session is shown in <a href="#fig:h2_scratch_left_push_authoring">5</a>.
+Authoring times are presented in <a href="#tab:h2_scratch_left_push_authoring_timeline-1">4</a>.</p>
+<figure id="fig:h2_scratch_left_push_authoring">
+<img src="media/alex/202602_AlexPushDoorAuthoring-00.00.17.864.jpg" />
+<figcaption>Screenshot from the February 22, 2026 scratch left push door authoring session on Alex.
+A video is available at <a href="https://youtu.be/bLHQmV4GEFA" class="uri">https://youtu.be/bLHQmV4GEFA</a>.</figcaption>
+</figure>
+<div id="tab:h2_scratch_left_push_authoring_timeline">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">Elapsed time</th><th style="text-align: left">Authoring milestone</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left">:00:00</td><td style="text-align: left">Create the <code>Left Push Door</code> sequence.</td></tr>
+<tr><td style="text-align: left">:14:33</td><td style="text-align: left">Door-panel scene action and squared-up pre-approach stance added.</td></tr>
+<tr><td style="text-align: left">:24:22</td><td style="text-align: left">Staggered approach stance executed.</td></tr>
+<tr><td style="text-align: left">:21:14</td><td style="text-align: left">First handle turn.</td></tr>
+<tr><td style="text-align: left">:24:37</td><td style="text-align: left">Door opened.</td></tr>
+<tr><td style="text-align: left">:39:21</td><td style="text-align: left">Right arm pushes door fully open.</td></tr>
+<tr><td style="text-align: left">:49:24</td><td style="text-align: left">Full traversal footstep set authored.</td></tr>
+<tr><td style="text-align: left">:50:11</td><td style="text-align: left">Traversal taken; arm task-space error sends the right arm backward.</td></tr>
+<tr><td style="text-align: left">:51:13</td><td style="text-align: left">Right-arm fix: bring the arm in for traversal.</td></tr>
+<tr><td style="text-align: left">:58:15</td><td style="text-align: left"><code>shape contains points</code> stop condition added if the door does not open.</td></tr>
+<tr><td style="text-align: left">:59:48</td><td style="text-align: left">First fully automatic push-door success.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Normalized scratch authoring timeline for the February 22, 2026 left push door behavior shown in <a href="#fig:h2_scratch_left_push_authoring">5</a>.</p>
+</div>
+
+<p><span id="tab:h2_scratch_left_push_authoring_timeline-1" label="tab:h2_scratch_left_push_authoring_timeline"></span></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="hypothesis-3-fast-adaptation-extension-and-combination-of-behaviors"><a class="header" href="#hypothesis-3-fast-adaptation-extension-and-combination-of-behaviors">Hypothesis 3: Fast Adaptation, Extension, and Combination of Behaviors</a></h1>
+<p>To support our third hypothesis, we’ll show measured sessions where existing behaviors were adapted, composed, or extended rather than rebuilt from scratch.</p>
+<p>In <a href="#fig:in_house_adaptation_timeline">1</a>, we summarize three measured adaptation sessions on Alex.
+Each row shows normalized active adaptation time on a log-second axis with internal milestone structure recovered from screen recordings.
+The bottle carry-through session composes existing pickup and door behaviors into one long-horizon task.
+The break-room session adapts a lab right-pull traversal to a real left-pull door: door-specific mirroring was only the starting transfer, and most time went to retuning opening, fallbacks, traversal, and footsteps.
+The two-table sorting session extends the open-house ball-return behavior with locomotion, table-specific routing, and color-dependent branches; its total includes an off-robot pre-authoring pass.
+Checkmarks mark first autonomous success.</p>
+<figure id="fig:in_house_adaptation_timeline">
+<span class="tikz-figure"><img class="tikz-light" src="media/generated/InHouseAdaptationTimeline.light.jpg" /><img class="tikz-dark" src="media/generated/InHouseAdaptationTimeline.dark.jpg" /></span>
+<figcaption>
+In-house real-robot adaptation durations on a log-second axis with internal milestone structure.
+Rows are grouped by robot era and ordered chronologically.
+The bottle session composes existing behaviors; the break-room session adapts a mirrored lab behavior to a real door; the two-table session extends an existing manipulation behavior with locomotion and routing logic.
+The cyan segment marks off-robot pre-authoring counted in the two-table total.
+Checkmarks mark first autonomous success.
+Times are normalized active adaptation.
+</figcaption>
+</figure>
+<p>The subsections below walk through each row in <a href="#fig:in_house_adaptation_timeline">1</a> with a representative still, the authoring-time table, and a link to the screen recording.</p>
+<h2 id="bottle-carry-through-composition-alex-2026-03-18"><a class="header" href="#bottle-carry-through-composition-alex-2026-03-18">Bottle Carry Through Composition (Alex, 2026-03-18)</a></h2>
+<p>On March 18, 2026, we composed an existing bottle pickup behavior with the left push door traversal so Alex could carry a bottle through the door in one autonomous run.
+Most of the session wired the two behaviors together, recovered from a tooling failure while loading the door subtree, and tuned grasp and traversal so the bottle stayed in hand.
+First fully autonomous success came at 1 hour, 13 minutes, and 49 seconds of measured active adaptation time.
+The result is shown in <a href="#fig:h3_bottle_carry_through_authoring">2</a>.
+Authoring times are presented in <a href="#tab:h3_bottle_carry_through_authoring_timeline-1">1</a>.</p>
+<figure id="fig:h3_bottle_carry_through_authoring">
+<img src="media/alex/20260319_FirstPickBottleAndPushDoorSuccessCrop.jpg" />
+<figcaption>Alex after the first fully autonomous bottle pickup, walk, and door traversal with the bottle in hand on March 18–19, 2026.
+A video is available at <a href="https://youtu.be/AH2dFMW-IbY" class="uri">https://youtu.be/AH2dFMW-IbY</a>.</figcaption>
+</figure>
+<div id="tab:h3_bottle_carry_through_authoring_timeline">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">Elapsed time</th><th style="text-align: left">Composition milestone</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left">:00:00</td><td style="text-align: left">Start from existing bottle-pickup and left push door traversal behaviors; robot is at the table holding the bottle.</td></tr>
+<tr><td style="text-align: left">:01:34</td><td style="text-align: left">Backup-from-table and face-door walk action added.</td></tr>
+<tr><td style="text-align: left">:02:43</td><td style="text-align: left">Tooling issue while loading the large door subtree into the tree.</td></tr>
+<tr><td style="text-align: left">:26:56</td><td style="text-align: left">Door subtree loaded by manual JSON edit and UI/autonomy relaunch.</td></tr>
+<tr><td style="text-align: left">:42:55</td><td style="text-align: left"><code>Retry grasp bottle</code> fallback added with a near-hand point check.</td></tr>
+<tr><td style="text-align: left">:58:41</td><td style="text-align: left">Right-hand finger and arm motions disabled in the push-door behavior so the bottle grasp is preserved through traversal.</td></tr>
+<tr><td style="text-align: left">:59:44</td><td style="text-align: left">Door fully traversed with the bottle, but discontinuously.</td></tr>
+<tr><td style="text-align: left">:13:49</td><td style="text-align: left">First fully autonomous run: approach, pickup, walk, traverse with bottle in hand.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Cumulative adaptation timeline for the March 18, 2026 bottle carry-through composition session shown in <a href="#fig:h3_bottle_carry_through_authoring">2</a>.</p>
+</div>
+
+<p><span id="tab:h3_bottle_carry_through_authoring_timeline-1" label="tab:h3_bottle_carry_through_authoring_timeline"></span></p>
+<h2 id="break-room-door-adaptation-alex-2026-03-26"><a class="header" href="#break-room-door-adaptation-alex-2026-03-26">Break Room Door Adaptation (Alex, 2026-03-26)</a></h2>
+<p>On March 26, 2026, we adapted the lab right pull door traversal to the break room left pull door on Alex.
+Door mirroring was only the starting point.
+Most of the 1 hour, 54 minutes, and 3 seconds of measured active adaptation time went to retuning opening, fallbacks, traversal, and footsteps on the real door.
+The successful run is shown in <a href="#fig:h3_break_room_adaptation">3</a>.
+Authoring times are presented in <a href="#tab:h3_break_room_adaptation_timeline-1">2</a>.</p>
+<figure id="fig:h3_break_room_adaptation">
+<img src="media/alex/20260326_RealLeftPushDoorBreakRoom-00.00.17.952.jpg" />
+<figcaption>Alex opening the break room left pull door on March 26, 2026 after mirrored adaptation from the lab right pull behavior.
+A video is available at <a href="https://youtu.be/HcJPLoRfs3Q" class="uri">https://youtu.be/HcJPLoRfs3Q</a>.</figcaption>
+</figure>
+<div id="tab:h3_break_room_adaptation_timeline">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">Elapsed time</th><th style="text-align: left">Adaptation milestone</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left">:00:33</td><td style="text-align: left">Load <code>DoorTraversal.json</code> (mirrored left pull, untested on a real door).</td></tr>
+<tr><td style="text-align: left">:01:56</td><td style="text-align: left">Door type and door-relative poses identified from scene objects.</td></tr>
+<tr><td style="text-align: left">:23:51</td><td style="text-align: left">First real-door opening after retuning the lever-turn motion.</td></tr>
+<tr><td style="text-align: left">:29:44</td><td style="text-align: left">Point-check fallback added to retry door opening when the pull is unreliable.</td></tr>
+<tr><td style="text-align: left">:31:29</td><td style="text-align: left">Door fully opened.</td></tr>
+<tr><td style="text-align: left">:54:49</td><td style="text-align: left">Spine yaw added after the lever turn for consistent opening.</td></tr>
+<tr><td style="text-align: left">:17:13</td><td style="text-align: left">Traversal arm motions simplified under the no-spring-closer assumption.</td></tr>
+<tr><td style="text-align: left">:48:00</td><td style="text-align: left">Traversal footsteps re-authored; shoulder-frame clearance checked in Preview Mode.</td></tr>
+<tr><td style="text-align: left">:53:20</td><td style="text-align: left">Reset and run the behavior autonomously from the top.</td></tr>
+<tr><td style="text-align: left">:54:03</td><td style="text-align: left">First successful break-room door traversal.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Continuous authoring timeline for the March 26, 2026 break room door adaptation shown in <a href="#fig:h3_break_room_adaptation">3</a>.</p>
+</div>
+
+<p><span id="tab:h3_break_room_adaptation_timeline-1" label="tab:h3_break_room_adaptation_timeline"></span></p>
+<h2 id="two-table-sorting-extension-alex-2026-04-13-to-14"><a class="header" href="#two-table-sorting-extension-alex-2026-04-13-to-14">Two Table Sorting Extension (Alex, 2026-04-13 to 14)</a></h2>
+<p>From April 13 through 14, 2026, we extended the open house ball return behavior to sort colored balls between two tables with locomotion between stations.
+The measured total is 1 hour, 50 minutes, and 41 seconds, including 15 minutes and 30 seconds of off robot pre authoring before the real robot follow up session.
+The documented demonstration sorted nine of nine balls correctly, with three table approaches and two table to table transitions.
+A still from the task setup is shown in <a href="#fig:h3_two_table_sorting">4</a>.
+Authoring times are presented in <a href="#tab:h3_two_table_sorting_authoring_summary-1">3</a>.</p>
+<figure id="fig:h3_two_table_sorting">
+<img src="media/alex/20260414_SortingBallTwoTables-00.00.02.284.jpg" />
+<figcaption>The two table ball sorting task on April 14, 2026.
+A video is available at <a href="https://youtu.be/_3lqvcd_5WE" class="uri">https://youtu.be/_3lqvcd_5WE</a>.</figcaption>
+</figure>
+<div id="tab:h3_two_table_sorting_authoring_summary">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">Phase</th><th style="text-align: left">Duration</th><th style="text-align: left">Milestone</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left">Off-robot pre-authoring</td><td style="text-align: left"> min 30 s</td><td style="text-align: left">Fork <code>demo/BallsInBins.json</code> to <code>eval/TwoTableSorting.json</code>; restructure loop and color routing.</td></tr>
+<tr><td style="text-align: left">Real-robot follow-up</td><td style="text-align: left"> h 35 min 11 s</td><td style="text-align: left">Reach documented 9/9 two-table sorting demonstration.</td></tr>
+<tr><td style="text-align: left">Total measured</td><td style="text-align: left"> h 50 min 41 s</td><td style="text-align: left">First successful table-B placement at 26 min 8 s within the real-robot session.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Authoring summary for the April 13–14, 2026 two table sorting extension shown in <a href="#fig:h3_two_table_sorting">4</a>.</p>
+</div>
+
+<p><span id="tab:h3_two_table_sorting_authoring_summary-1" label="tab:h3_two_table_sorting_authoring_summary"></span></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="comparative-analysis"><a class="header" href="#comparative-analysis">Comparative Analysis</a></h1>
+<h2 id="speed-and-capability"><a class="header" href="#speed-and-capability">Speed and Capability</a></h2>
+<p>Test</p>
+<figure id="fig:hero_speed_comparison">
+<span class="tikz-figure"><img class="tikz-light" src="media/generated/HeroSpeedComparison.light.jpg" /><img class="tikz-dark" src="media/generated/HeroSpeedComparison.dark.jpg" /></span>
+<figcaption>Literature comparison of real-robot door task duration on a log-second axis.</figcaption>
+</figure>
+<h2 id="reliability-and-resilience"><a class="header" href="#reliability-and-resilience">Reliability and Resilience</a></h2>
+<figure id="fig:hero_reliability_comparison">
+<span class="tikz-figure"><img class="tikz-light" src="media/generated/HeroReliabilityComparison.light.jpg" /><img class="tikz-dark" src="media/generated/HeroReliabilityComparison.dark.jpg" /></span>
+<figcaption>Literature comparison of real-robot door-task success rate with execution and pooling qualifiers.</figcaption>
+</figure>
+<h2 id="creation-and-adaptability"><a class="header" href="#creation-and-adaptability">Creation and Adaptability</a></h2>
+<figure id="fig:hero_authoring_process_comparison">
+<span class="tikz-figure"><img class="tikz-light" src="media/generated/HeroAuthoringProcessComparison.light.jpg" /><img class="tikz-dark" src="media/generated/HeroAuthoringProcessComparison.dark.jpg" /></span>
+<figcaption>Authoring and adaptation process contrast: on-robot edit-test (measured) vs DoorMan sim-to-train pipeline (estimated).</figcaption>
+</figure>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="evaluation-1"><a class="header" href="#evaluation-1">Evaluation</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="discussion"><a class="header" href="#discussion">Discussion</a></h1>
 <p>It’s pretty hard to find convincing applications of behavior trees, because they often miss that many of the logic they put in the trees are already inherent to the system. Like for instance, “gather perception data” and “wait for user approval” should not be nodes in my opinion. If you take a look at MoveIt’s door opening demo video, that’s all the behavior tree is for.</p>

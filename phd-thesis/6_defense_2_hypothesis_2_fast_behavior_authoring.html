@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>2022-2023 Nadia, Runtime-Editable Sequences Era - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
+        <title>Hypothesis 2: Fast Behavior Authoring - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
 
 
         <!-- Custom HTML head -->
@@ -177,197 +177,177 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="2022-2023-nadia-runtime-editable-sequences-era"><a class="header" href="#2022-2023-nadia-runtime-editable-sequences-era">2022-2023 Nadia, Runtime-Editable Sequences Era</a></h1>
-<h2 id="runtime-editable-sequences"><a class="header" href="#runtime-editable-sequences">Runtime-Editable Sequences</a></h2>
-<p>In 2022, inspired by the Affordance Template framework, we started developing an interactive and runtime editable behavior authoring pipeline.
-This was the beginning of the architecture we still use in 2026.
-The initial goal was to replicate the door behaviors we had before, but in a runtime editable way.
-To do this, the behavior state was implemented as a synchronized Conflict-Free Replicated Data Type (CRDT).
-This allows the operator and robot to share and co-modify the behavior action definitions and run modes.
-A screenshot from an early demo can be seen in <a href="#fig:atlas_sim_early_editable_sequence">1</a>.
-This version of the behavior system had 4 action types: Walk, Hand Pose, Hand Configuration, and Chest Orientation.
-The Walk and Hand Pose actions were defined in task frames.
-It saved and loaded behaviors to and from JSON.
-However, it only supported a linear sequence of actions and they were only executable one at a time.</p>
-<h2 id="milestone-1"><a class="header" href="#milestone-1">Milestone 1</a></h2>
-<figure id="fig:atlas_sim_early_editable_sequence">
-<img src="media/atlas/2022-04-06 13-52-47_AtlasPullDoorBehaviorLiveAuthoring-00.02.29.391.jpg" />
-<figcaption>A Bullet [62](references.md#ref-coumans2021) physics simulation of Atlas with a new runtime behavior authoring implementation.
-A pull door opening behavior is being authored.
-At this time there were only 4 action types: Walk, Hand Pose, Hand Configuration, and Chest Orientation.
-A video is available at <a href="https://youtu.be/KfUFNM7SWz8" class="uri">https://youtu.be/KfUFNM7SWz8</a>.
-April 6, 2022.
+                        <h1 id="hypothesis-2-fast-behavior-authoring"><a class="header" href="#hypothesis-2-fast-behavior-authoring">Hypothesis 2: Fast Behavior Authoring</a></h1>
+<p>To support our second hypothesis, we’ll show how quickly new behaviors can be authored on the real robot using the runtime edit-test loop, rather than redeploy, restart, or retrain workflows.</p>
+<p>In <a href="#fig:in_house_authoring_from_scratch_timeline">1</a>, we summarize measured from-scratch authoring sessions on real hardware.
+Each row shows normalized active authoring time on a log-second axis with internal milestone structure recovered from screen recordings.
+Checkmarks mark first autonomous success.
+Gaps between daily sessions are excluded for the multi-day Alex bring-up.</p>
+<figure id="fig:in_house_authoring_from_scratch_timeline">
+<span class="tikz-figure"><img class="tikz-light" src="media/generated/InHouseAuthoringFromScratchTimeline.light.jpg" /><img class="tikz-dark" src="media/generated/InHouseAuthoringFromScratchTimeline.dark.jpg" /></span>
+<figcaption>
+In-house real-robot from-scratch authoring durations on a log-second axis with internal milestone structure.
+Rows are grouped by robot era.
+The Nadia 2023 row does a stand-in-place opening with ArUco perception and teleoperated traversal in the final segment.
+Checkmarks mark first autonomous success.
+Times are normalized active authoring; gaps between daily sessions are excluded for the Alex bring-up.
 </figcaption>
 </figure>
-<p>Also in 2022, we switched to IHMC and Boardwalk Robotics’s Nadia humanoid robot and set some milestones for the next few years.
-Milestone 1 was a teleoperation-only multi-task demo.
-Milestone 1 was performed on the robot on September 9, 2022 using the RDX teleoperation UI, using an upgraded set of teleoperation features shown in <a href="#fig:nadia_interactables">2</a>.
-In that demo, Nadia traversed rough terrain, traversed a push door, cleared debris, and traversed another push door in 7 minutes.
-The tasks for Milestone 1 can be seen in <a href="#fig:milestone_1_tasks">3</a>.
-During this demo and with this set of functionality we found that some methods of teleoperation were faster in VR and some were faster with mouse and keyboard.
-RDX supported switching between them quickly.
-We used mouse and keyboard to place individual footsteps over a cinder block field and then switched to VR for debris clearing and the push doors, where we used the VR controllers to continuously stream the hand poses and the VR controller trigger buttons to open and close the hands.
-VR was also used to drive the robot with the joysticks.</p>
-<figure id="fig:nadia_interactables">
-<img src="media/nadia/20220912_RDXTeleoperationFeatures.png" />
-<figcaption>A presentation of teleoperation features in 2023 for the Nadia humanoid robot in RDX.
-On the left, a hand 3D pose gizmo is activated, showing a kinematic arm preview.
-At the robot’s feet are planned but modifiable footsteps and the walk path control ring.
-In the center top, an RDX screenshot shows a VR user interacting with a 3D-situated ImGui panel, providing the same panels available to the mouse and keyboard operator.
-In the center bottom, a view of the fisheye camera on Nadia’s head can be seen.
-In the top right, we show our mouse and keyboard footstep placement interface.
-In this interface, the camera is positioned over the robot and follows the robot while the operator hovers virtual footsteps which snap to the point cloud and clicks the mouse to place a footstep.
-The operator then presses the spacebar to execute however many footsteps were placed.
-In the bottom right, the VR kinematics streaming mode can be seen, which allows the operator to dynamically pilot the robot’s arm motions as their own while being able to open and close the grippers using the VR controller triggers.
-This can be used to clear debris and open push doors while standing still.
-The operator was able to walk the robot with the joysticks in this mode, but not while streaming the arms.
-The joysticks commanded x, y, and yaw velocities.
-</figcaption>
+<p>The subsections below walk through each row in <a href="#fig:in_house_authoring_from_scratch_timeline">1</a> with a representative still, the authoring-time table, and a link to the screen recording.</p>
+<h2 id="scratch-right-push-opening-nadia-2023"><a class="header" href="#scratch-right-push-opening-nadia-2023">Scratch Right Push Opening (Nadia 2023)</a></h2>
+<p>This row is our earliest measured scratch door opening on Nadia, at 33 minutes.
+However, the behavior used ArUco marker perception, a squared up approach, and teleoperation for the final traversal steps.
+The session is shown in <a href="#fig:h2_nadia_scratch_push_authoring">2</a>.
+Authoring times are presented in <a href="#tab:h2_nadia_scratch_push_authoring_timeline">1</a>.</p>
+<figure id="fig:h2_nadia_scratch_push_authoring">
+<img src="media/nadia/2023_Calvert_NadiaRightPushDoorAuthoring.jpg" />
+<figcaption>Nadia during the 2023 scratch right push door authoring session.
+A video is available at <a href="https://youtu.be/SbBGpRHY_eE" class="uri">https://youtu.be/SbBGpRHY_eE</a>.</figcaption>
 </figure>
-<figure id="fig:milestone_1_tasks">
-<img src="media/nadia/20230414Milestone1.jpg" />
-<figcaption>The Milestone 1 tasks from April 2023: rough terrain (top left), push door (top right), debris (bottom left), and push door (bottom right).</figcaption>
+<div id="tab:h2_nadia_scratch_push_authoring_timeline">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">Elapsed time</th><th style="text-align: left">Authoring milestone</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left">:00</td><td style="text-align: left">Create new action sequence.</td></tr>
+<tr><td style="text-align: left">:02</td><td style="text-align: left">Approach door.</td></tr>
+<tr><td style="text-align: left">:05</td><td style="text-align: left">Right hand approaches handle.</td></tr>
+<tr><td style="text-align: left">:07</td><td style="text-align: left">Pre-grasp hand pose.</td></tr>
+<tr><td style="text-align: left">:09</td><td style="text-align: left">First handle-turn contact.</td></tr>
+<tr><td style="text-align: left">:14</td><td style="text-align: left">Latch disengaged.</td></tr>
+<tr><td style="text-align: left">:20</td><td style="text-align: left">Door pushed open with right hand.</td></tr>
+<tr><td style="text-align: left">:24</td><td style="text-align: left">Door pushed open more with left hand.</td></tr>
+<tr><td style="text-align: left">:25</td><td style="text-align: left">Door pushed open all the way with left hand.</td></tr>
+<tr><td style="text-align: left">:26</td><td style="text-align: left">Arms in collision-avoidance configuration.</td></tr>
+<tr><td style="text-align: left">:32</td><td style="text-align: left">Step forward a little.</td></tr>
+<tr><td style="text-align: left">:33</td><td style="text-align: left">Walk through the door frame.</td></tr>
+<tr><td style="text-align: left"></td><td style="text-align: left"></td></tr>
+</tbody>
+</table>
+</div>
+<p>Historical 2023 Nadia right push door authoring milestones for the session summarized in <a href="#fig:in_house_authoring_from_scratch_timeline">1</a>.</p>
+</div>
+
+<p><span id="tab:h2_nadia_scratch_push_authoring_timeline" label="tab:h2_nadia_scratch_push_authoring_timeline"></span></p>
+<h2 id="right-pull-opening-loop-unitree-h1-2-2026-01-02"><a class="header" href="#right-pull-opening-loop-unitree-h1-2-2026-01-02">Right Pull Opening Loop (Unitree H1-2, 2026-01-02)</a></h2>
+<p>On January 2, 2026, we authored a looping standing right pull lever handle opening behavior on the Unitree H1-2 from an empty behavior tree.
+The session reached first autonomous looping execution in 31 minutes and 43 seconds of active authoring time.
+The progression is shown in <a href="#fig:h2_unitree_scratch_authoring">3</a>.
+Authoring times are presented in <a href="#tab:h2_unitree_scratch_authoring_timeline">2</a>.</p>
+<figure id="fig:h2_unitree_scratch_authoring">
+<img src="media/unitree/2026-01-02_16-31-39_AuthoringRightPullLeverLoopingBehaviorFromScratch.jpg" />
+<figcaption>Key frames from the Unitree H1-2 scratch authoring session on January 2, 2026, from sequence creation through screw primitive tuning to looping autonomous opening.
+A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https://youtu.be/7VGFufJWaR4</a>.</figcaption>
 </figure>
-<p>This user interface also supported multiple operators as a side effect.
-Often, the VR operator would have another operator observing the monitor and sometimes clicking buttons to put the robot in pre-defined arm configurations, like the home and door avoidance.
-This helped us overcome gaps in the VR interface quickly and allowed for “copilot” supervision and monitoring, which doesn’t usually work well for a VR system.</p>
-<h2 id="behavior-nodes"><a class="header" href="#behavior-nodes">Behavior Nodes</a></h2>
-<p>A primary goal of the Milestone 1 demo was to get base functionalities in place with the plan to start adding autonomous components in later milestones.
-To that end, in 2023, we developed the next generation of behaviors, which were entirely authorable at runtime.
-We started with a can pick and place behavior and the push and pull door traversals.</p>
-<figure id="fig:nadia_pick_soup">
-<img src="media/nadia/2023-06-20 12-13-45_PickAndPlaceCan-00.01.29.023.jpg" />
-<figcaption>Nadia executing a can of soup pick and place behavior on June 20, 2023.
-A videos are available at <a href="https://youtu.be/V8jMvhVdP8k" class="uri">https://youtu.be/V8jMvhVdP8k</a> and <a href="https://youtu.be/ZBj8zs1wzik" class="uri">https://youtu.be/ZBj8zs1wzik</a>.
-</figcaption>
+<div id="tab:h2_unitree_scratch_authoring_timeline">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: right">Time</th><th style="text-align: left">Authoring milestone</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: right">1:15</td><td style="text-align: left">Sequence <code>door/RightPullLeverHandle.json</code> created.</td></tr>
+<tr><td style="text-align: right">6:26</td><td style="text-align: left">Ability hand and arm pose actions created.</td></tr>
+<tr><td style="text-align: right">8:28</td><td style="text-align: left">Scene action node <code>Lock onto lever handle</code> added.</td></tr>
+<tr><td style="text-align: right">14:45</td><td style="text-align: left"><code>Pre-grasp 1</code> arm action tuned.</td></tr>
+<tr><td style="text-align: right">16:48</td><td style="text-align: left">Pre-grasps complete; handle-turn screw primitive created.</td></tr>
+<tr><td style="text-align: right">27:29</td><td style="text-align: left">Handle-turn screw primitive tuned; <code>Open door</code> screw primitive created.</td></tr>
+<tr><td style="text-align: right">30:28</td><td style="text-align: left"><code>Pre-grasp 1</code> set to execute concurrently with finger curl for speed.</td></tr>
+<tr><td style="text-align: right">31:27</td><td style="text-align: left">Goto action added at the end to loop the opening sequence indefinitely.</td></tr>
+<tr><td style="text-align: right">31:43</td><td style="text-align: left">Behavior set to autonomous execution; repeated-run testing begins.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Scratch authoring milestones for the January 2, 2026 Unitree H1-2 looping right pull lever handle opening behavior shown in <a href="#fig:h2_unitree_scratch_authoring">3</a>.</p>
+</div>
+
+<p><span id="tab:h2_unitree_scratch_authoring_timeline" label="tab:h2_unitree_scratch_authoring_timeline"></span></p>
+<h2 id="first-right-pull-door-bring-up-alex-2026-01-20-to-24"><a class="header" href="#first-right-pull-door-bring-up-alex-2026-01-20-to-24">First Right Pull Door Bring Up (Alex, 2026-01-20 to 24)</a></h2>
+<p>From January 20 through 24, 2026, we brought up the first full Alex pull lever door traversal from scratch.
+The measured active authoring total is 11 hours, 10 minutes, and 17 seconds.
+That total is cumulative across five daily sessions and excludes inactive gaps between sessions.
+A frame from the bring up period is shown in <a href="#fig:h2_alex_first_pull_authoring">4</a>.
+Authoring times are presented in <a href="#tab:h2_alex_first_pull_authoring_timeline">3</a>.</p>
+<figure id="fig:h2_alex_first_pull_authoring">
+<img src="media/alex/20260124_AlexFirstPullDoor.jpg" />
+<figcaption>Alex during the January 20–24, 2026 first right pull door bring up, culminating in the first successful full traversal.
+A video is available at <a href="https://youtu.be/zYYnatMz3wU" class="uri">https://youtu.be/zYYnatMz3wU</a>.</figcaption>
 </figure>
-<p>On June 20, 2023, we executed a can of soup pick and place behavior in 1 minute and 50 seconds as shown in <a href="#fig:nadia_pick_soup">4</a>.
-This behavior was slow, not autonomous, and used an ArUco marker instead of detecting the can directly.
-Our control of the SAKE Robotics EZGripper <a href="references.html#ref-sakerobotics">53</a> in Nadia at this time was unreliable and there was no fallback node yet so the operator had to keep trying the gripper open and close actions.
-The operator had to visually check the state of the gripper fingers and re-execute the action if necessary.
-There was no way to get the state of the gripper from the user interface at this time.
-The operator also had to wait for each action to complete before starting the next because action completion conditions were not finished.
-Regardless, it was a good real-robot test of a savable/loadable and runtime editable affordance template behavior sequence.</p>
-<figure id="fig:nadia_first_auto_push_door">
-<img src="media/nadia/20230627_PushDoorSequenceFirstAutonomousRun-00.00.14.481.jpg" />
-<figcaption>Nadia executing an autonomous push door behavior in 36 seconds on June 27, 2023.
-This was the first autonomous door traversal on Nadia.
-A video is available at <a href="https://youtu.be/sMw1A72bqNo" class="uri">https://youtu.be/sMw1A72bqNo</a>.
-</figcaption>
+<div id="tab:h2_alex_first_pull_authoring_timeline">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">Day</th><th style="text-align: left">Time</th><th style="text-align: left">Authoring milestone</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left">Day 1</td><td style="text-align: left">:00:00</td><td style="text-align: left">Create <code>door/RightPullLeverHandle.json</code>.</td></tr>
+<tr><td style="text-align: left">Day 1</td><td style="text-align: left">:32:59</td><td style="text-align: left">Closed unlatch-and-open loop from a squared-up stance.</td></tr>
+<tr><td style="text-align: left">Day 2</td><td style="text-align: left">:02:50</td><td style="text-align: left">Approach sequence created; footstep-planning issues encountered.</td></tr>
+<tr><td style="text-align: left">Day 3</td><td style="text-align: left">:27:57</td><td style="text-align: left">Approach finalized; pre-grasp work begins.</td></tr>
+<tr><td style="text-align: left">Day 3</td><td style="text-align: left">:15:35</td><td style="text-align: left">Knee-clearance check against the swinging panel.</td></tr>
+<tr><td style="text-align: left">Day 3</td><td style="text-align: left">:57:05</td><td style="text-align: left">First open from a staggered approach stance.</td></tr>
+<tr><td style="text-align: left">Day 4</td><td style="text-align: left">:32:44</td><td style="text-align: left">Pull-and-hold sequence begins.</td></tr>
+<tr><td style="text-align: left">Day 4</td><td style="text-align: left">:14:21</td><td style="text-align: left">Door opens farther but not fully by end of session.</td></tr>
+<tr><td style="text-align: left">Day 5</td><td style="text-align: left">:52:57</td><td style="text-align: left">Door fully open; first traversal step attempted.</td></tr>
+<tr><td style="text-align: left">Day 5</td><td style="text-align: left">:52:47</td><td style="text-align: left">Full traversal footstep plan authored.</td></tr>
+<tr><td style="text-align: left">Day 5</td><td style="text-align: left">:54:06</td><td style="text-align: left">Hold-open fallback added after force-related trouble.</td></tr>
+<tr><td style="text-align: left">Day 5</td><td style="text-align: left">:01:58</td><td style="text-align: left">Pre-authored <code>Pull right arm in</code> clearance pose added.</td></tr>
+<tr><td style="text-align: left">Day 5</td><td style="text-align: left">:10:17</td><td style="text-align: left">First successful full pull-door traversal.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Normalized authoring timeline for the January 20–24, 2026 first Alex right pull lever handle door traversal shown in <a href="#fig:h2_alex_first_pull_authoring">4</a>.
+The time column is cumulative across days but excludes inactive gaps between daily sessions.</p>
+</div>
+
+<p><span id="tab:h2_alex_first_pull_authoring_timeline" label="tab:h2_alex_first_pull_authoring_timeline"></span></p>
+<h2 id="scratch-left-push-door-alex-2026-02-22"><a class="header" href="#scratch-left-push-door-alex-2026-02-22">Scratch Left Push Door (Alex, 2026-02-22)</a></h2>
+<p>On February 22, 2026, we authored a left push door traversal on Alex from an empty <code>Left Push Door</code> sequence to first fully automatic success in 1 hour, 59 minutes, and 48 seconds of active authoring.
+This is the measured scratch case used in the comparative authoring process figure.
+The session is shown in <a href="#fig:h2_scratch_left_push_authoring">5</a>.
+Authoring times are presented in <a href="#tab:h2_scratch_left_push_authoring_timeline">4</a>.</p>
+<figure id="fig:h2_scratch_left_push_authoring">
+<img src="media/alex/202602_AlexPushDoorAuthoring-00.00.17.864.jpg" />
+<figcaption>Screenshot from the February 22, 2026 scratch left push door authoring session on Alex.
+A video is available at <a href="https://youtu.be/bLHQmV4GEFA" class="uri">https://youtu.be/bLHQmV4GEFA</a>.</figcaption>
 </figure>
-<p>Our first autonomous push door traversal on Nadia using this system was on June 27, 2023, as shown in <a href="#fig:nadia_first_auto_push_door">5</a>.
-UI improvements were made to condense each action node’s settings into collapsible areas so we could display larger sequences.
-Several new action types were added: hand wrench, pelvis height, arm joint angles, manual footsteps, and wait.
-We were able to autonomously traverse the push door in 36 seconds with this version of the system.
-The behavior was based on the pose of an ArUco marker detection.
-In this generation of behaviors we used the Ouster point cloud colored using the left Blackfly fisheye camera image for situational awareness in the operator UI.</p>
-<p>The hand wrench action was used for a box pickup behavior which didn’t end up working very well.
-The wrenches were used for squeezing the box from the sides to hold it.
-However, the box wasn’t fully constrained and would wobble.
-Later, we decided to change the box picking strategy to using the grippers to pinch and lift from the top edges of a tote.</p>
-<h2 id="behavior-tree-structure"><a class="header" href="#behavior-tree-structure">Behavior Tree Structure</a></h2>
-<figure id="fig:aug_push_door_behavior">
-<img src="media/nadia/20230822_NadiaPushDoorClosedLoopPerceptionAutomaticSuccess-00.00.20.178.jpg" />
-<figcaption>An autonomous push door behavior on Nadia on August 22, 2023.
-A video is available at <a href="https://youtu.be/XY7We5PYQds" class="uri">https://youtu.be/XY7We5PYQds</a>.
-</figcaption>
-</figure>
-<p><a href="#fig:aug_push_door_behavior">6</a> shows an improved version of the push door behavior executing on August 22, 2023.
-In this version, there are several enhancements to the behavior user interface.
-The first person view was included in the interface, allowing the operator to monitor the robot’s view of the door and the hands without needing line of sight.
-Other enhancements included 3D force and torque indicators on the hands.
-The idea behind this was to experiment with force based control by first taking readings on the current measurements.
-The force and torque data was pretty noisy and we weren’t sure how to handle it.
-Another enhancement was the action progress bar indicators.
-This allows the operator to monitor the execution progress of the actions and give the operator confidence that action nominal duration and termination conditions were working correctly.
-The speed of the behavior was the same as the June run at 36 seconds.</p>
-<figure id="fig:2023_footstep_authoring">
-<img src="media/nadia/2023-09-01 16-53-26_NadiaSimFootstepPlanActionAuthoring-00.01.04.918.jpg" />
-<figcaption>September 1, 2023 screenshot of a new behavior authoring feature.
-The behavior author is able to append footsteps to the walk action footstep plan and tune their poses with a gizmo.
-A video is available at <a href="https://youtu.be/FZrVUsMcG7s" class="uri">https://youtu.be/FZrVUsMcG7s</a>.
-</figcaption>
-</figure>
-<p>In September 2023 we made enhancements to the walk action as seen in <a href="#fig:2023_footstep_authoring">7</a>, allowing the behavior author to interactively edit a multi-step footstep plan.
-This was especially useful for authoring door traversal walk-throughs, as a very specific set of footsteps are required to satisfy controller stability limits while avoiding collisions between the robot’s shoulders and the door frame.</p>
-<figure id="fig:2023_code_refactor">
-<img src="media/nadia/20230929_BehaviorCodeRefactor.png" />
-<figcaption>An architecture diagram for the code structure of behavior nodes that was established in September 2023.</figcaption>
-</figure>
-<p>Also in September of 2023, we established the code structure for the behavior nodes as seen in <a href="#fig:2023_code_refactor">8</a>.
-This structure separated the concerns of a behavior node into four layers: the definition, the state, the executor, and the user interface (RDX) implementation.
-Each of the four layers was implemented in a separate code file to keep similar code in similar files.
-The definition layer was responsible for defining and serializing the data that defines the node to and from JSON files.
-The state layer contains the data that only exists once the node is instantiated and is common between the UI and executor implementations.
-It can also contain any data helper functions needed in the UI and the executor.
-The executor layer is the instantiated type of the node on the robot.
-It is the only layer that commands the robot directly through its ROS 2 API.
-It is also the only layer that has access to full resolution and frequency perception data, as it is co-located with the perception sensors.
-Finally, the UI layer is for rendering the authoring interface elements in RDX.
-The UI layer is also contained in a UI-specific folder that has access to the graphics engine and widget libraries.</p>
-<figure id="fig:2023_tree_view">
-<img src="media/nadia/20231103_BehaviorTreeView.png" />
-<figcaption>An early version of the behavior tree version of the runtime-editable behavior system.
-Screenshot from November 3, 2023.</figcaption>
-</figure>
-<p>In November 2023, we started to convert the sequence into a tree, as seen in <a href="#fig:2023_tree_view">9</a>.
-Here, the root node “WalkingTest” can be seen at the top with an expanded arrow and the root node control widgets.
-Two child walk action nodes can be seen below it.</p>
-<figure id="fig:2023_green_arrow_context">
-<img src="media/nadia/Peek 2023-11-14 15-23-GreenArrowsContext-00.00.02.738.jpeg" />
-<figcaption>A screenshot from November 14, 2023, showing the introduction of the green arrow to mark the action’s next execution index as well as a right-click context menu for inserting nodes.</figcaption>
-</figure>
-<p>Further enhancements to the behavior system were made in November of 2023.
-As seen in <a href="#fig:2023_green_arrow_context">10</a>, a green arrow was introduced to highlight the currently selected next node to execute.
-This created a uniquely identifiable marker for the operator to focus on that was distinct from the default ImGui widgets.
-Clicking the green arrow is used to set the index.
-Later the arrow would blink blue to signal the action was currently executing.</p>
-<figure id="fig:2023_move_nodes">
-<img src="media/nadia/20231116_MoveNodesUI.png" />
-<figcaption>A screenshot from November 16, 2023, showing the introduction of a move nodes context menu, which was used to reorder the nodes and place them under different parents.</figcaption>
-</figure>
-<p><a href="#fig:2023_move_nodes">11</a> shows a context menu feature used to reorder nodes and place them under different parents.
-This was especially useful if a node needed to be moved far away.
-Since switching to the tree-based view, this was the first time the nodes could be reordered or moved under new parents.</p>
-<figure id="fig:2023_nesting_json">
-<img src="media/nadia/Peek 2023-11-16 15-18-NestingJSON-00.00.06.726.jpeg" />
-<figcaption>A screenshot from November 16, 2023, showing how nodes could be converted to nested JSON files.
-A gif is available at <a href="https://giphy.com/gifs/N1sLeoz3z1zJeJfw8T" class="uri">https://giphy.com/gifs/N1sLeoz3z1zJeJfw8T</a>.
-</figcaption>
-</figure>
-<p>A feature developed on November 16, 2023, can be seen in <a href="#fig:2023_nesting_json">12</a>, which shows how a node can be converted into a nested JSON file via the context menu.
-The JSON behavior loader now supported recursively loading behavior trees with nested JSON files.
-This supported the separation of skills into their own JSON files and kept larger tree files from getting too large.</p>
-<figure id="fig:2023_screw_primitive">
-<img src="media/nadia/2023-12-07 15-07-16-ScrewPrimitive-00.00.42.548.jpg" />
-<figcaption>A screenshot from December 7, 2023, showing a new screw primitive action type.
-The dotted line through the center represents the axis to revolve around or through.
-The white helix graphic represents the desired action trajectory.
-On the right, under the "Right hand screw primitive" action, sliders for rotation and translation are available to adjust the screw motion.
-A video is available at <a href="https://youtu.be/_9qtUpvAAso" class="uri">https://youtu.be/_9qtUpvAAso</a>.
-</figcaption>
-</figure>
-<p>In December of 2023, we developed a screw primitive action to open doors, which can be seen in <a href="#fig:2023_screw_primitive">13</a>.
-This parameterized helical screw trajectory option was inspired by <a href="references.html#ref-Pettinger_2022">14</a>.
-It allows the operator to define revolving motions useful for turning handles and swinging door panels.
-It is defined by a 3D axis (dashed white line), an angle of revolution, and a translation amount to move along the axis.
-The trajectory is also grasp-invariant, as it generates the trajectory online from the hand’s pose just before execution.</p>
-<!-- PAGE-REFERENCES-START -->
-<p><strong>References cited on this page</strong></p>
-<p><strong>[14]</strong> A. Pettinger, F. Alambeigi, and M. Pryor, “A versatile affordance modeling framework using screw primitives to increase autonomy during manipulation contact tasks,” <em>IEEE Robotics and Automation Letters</em>, vol. 7, no. 3, pp. 7224–7231, 2022, doi: <a href="https://doi.org/10.1109/LRA.2022.3181732">10.1109/LRA.2022.3181732</a>.</p>
-<p><strong>[53]</strong> SAKE Robotics, “EZGripper™ robotic grippers.” <a href="https://sakerobotics.com/">https://sakerobotics.com/</a>, 2024.</p>
-<p><strong>[62]</strong> E. Coumans and Y. Bai, “PyBullet, a python module for physics simulation for games, robotics and machine learning.” <a href="http://pybullet.org">http://pybullet.org</a>, 2016–2021.</p>
-<!-- PAGE-REFERENCES-END -->
+<div id="tab:h2_scratch_left_push_authoring_timeline">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">Elapsed time</th><th style="text-align: left">Authoring milestone</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left">:00:00</td><td style="text-align: left">Create the <code>Left Push Door</code> sequence.</td></tr>
+<tr><td style="text-align: left">:14:33</td><td style="text-align: left">Door-panel scene action and squared-up pre-approach stance added.</td></tr>
+<tr><td style="text-align: left">:24:22</td><td style="text-align: left">Staggered approach stance executed.</td></tr>
+<tr><td style="text-align: left">:21:14</td><td style="text-align: left">First handle turn.</td></tr>
+<tr><td style="text-align: left">:24:37</td><td style="text-align: left">Door opened.</td></tr>
+<tr><td style="text-align: left">:39:21</td><td style="text-align: left">Right arm pushes door fully open.</td></tr>
+<tr><td style="text-align: left">:49:24</td><td style="text-align: left">Full traversal footstep set authored.</td></tr>
+<tr><td style="text-align: left">:50:11</td><td style="text-align: left">Traversal taken; arm task-space error sends the right arm backward.</td></tr>
+<tr><td style="text-align: left">:51:13</td><td style="text-align: left">Right-arm fix: bring the arm in for traversal.</td></tr>
+<tr><td style="text-align: left">:58:15</td><td style="text-align: left"><code>shape contains points</code> stop condition added if the door does not open.</td></tr>
+<tr><td style="text-align: left">:59:48</td><td style="text-align: left">First fully automatic push-door success.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Normalized scratch authoring timeline for the February 22, 2026 left push door behavior shown in <a href="#fig:h2_scratch_left_push_authoring">5</a>.</p>
+</div>
+
+<p><span id="tab:h2_scratch_left_push_authoring_timeline" label="tab:h2_scratch_left_push_authoring_timeline"></span></p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="4_story_of_building_and_architecture_3_2020_2021_atlas_rdx_behavior_tree_era.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="6_defense_1_hypothesis_1_fast_loco_manipulation_behaviors.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="4_story_of_building_and_architecture_5_2024_nadia_semantic_perception_fast_behaviors_era.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="6_defense_3_hypothesis_3_fast_adaptation_extension_and_combination_of_behaviors.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -377,11 +357,11 @@ The trajectory is also grasp-invariant, as it generates the trajectory online fr
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="4_story_of_building_and_architecture_3_2020_2021_atlas_rdx_behavior_tree_era.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="6_defense_1_hypothesis_1_fast_loco_manipulation_behaviors.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="4_story_of_building_and_architecture_5_2024_nadia_semantic_perception_fast_behaviors_era.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="6_defense_3_hypothesis_3_fast_adaptation_extension_and_combination_of_behaviors.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
