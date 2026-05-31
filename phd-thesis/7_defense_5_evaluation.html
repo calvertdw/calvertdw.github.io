@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Comparative Analysis - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
+        <title>Evaluation - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
 
 
         <!-- Custom HTML head -->
@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-40a3f8e3.js";
+            window.path_to_searchindex_js = "searchindex-193a6b4a.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-c7bdbe9b.js"></script>
+        <script src="toc-a65faefc.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,33 +177,65 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="comparative-analysis"><a class="header" href="#comparative-analysis">Comparative Analysis</a></h1>
-<h2 id="speed-and-capability"><a class="header" href="#speed-and-capability">Speed and Capability</a></h2>
-<p>Test</p>
-<figure id="fig:hero_speed_comparison">
-<span class="tikz-figure"><img class="tikz-light" src="media/generated/HeroSpeedComparison.light.jpg" /><img class="tikz-dark" src="media/generated/HeroSpeedComparison.dark.jpg" /></span>
-<figcaption>Literature comparison of real-robot door task duration on a log-second axis.</figcaption>
+                        <h1 id="evaluation"><a class="header" href="#evaluation">Evaluation</a></h1>
+<p>So how well did our hypotheses hold up?
+First, let’s state them again:</p>
+<ol>
+<li>
+<p>Robot-local execution with synchronized UI state, concurrent action layering, reactive tree logic, and behavior-time semantic perception yield door behaviors that are faster and more reliable than prior IHMC baselines and competitive with reported reinforcement learning systems on overlapping door tasks.</p>
+</li>
+<li>
+<p>Runtime-editable behaviors and perception modules reduce the iteration loop required to diagnose failures, modify logic, and re-test on the robot, relative to redeploy, restart, or retrain workflows.</p>
+</li>
+<li>
+<p>Decomposing behaviors into reusable primitives, subtrees, and scene actions allows new door and loco-manipulation variants to be brought up by editing a small part of a working behavior rather than rebuilding the task from scratch.</p>
+</li>
+</ol>
+<p>We can say that our first hypothesis holds.
+We showed that our system with robot-local execution, synchronized UI state, concurrent action layering, reactive tree logic, and behavior-time semantic perception is sufficient to yield door behaviors that are faster a than a prior IHMC baseline in <a href="7_defense_1_hypothesis_1_fast_loco_manipulation_behaviors.html#fig:in_house_speed_phase_timeline">[fig:in_house_speed_phase_timeline]</a>.
+The 2021 Atlas door behavior took 3.9x longer to execute than our 2024 Alex pull door behavior.
+We also showed that it was competitive on speed to reinforcement learning policies in <a href="7_defense_4_comparative_analysis.html#fig:hero_speed_comparison">[fig:hero_speed_comparison]</a>.
+Our door behavior are in the same tens of seconds regime as Zhang et al. <a href="references.html#ref-zhang2024learningopentraversedoors">49</a> and DoorMan <a href="references.html#ref-xue2025opening">75</a>.</p>
+<p>For reliability, unfortunately, there is a lack of data for prior IHMC baselines, but in <a href="7_defense_1_hypothesis_1_fast_loco_manipulation_behaviors.html#fig:in_house_reliability_resilience_summary">[fig:in_house_reliability_resilience_summary]</a>, we show that our loco-motion behaviors, namely, door approach and opening, were able to be repeated 11 and 12 times without failure.
+Likewise, evidence for door behavior reliability on leanrned systems is limited.
+Zhang et al. <a href="references.html#ref-zhang2024learningopentraversedoors">49</a> shows the most convincing reliability with their 20/20 and 18/20 trial sets for full door traversals.
+DoorMan <a href="references.html#ref-xue2025opening">75</a> claims “83%” reliability, but does not share the data from which that number is calculated.
+We can say that the reliability of our system is competitive with learned door systems, especially when the resilience capabilities are factored in, which are also presented in <a href="7_defense_1_hypothesis_1_fast_loco_manipulation_behaviors.html#fig:in_house_reliability_resilience_summary">[fig:in_house_reliability_resilience_summary]</a>.</p>
+<p>We can also say that our second and third hypotheses hold.
+Runtime-editable behaviors and perception has reduced our behavior authoring times to in the hours regime as shown in <a href="7_defense_2_hypothesis_2_fast_behavior_authoring.html#fig:in_house_authoring_from_scratch_timeline">[fig:in_house_authoring_from_scratch_timeline]</a>.
+Creating new behaviors from scratch has been shown to require failure diagnostics, logic modification, and re-testing on the robot, which we have shown in our authoring videos and tables and described.
+While we don’t have direct comparasons with prior IHMC baselines, <a href="#fig:ihmc_behavior_development_timeline">1</a> suggests a drastic reduction in the iteration loop required to create new behaviors.
+The plots a decade of IHMC real-robot behavior milestones from the 2015 DRC Finals through the Alex loco-manipulation demos in 2026.
+What we see is a drastic increase in the rate of new behavior demonstrations over time given the same or less resources allocated to creating them.</p>
+<p>The literature does not provide data on the creation or modification timelines of loco-manipulation behaviors.
+Standing alone in measuring this is one of the most novel aspects of our work.
+However, given knowledge of DoorMan <a href="references.html#ref-xue2025opening">75</a>’s architecure, we can estimate that our behavior authoring process is 50 to 100 times faster, as illustrated in <a href="7_defense_4_comparative_analysis.html#fig:hero_authoring_process_comparison">[fig:hero_authoring_process_comparison]</a>.
+We credit this speed to our architectural decisions where we decompose behaviors into reusable primitives, subtrees, and scene actions.
+This allows us to edit a small part of a working behavior rather than rebuilding the whole thing from scratch.
+The ability to perform these edits and re-test the behavior at runtime speeds up the process even further.</p>
+<figure id="fig:ihmc_behavior_development_timeline">
+<span class="tikz-figure"><img class="tikz-light" src="media/generated/IhmcBehaviorDevelopmentTimeline.light.jpg" /><img class="tikz-dark" src="media/generated/IhmcBehaviorDevelopmentTimeline.dark.jpg" /></span>
+<figcaption>
+Calendar timeline of IHMC real robot behavior milestones since the 2015 DRC Finals.
+Colors distinguish teleoperation, hybrid or supervised operation, legacy hard-coded autonomy, and runtime-authored door, manipulation, and loco-manipulation behaviors.
+Entries include teleoperated and non-loco-manipulation demos from the development story in [Building our Behavior Architecture](4_story_of_building_and_architecture.md#ch:building).
+</figcaption>
 </figure>
-<h2 id="reliability-and-resilience"><a class="header" href="#reliability-and-resilience">Reliability and Resilience</a></h2>
-<figure id="fig:hero_reliability_comparison">
-<span class="tikz-figure"><img class="tikz-light" src="media/generated/HeroReliabilityComparison.light.jpg" /><img class="tikz-dark" src="media/generated/HeroReliabilityComparison.dark.jpg" /></span>
-<figcaption>Literature comparison of real-robot door-task success rate with execution and pooling qualifiers.</figcaption>
-</figure>
-<h2 id="creation-and-adaptability"><a class="header" href="#creation-and-adaptability">Creation and Adaptability</a></h2>
-<figure id="fig:hero_authoring_process_comparison">
-<span class="tikz-figure"><img class="tikz-light" src="media/generated/HeroAuthoringProcessComparison.light.jpg" /><img class="tikz-dark" src="media/generated/HeroAuthoringProcessComparison.dark.jpg" /></span>
-<figcaption>This thesis versus DoorMan in from-scratch behavior creation (A) and a hypothetical behavior adaptation of an existing pull door traversal behavior to a sliding door behavior.</figcaption>
-</figure>
+<!-- PAGE-REFERENCES-START -->
+**References cited on this page**
+<p><strong>[49]</strong> M. Zhang, Y. Ma, T. Miki, and M. Hutter, “Learning to open and traverse doors with a legged manipulator.” 2024. Available: <a href="https://arxiv.org/abs/2409.04882">https://arxiv.org/abs/2409.04882</a></p>
+<p><strong>[75]</strong> H. Xue <em>et al.</em>, “Opening the sim-to-real door for humanoid pixel-to-action policy transfer,” <em>arXiv preprint arXiv:2512.01061</em>, 2025.</p>
+<!-- PAGE-REFERENCES-END -->
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="6_defense_3_hypothesis_3_fast_adaptation_extension_and_combination_of_behaviors.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="7_defense_4_comparative_analysis.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="6_defense_5_evaluation.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="8_pontification.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -213,11 +245,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="6_defense_3_hypothesis_3_fast_adaptation_extension_and_combination_of_behaviors.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="7_defense_4_comparative_analysis.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="6_defense_5_evaluation.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="8_pontification.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-40a3f8e3.js";
+            window.path_to_searchindex_js = "searchindex-193a6b4a.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-c7bdbe9b.js"></script>
+        <script src="toc-a65faefc.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -254,11 +254,11 @@ The method is a monolithic learned controller rather than a runtime-editable beh
 That failure mode also illustrates a low-adaptability workflow: because the issue arises from a simulation mismatch inside a learned monolithic policy, addressing it requires changing the simulation or training setup and retraining rather than making a runtime behavior edit, a turnaround on the order of at least a day in our own development terms.
 Zhang et al. is a learned door traversal comparator on a legged platform, but it does not address the behavior authoring speed, editable task structure, or robot-local behavior coordination that are central here.</p>
 <h3 id="2025-zue-et-al"><a class="header" href="#2025-zue-et-al">2025: Zue et al.</a></h3>
-<p>The closest learned humanoid comparison point is Xue et al.  <a href="references.html#ref-xue2025opening">74</a>, which presents DoorMan, a teacher-student-bootstrap sim-to-real learning pipeline for humanoid door loco-manipulation from pure RGB perception.
+<p>The closest learned humanoid comparison point is Xue et al.  <a href="references.html#ref-xue2025opening">75</a>, which presents DoorMan, a teacher-student-bootstrap sim-to-real learning pipeline for humanoid door loco-manipulation from pure RGB perception.
 It closes several gaps left by earlier learned door systems: it uses a humanoid platform rather than a quadruped with arm or a wheeled manipulator, it does not rely on externally provided door measurements as in Zhang et al., and it evaluates real-world door interaction across three categories: push lever, pull lever, and push bar.
 DoorMan reports an overall task success rate of 83% and an average completion time of 15.40 s across those categories, while outperforming expert teleoperators on the same whole-body controller in task completion time.
 That places it in roughly the same coarse speed regime targeted in this dissertation and makes it the most important learned humanoid baseline.
-The reported runtime deployment is not robot-local: DoorMan policy inference runs on a desktop workstation with an Intel i9-14900K CPU and an NVIDIA RTX 4090 GPU rather than on the humanoid itself  <a href="references.html#ref-xue2025opening">74</a>, so the robot depends on active external communications during execution and cannot continue functioning autonomously if that link is lost.
+The reported runtime deployment is not robot-local: DoorMan policy inference runs on a desktop workstation with an Intel i9-14900K CPU and an NVIDIA RTX 4090 GPU rather than on the humanoid itself  <a href="references.html#ref-xue2025opening">75</a>, so the robot depends on active external communications during execution and cannot continue functioning autonomously if that link is lost.
 The method is a monolithic learned policy trained through privileged-state teacher learning, DAgger-based RGB distillation, GRPO fine-tuning, and large-scale simulation randomization, rather than a runtime-editable behavior architecture.</p>
 <p>The rough pipeline for training a behavior is:</p>
 <ol>
@@ -303,7 +303,7 @@ This is closer in spirit to the edit-centered adaptation argued for in this thes
 <p><strong>[48]</strong> S. Chitta, B. Cohen, and M. Likhachev, “Planning for autonomous door opening with a mobile manipulator,” in <em>2010 IEEE international conference on robotics and automation</em>, 2010, pp. 1799–1806. doi: <a href="https://doi.org/10.1109/ROBOT.2010.5509475">10.1109/ROBOT.2010.5509475</a>.</p>
 <p><strong>[49]</strong> M. Zhang, Y. Ma, T. Miki, and M. Hutter, “Learning to open and traverse doors with a legged manipulator.” 2024. Available: <a href="https://arxiv.org/abs/2409.04882">https://arxiv.org/abs/2409.04882</a></p>
 <p><strong>[50]</strong> G. Kang, H. Seong, D. Lee, and D. H. Shim, “A versatile door opening system with mobile manipulator through adaptive position-force control and reinforcement learning,” <em>Robotics and Autonomous Systems</em>, vol. 180, p. 104760, 2024, doi: <a href="https://doi.org/10.1016/j.robot.2024.104760">https://doi.org/10.1016/j.robot.2024.104760</a>.</p>
-<p><strong>[74]</strong> H. Xue <em>et al.</em>, “Opening the sim-to-real door for humanoid pixel-to-action policy transfer,” <em>arXiv preprint arXiv:2512.01061</em>, 2025.</p>
+<p><strong>[75]</strong> H. Xue <em>et al.</em>, “Opening the sim-to-real door for humanoid pixel-to-action policy transfer,” <em>arXiv preprint arXiv:2512.01061</em>, 2025.</p>
 <!-- PAGE-REFERENCES-END -->
 
                     </main>

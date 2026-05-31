@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Architecture Overview - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
+        <title>Behavior Scene - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
 
 
         <!-- Custom HTML head -->
@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-40a3f8e3.js";
+            window.path_to_searchindex_js = "searchindex-193a6b4a.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-c7bdbe9b.js"></script>
+        <script src="toc-a65faefc.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,121 +177,31 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="architecture-overview"><a class="header" href="#architecture-overview">Architecture Overview</a></h1>
-<p>Our central design choice is to enable the robot to be autonomous but utilize human expert knowledge to set up the autonomous behavior.
-We do this by including a human operator in the loop through tight synchronization between a user interface and the robot.
-Once behaviors are set up sufficiently, our architecture, which keeps all perception and control on board the robot, allows the robot to function autonomously.</p>
-<h2 id="domain"><a class="header" href="#domain">Domain</a></h2>
-<p>There are many perspectives from which you can view our system.
-<a href="#fig:Behavior_Overview">1</a> summarizes the primary components by domain: Behavior Coordination, Perception, and Whole-Body Control.
-This highlights that our system is built separately from depth and semantic perception and from whole body control.
-Our work sits firmly in the top left area and how it interfaces with the others.
-The behavior executor owns the behavior tree and a behavior-specific scene.
-The operator UI owns the behavior editor, 3D digital robot twin, and system monitoring.</p>
-<figure id="fig:Behavior_Overview">
-<span class="tikz-figure"><img class="tikz-light" src="media/generated/BehaviorOverviewTikzDissertation.light.jpg" /><img class="tikz-dark" src="media/generated/BehaviorOverviewTikzDissertation.dark.jpg" /></span>
-<figcaption>
-End-to-end architecture used in this thesis.
-Behavior coordination (green) links the robot-side behavior executor and the operator-side RDX UI through dashed synchronization.
-Within the executor, the tree reads and writes scene state while execution requests and monitoring data flow between the behavior layer and the whole-body control stack.
-The perception system (orange) is comprised of a ZED X Mini stereo camera, neural-assisted depth, and YOLO detection, which the behavior layer uses to create and update active scene objects.
-Whole-body control (blue) runs in a separate robot controller process, where control managers, the whole-body controller, and state estimation close the loop back to the behavior layer.</figcaption>
+                        <h1 id="behavior-scene"><a class="header" href="#behavior-scene">Behavior Scene</a></h1>
+<p>The last major architectural component of our system is the behavior scene.
+We maintain a set of persistent object detections local to the behaviors and for use only by the behaviors.
+This exclusivity allows behaviors to have full control over the perception it depends on.
+This is also important given the technical limitations of robot perception systems.</p>
+<p>Since leveraging perception to accomplish tasks is difficult, we leave the creativity up to the human operator.
+To do this, we have a library of scene actions which may be placed in the behavior tree and executed in the same way as the physical actions like moving a hand.
+<a href="#fig:BehaviorScene">1</a> shows where the scene actions affect the behavior scene perception pipeline.
+It also lists the current set of object and scene action types.</p>
+<figure id="fig:BehaviorScene">
+<span class="tikz-figure"><img class="tikz-light" src="media/generated/BehaviorScene.light.jpg" /><img class="tikz-dark" src="media/generated/BehaviorScene.dark.jpg" /></span>
+<figcaption>The behavior scene consists of a list of active persistent detections and a privileged list of objects.
+Object types can be implemented to derive structured information about the scene.
+Scene actions are used to manage the privileged objects and the underlying perception models.</figcaption>
 </figure>
-<p>We use a ZED X Mini, which is a purely stereo color vision depth sensor, mirroring that of a human.
-It provides a high fidelity, neural assisted depth point cloud.
-A key dependency of the behavior system is YOLO, which is a neural net that provides high-frequency semantic object detection and segmentation.
-It is crucial to our door behaviors and loco-manipulation behaviors, which perceive the world naturally, with no external sensing or fiducial markers.</p>
-<p>Obviously, the other key dependency is a whole body controller that can reliably walk, pose, and exert meaningful forces on the world.
-Ours is set up uniquely to accept asynchronous commands for footsteps and the different body parts, triaging the requests into whole body motions while balancing.</p>
-<h2 id="process-structure"><a class="header" href="#process-structure">Process Structure</a></h2>
-<p>In <a href="#fig:RuntimeStructureAlex">2</a> we show another view of the system, where the parts are grouped by process and location.
-This is meant to illustrate that the behavior system and perception run on board the robot in a process alongside the whole-body controller, whereas the operator UI is on a separate computer.
-This structure is designed to tightly integrate the perception, behavior, and control stack on the robot for performance and for autonomous capability.
-This enables high-rate color, depth, and scene data to stay local.
-The operator UI inspects, edits, pauses, single-steps, and redirects execution but does not own task progression.</p>
-<p>This matters operationally.
-If the UI crashes or communications degrade, the runtime keeps the state needed to continue the current task or stop in a controlled way according to its authored logic.
-It also matters during development.
-The operator can reconnect, inspect the same execution, and resume working without reconstructing behavior state from an external script or a lost UI session.
-The split also isolates responsibilities cleanly: autonomy and perception focus on decision making and scene state, control focuses on real-time balance, walking, and hardware I/O, and the operator process can be rich and inspectable without sitting in the critical execution path.</p>
-<figure id="fig:RuntimeStructureAlex">
-<span class="tikz-figure"><img class="tikz-light" src="media/generated/RuntimeStructureAlexTikz.light.jpg" /><img class="tikz-dark" src="media/generated/RuntimeStructureAlexTikz.dark.jpg" /></span>
-<figcaption>Runtime structure used in this thesis. Two processes run on the robot, and an operator process supports authoring, supervision, and visualization.</figcaption>
-</figure>
-<h2 id="node-structure"><a class="header" href="#node-structure">Node Structure</a></h2>
-<p>Each behavior tree node follows the four-part decomposition shown in <a href="#fig:BehaviorNodeDecomposition">3</a>: an operator-side UI, a robot-side executor, a synchronized runtime state, and a persisted definition.
-The persisted definition stores authored content (name, notes, parameters, children).
-The runtime state sits over the definition and adds runtime information (node identity, active status, recent log messages).
-The two process-specific wrappers sit over a single shared state and definition layer, so UI and execution code differ by process while authored structure and runtime state are reused.
-Operator interaction, on-robot execution, synchronized state, and definition are each isolated in their own code files rather than interleaved in a single one.</p>
-<figure id="fig:BehaviorNodeDecomposition">
-<span class="tikz-figure"><img class="tikz-light" src="media/generated/BehaviorNodeDecompositionTikz.light.jpg" /><img class="tikz-dark" src="media/generated/BehaviorNodeDecompositionTikz.dark.jpg" /></span>
-<figcaption>
-Four-part decomposition used for each behavior-tree node.
-Two process-specific layers, UI and executor, each own an instance of a runtime state, which in turn owns a persistent definition.
-The synchronization layer keeps the runtime state and the live-edited portion of the definition consistent across processes, while the full definition is persisted as JSON.</figcaption>
-</figure>
-<h2 id="robot-operator-data-synchronization"><a class="header" href="#robot-operator-data-synchronization">Robot-Operator Data Synchronization</a></h2>
-<figure id="fig:BehaviorTreeSynchronization">
-<span class="tikz-figure"><img class="tikz-light" src="media/generated/BehaviorTreeSynchronizationTikz.light.jpg" /><img class="tikz-dark" src="media/generated/BehaviorTreeSynchronizationTikz.dark.jpg" /></span>
-<figcaption>Behavior-tree synchronization between the operator UI and robot executor.
-Each side maintains a local tree instance and a per-tick synchronization wrapper.
-A 30 Hz depth-first tree snapshot carries either full or partial per-node payloads.
-Bidirectional CRDT fields use clock-offset-corrected last-writer arbitration; robot-owned status fields are mirrored one way to the UI.</figcaption>
-</figure>
-<p>The cost of our process structure is that it necessitates a complex synchronization mechanism between the robot and the operator to facilitate rich runtime editability.
-We look to the literature to find algorithms to synchronize our data, where we found Conflict-Free Replicated Data Types (CRDTs) <a href="references.html#ref-shapiro2011crdt">81</a>.
-CRDTs are not really so much a software library, as much as they are a specification of requirements.
-We decided to embrace it and construct the behavior tree and scene state as a CRDT, synchronizing it at 30 Hz, as shown in <a href="#fig:BehaviorTreeSynchronization">4</a>.</p>
-<p>ROS 2 DDS middleware is actually pretty powerful in making this work seamlessly with its autodiscovery functionality.
-We use a 30 Hz race-based synchronization.
-The robot and the operator are allowed to concurrently edit data types such as footstep goal poses, which may be moved by the robot to update their pose with respect to the parent frame while the operator may wish to modify the definition of those goal poses.
-A clock-offset estimator, shown at the bottom of <a href="#fig:BehaviorTreeSynchronization">4</a>, supports this design by providing a means for comparing data modification times.</p>
-<p>Synchronization runs symmetrically through a per-tick wrapper on each side.
-The operator publishes the command-side copy of authored edits and shared runtime requests; the robot publishes the status-side copy of execution state.
-At the start of each local tick, the wrapper applies any received tree-snapshot messages.
-After the UI or executor performs its local work, it republishes the current tree and increments the per-tree update number.
-Publication runs at 30 Hz, giving a single repeated synchronization loop rather than a mixture of one-off edit messages, ad hoc RPCs, and separate monitoring channels.</p>
-<p>The serializer packs the tree in depth-first order using a compact type table and per-type message arrays.
-Each node is sent either as a full type-specific payload or as a compact partial-data payload.
-Full data are sent when the node definition has changed, when a peer has requested retransmission, or when the node reports fresh status; otherwise the publication carries only the generic state plus modification metadata.
-The wire protocol is therefore coarse at the level of one tree message per tick while still avoiding repeated transmission of unchanged typed data.
-The mechanism is summarized in <a href="#fig:BehaviorTreeSynchronization">4</a>.</p>
-<p>Topology is synchronized separately from per-node content.
-The tree root reference, whole-tree metadata including the next available node ID, and each node’s child list each carry their own modification metadata.
-On receipt, the subscriber reconstructs an intermediate message tree, matches nodes by stable IDs, and applies topology operations only where the incoming root or child-list modification is newer.
-New nodes are replicated locally through the node builder, moved or reordered nodes are reattached through the topology queue, and nodes that disappear from the incoming tree are destroyed.
-If a process comes online late or a dropped message leaves only partial data available, the receiver flags the node as needing full data and the peer resends the full payload on a later publication.</p>
-<h3 id="crdt-merge-algorithm"><a class="header" href="#crdt-merge-algorithm">CRDT Merge Algorithm</a></h3>
-<p>Authored fields are editable from either side using timestamped bidirectional CRDT fields.
-The fields use a last-modified record that stores author identity, a monotonic modification number, and a timestamp.
-A local write records the writer GUID, modification number, and timestamp.
-On receipt, a newer modification number wins immediately.
-Equal-number races are resolved by comparing timestamps after transforming the peer timestamp into the local clock frame using a peer clock-offset estimator.
-This estimator derives the time offset from ROS 2 ping-reply messages under a symmetric-delay assumption.</p>
-<p>Some fields (automatic execution, next execution index, manual-step requests, concurrency enable, preview mode, failure reset) are bidirectional because either side may legitimately initiate them.
-However, some execution and visualization data are unidirectional actor-owned status fields.
-Leaf execution flags such as <em>next for execution</em>, <em>can execute</em>, <em>is executing</em>, and <em>has failed</em> are robot-authored and mirrored to the UI without timestamp arbitration.</p>
-<h2 id="persistence-storage-of-behaviors"><a class="header" href="#persistence-storage-of-behaviors">Persistence Storage of Behaviors</a></h2>
-<p>We support saving authored behaviors to JSON files.
-This enables authored structure to be saved, loaded, copied, and versioned.
-The saved artifact is the definition layer from <a href="#fig:BehaviorNodeDecomposition">3</a>.
-It contains names, notes, parameter values, child hierarchy, and node type specifics.
-An example is shown in <a href="5_tutorial_3_basic_example_move_the_arms_and_walk.html#sec:simple_behavior_json_file">[sec:simple_behavior_json_file]</a>.</p>
-<!-- PAGE-REFERENCES-START -->
-<p><strong>References cited on this page</strong></p>
-<p><strong>[81]</strong> M. Shapiro, N. Preguiça, C. Baquero, and M. Zawirski, “Conflict-free replicated data types,” in <em>Proceedings of the 13th international symposium on stabilization, safety, and security of distributed systems (SSS 2011)</em>, in Lecture notes in computer science, vol. 6976. Springer, 2011, pp. 386–400. doi: <a href="https://doi.org/10.1007/978-3-642-24550-3_29">10.1007/978-3-642-24550-3_29</a>.</p>
-<!-- PAGE-REFERENCES-END -->
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="5_current_architecture.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="6_current_architecture_6_node_library.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="5_current_architecture_2_whole_body_controller.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="7_defense.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -301,11 +211,11 @@ An example is shown in <a href="5_tutorial_3_basic_example_move_the_arms_and_wal
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="5_current_architecture.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="6_current_architecture_6_node_library.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="5_current_architecture_2_whole_body_controller.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="7_defense.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-40a3f8e3.js";
+            window.path_to_searchindex_js = "searchindex-193a6b4a.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-c7bdbe9b.js"></script>
+        <script src="toc-a65faefc.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -205,7 +205,7 @@ Left: "Design of the fallback node" from December 6, 2024, Center: "A tree with 
 The first was how to extract the reactive logic from the door traversal node into a runtime-editable version that would extend to other loco-manipulation behaviors.
 The second was how to resolve reliability and code architecture issues we were facing between the behavior tree and the scene graph.
 Whiteboards from these meetings are shown in <a href="#fig:2025_whiteboards">1</a>.</p>
-<p>We had been looking to Behavior Trees (BTs) <a href="references.html#ref-2022_iovino_behavior_trees">37</a>, <a href="references.html#ref-2018_colledanchise">52</a> in the literature for some time, and had used an implementation of them in the 2021 building exploration demo on Atlas, as we showed in <a href="4_story_of_building_and_architecture_3_2020_2021_atlas_rdx_behavior_tree_era.html#fig:2021_building_exploration_demo">[fig:2021_building_exploration_demo]</a>.
+<p>We had been looking to Behavior Trees (BTs) <a href="references.html#ref-2022_iovino_behavior_trees">37</a>, <a href="references.html#ref-2018_colledanchise">53</a> in the literature for some time, and had used an implementation of them in the 2021 building exploration demo on Atlas, as we showed in <a href="4_story_of_building_and_architecture_3_2020_2021_atlas_rdx_behavior_tree_era.html#fig:2021_building_exploration_demo">[fig:2021_building_exploration_demo]</a>.
 However, that 2021 implementation did not include runtime-editable behaviors.
 We wanted to figure out how to support behavior tree control nodes with our novel implementation of runtime-editable concurrent-capable action sequences.
 We decided to look for small, incremental modifications that made the biggest impact on reactivity.</p>
@@ -327,13 +327,13 @@ The object’s frame, similarly, can still be used for physical action definitio
 <h2 id="ability-hand-and-reliability"><a class="header" href="#ability-hand-and-reliability">Ability Hand and Reliability</a></h2>
 <figure id="fig:2025_mustard_pickup">
 <img src="media/unitree/2025-11-10_17-10-16_MustardGraspSuccess-00.00.15.591.jpg" />
-<figcaption>A November 10th, 2025 demo where our Unitree H1-2 [76](references.md#ref-unitree_h1_2) robot picked up a mustard bottle automatically using the new scene action node.
+<figcaption>A November 10th, 2025 demo where our Unitree H1-2 [77](references.md#ref-unitree_h1_2) robot picked up a mustard bottle automatically using the new scene action node.
 A video is available at <a href="https://youtu.be/PVtL7KYMC9g" class="uri">https://youtu.be/PVtL7KYMC9g</a>.
 </figcaption>
 </figure>
 <p>A demonstration on November 10th, 2025, showed the utility of the new behavior scene and scene action node.
 This was the first time we picked up an object from a table in the fully automatic mode, as shown in <a href="#fig:2025_mustard_pickup">5</a>.
-It was also the first manipulation behavior we executed on the Unitree H1-2 <a href="references.html#ref-unitree_h1_2">76</a> robot we got that year.
+It was also the first manipulation behavior we executed on the Unitree H1-2 <a href="references.html#ref-unitree_h1_2">77</a> robot we got that year.
 There were still lots of little bugs and issues in this demo, but nothing super theoretical.
 For one, our whole body controller was not great at walking with the H1-2 so the approach stance was not accurate, resulting in a low quality IK solution for reaching the mustard due to not approaching the table closely enough.
 A low quality IK solution with our system has always meant a high error bar on the resulting hand pose.
@@ -382,18 +382,18 @@ A subscriber is set up in the whole body controller process to subscribe to thes
 A screenshot of a loaded log in SCS is displayed in <a href="#fig:2025_behavior_yovariables">8</a>, showing the behavior variables embedded in and synchronized with the whole body controller log.</p>
 <figure id="fig:2025_fp_mustard_pickup">
 <img src="media/unitree/2025-12-11_16-28-40_FoundationPoseMustardGrabAuto-00.00.08.825.jpg" />
-<figcaption>A December 11, 2025 demo where we used FoundationPose [75](references.md#ref-wen2024foundationpose) to detect the pose of the mustard bottle and execute an automatic behavior to pick it up.
+<figcaption>A December 11, 2025 demo where we used FoundationPose [76](references.md#ref-wen2024foundationpose) to detect the pose of the mustard bottle and execute an automatic behavior to pick it up.
 A video is available at <a href="https://youtu.be/tP2ZvOkEjFk" class="uri">https://youtu.be/tP2ZvOkEjFk</a>.
 </figcaption>
 </figure>
-<p>On December 11, 2025, we integrated FoundationPose <a href="references.html#ref-wen2024foundationpose">75</a> into the behavior scene.
+<p>On December 11, 2025, we integrated FoundationPose <a href="references.html#ref-wen2024foundationpose">76</a> into the behavior scene.
 We used this to create an improved version of the mustard pickup task, as shown in <a href="#fig:2025_fp_mustard_pickup">9</a>.
 This added the capability to grasp asymmetric objects as FoundationPose detects an object’s orientation and bounding box in addition to the position.
 The red box in the figure shows the FoundationPose bounding box.
 In the bottom right, the FoundationPose scene object for the mustard can be seen.
 At this point we had two types of scene objects: FoundationPose and YOLOv8.
 Our scene was now designed to handle different types of objects abstractly and be extended easily to support more types.</p>
-<p>This demo was still somewhat unreliable due to the low level control code of our new 5-finger Psyonic Ability Hand <a href="references.html#ref-akhtar2022touch">80</a> grippers.
+<p>This demo was still somewhat unreliable due to the low level control code of our new 5-finger Psyonic Ability Hand <a href="references.html#ref-akhtar2022touch">81</a> grippers.
 The hands would often not respond to behavior commands and, worse, retrying the command did not work.
 By December 15, after trying at least five different control strategies, we fixed this issue and finger control was very smooth and reliable.
 The on-board Ability Hand controller wants an alpha-filtered position setpoint input that is generated from an ideal velocity-limited trajectory, as presented in <a href="#alg:ability_hand_pos_vel_limit">[alg:ability_hand_pos_vel_limit]</a>.
@@ -476,10 +476,10 @@ This is possible with the assumption that door panels swing on a vertical hinge.
 <!-- PAGE-REFERENCES-START -->
 <p><strong>References cited on this page</strong></p>
 <p><strong>[37]</strong> M. Iovino, E. Scukins, J. Styrud, P. “Ogren, and C. Smith, “A survey of behavior trees in robotics and AI,” <em>Robotics and Autonomous Systems</em>, vol. 154, p. 104096, 2022, doi: <a href="https://doi.org/10.1016/j.robot.2022.104096">https://doi.org/10.1016/j.robot.2022.104096</a>.</p>
-<p><strong>[52]</strong> M. Colledanchise and P. “Ogren, <em>Behavior trees in robotics and AI: An introduction</em>. CRC Press, Taylor; Francis Group, 2018. doi: <a href="https://doi.org/10.1201/9780429489105">10.1201/9780429489105</a>.</p>
-<p><strong>[75]</strong> B. Wen, W. Yang, J. Kautz, and S. Birchfield, “FoundationPose: Unified 6D pose estimation and tracking of novel objects,” in <em>Proceedings of the IEEE/CVF conference on computer vision and pattern recognition (CVPR)</em>, 2024.</p>
-<p><strong>[76]</strong> Unitree Robotics, “Unitree H1-2 full-size universal humanoid robot.” <a href="https://www.unitree.com/h1">https://www.unitree.com/h1</a>, 2024.</p>
-<p><strong>[80]</strong> A. Akhtar, J. Cornman, J. Austin, and D. Bala, “Touch feedback and contact reflexes using the PSYONIC ability hand,” in <em>MEC symposium</em>, 2022. doi: <a href="https://doi.org/10.57922/mec.1956">10.57922/mec.1956</a>.</p>
+<p><strong>[53]</strong> M. Colledanchise and P. “Ogren, <em>Behavior trees in robotics and AI: An introduction</em>. CRC Press, Taylor; Francis Group, 2018. doi: <a href="https://doi.org/10.1201/9780429489105">10.1201/9780429489105</a>.</p>
+<p><strong>[76]</strong> B. Wen, W. Yang, J. Kautz, and S. Birchfield, “FoundationPose: Unified 6D pose estimation and tracking of novel objects,” in <em>Proceedings of the IEEE/CVF conference on computer vision and pattern recognition (CVPR)</em>, 2024.</p>
+<p><strong>[77]</strong> Unitree Robotics, “Unitree H1-2 full-size universal humanoid robot.” <a href="https://www.unitree.com/h1">https://www.unitree.com/h1</a>, 2024.</p>
+<p><strong>[81]</strong> A. Akhtar, J. Cornman, J. Austin, and D. Bala, “Touch feedback and contact reflexes using the PSYONIC ability hand,” in <em>MEC symposium</em>, 2022. doi: <a href="https://doi.org/10.57922/mec.1956">10.57922/mec.1956</a>.</p>
 <!-- PAGE-REFERENCES-END -->
 
                     </main>

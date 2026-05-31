@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Generalized Door Traversal Behavior - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
+        <title>Discussion - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
 
 
         <!-- Custom HTML head -->
@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-40a3f8e3.js";
+            window.path_to_searchindex_js = "searchindex-193a6b4a.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-c7bdbe9b.js"></script>
+        <script src="toc-a65faefc.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,27 +177,132 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="generalized-door-traversal-behavior"><a class="header" href="#generalized-door-traversal-behavior">Generalized Door Traversal Behavior</a></h1>
-<p>As an example, <a href="#fig:TreeStructure">1</a> abstracts the authored structure of <code>door/DoorTraversal.json</code> and the expanded right-pull subtree in <code>door/RightPullDoor.json</code>.
-The top-level file handles the general approach, constructs the panel-, frame-, and hybrid-frame scene objects used for door-specific execution, and dispatches to left-push, left-pull, right-push, and right-pull branches.
-The right-pull branch is expanded because it makes the authored strategy clear: state-specific approach nodes feed a detailed lever-turn and door-opening sequence with explicit fallback loops before the final traversal.</p>
-<figure id="fig:TreeStructure">
-<span class="tikz-figure"><img class="tikz-light" src="media/generated/DoorTraversalTreeTikz.light.jpg" /><img class="tikz-dark" src="media/generated/DoorTraversalTreeTikz.dark.jpg" /></span>
-<figcaption>Authored tree structure for the top-level door traversal behavior and the expanded right-pull subtree.
-The upper portion abstracts <code>door/DoorTraversal.json</code>: a general approach phase is followed by door-type determination and dispatch to one of four door-specific subtree files.
-The lower portion expands <code>door/RightPullDoor.json</code>, showing its closed-, ajar-, and open-door entry points and the detailed closed-door path through lever acquisition, handle turning, door opening, fallback retries, doorway-clear checks, and traversal.
-Intermediate action nodes are grouped into phase-level blocks for readability.</figcaption>
-</figure>
+                        <p><span id="ch:pontification" label="ch:pontification"></span></p>
+<p>We are pretty happy with what we’ve been able to accomplish with a model based approach.
+The combination of DARPA Robotic Challenge inspired Coactive Design for humanoid robot operation, affordance templates, behavior trees, and a behavior-managed perception scene has proved to work very well.
+In a 10 year period of time we went from a 20 person team working tirelessly over years to get a robot doing 8 tasks via teleoperation, to essentially one person being able to setup a fully-autonomous multi-station ball sorting behavior in hours.</p>
+<p>Much of the field, and especially startup robotics companies, have now abandoned these fundamental approaches and have jumped ship for “end-to-end” learning.
+However, we are convinced that a lot of tasks can be solved both ways.
+In fact, with the increased prevalence of intelligent coding assistance, our more classical, model-based approach may even be able to keep pace with learned systems.</p>
+<h1 id="strong-points"><a class="header" href="#strong-points">Strong Points</a></h1>
+<p>We think our robot-local runtime-editable design is really the strongest success of our system.
+Running the compute locally robustifies the system by decoupling it from external digital distrurbances such as communications failures and compute failures on remote servers.
+Editing behaviors online has enabled rapid bringup of new behaviors and modification, composition, and extension of existing behaviors as we have shown.</p>
+<p>We also think we did well with the interface between the behavior system and the robot controller.
+The ability to schedule asynchronous footstep, arm, leg, spine, and neck commands enables a high level of behavioral expressiveness.
+It also supports the itegration of classical planners and AI assisted behavior composition.</p>
+<p>The next most successful part of our system is probably the authorable behavior-time perception through scene actions.
+Perception systems have a lot of important and non-intuitive quality levels.
+Furthermore, these quality levels can vary with lighting, situation, and hardware differences.
+The metrics of quality include depth accuracy, semantic object detection confidence, latency, and frequency.
+Our design designates an expert human operator to evaluate and exploit available quality levels for each behavior situation to achieve the goal at hand.</p>
+<h1 id="weak-points"><a class="header" href="#weak-points">Weak Points</a></h1>
+<p>There are important caveats, however, with our current system.
+For one, our object-on-table manipulation demos center around a bottle pickup and balls.
+We haven’t cracked the nut on perceiving orientation of objects.
+This is why our premiere sorting demos use spherical balls.
+Since they are symmetrical objects, only position is required to grasp them from any direction.
+We can even sometimes grasp the balls while they are moving.
+We have preliminary results using FoundationPose for object orientation estimation, but it is not yet working well enough for repeatable tests.</p>
+<p>Another major weak point is the lack of support for executing sequence subtrees that return when they are done.
+This would solve two existing problems in the system.
+For one, it would solve the problem with having two of the same JSON file loaded in the tree at once.
+When you do this, changes to one aren’t reflected in the other and they can overwrite each other when saved.
+If sequences can be run as a subtree and returned when done, identical subtrees throughout the system can be instantiated once instead of duplicated.</p>
+<p>Another problem we have had is being able to call a subroutine with one line.
+In general, making the behavior tree mirror the structure of computer programs more would greatly increase the expressiveness of the system.
+We think a good strategy would be to keep thinking of the next most useful thing to add, guided by operator frustration in trying to create new behaviors.</p>
+<p>We also have a scaling problem with large trees, both in the view and in the data synchronization.
+We were able to use trees consisting of well over 100 nodes, as we presented in <a href="4_story_of_building_and_architecture.html#ch:building">Building our Behavior Architecture</a> with the ONR Demo that consisted of 178 nodes.
+However, we don’t think this could grow much further without some optimization.
+Two issues stand out.
+First, when loading in large subtrees, there can be a loading delay that can cause a glitch in the network synchronization.
+Second, for trees with a tall maximum depth, the behavior tree editor view entries near the leaves of the tree can become indented too much and hard to work with.
+We think both of these issues are very solvable.</p>
+<h1 id="natural-next-steps"><a class="header" href="#natural-next-steps">Natural Next Steps</a></h1>
+<p>Throughout this work, we really want to add force-based action primitives.
+You’ll even find a “wrench action” node, which was used to pick up boxes.
+Ultimately, we just didn’t have the bandwidth to be able to approach it from and controls perspective.</p>
+<p>The wrench actions for box lifting worked only under very special circumstances.
+The way it worked was to depend on prior position based arm actions to get your hands on either side of the box.
+Then, the wrench action would command inwards accelerations for the hands to result in a force on the sides of the box.
+The wrench action was never completed with a termination condition, so it was always a hack when demonstrated.</p>
+<p>It would be a natural next step to develop a force-based action definition in combination with good support for it in the whole body controller.
+One area where we would like to use it is for turning door handles.
+Door handles have different spring constants and might require and torque based ramp if the handle isn’t moving.
+A hybrid force-position action might do the trick well—force-controlled angular velocity along the screw trajectory until the end stop is hit.
+Lots of tasks, like opening drawers and sliding things against surfaces could take advantage of such an approach.</p>
+<p>In general, force-controller primitives can be a more natural way to interact with the world.
+In fact, it can even be used as a form of proprioception.
+For example, when figuring our whether doors are push or pull and whether they are locked is not always visibly identifiable.
+A lot of the time, you just have to try pushing is various directions to figure out what is going on with articulated objects.</p>
+<p>Another area of work that would be nice to explore would be grasp planning.
+We have seen that there may be some promising development in grasp planning, but haven’t explored it at all yet.
+For example, when going to operate tools designed for humans, it would be helpful and, we would think, feasible to plan a 5-finger grasp for them instead of having to manually specify finger configurations.</p>
+<p>The problem doesn’t have to be solved generally.
+For example, if the behavior authoring inteface was adapted to virtual or augmented reality, the user could simply use their hands to demonstrate an example grasp technique to seed the planner.</p>
+<p>Our screw primitive action, inspired by <a href="references.html#ref-Pettinger_2022">14</a>, is a very versatile manipulation planning abstraction.
+We think there could be useful constructs like this that extend beyond positional sliding and turning.
+There may be interesting ways to model forces, torques, or the way objects can deform or move, using a similar approach.
+For example, there is some work like this on clothes folding where geometrical primitives are used to define folding patterns <a href="references.html#ref-Moletta2023VRClothFolding">83</a>.</p>
+<p>Another fruitful area to explore would be navigation.
+In the behaviors presented in this thesis, even for the “building exploration” ones, we didn’t ever form a map and plan from point A to point B.
+They were more like a slightly reactive scripting of which door to go through next, with some stand-in-place visual searches.
+Our building exploration demos have been limited to a maximum of 3 doors separating spaces in an open lab environment.
+The main reason for that is that we haven’t had a fully tetherless robot to work with yet, so we couldn’t take it into non-lab spaces.</p>
+<p>We think our approach for navigation would take a similar approach to our behavior-time scene: keep a behavior-local map that has authorable behavior-time interactions.
+This is because the behaviors are the primary consumer of this information and is the most informed about what it needs and when.
+We would likely maintain very different map representations for different task levels.
+For navigating from room to room in a building, a topological graph structure would be the most useful.
+For traversing a space, a heightmap or octree might be the most useful.
+For locating objects in dense spaces, a detailed scene graph might be the most useful.
+It would be exciting and interesting to explore options for extending our behavior scene to include both maps and behavior specific planners.</p>
+<h1 id="why-not-fully-embrace-behavior-trees"><a class="header" href="#why-not-fully-embrace-behavior-trees">Why Not Fully Embrace Behavior Trees</a></h1>
+<p>One interesting part of this thesis is that we use a “behavior tree” architecture, but left out some of the key mechanisms from the literature version <a href="references.html#ref-2018_colledanchise">53</a>.
+The most important part of why is just that we built what appeared to work best for us.
+The other aspect is that the lone result from the literature just was’t that convicing <a href="references.html#ref-2023_centaur_bt">55</a>, being ultimately very slow and locomotion only.</p>
+<p>The reason we don’t tick from the root node is that, for authoring behavior at runtime, we have the robot in a particular configuration and doing a particular thing and we are trying to author a particular part.
+This means we want a “cursor”, just like in a text editor, that marks our current editing location.</p>
+<p>We do think you could potentially introduce the root node tick system for the autonomous mode.
+This has the prospect still of enabling the behavior to drastically change goals or strategies as basically any point in the behavior.
+However, behavior trees don’t really address the full problem here, as the robot might be in a situation, such as when going through a door, that it can’t immediately get out of.
+Some things it really has to finish doing before aborting mission.
+Other places it needs to have a specific “abort mission” behavior that is very dependent on current robot and task configuration.</p>
+<p>This is where we guess Behavior Trees would suggest using the blackboard.
+However, the Behavior Tree blackboard is a completely unstructured design component and we would strive for a more formal mechnanism for doing things like this.
+A promising theory for this sort of reactivity includes sequential compositon <a href="references.html#ref-1999_burridge">52</a>.</p>
+<h1 id="the-future"><a class="header" href="#the-future">The Future</a></h1>
+<p>We would like to see a near future where technical people can buy or build their own robots and put them towards useful work.
+To us, it is most convincing if the system is open source, understandable, and tinkerable.
+We would like to be able to modify and extend the capabilities of personally owned robots without being beholden to subscriptions or AI datacenters.
+We think it is possible to build such a system using classical approaches for planning and control and simpler neural nets like YOLO and FoundationPose for vision.
+This is in direct contrast to where much of the industry is going.
+We imagine that if we extended our runtime-editable system to a portable device like an augmented reality headset, and with more development, we could author behaviors for common household chores and basic outdoor contracting work.
+It could be that the real world is too diverse for anything other than large-scale end-to-end learned systems, but we’d like to explore and try and find out where the boundaries between classical and learned systems really are.</p>
+<p>Given the above dream, we would definitely like to keep using our system into the future and keep expanding it to new capabilities and modalities.
+We are passionate about the approach taken in this thesis and think it has a bright future.
+A lot of smart people contributed to this system over more than a decade and we are honored to present such positive results.</p>
+<p>Thank you to the reader, for hanging in there for what turned out to be a very long thesis.
+We hope we have sparked some interest in our unique approaches to problems and that you got some value out of it.
+Cheers!</p>
+<!-- PAGE-REFERENCES-START -->
+<p><strong>References cited on this page</strong></p>
+<p><strong>[14]</strong> A. Pettinger, F. Alambeigi, and M. Pryor, “A versatile affordance modeling framework using screw primitives to increase autonomy during manipulation contact tasks,” <em>IEEE Robotics and Automation Letters</em>, vol. 7, no. 3, pp. 7224–7231, 2022, doi: <a href="https://doi.org/10.1109/LRA.2022.3181732">10.1109/LRA.2022.3181732</a>.</p>
+<p><strong>[52]</strong> R. R. Burridge, A. A. Rizzi, and D. E. Koditschek, “Sequential composition of dynamically dexterous robot behaviors,” <em>The International Journal of Robotics Research</em>, vol. 18, no. 6, pp. 534–555, 1999, doi: <a href="https://doi.org/10.1177/02783649922066385">10.1177/02783649922066385</a>.</p>
+<p><strong>[53]</strong> M. Colledanchise and P. “Ogren, <em>Behavior trees in robotics and AI: An introduction</em>. CRC Press, Taylor; Francis Group, 2018. doi: <a href="https://doi.org/10.1201/9780429489105">10.1201/9780429489105</a>.</p>
+<p><strong>[55]</strong> A. De Luca, L. Muratore, and N. G. Tsagarakis, “Autonomous navigation with online replanning and recovery behaviors for wheeled-legged robots using behavior trees,” <em>IEEE Robotics and Automation Letters</em>, vol. 8, no. 10, pp. 6803–6810, 2023, doi: <a href="https://doi.org/10.1109/LRA.2023.3313052">10.1109/LRA.2023.3313052</a>.</p>
+<p><strong>[83]</strong> M. Moletta, M. K. Wozniak, M. C. Welle, and D. Kragic, “A virtual reality framework for human-robot collaboration in cloth folding,” in <em>2023 IEEE-RAS 22nd international conference on humanoid robots (humanoids)</em>, Austin, TX, USA, Dec. 2023.</p>
+<!-- PAGE-REFERENCES-END -->
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="5_current_architecture_4_behavior_tree_structure.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="7_defense_5_evaluation.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="5_current_architecture_6_node_library.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="references.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -207,11 +312,11 @@ Intermediate action nodes are grouped into phase-level blocks for readability.</
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="5_current_architecture_4_behavior_tree_structure.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="7_defense_5_evaluation.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="5_current_architecture_6_node_library.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="references.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Behavior Tree Structure - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
+        <title>Architecture - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
 
 
         <!-- Custom HTML head -->
@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-40a3f8e3.js";
+            window.path_to_searchindex_js = "searchindex-193a6b4a.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-c7bdbe9b.js"></script>
+        <script src="toc-a65faefc.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,59 +177,20 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="behavior-tree-structure"><a class="header" href="#behavior-tree-structure">Behavior Tree Structure</a></h1>
-<p>Our behaviors are structured as a tree of nodes.
-The tree organization serves a dual-purpose.
-It allows for organization of behavior and also a way to author logic in a simple way.</p>
-<p>We reuse the concept of a filesystem in computing for behaviors.
-Robot behaviors can be abstracted across many layers.
-Useful tasks for robot work are defined as completable goals which usually consist of higher level abstractions like “sort the objects into containers” or “deliver this package to room 40”.
-These high level task specifications ultimately need to be triaged to a sequence of low-level primitive actions.
-High level task specifications live towards the root of the tree and low level primitive actions live as the leaves.</p>
-<p>Our system is not a Behavior Tree as in the literature <a href="references.html#ref-2018_colledanchise">52</a> (we will use capitalized Behavior Tree to reference the literature version).
-It is rather a tree of behavior implemented in a way we found most useful.
-However, we do adopt Behavior Trees’ concepts of sequence, fallback, condition, and action nodes.
-<a href="#fig:BehaviorTreeStructureSample">1</a> summarizes the main structural elements.</p>
-<p>Our runtime updates all nodes on each tick and does not reduce control flow to a fixed set of return types such as “success,” “failure,” and “running.”
-The node library is freer in how it represents and exposes execution state, and the model stays closer to how we actually authored and debugged humanoid door traversals, where action overlap, retries, manual stepping, and scene-state inspection mattered more than adherence to a standard BT interface.</p>
-<p>In our implementation, the whole tree is one big sequence.
-The order of the sequence is the depth-first ordering of the leaves.
-<a href="5_tutorial_4_concurrent_actions_example.html#alg:simplified_execution">[alg:simplified_execution]</a> outlines the basic sequence algorithm.</p>
-<p>A unique part of our architecture, which diverges even farther from Behavior Trees, is that we keep a next execution index.
-This is in contrast to restarting at the root node on each tick.
-In this way, we are more like a state machine.
-The next execution index is a pointer to the next node to execute, which can be changed by the operator, the sequence executor, a goto node, or a fallback node.</p>
-<figure id="fig:BehaviorTreeStructureSample">
-<span class="tikz-figure"><img class="tikz-light" src="media/generated/BehaviorTreeStructureTikz.light.jpg" /><img class="tikz-dark" src="media/generated/BehaviorTreeStructureTikz.dark.jpg" /></span>
-<figcaption>
-A representative sample tree.
-At a glance, the structure looks similar to a behavior tree, however, there are some important differences.
-The next action to execute is held as state between updates, as indicated by the arrow pointing to Action A.
-In our tree, "everything is a sequence" by default in the depth-first ordering of the leaves.
-The fallback node catch is a sequence instead of a list of additional things to try.
-Goto nodes are used to modify the next action to execute index.
-</figcaption>
-</figure>
-<p>We also have a unique implementation of a fallback node, which is not a list of steps to try, but rather one thing to try and a sequence as a catch.
-We cover the fallback node in detail in <a href="5_tutorial_8_fallback_mechanism_example.html#sec:fallback_node">[sec:fallback_node]</a>.</p>
-<p>The tree view in the operator interface is closer to a hierarchical file browser than to a dense 2D graph editor.
-That choice matched the rest of the operator workflow because the behavior view had to coexist with a 3D scene, first-person sensor imagery, scene-object panels, robot-status panels, and teleoperation widgets.</p>
-<p>In summary, our implementation is not a Behavior Tree, a state machine, nor is it a hierarchical state machine.
-Instead, it combines elements from each to suit the needs of a runtime-editable behavior authoring system.</p>
-<!-- PAGE-REFERENCES-START -->
-<p><strong>References cited on this page</strong></p>
-<p><strong>[52]</strong> M. Colledanchise and P. “Ogren, <em>Behavior trees in robotics and AI: An introduction</em>. CRC Press, Taylor; Francis Group, 2018. doi: <a href="https://doi.org/10.1201/9780429489105">10.1201/9780429489105</a>.</p>
-<!-- PAGE-REFERENCES-END -->
+                        <h1 id="architecture"><a class="header" href="#architecture">Architecture</a></h1>
+<p><span id="ch:architecture2" label="ch:architecture2"></span></p>
+<p>In <a href="4_story_of_building_and_architecture.html#ch:building">Building our Behavior Architecture</a>, we told the story of building our system and went over the components in some detail.
+In this chapter, we’ll cover the current structure again to round off the full current design.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="5_current_architecture_3_operator_interface.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="5_tutorial_9_real_robot_example_repeated_door_opening.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="5_current_architecture_5_generalized_door_traversal_behavior.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="6_current_architecture_1_architecture_overview.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -239,11 +200,11 @@ Instead, it combines elements from each to suit the needs of a runtime-editable 
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="5_current_architecture_3_operator_interface.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="5_tutorial_9_real_robot_example_repeated_door_opening.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="5_current_architecture_5_generalized_door_traversal_behavior.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="6_current_architecture_1_architecture_overview.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Evaluation - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
+        <title>Hypothesis 3: Fast Adaptation, Extension, and Combination of Behaviors - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
 
 
         <!-- Custom HTML head -->
@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-40a3f8e3.js";
+            window.path_to_searchindex_js = "searchindex-193a6b4a.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-c7bdbe9b.js"></script>
+        <script src="toc-a65faefc.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,33 +177,132 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="evaluation"><a class="header" href="#evaluation">Evaluation</a></h1>
-<p><span id="ch:defense" label="ch:defense"></span></p>
-<p>In this chapter, we’ll go through our real robot demonstrations to evaluate our hypotheses, which we’ll state here again:</p>
-<ol>
-<li>
-<p>Robot-local execution with synchronized UI state, concurrent action layering, reactive tree logic, and behavior-time semantic perception yield door behaviors that are faster and more reliable than prior IHMC baselines and competitive with reported reinforcement learning systems on overlapping door tasks.</p>
-</li>
-<li>
-<p>Runtime-editable behaviors and perception modules reduce the iteration loop required to diagnose failures, modify logic, and re-test on the robot, relative to redeploy, restart, or retrain workflows.</p>
-</li>
-<li>
-<p>Decomposing behaviors into reusable primitives, subtrees, and scene actions allows new door and loco-manipulation variants to be brought up by editing a small part of a working behavior rather than rebuilding the task from scratch.</p>
-</li>
-</ol>
-<p>We’ll present evidence that supports our first hypothesis with speed and reliability results for real robot tasks in <a href="6_defense_1_hypothesis_1_fast_loco_manipulation_behaviors.html#sec:h1_fast_loco_manipulation_behaviors">[sec:h1_fast_loco_manipulation_behaviors]</a>, our second hypothesis by showing the speed with which we can create and modify behaviors in <a href="6_defense_2_hypothesis_2_fast_behavior_authoring.html#sec:h2_fast_behavior_authoring">[sec:h2_fast_behavior_authoring]</a>, and our third hypothesis by showing that we can readily adapt existing behaviors to new tasks in <a href="6_defense_3_hypothesis_3_fast_adaptation_extension_and_combination_of_behaviors.html#sec:h3_fast_adaptation">[sec:h3_fast_adaptation]</a>.
-We’ll then do a comparative analysis to the literature to see how our results stack up in <a href="6_defense_4_comparative_analysis.html#sec:comparative_analysis">[sec:comparative_analysis]</a>.
-Finally, we’ll evaluate to what degree our hypotheses held in <a href="6_defense_5_evaluation.html#sec:evaluation">[sec:evaluation]</a>.</p>
+                        <h1 id="hypothesis-3-fast-adaptation-extension-and-combination-of-behaviors"><a class="header" href="#hypothesis-3-fast-adaptation-extension-and-combination-of-behaviors">Hypothesis 3: Fast Adaptation, Extension, and Combination of Behaviors</a></h1>
+<p>To support our third hypothesis, we’ll show measured sessions where existing behaviors were adapted, composed, or extended rather than rebuilt from scratch.</p>
+<p>In <a href="#fig:in_house_adaptation_timeline">1</a>, we summarize three measured adaptation sessions on Alex.
+Each row shows normalized active adaptation time on a log-second axis with internal milestone structure recovered from screen recordings.
+The bottle carry-through session composes existing pickup and door behaviors into one long-horizon task.
+The break-room session adapts a lab right-pull traversal to a real left-pull door: door-specific mirroring was only the starting transfer, and most time went to retuning opening, fallbacks, traversal, and footsteps.
+The two-table sorting session extends the open-house ball-return behavior with locomotion, table-specific routing, and color-dependent branches; its total includes an off-robot pre-authoring pass.
+Checkmarks mark first autonomous success.</p>
+<figure id="fig:in_house_adaptation_timeline">
+<span class="tikz-figure"><img class="tikz-light" src="media/generated/InHouseAdaptationTimeline.light.jpg" /><img class="tikz-dark" src="media/generated/InHouseAdaptationTimeline.dark.jpg" /></span>
+<figcaption>
+In-house real-robot adaptation durations on a log-second axis with internal milestone structure.
+Rows are grouped by robot era and ordered chronologically.
+The bottle session composes existing behaviors; the break-room session adapts a mirrored lab behavior to a real door; the two-table session extends an existing manipulation behavior with locomotion and routing logic.
+The cyan segment marks off-robot pre-authoring counted in the two-table total.
+Checkmarks mark first autonomous success.
+Times are normalized active adaptation.
+</figcaption>
+</figure>
+<p>The subsections below walk through each row in <a href="#fig:in_house_adaptation_timeline">1</a> with a representative still, the authoring-time table, and a link to the screen recording.</p>
+<h2 id="bottle-carry-through-composition-alex-2026-03-18"><a class="header" href="#bottle-carry-through-composition-alex-2026-03-18">Bottle Carry Through Composition (Alex, 2026-03-18)</a></h2>
+<p>On March 18, 2026, we composed an existing bottle pickup behavior with the left push door traversal so Alex could carry a bottle through the door in one autonomous run.
+Most of the session wired the two behaviors together, recovered from a tooling failure while loading the door subtree, and tuned grasp and traversal so the bottle stayed in hand.
+First fully autonomous success came at 1 hour, 13 minutes, and 49 seconds of measured active adaptation time.
+The result is shown in <a href="#fig:h3_bottle_carry_through_authoring">2</a>.
+Authoring times are presented in <a href="#tab:h3_bottle_carry_through_authoring_timeline">1</a>.</p>
+<figure id="fig:h3_bottle_carry_through_authoring">
+<img src="media/alex/20260319_FirstPickBottleAndPushDoorSuccessCrop.jpg" />
+<figcaption>Alex after the first fully autonomous bottle pickup, walk, and door traversal with the bottle in hand on March 18–19, 2026.
+A video is available at <a href="https://youtu.be/AH2dFMW-IbY" class="uri">https://youtu.be/AH2dFMW-IbY</a>.</figcaption>
+</figure>
+<div id="tab:h3_bottle_carry_through_authoring_timeline">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">Elapsed time</th><th style="text-align: left">Composition milestone</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left">:00:00</td><td style="text-align: left">Start from existing bottle-pickup and left push door traversal behaviors; robot is at the table holding the bottle.</td></tr>
+<tr><td style="text-align: left">:01:34</td><td style="text-align: left">Backup-from-table and face-door walk action added.</td></tr>
+<tr><td style="text-align: left">:02:43</td><td style="text-align: left">Tooling issue while loading the large door subtree into the tree.</td></tr>
+<tr><td style="text-align: left">:26:56</td><td style="text-align: left">Door subtree loaded by manual JSON edit and UI/autonomy relaunch.</td></tr>
+<tr><td style="text-align: left">:42:55</td><td style="text-align: left"><code>Retry grasp bottle</code> fallback added with a near-hand point check.</td></tr>
+<tr><td style="text-align: left">:58:41</td><td style="text-align: left">Right-hand finger and arm motions disabled in the push-door behavior so the bottle grasp is preserved through traversal.</td></tr>
+<tr><td style="text-align: left">:59:44</td><td style="text-align: left">Door fully traversed with the bottle, but discontinuously.</td></tr>
+<tr><td style="text-align: left">:13:49</td><td style="text-align: left">First fully autonomous run: approach, pickup, walk, traverse with bottle in hand.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Cumulative adaptation timeline for the March 18, 2026 bottle carry-through composition session shown in <a href="#fig:h3_bottle_carry_through_authoring">2</a>.</p>
+</div>
+
+<p><span id="tab:h3_bottle_carry_through_authoring_timeline" label="tab:h3_bottle_carry_through_authoring_timeline"></span></p>
+<h2 id="break-room-door-adaptation-alex-2026-03-26"><a class="header" href="#break-room-door-adaptation-alex-2026-03-26">Break Room Door Adaptation (Alex, 2026-03-26)</a></h2>
+<p>On March 26, 2026, we adapted the lab right pull door traversal to the break room left pull door on Alex.
+Door mirroring was only the starting point.
+Most of the 1 hour, 54 minutes, and 3 seconds of measured active adaptation time went to retuning opening, fallbacks, traversal, and footsteps on the real door.
+The successful run is shown in <a href="#fig:h3_break_room_adaptation">3</a>.
+Authoring times are presented in <a href="#tab:h3_break_room_adaptation_timeline">2</a>.</p>
+<figure id="fig:h3_break_room_adaptation">
+<img src="media/alex/20260326_RealLeftPushDoorBreakRoom-00.00.17.952.jpg" />
+<figcaption>Alex opening the break room left pull door on March 26, 2026 after mirrored adaptation from the lab right pull behavior.
+A video is available at <a href="https://youtu.be/HcJPLoRfs3Q" class="uri">https://youtu.be/HcJPLoRfs3Q</a>.</figcaption>
+</figure>
+<div id="tab:h3_break_room_adaptation_timeline">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">Elapsed time</th><th style="text-align: left">Adaptation milestone</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left">:00:33</td><td style="text-align: left">Load <code>DoorTraversal.json</code> (mirrored left pull, untested on a real door).</td></tr>
+<tr><td style="text-align: left">:01:56</td><td style="text-align: left">Door type and door-relative poses identified from scene objects.</td></tr>
+<tr><td style="text-align: left">:23:51</td><td style="text-align: left">First real-door opening after retuning the lever-turn motion.</td></tr>
+<tr><td style="text-align: left">:29:44</td><td style="text-align: left">Point-check fallback added to retry door opening when the pull is unreliable.</td></tr>
+<tr><td style="text-align: left">:31:29</td><td style="text-align: left">Door fully opened.</td></tr>
+<tr><td style="text-align: left">:54:49</td><td style="text-align: left">Spine yaw added after the lever turn for consistent opening.</td></tr>
+<tr><td style="text-align: left">:17:13</td><td style="text-align: left">Traversal arm motions simplified under the no-spring-closer assumption.</td></tr>
+<tr><td style="text-align: left">:48:00</td><td style="text-align: left">Traversal footsteps re-authored; shoulder-frame clearance checked in Preview Mode.</td></tr>
+<tr><td style="text-align: left">:53:20</td><td style="text-align: left">Reset and run the behavior autonomously from the top.</td></tr>
+<tr><td style="text-align: left">:54:03</td><td style="text-align: left">First successful break-room door traversal.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Continuous authoring timeline for the March 26, 2026 break room door adaptation shown in <a href="#fig:h3_break_room_adaptation">3</a>.</p>
+</div>
+
+<p><span id="tab:h3_break_room_adaptation_timeline" label="tab:h3_break_room_adaptation_timeline"></span></p>
+<h2 id="two-table-sorting-extension-alex-2026-04-13-to-14"><a class="header" href="#two-table-sorting-extension-alex-2026-04-13-to-14">Two Table Sorting Extension (Alex, 2026-04-13 to 14)</a></h2>
+<p>From April 13 through 14, 2026, we extended the open house ball return behavior to sort colored balls between two tables with locomotion between stations.
+The measured total is 1 hour, 50 minutes, and 41 seconds, including 15 minutes and 30 seconds of off robot pre authoring before the real robot follow up session.
+The documented demonstration sorted nine of nine balls correctly, with three table approaches and two table to table transitions.
+A still from the task setup is shown in <a href="#fig:h3_two_table_sorting">4</a>.
+Authoring times are presented in <a href="#tab:h3_two_table_sorting_authoring_summary">3</a>.</p>
+<figure id="fig:h3_two_table_sorting">
+<img src="media/alex/20260414_SortingBallTwoTables-00.00.02.284.jpg" />
+<figcaption>The two table ball sorting task on April 14, 2026.
+A video is available at <a href="https://youtu.be/_3lqvcd_5WE" class="uri">https://youtu.be/_3lqvcd_5WE</a>.</figcaption>
+</figure>
+<div id="tab:h3_two_table_sorting_authoring_summary">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">Phase</th><th style="text-align: left">Duration</th><th style="text-align: left">Milestone</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left">Off-robot pre-authoring</td><td style="text-align: left"> min 30 s</td><td style="text-align: left">Fork <code>demo/BallsInBins.json</code> to <code>eval/TwoTableSorting.json</code>; restructure loop and color routing.</td></tr>
+<tr><td style="text-align: left">Real-robot follow-up</td><td style="text-align: left"> h 35 min 11 s</td><td style="text-align: left">Reach documented 9/9 two-table sorting demonstration.</td></tr>
+<tr><td style="text-align: left">Total measured</td><td style="text-align: left"> h 50 min 41 s</td><td style="text-align: left">First successful table-B placement at 26 min 8 s within the real-robot session.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Authoring summary for the April 13–14, 2026 two table sorting extension shown in <a href="#fig:h3_two_table_sorting">4</a>.</p>
+</div>
+
+<p><span id="tab:h3_two_table_sorting_authoring_summary" label="tab:h3_two_table_sorting_authoring_summary"></span></p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="5_current_architecture_7_behavior_scene.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="7_defense_2_hypothesis_2_fast_behavior_authoring.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="6_defense_1_hypothesis_1_fast_loco_manipulation_behaviors.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="7_defense_4_comparative_analysis.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -213,11 +312,11 @@ Finally, we’ll evaluate to what degree our hypotheses held in <a href="6_defen
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="5_current_architecture_7_behavior_scene.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="7_defense_2_hypothesis_2_fast_behavior_authoring.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="6_defense_1_hypothesis_1_fast_loco_manipulation_behaviors.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="7_defense_4_comparative_analysis.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

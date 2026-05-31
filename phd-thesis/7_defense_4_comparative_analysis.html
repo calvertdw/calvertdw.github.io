@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Behavior Scene - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
+        <title>Comparative Analysis - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
 
 
         <!-- Custom HTML head -->
@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-40a3f8e3.js";
+            window.path_to_searchindex_js = "searchindex-193a6b4a.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-c7bdbe9b.js"></script>
+        <script src="toc-a65faefc.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,31 +177,77 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="behavior-scene"><a class="header" href="#behavior-scene">Behavior Scene</a></h1>
-<p>The last major architectural component of our system is the behavior scene.
-We maintain a set of persistent object detections local to the behaviors and for use only by the behaviors.
-This exclusivity allows behaviors to have full control over the perception it depends on.
-This is also important given the technical limitations of robot perception systems.</p>
-<p>Since leveraging perception to accomplish tasks is difficult, we leave the creativity up to the human operator.
-To do this, we have a library of scene actions which may be placed in the behavior tree and executed in the same way as the physical actions like moving a hand.
-<a href="#fig:BehaviorScene">1</a> shows where the scene actions affect the behavior scene perception pipeline.
-It also lists the current set of object and scene action types.</p>
-<figure id="fig:BehaviorScene">
-<span class="tikz-figure"><img class="tikz-light" src="media/generated/BehaviorScene.light.jpg" /><img class="tikz-dark" src="media/generated/BehaviorScene.dark.jpg" /></span>
-<figcaption>The behavior scene consists of a list of active persistent detections and a privileged list of objects.
-Object types can be implemented to derive structured information about the scene.
-Scene actions are used to manage the privileged objects and the underlying perception models.</figcaption>
+                        <h1 id="comparative-analysis"><a class="header" href="#comparative-analysis">Comparative Analysis</a></h1>
+<p>In this section, we’ll compare our work among others in the literature across speed, capability, reliability, resilience, and the speed of creating and adapting behaviors.
+We present our work against a handful of classical, model-based references and two learned references.</p>
+<h2 id="speed-and-capability"><a class="header" href="#speed-and-capability">Speed and Capability</a></h2>
+<p><a href="#fig:hero_speed_comparison">1</a> presents a comparison of the durations of robot door traversals across this thesis and the literature.
+This represents every timed door traversal in the literature that we are aware of for both wheeled and legged robots.
+Our door traversals are dramatically faster than the classical model-based results, all of which take more than one minute to traverse a door.
+However, recent learned systems are quite fast.
+Zhang et al. <a href="references.html#ref-zhang2024learningopentraversedoors">49</a>, with their ANYmal quadruped robot demonstrates traversing a door in just 10 seconds.
+DoorMan <a href="references.html#ref-xue2025opening">75</a> averages 15.4 seconds per door traversal.
+However, as highlighted by the dotted line in the figure, we have one door travesal that executed in 14 seconds, just beating DoorMan’s average.
+This firmly places our system in the “competitive with learned systems” regime.</p>
+<p>There are two important caveats with the learned systems, however.
+Zhang et al used external motion capture and fiducial markers rather than robot vision.
+Zue et al (DoorMan) used an off-board computer to run their vision based neural inference.
+This is in contrast to our system which uses only two color cameras on the robot for vision and all autonomous functionality is computed on board.</p>
+<figure id="fig:hero_speed_comparison">
+<span class="tikz-figure"><img class="tikz-light" src="media/generated/HeroSpeedComparison.light.jpg" /><img class="tikz-dark" src="media/generated/HeroSpeedComparison.dark.jpg" /></span>
+<figcaption>Literature comparison of real-robot door task duration on a log-second axis.</figcaption>
 </figure>
+<h2 id="reliability-and-resilience"><a class="header" href="#reliability-and-resilience">Reliability and Resilience</a></h2>
+<p><a href="#fig:hero_reliability_comparison">2</a> presents a comparison of our results against all door traversal reliability measurements that appear in the literature that we are aware of.
+Our premiere reliability tests were not full traversals, but were loco-manipulation behaviors.
+We did not measure repeated full door traversals because our walk through component was not reliable in the time we had to test it.
+Testing it could have damaged the robot beyond repair, preventing some of our more important results.
+Although this is unfortunate for the full reliability comparison, we do feel that with a repeated approach and opening task, that we still show that our behavior architecture, perception, and manipulation control is capable of very high reliability.
+The unreliability of the door walk through had more to do with the walking controller performance than the work presented in this thesis.</p>
+<p>Most of the literature is in the same performance envelope of our repeated run reliabilty tests.
+Although we reported no failures, this does not mean our system is 100% reliable and it is not.
+A similar statement can be made for the results in the literature.
+Therefore, these repeated run measurements should be taken with a grain of salt, but they do serve as an indication that these systems are not super brittle “one-off” runs.</p>
+<p>Among the learned systems, DoorMan <a href="references.html#ref-xue2025opening">75</a> actually stands out, for saying “83%” reliability without giving the number of attempts or a summary of what went into the calculation of that number.
+It is for that reason that we put “?/?” in the diagram and leave out that percentage.
+We do not feel like it is a reliable comparison to the our thesis and the literature.</p>
+<figure id="fig:hero_reliability_comparison">
+<span class="tikz-figure"><img class="tikz-light" src="media/generated/HeroReliabilityComparison.light.jpg" /><img class="tikz-dark" src="media/generated/HeroReliabilityComparison.dark.jpg" /></span>
+<figcaption>Literature comparison of real-robot door-task success rate.</figcaption>
+</figure>
+<h2 id="creation-and-adaptability"><a class="header" href="#creation-and-adaptability">Creation and Adaptability</a></h2>
+<p>This thesis is essentially unique in its focus on reporting behavior authoring duration.
+We focus on both the effort required to create new behaviors from scratch and modify existing ones, adapting them to new tasks.
+We didn’t find any documented results in the literature on the authoring durations of loco-manipulation behaviors on robots.</p>
+<p>For this section, we’ll simply compare against an estimate of what we consider to be our most relevant competition: DoorMan <a href="references.html#ref-xue2025opening">75</a>.
+In <a href="#fig:hero_authoring_process_comparison">3</a> we give a step by step process of creating a door behavior from scratch and adapting an existing door behavior to a different door type.
+We use an actual measurement for the our push door creation from scratch: 6 steps in 2 hours.
+For DoorMan, we use the steps presented in the paper and estimate the durations.</p>
+<p>Two main things stand out when doing this comparison.
+First, our system is estimated to be 50 to 100 times faster in creating and adapting behaviors.
+Secondly, when an adapted behavior is needed, the process for our system is dramatically shortened, but the process for DoorMan still requires the same multi-day pipeline.</p>
+<p>This stark contrast is due to the fact that our system is decomposed into reusable parts that have a high degree of independence from each other.
+For example, the difference between a pull door and a sliding door might just be adjusting a few actions at runtime.
+However, DoorMan’s architecture requires a simulation refit, PPO policy tuneup, and an overnight retraining.</p>
+<figure id="fig:hero_authoring_process_comparison">
+<span class="tikz-figure"><img class="tikz-light" src="media/generated/HeroAuthoringProcessComparison.light.jpg" /><img class="tikz-dark" src="media/generated/HeroAuthoringProcessComparison.dark.jpg" /></span>
+<figcaption>This thesis versus DoorMan in from-scratch behavior creation (A) and a hypothetical behavior adaptation of an existing pull door traversal behavior to a sliding door behavior.</figcaption>
+</figure>
+<!-- PAGE-REFERENCES-START -->
+**References cited on this page**
+<p><strong>[49]</strong> M. Zhang, Y. Ma, T. Miki, and M. Hutter, “Learning to open and traverse doors with a legged manipulator.” 2024. Available: <a href="https://arxiv.org/abs/2409.04882">https://arxiv.org/abs/2409.04882</a></p>
+<p><strong>[75]</strong> H. Xue <em>et al.</em>, “Opening the sim-to-real door for humanoid pixel-to-action policy transfer,” <em>arXiv preprint arXiv:2512.01061</em>, 2025.</p>
+<!-- PAGE-REFERENCES-END -->
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="5_current_architecture_6_node_library.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="7_defense_3_hypothesis_3_fast_adaptation_extension_and_combination_of_behaviors.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="6_defense.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="7_defense_5_evaluation.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -211,11 +257,11 @@ Scene actions are used to manage the privileged objects and the underlying perce
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="5_current_architecture_6_node_library.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="7_defense_3_hypothesis_3_fast_adaptation_extension_and_combination_of_behaviors.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="6_defense.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="7_defense_5_evaluation.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

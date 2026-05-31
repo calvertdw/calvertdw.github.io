@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Discussion - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
+        <title>Node Library - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
 
 
         <!-- Custom HTML head -->
@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-40a3f8e3.js";
+            window.path_to_searchindex_js = "searchindex-193a6b4a.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-c7bdbe9b.js"></script>
+        <script src="toc-a65faefc.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,17 +177,87 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="discussion"><a class="header" href="#discussion">Discussion</a></h1>
+                        <h1 id="node-library"><a class="header" href="#node-library">Node Library</a></h1>
+<p>A full list of our node types is shown in <a href="#fig:BehaviorNodeLibrary">1</a>.
+The functionalities of these nodes are covered in detail in <a href="5_tutorial.html#ch:tutorial">Usage Guide</a>.</p>
+<figure id="fig:BehaviorNodeLibrary">
+<span class="tikz-figure"><img class="tikz-light" src="media/generated/BehaviorNodeLibraryTikz.light.jpg" /><img class="tikz-dark" src="media/generated/BehaviorNodeLibraryTikz.dark.jpg" /></span>
+<figcaption>Available behavior node library in the RDX behavior editor.
+The menu is organized into creation entry points, reusable structural control nodes, specialized task and scene nodes, and primitive action nodes.</figcaption>
+</figure>
+<p>Here is a description of all node types:</p>
+<ul>
+<li>
+<p><strong>Action Sequence.</strong> Sequential backbone of a behavior. Groups child leaves into a named routine without adding execution logic beyond standard tree traversal.</p>
+</li>
+<li>
+<p><strong>Fallback.</strong> Splits child leaves into a primary try path and a recovery path. If the try path succeeds, recovery leaves are skipped; if it fails, execution jumps to the first catch leaf.</p>
+</li>
+<li>
+<p><strong>Condition.</strong> Tests that gate or redirect execution without commanding motion. Counters, frame-to-frame proximity checks, shape containment checks, and explicit success or failure cases.</p>
+</li>
+<li>
+<p><strong>Goto.</strong> Redirects execution to the next leaf or to a named target leaf elsewhere in the tree. Completes immediately, making retries, skips, and nonlocal jumps authorable at runtime.</p>
+</li>
+<li>
+<p><strong>Checkpoint.</strong> Instantaneous named landmarks. Provides stable entry points, progress markers, and jump targets for external triggers or goto-based control flow.</p>
+</li>
+<li>
+<p><strong>Scene Action.</strong> Manipulates behavior-time scene state rather than robot joints. Creates, refreshes, freezes, or deletes scene objects, clears the scene, or reconfigures detection and perception models.</p>
+</li>
+<li>
+<p><strong>Mimic Action.</strong> Replays a recorded policy trajectory or requests a transition out of policy control. Replay is aligned to the robot’s current mid-feet pose so the same recording can be reused from different starts.</p>
+</li>
+<li>
+<p><strong>AI2R.</strong> Connects the tree to an external reasoning module through command and status topics. Publishes available behaviors, scene state, and failures, and can randomize repeated goto actions for data collection.</p>
+</li>
+<li>
+<p><strong>Door Traversal.</strong> Domain-specific wrapper that inspects detected door geometry to choose the correct authored branch (closed versus ajar, push versus pull) and manages logging around specific walking segments.</p>
+</li>
+<li>
+<p><strong>Building Exploration.</strong> Structural hook for larger-scale exploration behaviors, with little node-specific runtime logic beyond standard tree update.</p>
+</li>
+<li>
+<p><strong>Neck Action.</strong> Commands head yaw and pitch over an authored duration for directing perception or the operator’s viewpoint.</p>
+</li>
+<li>
+<p><strong>Spine Action.</strong> Commands the torso by explicit spine joint angles or by an authored chest pose relative to a frame. Tracks joint or orientation error and can keep the torso pose anchored after completion.</p>
+</li>
+<li>
+<p><strong>Walk Action.</strong> Main locomotion primitive. Executes manually placed footsteps or planner-generated routes from waypoints and goal frames, with preview planning and runtime progress tracking.</p>
+</li>
+<li>
+<p><strong>Arm Action.</strong> Commands one arm using predefined joint targets or a palm pose relative to an authored frame. Solves IK, sends jointspace or hybrid commands, and monitors pose or joint error.</p>
+</li>
+<li>
+<p><strong>Screw Primitive Action.</strong> Expresses hand motion as translation and rotation along a screw axis attached to an object frame, useful for constrained interactions such as turning or sliding. Builds a smooth trajectory while enforcing velocity limits.</p>
+</li>
+<li>
+<p><strong>Pelvis Action.</strong> Adjusts body pose with an authored pelvis frame and duration to reshape reachability or stance.</p>
+</li>
+<li>
+<p><strong>Ability Hand Action.</strong> Commands the six-actuator Ability Hand using grip presets or explicit joint targets and velocities. Completion uses waiting, per-joint tolerance, or cumulative motion, and the node can wiggle the hand if a grasp stalls.</p>
+</li>
+<li>
+<p><strong>EZ Gripper Action.</strong> Commands the Sake gripper to a target opening with a grip-force limit. Checks calibration and aperture, then tracks knuckle motion until the requested configuration is reached.</p>
+</li>
+<li>
+<p><strong>Wait Action.</strong> Timed pause synchronized to robot time, useful for settling and for spacing controller requests.</p>
+</li>
+<li>
+<p><strong>Leg Action.</strong> Commands a single foot pose relative to an authored parent frame for direct swing-foot placement outside the full footstep planning pipeline.</p>
+</li>
+</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="6_defense_5_evaluation.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="6_current_architecture_5_generalized_door_traversal_behavior.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="references.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="6_current_architecture_7_behavior_scene.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -197,11 +267,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="6_defense_5_evaluation.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="6_current_architecture_5_generalized_door_traversal_behavior.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="references.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="6_current_architecture_7_behavior_scene.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
