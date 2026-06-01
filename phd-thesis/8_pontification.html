@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-193a6b4a.js";
+            window.path_to_searchindex_js = "searchindex-28a852c0.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-a65faefc.js"></script>
+        <script src="toc-3c6d0428.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -179,37 +179,41 @@
                     <main>
                         <p><span id="ch:pontification" label="ch:pontification"></span></p>
 <p>We are pretty happy with what we’ve been able to accomplish with a model based approach.
-The combination of DARPA Robotic Challenge inspired Coactive Design for humanoid robot operation, affordance templates, behavior trees, and a behavior-managed perception scene has proved to work very well.
-In a 10 year period of time we went from a 20 person team working tirelessly over years to get a robot doing 8 tasks via teleoperation, to essentially one person being able to setup a fully-autonomous multi-station ball sorting behavior in hours.</p>
+The combination of DARPA Robotics Challenge inspired Coactive Design for humanoid robot operation, affordance templates, behavior trees, and a behavior-managed perception scene has proved to work very well.
+In a 10 year period, we went from a 20 person team working tirelessly over years to get a robot doing 8 tasks via teleoperation, to essentially one person being able to set up a fully-autonomous multi-station ball sorting behavior in hours.</p>
 <p>Much of the field, and especially startup robotics companies, have now abandoned these fundamental approaches and have jumped ship for “end-to-end” learning.
 However, we are convinced that a lot of tasks can be solved both ways.
 In fact, with the increased prevalence of intelligent coding assistance, our more classical, model-based approach may even be able to keep pace with learned systems.</p>
 <h1 id="strong-points"><a class="header" href="#strong-points">Strong Points</a></h1>
 <p>We think our robot-local runtime-editable design is really the strongest success of our system.
-Running the compute locally robustifies the system by decoupling it from external digital distrurbances such as communications failures and compute failures on remote servers.
+Running the compute locally robustifies the system by decoupling it from external digital disturbances such as communications failures and compute failures on remote servers.
 Editing behaviors online has enabled rapid bringup of new behaviors and modification, composition, and extension of existing behaviors as we have shown.</p>
 <p>We also think we did well with the interface between the behavior system and the robot controller.
 The ability to schedule asynchronous footstep, arm, leg, spine, and neck commands enables a high level of behavioral expressiveness.
-It also supports the itegration of classical planners and AI assisted behavior composition.</p>
+It also supports the integration of classical planners and AI assisted behavior composition.</p>
 <p>The next most successful part of our system is probably the authorable behavior-time perception through scene actions.
 Perception systems have a lot of important and non-intuitive quality levels.
 Furthermore, these quality levels can vary with lighting, situation, and hardware differences.
 The metrics of quality include depth accuracy, semantic object detection confidence, latency, and frequency.
 Our design designates an expert human operator to evaluate and exploit available quality levels for each behavior situation to achieve the goal at hand.</p>
+<p>We also think a strong point of our system is its ability to be combined with learned systems.
+For example, as mentioned in <a href="4_story_of_building_and_architecture.html#ch:building">Building our Behavior Architecture</a>, we built an action node that executed a learned mimic policy, such as a dance or a door traversal walk through.
+More work in this direction could enable more robust door walkthroughs.
+We think this is a good way to get the best of both worlds for the time being.</p>
 <h1 id="weak-points"><a class="header" href="#weak-points">Weak Points</a></h1>
 <p>There are important caveats, however, with our current system.
 For one, our object-on-table manipulation demos center around a bottle pickup and balls.
 We haven’t cracked the nut on perceiving orientation of objects.
-This is why our premiere sorting demos use spherical balls.
+This is why our premier sorting demos use spherical balls.
 Since they are symmetrical objects, only position is required to grasp them from any direction.
 We can even sometimes grasp the balls while they are moving.
 We have preliminary results using FoundationPose for object orientation estimation, but it is not yet working well enough for repeatable tests.</p>
 <p>Another major weak point is the lack of support for executing sequence subtrees that return when they are done.
 This would solve two existing problems in the system.
-For one, it would solve the problem with having two of the same JSON file loaded in the tree at once.
-When you do this, changes to one aren’t reflected in the other and they can overwrite each other when saved.
+For one, it would solve the problem of having two of the same JSON file loaded in the tree at once.
+When the same JSON file is loaded twice in the tree, changes to one instance are not reflected in the other, and saving one can overwrite the other.
 If sequences can be run as a subtree and returned when done, identical subtrees throughout the system can be instantiated once instead of duplicated.</p>
-<p>Another problem we have had is being able to call a subroutine with one line.
+<p>We have also lacked the ability to call a subroutine with one line.
 In general, making the behavior tree mirror the structure of computer programs more would greatly increase the expressiveness of the system.
 We think a good strategy would be to keep thinking of the next most useful thing to add, guided by operator frustration in trying to create new behaviors.</p>
 <p>We also have a scaling problem with large trees, both in the view and in the data synchronization.
@@ -221,56 +225,56 @@ Second, for trees with a tall maximum depth, the behavior tree editor view entri
 We think both of these issues are very solvable.</p>
 <h1 id="natural-next-steps"><a class="header" href="#natural-next-steps">Natural Next Steps</a></h1>
 <p>Throughout this work, we really want to add force-based action primitives.
-You’ll even find a “wrench action” node, which was used to pick up boxes.
-Ultimately, we just didn’t have the bandwidth to be able to approach it from and controls perspective.</p>
+The codebase even includes a “wrench action” node, which was used to pick up boxes.
+Ultimately, we just didn’t have the bandwidth to approach it from a controls perspective.</p>
 <p>The wrench actions for box lifting worked only under very special circumstances.
-The way it worked was to depend on prior position based arm actions to get your hands on either side of the box.
+The way it worked was to depend on prior position based arm actions to place the hands on either side of the box.
 Then, the wrench action would command inwards accelerations for the hands to result in a force on the sides of the box.
 The wrench action was never completed with a termination condition, so it was always a hack when demonstrated.</p>
 <p>It would be a natural next step to develop a force-based action definition in combination with good support for it in the whole body controller.
 One area where we would like to use it is for turning door handles.
-Door handles have different spring constants and might require and torque based ramp if the handle isn’t moving.
+Door handles have different spring constants and might require a torque based ramp if the handle isn’t moving.
 A hybrid force-position action might do the trick well—force-controlled angular velocity along the screw trajectory until the end stop is hit.
-Lots of tasks, like opening drawers and sliding things against surfaces could take advantage of such an approach.</p>
+Lots of tasks, like opening drawers and sliding things against surfaces, could take advantage of such an approach.</p>
 <p>In general, force-controller primitives can be a more natural way to interact with the world.
 In fact, it can even be used as a form of proprioception.
-For example, when figuring our whether doors are push or pull and whether they are locked is not always visibly identifiable.
-A lot of the time, you just have to try pushing is various directions to figure out what is going on with articulated objects.</p>
+For example, whether doors are push or pull, and whether they are locked, is not always visually identifiable.
+One often has to try pushing in various directions to figure out what is going on with articulated objects.</p>
 <p>Another area of work that would be nice to explore would be grasp planning.
 We have seen that there may be some promising development in grasp planning, but haven’t explored it at all yet.
 For example, when going to operate tools designed for humans, it would be helpful and, we would think, feasible to plan a 5-finger grasp for them instead of having to manually specify finger configurations.</p>
 <p>The problem doesn’t have to be solved generally.
-For example, if the behavior authoring inteface was adapted to virtual or augmented reality, the user could simply use their hands to demonstrate an example grasp technique to seed the planner.</p>
-<p>Our screw primitive action, inspired by <a href="references.html#ref-Pettinger_2022">14</a>, is a very versatile manipulation planning abstraction.
+For example, if the behavior authoring interface was adapted to virtual or augmented reality, the user could simply use their hands to demonstrate an example grasp technique to seed the planner.</p>
+<p>Our screw primitive action, inspired by  <a href="references.html#ref-Pettinger_2022">14</a>, is a very versatile manipulation planning abstraction.
 We think there could be useful constructs like this that extend beyond positional sliding and turning.
 There may be interesting ways to model forces, torques, or the way objects can deform or move, using a similar approach.
-For example, there is some work like this on clothes folding where geometrical primitives are used to define folding patterns <a href="references.html#ref-Moletta2023VRClothFolding">83</a>.</p>
+For example, there is some work like this on clothes folding where geometrical primitives are used to define folding patterns  <a href="references.html#ref-Moletta2023VRClothFolding">83</a>.</p>
 <p>Another fruitful area to explore would be navigation.
 In the behaviors presented in this thesis, even for the “building exploration” ones, we didn’t ever form a map and plan from point A to point B.
 They were more like a slightly reactive scripting of which door to go through next, with some stand-in-place visual searches.
 Our building exploration demos have been limited to a maximum of 3 doors separating spaces in an open lab environment.
 The main reason for that is that we haven’t had a fully tetherless robot to work with yet, so we couldn’t take it into non-lab spaces.</p>
-<p>We think our approach for navigation would take a similar approach to our behavior-time scene: keep a behavior-local map that has authorable behavior-time interactions.
-This is because the behaviors are the primary consumer of this information and is the most informed about what it needs and when.
+<p>We think our approach to navigation would follow a similar pattern to our behavior-time scene: keep a behavior-local map that has authorable behavior-time interactions.
+This is because the behaviors are the primary consumer of this information and are the most informed about what they need and when.
 We would likely maintain very different map representations for different task levels.
 For navigating from room to room in a building, a topological graph structure would be the most useful.
 For traversing a space, a heightmap or octree might be the most useful.
 For locating objects in dense spaces, a detailed scene graph might be the most useful.
 It would be exciting and interesting to explore options for extending our behavior scene to include both maps and behavior specific planners.</p>
 <h1 id="why-not-fully-embrace-behavior-trees"><a class="header" href="#why-not-fully-embrace-behavior-trees">Why Not Fully Embrace Behavior Trees</a></h1>
-<p>One interesting part of this thesis is that we use a “behavior tree” architecture, but left out some of the key mechanisms from the literature version <a href="references.html#ref-2018_colledanchise">53</a>.
+<p>One interesting part of this thesis is that we use a “behavior tree” architecture, but left out some of the key mechanisms from the literature version  <a href="references.html#ref-2018_colledanchise">53</a>.
 The most important part of why is just that we built what appeared to work best for us.
-The other aspect is that the lone result from the literature just was’t that convicing <a href="references.html#ref-2023_centaur_bt">55</a>, being ultimately very slow and locomotion only.</p>
+The other aspect is that the lone result from the literature just wasn’t that convincing  <a href="references.html#ref-2023_centaur_bt">55</a>, being ultimately very slow and locomotion only.</p>
 <p>The reason we don’t tick from the root node is that, for authoring behavior at runtime, we have the robot in a particular configuration and doing a particular thing and we are trying to author a particular part.
 This means we want a “cursor”, just like in a text editor, that marks our current editing location.</p>
-<p>We do think you could potentially introduce the root node tick system for the autonomous mode.
-This has the prospect still of enabling the behavior to drastically change goals or strategies as basically any point in the behavior.
+<p>It may be beneficial to introduce the root node tick system for autonomous mode.
+This has the prospect still of enabling the behavior to drastically change goals or strategies at basically any point in the behavior.
 However, behavior trees don’t really address the full problem here, as the robot might be in a situation, such as when going through a door, that it can’t immediately get out of.
-Some things it really has to finish doing before aborting mission.
-Other places it needs to have a specific “abort mission” behavior that is very dependent on current robot and task configuration.</p>
+In dynamical situations, the robot really has to finish what it’s doing before aborting the mission.
+In these cases, it needs to execute specific “abort mission” behaviors that are very dependent on current robot and task configuration.</p>
 <p>This is where we guess Behavior Trees would suggest using the blackboard.
-However, the Behavior Tree blackboard is a completely unstructured design component and we would strive for a more formal mechnanism for doing things like this.
-A promising theory for this sort of reactivity includes sequential compositon <a href="references.html#ref-1999_burridge">52</a>.</p>
+However, the Behavior Tree blackboard is an unstructured design component and we would strive for a more formal mechanism for doing things like this.
+A promising theory for this sort of reactivity includes sequential composition  <a href="references.html#ref-1999_burridge">52</a>.</p>
 <h1 id="the-future"><a class="header" href="#the-future">The Future</a></h1>
 <p>We would like to see a near future where technical people can buy or build their own robots and put them towards useful work.
 To us, it is most convincing if the system is open source, understandable, and tinkerable.
@@ -278,11 +282,11 @@ We would like to be able to modify and extend the capabilities of personally own
 We think it is possible to build such a system using classical approaches for planning and control and simpler neural nets like YOLO and FoundationPose for vision.
 This is in direct contrast to where much of the industry is going.
 We imagine that if we extended our runtime-editable system to a portable device like an augmented reality headset, and with more development, we could author behaviors for common household chores and basic outdoor contracting work.
-It could be that the real world is too diverse for anything other than large-scale end-to-end learned systems, but we’d like to explore and try and find out where the boundaries between classical and learned systems really are.</p>
+It could be that the real world is too diverse for anything other than large-scale end-to-end learned systems, but we’d like to explore and try to find out where the boundaries between classical and learned systems really are.</p>
 <p>Given the above dream, we would definitely like to keep using our system into the future and keep expanding it to new capabilities and modalities.
 We are passionate about the approach taken in this thesis and think it has a bright future.
 A lot of smart people contributed to this system over more than a decade and we are honored to present such positive results.</p>
-<p>Thank you to the reader, for hanging in there for what turned out to be a very long thesis.
+<p>Thank you to the reader for hanging in there for what turned out to be a very long thesis.
 We hope we have sparked some interest in our unique approaches to problems and that you got some value out of it.
 Cheers!</p>
 <!-- PAGE-REFERENCES-START -->

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Concurrent Actions Example - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
+        <title>Fallback Mechanism Example - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
 
 
         <!-- Custom HTML head -->
@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-193a6b4a.js";
+            window.path_to_searchindex_js = "searchindex-28a852c0.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-a65faefc.js"></script>
+        <script src="toc-3c6d0428.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,115 +177,105 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="concurrent-actions-example"><a class="header" href="#concurrent-actions-example">Concurrent Actions Example</a></h1>
-<h2 id="behavior-timeline"><a class="header" href="#behavior-timeline">Behavior Timeline</a></h2>
-<figure id="fig:guide_sim_nonconcurrent">
-<img src="media/guide/2026-04-28 23-14-10_ConcurrentLayeringDemonstration-00.00.10.788.jpg" />
-<figcaption>The non-concurrent starting behavior for the concurrency example.
-A video of this demonstration is available at <a href="https://youtu.be/D53dKL-pgeo" class="uri">https://youtu.be/D53dKL-pgeo</a>.</figcaption>
+                        <h1 id="fallback-mechanism-example"><a class="header" href="#fallback-mechanism-example">Fallback Mechanism Example</a></h1>
+<figure id="fig:guide_sim_fallback">
+<img src="media/guide/2026-04-28 20-10-14_FallbackMechanismDemo-00.00.52.192.jpg" />
+<figcaption>The beginning of our fallback node demonstration.
+A video of this demonstration is available at <a href="https://youtu.be/mw4z4H4K9o0" class="uri">https://youtu.be/mw4z4H4K9o0</a>.</figcaption>
 </figure>
-<p>In this example, we’ll show how we can schedule arm motions while walking using our concurrent action layering system.
-<a href="#fig:guide_sim_nonconcurrent">1</a> shows a behavior we have already built and run as the non-concurrent starting place.
-In this tree, we have added the pre-existing “Go Home” skill from a file, which allows us to reset the robot to the home configuration.
-This home configuration has the arms down by the sides in a natural position.
-Then there is a checkpoint node and a savable concurrency demo behavior, with a walk action followed by two arm actions and an always failing “STOP” condition.</p>
-<p>Our behavior timeline feature is presented in the bottom right of <a href="#fig:guide_sim_nonconcurrent">1</a>.
-It is a rendering of an action sequence over time meant to help with understanding the timing and concurrency of behavior actions.
-Here, it shows the tree as executed with each node running sequentially.</p>
-<h2 id="execute-after-layering-mechanism"><a class="header" href="#execute-after-layering-mechanism">“Execute After” Layering Mechanism</a></h2>
-<p>Concurrent action layering is implemented simply through an “Execute after” field in each action.
-It is selectable via a drop down menu in the node settings, which offers every prior node as an option.
-By default this field is set to “Previous”, which is a dynamic reference to whatever node is immediately before.
-A dynamic “Beginning” reference is also available, which points to before the root node, though it may be removed because it is functionally the same as pointing to the ever-present root node.</p>
-<p>When the behavior is running in autonomous mode, it triggers action execution in order.
-When deciding whether to trigger execution of the next one, it first checks the referenced node to execute after.
-If the node to execute after is currently executing, the next node is not triggered.
-Importantly, action execution does not wait for any nodes that may be in between the “execute after” node and itself.
-This is important for scheduling concurrent actions freely.</p>
-<p>The full algorithm is more complicated because the behavior can also be run step-by-step by clicking the “Manually” button.
-There is also a checkbox for disabling concurrency in the user interface, which effectively treats all “Execute after” fields as “Previous”.
-Further complexity is added to handle the fallback node’s try and catch mechanism.
-We present pseudocode in <a href="#alg:simplified_execution">[alg:simplified_execution]</a> without the fallback part.</p>
-<h3 id="algorithm-simplified-action-execution-trigger-logic"><a class="header" href="#algorithm-simplified-action-execution-trigger-logic">Algorithm: Simplified Action Execution Trigger Logic</a></h3>
-<pre><code class="language-text">Function TickExecution(orderedLeaves, state):
-    # Halt if not autonomous and no manual step was requested
-    if not state.isAutonomous() and not state.isManualStepRequested():
-        return
-
-    nextIndex = state.getExecutionNextIndex()
-
-    for i in range(nextIndex, orderedLeaves.length):
-        node = orderedLeaves[i]
-
-        if node.isExecuting():
-            continue
-
-        # Determine the required dependency
-        afterIndex = node.getExecuteAfterIndex()
-        if not state.isConcurrencyEnabled():
-            afterIndex = i - 1  # Force sequential execution
-
-        # Break if the action to execute after is still executing
-        if afterIndex &gt;= 0 and orderedLeaves[afterIndex].isExecuting():
-            break
-
-        # Trigger execution and advance the index tracker
-        node.triggerExecution()
-        state.setExecutionNextIndex(i + 1)
-
-        # If running manually step-by-step, consume the step and halt
-        if not state.isAutonomous():
-            state.consumeManualStep()
-            break
-</code></pre>
-<h2 id="wait-nodes-and-dependencies"><a class="header" href="#wait-nodes-and-dependencies">Wait Nodes and Dependencies</a></h2>
-<figure id="fig:guide_sim_concurrent_waits">
-<img src="media/guide/2026-04-28 23-14-10_ConcurrentLayeringDemonstration-00.00.31.781.jpg" />
-<figcaption>Adding wait nodes after the walk action.
-A video of this demonstration is available at <a href="https://youtu.be/D53dKL-pgeo" class="uri">https://youtu.be/D53dKL-pgeo</a>.</figcaption>
+<p>Now we will cover fallback node operation.
+A fallback node is like an if-else statement, but since the if condition evaluation is performing an action, we call it a try-catch.
+A fallback node therefore has two parts: the try and the catch.
+Each part can contain one or more actions, however, unlike a Behavior Tree fallback node from the literature  <a href="references.html#ref-2018_colledanchise">53</a>, our fallback node has only one try clause and the catch clause is just an action sequence of unlimited length.</p>
+<p>We also support concurrent actions in the fallback node.
+To do this, we expand the try to contain the first concurrent action set.
+This could be one or more actions with the rule that they must execute together.
+If any action of the concurrent sequence fails, the try fails and the catch is executed once all try nodes are finished executing.
+Else, if the entire concurrent try set succeeds, the catch is skipped and the node after the fallback is next for execution.</p>
+<p>Our fallback node does not currently support nesting, but supporting it would be a desirable improvement.
+Nesting try-catch blocks could increase behavior expressiveness.
+In general, it would be good to look through the most used mechanisms in programming language and think about how they could be included as runtime-editable behavior elements.</p>
+<p>In <a href="#fig:guide_sim_fallback">1</a>, we have started on a fallback example demonstration, where we have added a fallback node and a try node.
+In this demonstration, we want to check if the right hand is raised to a certain position and raise it if it isn’t.
+Once the hand is raised, we will yaw the spine.
+To check the hand position, we have added a “shape contains” condition node as the try action and named it “Check hand”.</p>
+<h2 id="condition-nodes"><a class="header" href="#condition-nodes">Condition Nodes</a></h2>
+<p>We currently have six types of condition nodes: <code>ALWAYS_FAIL</code>, <code>ALWAYS_SUCCEED</code>, <code>COUNTER</code>, <code>LLM</code>, <code>PROXIMITY</code>, and <code>SHAPE_CONTAINS</code>.
+A condition node is different from an action in that it does not directly perform an action, but instead is responsible for making a decision resulting in success or failure.
+Success and failure for a condition node, however, have the same effect on behavior execution as actions: if the node succeeds, the behavior keeps going and, if the node fails, it halts execution by disabling autonomous mode.
+The exception is that when a node fails in the try part of a fallback node, the behavior keeps going by executing the catch.</p>
+<p>The “always succeed” and “always fail” condition node types are useful for testing and operation.
+The “always fail” node is especially useful if you want to test out a part of the behavior in autonomous mode but have it stop at a certain point.
+In this case, we’ll often add a temporary “always fail” condition node named “STOP”, as we did in <a href="6_tutorial_4_concurrent_actions_example.html#sec:wait_nodes_dependencies">[sec:wait_nodes_dependencies]</a>.</p>
+<p>The counter node maintains a persistent count and a tunable limit.
+Each time it is executed, the count is increased.
+If the count reaches the limit, the counter condition node fails.</p>
+<p>The LLM condition node provides the ability to query a large language model to determine success or failure.
+It has an authorable system prompt, repeated prompt, and boolean response matcher.
+We covered the LLM node in more detail near <a href="4_story_of_building_and_architecture_6_2024_2026_h1_2_5_fingers_manipulation_era.html#fig:2025_llm_condition_node">[fig:2025_llm_condition_node]</a>.</p>
+<p>The proximity node checks the distance between two behavior reference frames.
+If the distance is between the tunable minimum and maximum, the condition succeeds.
+We also covered the proximity node in some more detail near <a href="4_story_of_building_and_architecture_6_2024_2026_h1_2_5_fingers_manipulation_era.html#fig:2025_proximity_condition">[fig:2025_proximity_condition]</a>.</p>
+<p>For this example, we’ll use the shape contains condition node to check that the right hand frame is within the bounds of a sphere.
+In <a href="#fig:guide_sim_fallback">1</a>, our shape contains condition node is selected with the settings showing in the bottom-left.
+There are two modes for the shape contains condition: contains frame and contains points.
+We’ll be using contains frame in this example, but the contains points functionality, which counts the number of live point cloud points in the virtual shape, is covered near <a href="4_story_of_building_and_architecture_7_2026_alex_resilience_adaptability_era.html#fig:alex_shape_contains_condition">[fig:alex_shape_contains_condition]</a>.</p>
+<h2 id="shape-contains-frame-condition"><a class="header" href="#shape-contains-frame-condition">Shape Contains Frame Condition</a></h2>
+<p>In <a href="#fig:guide_sim_fallback">1</a>, you’ll see there are four main settings for the shape contains frame functionality.
+The shape parent frame, the shape pose, the sphere radius, and the frame to check containment of.
+We allow defining the shape’s pose with respect to any robot or object frame just like we do for actions.
+Checking the “Adjust Shape Pose” box enables the shape to be moved in the 3D view with a pose gizmo, as shown in the figure.
+Currently, just spheres are supported, but adding more types of shapes would be a good improvement.</p>
+<figure id="fig:guide_sim_fallback_arm">
+<img src="media/guide/2026-04-28 20-10-14_FallbackMechanismDemo-00.01.09.399.jpg" />
+<figcaption>Adding an arm action to the fallback catch.
+A video of this demonstration is available at <a href="https://youtu.be/mw4z4H4K9o0" class="uri">https://youtu.be/mw4z4H4K9o0</a>.</figcaption>
 </figure>
-<p>Our example behavior in <a href="#fig:guide_sim_nonconcurrent">1</a> starts out as a non-concurrent sequence of a short walk and two arm motions.
-Now we’ll change it so the arm motions are scheduled during the walk.
-In <a href="#fig:guide_sim_concurrent_waits">2</a>, we add two wait actions, one for 1 second and one for 2.5 seconds.
-These waits are used to schedule the arm motions.
-We’ll move the right arm 1 second into the walk and the left arm 2.5 seconds into the walk.</p>
-<figure id="fig:guide_sim_concurrent_execute_after">
-<img src="media/guide/2026-04-28 23-14-10_ConcurrentLayeringDemonstration-00.00.45.014.jpg" />
-<figcaption>Setting the execute after fields of the arm actions to point to the wait actions.
-A video of this demonstration is available at <a href="https://youtu.be/D53dKL-pgeo" class="uri">https://youtu.be/D53dKL-pgeo</a>.</figcaption>
+<p>Pairing this condition node with our fallback gives us a mechanism to react to an unknown state, like where the hand is.
+To robustify our behavior and apply corrective action if the hand is not where we want it, we will now add an arm action to the fallback catch, as shown in <a href="#fig:guide_sim_fallback_arm">2</a>.
+When we add the catch action, because it is not concurrent with the condition in the try, we see a thin horizontal line in the tree editor.
+This line, between the “Check hand” and “Arm action” nodes, shows us where the try-catch delineation is.</p>
+<h2 id="the-goto-node"><a class="header" href="#the-goto-node">The Goto Node</a></h2>
+<figure id="fig:guide_sim_fallback_while">
+<img src="media/guide/2026-04-28 20-10-14_FallbackMechanismDemo-00.01.19.837.jpg" />
+<figcaption>Adding a goto node to implement a while loop.
+A video of this demonstration is available at <a href="https://youtu.be/mw4z4H4K9o0" class="uri">https://youtu.be/mw4z4H4K9o0</a>.</figcaption>
 </figure>
-<p>The wait actions need to execute with the walk action, not after it.
-To accomplish this, we set the execute after fields of the wait actions to the “ConcurrencyDemo.json” sequence node.
-The sequence node is never executing, but pointing to it achieves the effect that the wait actions always start with the walk action.
-This method also keeps the sequence logic self contained and reusable, as opposed to referencing a specific node earlier than the sequence node.
-We then set the execute after field of the right arm action to the first wait action and the execute after field of the left arm action to the second wait action.
-In <a href="#fig:guide_sim_concurrent_execute_after">3</a>, we show setting the execute after field of the second arm action to the second wait action.</p>
-<p>The figure also shows the execute after pointers as arrows on the right side of the tree view that point up from the defining action to the dependency action.
-You can see four such arrows that overlap.
-When the mouse hovers over a node, the corresponding arrow boldens to make it easy to verify dependencies when they are partially overlapping.
-At this point in time, the timeline view is updated to show the general structure of the new behavior configuration.
-In this prototype implementation of the timeline view, all wait actions are rendered as 1 second long.
-When we run the behavior, the timeline is redrawn with the actual timings.
-We will do that now.</p>
-<h2 id="concurrent-result"><a class="header" href="#concurrent-result">Concurrent Result</a></h2>
-<figure id="fig:guide_sim_concurrent_result">
-<img src="media/guide/2026-04-28 23-14-10_ConcurrentLayeringDemonstration-00.01.02.903.jpg" />
-<figcaption>The concurrently executed result.
-A video of this demonstration is available at <a href="https://youtu.be/D53dKL-pgeo" class="uri">https://youtu.be/D53dKL-pgeo</a>.</figcaption>
+<p>To show how you can implement while-loop-like behavior, we add a goto node after the arm action in the fallback catch, as shown in <a href="#fig:guide_sim_fallback_while">3</a>.
+The goto node has a goto field that refers to another node by name.
+When the goto node is executed, the next execution index is set to that node.
+Here we have selected the “Fallback node” as the node to goto, which is a general way of saying to reexecute the try, as the “Fallback node” is a control node, not an action.
+When we point to control nodes, it’s effectively the same as pointing to the next action.</p>
+<p>Since we want to be able to save this goto reference by name in the JSON, there is the possibility of ambiguity in the node’s name.
+To handle the case when there are multiple nodes of the same name in the tree, we search for the node to goto by proximity to the goto node.
+The closest matching node is chosen with levels of priority: children recursively come first, then siblings, then parents recursively.
+Our choice of priority is somewhat arbitrary.
+We recommend using unique node names where possible to avoid this ambiguity.</p>
+<h2 id="reactive-fallback-demonstration"><a class="header" href="#reactive-fallback-demonstration">Reactive Fallback Demonstration</a></h2>
+<figure id="fig:guide_sim_fallback_end">
+<img src="media/guide/2026-04-28 20-10-14_FallbackMechanismDemo-00.01.45.770.jpg" />
+<figcaption>Completing our fallback demonstration by reactively moving the arm to the correct location and executing the spine yaw motion.
+A video of this demonstration is available at <a href="https://youtu.be/mw4z4H4K9o0" class="uri">https://youtu.be/mw4z4H4K9o0</a>.</figcaption>
 </figure>
-<p>In <a href="#fig:guide_sim_concurrent_result">4</a>, we show the result of executing our now concurrent behavior.
-The timeline has been updated to reflect the actual action start and stop times of the simulated behavior execution.
-As seen by comparing this timeline to the original, the behavior duration went from 11.7 seconds to 7.6 seconds, illustrating how this method can be used to speed up behaviors.</p>
+<p>Finally, we add our spine action to turn the spine 17 degrees to the left as shown in <a href="#fig:guide_sim_fallback_end">4</a>.
+Notice this node is not a child of the fallback node, but a sibling.
+We run through the behavior in the manual mode, inspecting the flow of execution.
+We run check hand, it fails, then the arm action runs to move the hand into the correct location.
+The goto node causes us to re-evaluate the check, which now succeeds, sending us on to the spine action, which executes successfully.</p>
+<!-- PAGE-REFERENCES-START -->
+<p><strong>References cited on this page</strong></p>
+<p><strong>[53]</strong> M. Colledanchise and P. “Ogren, <em>Behavior trees in robotics and AI: An introduction</em>. CRC Press, Taylor; Francis Group, 2018. doi: <a href="https://doi.org/10.1201/9780429489105">10.1201/9780429489105</a>.</p>
+<!-- PAGE-REFERENCES-END -->
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="5_tutorial_3_basic_example_move_the_arms_and_walk.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="6_tutorial_7_door_traversal_footstep_plan_example.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="5_tutorial_5_screw_primitives.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="6_tutorial_9_real_robot_example_repeated_door_opening.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -295,11 +285,11 @@ As seen by comparing this timeline to the original, the behavior duration went f
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="5_tutorial_3_basic_example_move_the_arms_and_walk.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="6_tutorial_7_door_traversal_footstep_plan_example.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="5_tutorial_5_screw_primitives.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="6_tutorial_9_real_robot_example_repeated_door_opening.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

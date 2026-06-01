@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-193a6b4a.js";
+            window.path_to_searchindex_js = "searchindex-28a852c0.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-a65faefc.js"></script>
+        <script src="toc-3c6d0428.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -184,21 +184,28 @@
 <h2 id="abstract-1"><a class="header" href="#abstract-1">Abstract</a></h2>
 <p>Humanoid robots could be used to take on physically demanding, hazardous, and repetitive work in spaces built for humans, including shipyards, energy infrastructure, construction sites, and factories.
 However, a useful robot for these spaces must coordinate locomotion, whole body motion, perception, contact, and operator supervision.
-In this thesis we present a system doing this via a behavior authoring and runtime system.
-Furthermore, we argue that behavior coordination architecture is itself a measurable design variable affecting the ability to readily acheive these tasks in the real world.
-Specifically, we argue that architecture implicates speed, robustness across task variation, and adaptation time when modifying a behavior for a new task.</p>
-<p>We present a robot-local editable behavior architecture in which trees of action primitives execute with layered concurrency on the robot, while an operator interface remains continuously synchronized for runtime authoring, monitoring, and repair.
-Action primitives are built on top of a whole body controller that supports manipulation while walking.
-Perception actions are authored inside the behavior so that detection and scene reasoning are scheduled with the rest of the task rather than configured globally.
-The architecture supports rapid authoring of new behaviors and reuse of existing subtrees across related tasks.</p>
-<p>Door traversal is used as the main benchmark task because it exposes the full coordination problem in a compact and repeatable setting, requiring approach walking, body placement, mechanism perception, grasp selection, handle actuation, interaction with a moving obstacle, and a transition back to locomotion.
-The behavior library developed during this work covers more than twenty real-robot task variants, including push and pull doors with knob, push-bar, and lever-handle mechanisms, multi-step exploration sequences, obstacle clearing and breaching, and reactive table-to-table manipulation tasks.
-Versions of the same behavior system were run on Nadia, Boston Dynamics DRC Atlas, IHMC’s fully electric Alex humanoid robot, and Unitree H1-2, which shows that the architecture is not tied to one platform.</p>
-<p>We evaluate the system on speed, reliability, variation coverage, and authoring effort.
-A push bar door traversal in 14 seconds and a reactive pick and place demonstration for 6 balls in 42 seconds establish our speed direction.
-For reliability, we tested 11 successful push approach-and-opening repetitions in a row and 12 successful pull approach-and-opening repetitions in a row on Alex, and 32 successful right pull openings in a row on Unitree H1-2.
-Measured authoring sessions show that new door behaviors can be created from an empty tree to the start of autonomous repeated-run testing in 31 minutes, and that a mirrored real-door adaptation reaches first success in under two hours, both without code recompilation or redeployment.
-We compare against prior IHMC baselines and selected door systems from the literature across speed, reliability, variation coverage, and authoring effort, with execution boundary and sensing assumptions reported alongside as part of each comparison.
+In this thesis, we present a way of doing this via a behavior authoring and runtime system.
+We argue that behavior architecture can be a primary enabler of robot capability, task execution speed, and reliability.
+We also argue that runtime editability of behaviors enables fast behavior creation, adaptation, extension, and combination.
+This means if the operator can “dream it” using the available behavior nodes, in a short amount of time, they can get the robot to “do it” repeatably, autonomously, and quickly.</p>
+<p>We present a robot-local, runtime-editable behavior architecture that is born from Coactive Design principles developed during the DARPA Robotics Challenge.
+In that regard, our system strives to be maximally observable, predictable, and directable.
+Our operator interface remains continuously synchronized for runtime authoring, monitoring, and repair.
+Our behavior structure is inspired by the Affordance Template Framework, using an object-centric approach to manipulation and action.
+Uniquely, we combine this with a control data structure inspired by Behavior Trees for behavior organization and runtime-editable reactive logic.
+We also take a runtime-editable approach to perception, implementing a behavior scene and primitive scene actions that live alongside our physical action primitives, which allows the human behavior author to work around context-dependent perception issues.</p>
+<p>Our action primitives are built on top of a whole body controller that supports moving the arms while walking.
+We achieve speed using a novel concurrent action layering algorithm.</p>
+<p>Door traversals are used as the main benchmark task because they expose the full coordination problem in a compact and repeatable setting.
+They require approach walking, body placement, mechanism perception, grasp selection, handle actuation, interaction with a moving obstacle, and a transition back to locomotion.</p>
+<p>The behavior library developed during this work covers more than twenty real-robot task variants, including push and pull doors with knob, push-bar, and lever-handle mechanisms, multi-step exploration sequences, obstacle clearing, and reactive table-to-table manipulation tasks.
+This behavior system has been deployed on many humanoid robots, such as Boston Dynamics’ DRC Atlas, NASA’s Valkyrie, IHMC and Boardwalk Robotics’ Nadia, Unitree’s H1-2, and IHMC’s Alex.</p>
+<p>We evaluate our system across capability, speed, reliability, and speed of behavior creation, adaptation, extension, and combination.
+We executed our fastest door traversal in 14 seconds and, in a manipulation demonstration, sorted 6 balls by color in 42 seconds under human disturbance.
+We demonstrated 11 successful push door approach-and-opening repetitions in a row and 12 successful pull door approach-and-opening repetitions in a row.
+Measured authoring sessions show that we can scratch-author new loco-manipulation behaviors such as push door traversal in hours.
+Our experiments also demonstrate that we can adapt, extend, and combine existing behaviors to create novel loco-manipulation behaviors in minutes or hours.
+Finally, we compare our results against measured results from the literature and find our approach to be competitive with the latest results from learned systems.
 Videos of the work presented in this dissertation are available online at <a href="https://www.youtube.com/playlist?list=PLJK5CTyotYqsfgfnXb-09YNFeBose6uEY">https://www.youtube.com/playlist?list=PLJK5CTyotYqsfgfnXb-09YNFeBose6uEY</a>.</p>
 <!-- AUTO-ABSTRACT-END -->
 

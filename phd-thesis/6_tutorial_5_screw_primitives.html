@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Fallback Mechanism Example - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
+        <title>Screw Primitives - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
 
 
         <!-- Custom HTML head -->
@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-193a6b4a.js";
+            window.path_to_searchindex_js = "searchindex-28a852c0.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-a65faefc.js"></script>
+        <script src="toc-3c6d0428.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,105 +177,95 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="fallback-mechanism-example"><a class="header" href="#fallback-mechanism-example">Fallback Mechanism Example</a></h1>
-<figure id="fig:guide_sim_fallback">
-<img src="media/guide/2026-04-28 20-10-14_FallbackMechanismDemo-00.00.52.192.jpg" />
-<figcaption>The beginning of our fallback node demonstration.
-A video of this demonstration is available at <a href="https://youtu.be/mw4z4H4K9o0" class="uri">https://youtu.be/mw4z4H4K9o0</a>.</figcaption>
+                        <h1 id="screw-primitives"><a class="header" href="#screw-primitives">Screw Primitives</a></h1>
+<h2 id="motion-model"><a class="header" href="#motion-model">Motion Model</a></h2>
+<figure id="fig:guide_sim_screw_primitive">
+<img src="media/guide/20260519_161800_ScrewPrimitive.jpg" />
+<figcaption>Tuning a screw primitive action.
+A video of this demonstration is available at <a href="https://youtu.be/NkX0Jo9TlYs" class="uri">https://youtu.be/NkX0Jo9TlYs</a>.</figcaption>
 </figure>
-<p>Now we will cover fallback node operation.
-A fallback node is like an if-else statement, but since the if condition evaluation is performing an action, we call it a try-catch.
-A fallback node therefore has two parts: the try and the catch.
-Each part can contain one or more actions, however, unlike a Behavior Tree fallback node from the literature <a href="references.html#ref-2018_colledanchise">53</a>, our fallback node has only one try clause and the catch clause is just an action sequence of unlimited length.</p>
-<p>We also support concurrent actions in the fallback node.
-To do this, we expand the try to contain the first concurrent action set.
-This could be one or more actions with the rule that they must execute together.
-If any action of the concurrent sequence fails, the try fails and the catch is executed once all try nodes are finished executing.
-Else, if the entire concurrent try set succeeds, the catch is skipped and the node after the fallback is next for execution.</p>
-<p>Our fallback node does not currently support nesting, but supporting it would be a desirable improvement.
-Nesting try-catch blocks could increase behavior expressiveness.
-In general, it would be good to look through the most used mechanisms in programming language and think about how they could be included as runtime-editable behavior elements.</p>
-<p>In <a href="#fig:guide_sim_fallback">1</a>, we have started on a fallback example demonstration, where we have added a fallback node and a try node.
-In this demonstration, we want to check if the right hand is raised to a certain position and raise it if it isn’t.
-Once the hand is raised, we will yaw the spine.
-To check the hand position, we have added a “shape contains” condition node as the try action and named it “Check hand”.</p>
-<h2 id="condition-nodes"><a class="header" href="#condition-nodes">Condition Nodes</a></h2>
-<p>We currently have six types of condition nodes: <code>ALWAYS_FAIL</code>, <code>ALWAYS_SUCCEED</code>, <code>COUNTER</code>, <code>LLM</code>, <code>PROXIMITY</code>, and <code>SHAPE_CONTAINS</code>.
-A condition node is different from an action in that it does not directly perform an action, but instead is responsible for making a decision resulting in success or failure.
-Success and failure for a condition node, however, have the same effect on behavior execution as actions: if the node succeeds, the behavior keeps going and, if the node fails, it halts execution by disabling autonomous mode.
-The exception is that when a node fails in the try part of a fallback node, the behavior keeps going by executing the catch.</p>
-<p>The “always succeed” and “always fail” condition node types are useful for testing and operation.
-The “always fail” node is especially useful if you want to test out a part of the behavior in autonomous mode but have it stop at a certain point.
-In this case, we’ll often add a temporary “always fail” condition node named “STOP”, as we did in <a href="5_tutorial_4_concurrent_actions_example.html#sec:wait_nodes_dependencies">[sec:wait_nodes_dependencies]</a>.</p>
-<p>The counter node maintains a persistent count and a tunable limit.
-Each time it is executed, the count is increased.
-If the count reaches the limit, the counter condition node fails.</p>
-<p>The LLM condition node provides the ability to query a large language model to determine success or failure.
-It has an authorable system prompt, repeated prompt, and boolean response matcher.
-We covered the LLM node in more detail near <a href="4_story_of_building_and_architecture_6_2024_2026_h1_2_5_fingers_manipulation_era.html#fig:2025_llm_condition_node">[fig:2025_llm_condition_node]</a>.</p>
-<p>The proximity node checks the distance between two behavior reference frames.
-If the distance is between the tunable minimum and maximum, the condition succeeds.
-We also covered the proximity node in some more detail near <a href="4_story_of_building_and_architecture_6_2024_2026_h1_2_5_fingers_manipulation_era.html#fig:2025_proximity_condition">[fig:2025_proximity_condition]</a>.</p>
-<p>For this example, we’ll use the shape contains condition node to check that the right hand frame is within the bounds of a sphere.
-In <a href="#fig:guide_sim_fallback">1</a>, our shape contains condition node is selected with the settings showing in bottom left.
-There are two modes for the shape contains condition: contains frame and contains points.
-We’ll be using contains frame in this example, but the contains points functionality, which counts the number of live point cloud points in the virtual shape, is covered near <a href="4_story_of_building_and_architecture_7_2026_alex_resilience_adaptability_era.html#fig:alex_shape_contains_condition">[fig:alex_shape_contains_condition]</a>.</p>
-<h2 id="shape-contains-frame-condition"><a class="header" href="#shape-contains-frame-condition">Shape Contains Frame Condition</a></h2>
-<p>In <a href="#fig:guide_sim_fallback">1</a>, you’ll see there are four main settings for the shape contains frame functionality.
-The shape parent frame, the shape pose, the sphere radius, and the frame to check containment of.
-We allow defining the shape’s pose with respect to any robot or object frame just like we do for actions.
-Checking the “Adjust Shape Pose” box enables the shape to be moved in the 3D view with a pose gizmo, as shown in the figure.
-Currently, just spheres are supported, but adding more types of shapes would be a good improvement.</p>
-<figure id="fig:guide_sim_fallback_arm">
-<img src="media/guide/2026-04-28 20-10-14_FallbackMechanismDemo-00.01.09.399.jpg" />
-<figcaption>Adding an arm action to the fallback catch.
-A video of this demonstration is available at <a href="https://youtu.be/mw4z4H4K9o0" class="uri">https://youtu.be/mw4z4H4K9o0</a>.</figcaption>
-</figure>
-<p>Pairing this condition node with our fallback gives us a mechanism to react to an unknown state, like where the hand is.
-To robustify our behavior and apply corrective action if the hand is not where we want it, we will now add am arm action to the fallback catch, as shown in <a href="#fig:guide_sim_fallback_arm">2</a>.
-When we add the catch action, because it is not concurrent with the condition in the try, we see a thin horizontal line in the tree editor.
-This line, between the “Check hand” and “Arm action” nodes, shows us where the try-catch delineation is.</p>
-<h2 id="the-goto-node"><a class="header" href="#the-goto-node">The Goto Node</a></h2>
-<figure id="fig:guide_sim_fallback_while">
-<img src="media/guide/2026-04-28 20-10-14_FallbackMechanismDemo-00.01.19.837.jpg" />
-<figcaption>Adding a goto node to implement a while loop.
-A video of this demonstration is available at <a href="https://youtu.be/mw4z4H4K9o0" class="uri">https://youtu.be/mw4z4H4K9o0</a>.</figcaption>
-</figure>
-<p>To show how you can implement while-loop-like behavior, we add a goto node after the arm action in the fallback catch, as shown in <a href="#fig:guide_sim_fallback_while">3</a>.
-The goto node has a goto field that refers to another node by name.
-When the goto node is executed, the next execution index is set to that node.
-Here we have selected the “Fallback node” as the node to goto, which is a general way of saying to reexecute the try, as the “Fallback node” is a control node, not an action.
-When we point to control nodes, it’s effectively the same as pointing to the next action.</p>
-<p>Since we want to be able to save this goto reference by name in the JSON, there is the possibility of ambiguity in the node’s name.
-To handle the case when there are multiple nodes of the same name in the tree, we search for the node to goto by proximity to the goto node.
-The closest matching node is chosen with levels of priority: children recursively come first, then siblings, then parents recursively.
-Our choice of priority is somewhat arbitrary.
-We recommend using unique node names where possible to avoid this ambiguity.</p>
-<h2 id="reactive-fallback-demonstration"><a class="header" href="#reactive-fallback-demonstration">Reactive Fallback Demonstration</a></h2>
-<figure id="fig:guide_sim_fallback_end">
-<img src="media/guide/2026-04-28 20-10-14_FallbackMechanismDemo-00.01.45.770.jpg" />
-<figcaption>Completing our fallback demonstration by reactively moving the arm to the correct location and executing the spine yaw motion.
-A video of this demonstration is available at <a href="https://youtu.be/mw4z4H4K9o0" class="uri">https://youtu.be/mw4z4H4K9o0</a>.</figcaption>
-</figure>
-<p>Finally, we add our spine action to turn the spine 17 degrees to the left as shown in <a href="#fig:guide_sim_fallback_end">4</a>.
-Notice this node is not a child of the fallback node, but a sibling.
-We run through the behavior in the manual mode, inspecting the flow of execution.
-We run check hand, it fails, then the arm action runs to move the hand into the correct location.
-The goto node causes us to re-evaluate the check, which now succeeds, sending us on to the spine action, which executes successfully.</p>
+<p><a href="#fig:guide_sim_screw_primitive">1</a> shows a screw primitive action being authored.
+Our screw primitive action is inspired by Pettinger’s 2022 paper  <a href="references.html#ref-Pettinger_2022">14</a> but differs in implementation.</p>
+<p>Our screw primitive action is defined relative to a user-defined screw reference frame, where the axis of the screw is strictly aligned with the local x-axis (<script type="math/tex">\hat{\mathbf{x}}</script>).
+The motion is parameterized by a total axial translation <script type="math/tex">\Delta x</script> and a total rotation <script type="math/tex">\Delta \theta</script>.
+<a href="#fig:guide_sim_screw_primitive">1</a> illustrates one parameterization for reference and the reference video shows varied parameterizations.</p>
+<p>Let the initial position of the end-effector in the screw frame be <script type="math/tex">\mathbf{p}_0 = [x_0, y_0, z_0]^T</script>.
+The radial distance <script type="math/tex">r</script> from the screw axis to the end-effector is calculated by projecting the position onto the y-z plane:</p>
+<script type="math/tex; mode=display">
+r = \sqrt{y_0^2 + z_0^2}
+</script>
+<p>To compute motion bounds, the total Euclidean distance traversed by the end-effector, <script type="math/tex">D</script>, combines both the axial displacement and the tangential arc length:</p>
+<script type="math/tex; mode=display">
+D = \sqrt{(r \Delta \theta)^2 + (\Delta x)^2}
+</script>
+<p>The trajectory duration is determined by enforcing maximum velocity limits.
+Given a maximum linear velocity <script type="math/tex">v_{max}</script> and maximum angular velocity <script type="math/tex">\omega_{max}</script>, the base duration <script type="math/tex">T_{base}</script> required to complete the motion is dominated by the most restrictive bound:</p>
+<script type="math/tex; mode=display">
+T_{base} = \max\left( \frac{|\Delta \theta|}{\omega_{max}}, \frac{D}{v_{max}} \right)
+</script>
+<p>The trajectory is discretized into <script type="math/tex">N</script> waypoints (where <script type="math/tex">N</script> is limited by the system’s trajectory buffer size), yielding <script type="math/tex">N-1</script> segments.
+The nominal duration of a single segment is:</p>
+<script type="math/tex; mode=display">
+\delta t = \frac{T_{base}}{N - 1}
+</script>
+<p>To account for smooth acceleration and deceleration without requiring complex spline generation, the implementation applies a temporal boundary condition: the duration of the first and last trajectory segments is doubled (i.e., <script type="math/tex">2\delta t</script>), while all intermediate segments retain duration <script type="math/tex">\delta t</script>.
+Consequently, the total movement duration expands to <script type="math/tex">T = T_{base} + 2\delta t</script>.</p>
+<h2 id="trajectory-construction"><a class="header" href="#trajectory-construction">Trajectory Construction</a></h2>
+<p>The trajectory maintains constant base velocities throughout the central portion of the motion.
+The scalar velocities are derived from the base duration:</p>
+<ul>
+<li>
+<p>Axial velocity: <script type="math/tex">v_a = \frac{\Delta x}{T_{base}}</script></p>
+</li>
+<li>
+<p>Tangential velocity: <script type="math/tex">v_t = \frac{r \Delta \theta}{T_{base}}</script></p>
+</li>
+<li>
+<p>Rotational velocity: <script type="math/tex">\omega_x = \frac{\Delta \theta}{T_{base}}</script></p>
+</li>
+</ul>
+<p>At any intermediate waypoint <script type="math/tex">i</script>, let the current position of the end-effector in the screw frame be <script type="math/tex">\mathbf{p}_i = [x_i, y_i, z_i]^T</script>. The purely radial vector is <script type="math/tex">\mathbf{r}_{\perp, i} = [0, y_i, z_i]^T</script>.</p>
+<p>The unit tangent vector <script type="math/tex">\mathbf{u}_{t,i}</script> describing the instantaneous direction of rotation is found via the cross product of the screw axis and the radial vector:</p>
+<script type="math/tex; mode=display">
+\mathbf{u}_{t,i} = \frac{\hat{\mathbf{x}} \times \mathbf{r}_{\perp, i}}{\|\hat{\mathbf{x}} \times \mathbf{r}_{\perp, i}\|}
+</script>
+<p>The spatial velocity commands at waypoint <script type="math/tex">i</script>, expressed in the local screw frame, are formulated as:</p>
+<script type="math/tex; mode=display">
+\mathbf{v}_i = v_a \hat{\mathbf{x}} + v_t \mathbf{u}_{t,i}
+</script>
+<script type="math/tex; mode=display">
+\boldsymbol{\omega}_i = \omega_x \hat{\mathbf{x}}
+</script>
+<p>Note that for the initial (<script type="math/tex">t=0</script>) and final (<script type="math/tex">t=T</script>) waypoints, the spatial velocities are strictly clamped to zero.</p>
+<p>The rigid-body poses are iteratively generated by applying incremental transformations in the screw frame. For <script type="math/tex">K</script> total segments (determined by spatial resolution limits), the incremental roll rotation <script type="math/tex">\delta \theta = \Delta \theta / K</script> and translation <script type="math/tex">\delta x = \Delta x / K</script> are calculated.</p>
+<p>The pose of the end-effector at step <script type="math/tex">k</script>, denoted as <script type="math/tex">\mathbf{T}_k \in SE(3)</script>, is generated by prepending the incremental transformation to the previous pose:</p>
+<script type="math/tex; mode=display">
+\mathbf{T}_k = \mathbf{T}_{k-1} \begin{bmatrix} \mathbf{R}_x(\delta \theta) & \begin{bmatrix} \delta x \\ 0 \\ 0 \end{bmatrix} \\ \mathbf{0}^T & 1 \end{bmatrix}
+</script>
+<p>This sequence of generated poses and spatial velocities is finally fed into an inverse kinematics solver to compute the joint-space trajectories.</p>
+<h2 id="tuning-and-preview"><a class="header" href="#tuning-and-preview">Tuning and Preview</a></h2>
+<p>As seen in <a href="#fig:guide_sim_screw_primitive">1</a>, the total axial translation, total rotation, max linear velocity, and max angular velocity can be specified using sliders.
+The 3D trajectory visualization is updated in real time as the user drags these sliders to help dial in the motion.
+As with the single pose trajectory arm action, the screw primitive has settings for the position and orientation tolerance.
+If the final goal pose is not reached within these tolerances, the action fails.</p>
+<p>In order to provide a rich intuition about the motion, there is also a motion preview slider for the screw primitive.
+The slider may be dragged manually or played back at real time speed in a loop.
+The arm is blue when the IK solution is good and red when it is bad.
+The behavior author should strive to keep it blue throughout the motion.</p>
 <!-- PAGE-REFERENCES-START -->
 <p><strong>References cited on this page</strong></p>
-<p><strong>[53]</strong> M. Colledanchise and P. “Ogren, <em>Behavior trees in robotics and AI: An introduction</em>. CRC Press, Taylor; Francis Group, 2018. doi: <a href="https://doi.org/10.1201/9780429489105">10.1201/9780429489105</a>.</p>
+<p><strong>[14]</strong> A. Pettinger, F. Alambeigi, and M. Pryor, “A versatile affordance modeling framework using screw primitives to increase autonomy during manipulation contact tasks,” <em>IEEE Robotics and Automation Letters</em>, vol. 7, no. 3, pp. 7224–7231, 2022, doi: <a href="https://doi.org/10.1109/LRA.2022.3181732">10.1109/LRA.2022.3181732</a>.</p>
 <!-- PAGE-REFERENCES-END -->
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="5_tutorial_7_door_traversal_footstep_plan_example.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="6_tutorial_4_concurrent_actions_example.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="5_tutorial_9_real_robot_example_repeated_door_opening.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="6_tutorial_6_behavior_scene_management_example.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -285,11 +275,11 @@ The goto node causes us to re-evaluate the check, which now succeeds, sending us
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="5_tutorial_7_door_traversal_footstep_plan_example.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="6_tutorial_4_concurrent_actions_example.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="5_tutorial_9_real_robot_example_repeated_door_opening.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="6_tutorial_6_behavior_scene_management_example.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

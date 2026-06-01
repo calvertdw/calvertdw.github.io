@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-193a6b4a.js";
+            window.path_to_searchindex_js = "searchindex-28a852c0.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-a65faefc.js"></script>
+        <script src="toc-3c6d0428.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -189,7 +189,6 @@ Pipelines allowed a level of hard-coded action concurrency by branching out into
 This enabled us to perform behaviors such as pull-door traversals (<a href="#fig:door_diagram">1</a>) and autonomous ball pickup behaviors.
 These behaviors were slow in the several minutes range for door traversals and maybe 5 to 10 minutes for picking up colored balls off the floor.
 They were performed with the Boston Dynamics DRC Atlas.</p>
-<h2 id="perception-limits"><a class="header" href="#perception-limits">Perception Limits</a></h2>
 <figure id="fig:door_diagram">
 <img src="media/atlas/DoorBehaviorDiagram.png" />
 <figcaption>The door traversal behavior hierarchical state machine from the 2019 era.
@@ -197,6 +196,7 @@ This behavior was hard-coded in Java.
 A video of a 2018 door behavior is available at <a href="https://youtu.be/-XBlT1H8ZZ4" class="uri">https://youtu.be/-XBlT1H8ZZ4</a>.
 </figcaption>
 </figure>
+<h2 id="system-limits"><a class="header" href="#system-limits">System Limits</a></h2>
 <p>Perception was a big limitation in these behaviors.
 We relied on a MultiSense SL lidar scanner which took some time to spin around and gather sufficient data.
 We also didn’t have good software for buffering and querying the point cloud quickly.
@@ -204,7 +204,7 @@ This made it difficult to achieve fast behavior based on perception.</p>
 <p>Another key limitation was the architecture.
 The behaviors were coded by hand, with magic numbers in the code defining the poses of the hands and footsteps relative to objects.
 This meant that iterating on behaviors required code changes for every tweak.
-In practice, this was done by running the behavior off-board on the operator computer and using a code-reloading tool called JRebel <a href="references.html#ref-kabanov2014thousand">79</a>, <a href="references.html#ref-jrebel">80</a>.
+In practice, this was done by running the behavior off-board on the operator computer and using a code-reloading tool called JRebel  <a href="references.html#ref-kabanov2014thousand">79</a>, <a href="references.html#ref-jrebel">80</a>.
 The iteration loop required magic number tweaking, code commenting, reordering, and restructuring.
 This authoring process was an unguided expert code tweaking exercise.</p>
 <h2 id="autonomous-locomotion-with-javafx-uis"><a class="header" href="#autonomous-locomotion-with-javafx-uis">Autonomous Locomotion with JavaFX UIs</a></h2>
@@ -216,7 +216,7 @@ A video is available at <a href="https://youtu.be/cwnrZzzueFA" class="uri">https
 (May 2019)</figcaption>
 </figure>
 <p>In 2017 and 2018, we started to develop more planning and perception capability, but using a separate UI framework from the DRC UI.
-We developed an A* footstep planner <a href="references.html#ref-griffin2019footstepplanner">27</a> and a planar region segmentation perception algorithm <a href="references.html#ref-Bertrand_2020">28</a> that worked together.
+We developed an A* footstep planner  <a href="references.html#ref-griffin2019footstepplanner">27</a> and a planar region segmentation perception algorithm  <a href="references.html#ref-Bertrand_2020">28</a> that worked together.
 Using the MultiSense SL lidar scanner, we could wait for 20 seconds or so, pool an octomap terrain representation, segment it into planar regions, and plan footsteps over it.
 This facilitated a leap in robot autonomy.
 The robot was now able to traverse sections of rough terrain autonomously, as shown in <a href="#fig:rough_terrain_autonomy_atlas">2</a> and <a href="#fig:rough_terrain_autonomy_sim">3</a>.</p>
@@ -229,7 +229,7 @@ It allowed for manual or automatic waypoint placement represented as the yellow 
 The operator could execute one step at a time or allow automatic execution.
 The current state was rendered in the UI for monitoring.
 On the bottom right, direct robot management controls can be seen alongside planar regions and perception operations.
-REA stands for Robot Environment Awareness [28](references.md#ref-Bertrand_2020), which is the module that generates planar regions from the MultiSense SL lidar scanner.
+REA stands for Robot Environment Awareness  [28](references.md#ref-Bertrand_2020), which is the module that generates planar regions from the MultiSense SL lidar scanner.
 The clear function was used by the operator and the behavior to maintain usable planar regions, as the data would get messy or stale.
 This also highlights the JavaFX behavior user interface at the time. (May 2019)
 A video is available at <a href="https://youtu.be/MHvjn6B9hQ4" class="uri">https://youtu.be/MHvjn6B9hQ4</a>.

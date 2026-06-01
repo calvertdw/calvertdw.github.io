@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-193a6b4a.js";
+            window.path_to_searchindex_js = "searchindex-28a852c0.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-a65faefc.js"></script>
+        <script src="toc-3c6d0428.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -197,12 +197,12 @@ In the challenge, Team IHMC used a hybrid operator interface comprised of two 3D
 <figcaption>The IHMC DRC operator interface during the Valve Task in the DARPA Robotics Challenge Finals.
 On the left side, a virtual valve has been placed in the scene on top of the point cloud to register the task.
 On the right side the current and next hand poses can be seen as two separate graphics.
-Also, the control gizmo for the hand can be seen as the large colored torii that revolve around the hand.
+Also, the control gizmo for the hand can be seen as the large colored tori that revolve around the hand.
 A video is available at <a href="https://youtu.be/TstdKAvPfEs" class="uri">https://youtu.be/TstdKAvPfEs</a>.
 </figcaption>
 </figure>
 <p>The DRC UI introduced a lot of highly useful user interface mechanisms for managing a humanoid robot in accomplishing tasks.
-It was based on the Java Swing <a href="references.html#ref-Java_Swing">11</a> widget library and jMonkeyEngine <a href="references.html#ref-jMonkeyEngine">12</a> for the 3D graphics engine.
+It was based on the Java Swing  <a href="references.html#ref-Java_Swing">11</a> widget library and jMonkeyEngine  <a href="references.html#ref-jMonkeyEngine">12</a> for the 3D graphics engine.
 The DRC UI had a collection of competition-hardened interaction features that worked very well for operating humanoid robots.
 These included a unique 3D scene camera control and orbit system, quick access buttons with icons, 3D interactable pose gizmos, virtual modifiable plan footsteps, a walk path control ring, sliders for head and spine joint-space commands, virtual object placement, and object action templates.</p>
 <figure id="fig:drc_ui_door_task">
@@ -216,21 +216,21 @@ On the right, the virtual door modifiable has been placed at the pose of the rea
 The small red arc shows the door panel edge arc if it were to swing open.</figcaption>
 </figure>
 <p>Gizmo has become a colloquial term in robotics to describe a virtual interactable 3D set of widgets that assist a user in defining or modifying a 3D position, orientation, or pose.
-There are a few implementations out there such as in RViz <a href="references.html#ref-Rviz">9</a> and ImGuizmo <a href="references.html#ref-Imguizmo">10</a>, with a representative MoveIt pose-gizmo example shown in <a href="#fig:rviz_gizmo">3</a>.
-The DRC UI featured a custom one built by John Carff in jMonkeyEngine (JME) using colored torii for controlling orientation.
+There are a few implementations out there such as in RViz  <a href="references.html#ref-Rviz">9</a> and ImGuizmo  <a href="references.html#ref-Imguizmo">10</a>, with a representative MoveIt pose-gizmo example shown in <a href="#fig:rviz_gizmo">3</a>.
+The DRC UI featured a custom one built by John Carff in jMonkeyEngine (JME) using colored tori for controlling orientation.
 The DRC UI gizmo was mainly controlled by keyboard shortcuts, with the F keys being used to select the axis and the arrow keys being used to move the gizmo along or about that axis.
 It featured orientation and position control and was used to specify poses of the virtual interactable objects such as hands, footsteps, torso motions, and scene objects.</p>
 <h2 id="virtually-placeable-objects"><a class="header" href="#virtually-placeable-objects">Virtually Placeable Objects</a></h2>
 <figure id="fig:rviz_gizmo">
 <img src="media/atlas/rviz_plugin_visualize_robots.jpg" />
-<figcaption>A still from the MoveIt tutorial [3](references.md#ref-MoveIt_quickstart_rviz_tutorial) showing the red, green, and blue pose gizmo used to move the robot’s end effector.
+<figcaption>A still from the MoveIt tutorial  [3](references.md#ref-MoveIt_quickstart_rviz_tutorial) showing the red, green, and blue pose gizmo used to move the robot’s end effector.
 The user can drag the circular planes to reorient the pose and drag the arrows to translate it.</figcaption>
 </figure>
 <p>Virtually placeable objects included a door, a hand drill, and variable-sized valves.
 These virtually placed objects had hand-coded, steppable action scripts in code that were executable with respect to the object.
-This was very similar, unknowingly, to the Affordance Template framework being designed at TracLabs at around the same time by Steve Hart <a href="references.html#ref-Hart_2014">19</a>.
+This was very similar, unknowingly, to the Affordance Template framework being designed at TracLabs at around the same time by Steve Hart  <a href="references.html#ref-Hart_2014">19</a>.
 Hart’s use of the word affordance was to establish a moniker for the concept of reusable behaviors for common things you might encounter in the environment.
-The word affordance comes from Gibson’s book, <em>The Ecological Approach to Visual Perception</em> <a href="references.html#ref-Gibson_1979">20</a>.
+The word affordance comes from Gibson’s book, <em>The Ecological Approach to Visual Perception</em>  <a href="references.html#ref-Gibson_1979">20</a>.
 It is used in the sense that an environmental feature affords an action.
 For example, the ground is an affordance for walking and a handle is an affordance for turning.</p>
 <h2 id="scripted-behaviors"><a class="header" href="#scripted-behaviors">Scripted Behaviors</a></h2>
@@ -242,7 +242,7 @@ Tasks were aligned to the scene manually by the operator using the point cloud a
 <img src="media/atlas/IHMC DRC Finals Run June 6th_EgressScripting.jpg" />
 <figcaption>The IHMC DRC operator interface during the Car Egress Task in the DARPA Robotics Challenge Finals.
 This is an example of a scripted behavior.
-The current state is "A7_tiltLateral" as seen in the bottom right.
+The current state is “A7_tiltLateral” as seen in the bottom right.
 Scripts were loadable and savable locally to the operator computer.
 Script actions could be previewed before executing them.
 A video is available at <a href="https://youtu.be/TstdKAvPfEs" class="uri">https://youtu.be/TstdKAvPfEs</a>.

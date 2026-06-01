@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-193a6b4a.js";
+            window.path_to_searchindex_js = "searchindex-28a852c0.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-a65faefc.js"></script>
+        <script src="toc-3c6d0428.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -179,14 +179,14 @@
                     <main>
                         <h1 id="hypothesis-1-fast-loco-manipulation-behaviors"><a class="header" href="#hypothesis-1-fast-loco-manipulation-behaviors">Hypothesis 1: Fast Loco-Manipulation Behaviors</a></h1>
 <p>To support our first hypothesis, we’ll present the demonstrations that highlight the system’s capabilities and breadth while also executing with high speed relative to prior and comparative works.
-This section also includes demonstration of the reliability when repeated and resilience to external disturbances when trying to traverse doors and pick and place objects.</p>
+This section also includes demonstrations of repeated-run reliability and resilience to external disturbances when trying to traverse doors and pick and place objects.</p>
 <h2 id="speed-and-capability-evidence"><a class="header" href="#speed-and-capability-evidence">Speed and Capability Evidence</a></h2>
 <p>In <a href="#fig:in_house_speed_phase_timeline">1</a>, we present a representative sample of our loco-manipulation behaviors.
-This table shows that our door behaviors were very slow on atlas, over a minute, when we had hard-coded behaviors.
+This figure shows that our door behaviors were very slow on Atlas, over a minute, when we had hard-coded behaviors.
 Door behaviors were drastically sped up on Nadia with runtime-editable structure and concurrent action layering.
-Later on Alex, we demonstate new manipulation tasks and locomotion transitions that are in the same seconds and minutes speed regime.</p>
+Later on Alex, we demonstrate new manipulation tasks and locomotion transitions in the same speed regime of seconds to minutes.</p>
 <p>In the figure, the rows are color coded to show different phases of the behaviors.
-For door behaviors, it shows approach, opening, and traversal phases and for loco-manipulation behaviors it shows walking and manipulation phases.
+For door behaviors, it shows approach, opening, and traversal phases, and for loco-manipulation behaviors it shows walking and manipulation phases.
 Triangle and square markers indicate object grasps and placements.
 The dashed vertical line marks the fastest IHMC door traversal on record (14 s, Nadia 2024 left push-bar).</p>
 <figure id="fig:in_house_speed_phase_timeline">
@@ -263,9 +263,9 @@ Videos are available at <a href="https://youtu.be/V8jMvhVdP8k" class="uri">https
 </div>
 
 <p><span id="tab:pick_and_place_execution_2023" label="tab:pick_and_place_execution_2023"></span></p>
-<h3 id="14s-nadia-left-push-bar-traversal"><a class="header" href="#14s-nadia-left-push-bar-traversal">14s Nadia Left Push-Bar Traversal</a></h3>
+<h3 id="14-s-nadia-left-push-bar-traversal"><a class="header" href="#14-s-nadia-left-push-bar-traversal">14 s Nadia Left Push-Bar Traversal</a></h3>
 <p>Our fastest door traversal ever was on March 15, 2024, and is presented in <a href="#fig:20240315_NadiaLeftPushBarWithCloserContinuousWalking">5</a>.
-This behavior walked continuously during this behavior, using concurrent arm actions to open the push bar door during the traversal.
+The robot walked continuously during this run, using concurrent arm actions to open the push bar door during the traversal.
 Timestamps are presented in <a href="#tab:nadia_left_push_bar_event_timeline">3</a>.</p>
 <figure id="fig:20240315_NadiaLeftPushBarWithCloserContinuousWalking">
 <img src="media/nadia/20240315_NadiaLeftPushBarWithCloserContinuousWalking.jpg" style="height:32.0%" />
@@ -388,7 +388,7 @@ A video is available at <a href="https://youtu.be/D0gylAJEdZw" class="uri">https
 <tr><td style="text-align: center">7:00</td><td style="text-align: left">Starts pushing door 3 (left push bar) open to go back through.</td></tr>
 <tr><td style="text-align: center">7:12</td><td style="text-align: left">Clears door 3.</td></tr>
 <tr><td style="text-align: center">7:31</td><td style="text-align: left">Moves couch out of the way; finds object.</td></tr>
-<tr><td style="text-align: center">7:45</td><td style="text-align: left">Salute behavior and end demo.</td></tr>
+<tr><td style="text-align: center">7:45</td><td style="text-align: left">Salute behavior; end of demo.</td></tr>
 </tbody>
 </table>
 </div>
@@ -583,9 +583,9 @@ A video is available at <a href="https://youtu.be/KxIihoDiMtc" class="uri">https
 <p><span id="tab:alex_two_table_sorting_event_timeline" label="tab:alex_two_table_sorting_event_timeline"></span></p>
 <h3 id="nadia-door-traversal-progress-curves"><a class="header" href="#nadia-door-traversal-progress-curves">Nadia Door-Traversal Progress Curves</a></h3>
 <p><a href="#fig:DoorTraversalTimingsSpeed">13</a> illustrates representative forward progress curves for door traversals on Nadia, showing the difference between push and pull doors.
-Pull doors can take longer because you need to avoid the panel as it opens toward you.</p>
+Pull doors can take longer because the robot must stay clear of the panel as it opens.</p>
 <figure id="fig:DoorTraversalTimingsSpeed">
-<embed src="media/DoorTraversalProgress.pdf" />
+<img src="media/generated/DoorTraversalProgress.jpg" style="width:100%" alt="DoorTraversalProgress" />
 <figcaption>Distance progress through the door frame for four representative 2024 Nadia real-robot door traversals. Push-door behaviors are faster because the robot can keep making forward progress. Pull-door behaviors take longer because the robot must stay clear of the panel while fully opening it before traversal.</figcaption>
 </figure>
 <h2 id="reliability-and-resilience-evidence"><a class="header" href="#reliability-and-resilience-evidence">Reliability and Resilience Evidence</a></h2>

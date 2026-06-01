@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Usage Guide - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
+        <title>Prerequisites - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
 
 
         <!-- Custom HTML head -->
@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-193a6b4a.js";
+            window.path_to_searchindex_js = "searchindex-28a852c0.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-a65faefc.js"></script>
+        <script src="toc-3c6d0428.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,23 +177,75 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="usage-guide"><a class="header" href="#usage-guide">Usage Guide</a></h1>
-<p><span id="ch:tutorial" label="ch:tutorial"></span></p>
-<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
-<p>The behavior system presented in this thesis can be used to author fast, resilient, and adaptable loco-manipulation behaviors for humanoid robots.
-Examples include door traversals and sorting objects on tables.
-This is in the pursuit of automating useful work and providing robotic drop-in replacements for humans for dull, dirty, or dangerous jobs.
-In this chapter, we’ll cover the system’s limitations, prerequisites, and how to use it.</p>
+                        <h1 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h1>
+<h2 id="robot-platform-and-controller"><a class="header" href="#robot-platform-and-controller">Robot Platform and Controller</a></h2>
+<p>We have run our system with several humanoid robots over the years, including the Boston Dynamics DARPA Robotics Challenge Atlas, NASA’s Valkyrie, IHMC and Boardwalk Robotics’ Nadia, Unitree’s H1-2, and IHMC’s Alex.
+Our system is centered on the humanoid form factor with footstep, walk, arm, leg, spine, and neck actions.
+It is also centered on the presence of a whole body controller that can achieve those actions.
+Ideally, the whole body controller can triage and queue asynchronous commands of those actions, to support concurrently tracked motions of different parts of the body that may start and end at different times.
+For communication, we have been using a ROS 2 compatible DDS implementation, but other communication protocols could be subbed in with engineering work.
+The controller could also be operated through a programmatic API and some of the interprocess comms avoided.</p>
+<p>To get the best performance, the robot’s controller should have push-tolerant standing and walking.
+Even better if the robot can walk with the arms held up in front of the body.
+If it can do this, it would be sufficient for basic multi-station loco-manipulation tasks and door traversals.</p>
+<h2 id="motion-and-reachability"><a class="header" href="#motion-and-reachability">Motion and Reachability</a></h2>
+<p>We think longer arms generally work better than shorter ones.
+A human-proportioned robot arm yields significantly less reachability than a human arm since humanoid robots typically don’t have clavicle joints which extend a human’s arm reach.
+We tend to think that robot arms that are long enough such that the hands touch the knees when they are hanging are a good balance.
+DRC Atlas and Nadia had these longer-arm proportions, but Alex didn’t and we felt that it limited reachability and increased task complexity for the pull door behaviors and when reaching across tables.</p>
+<p>Similarly, a high degree of freedom spine can help simplify behaviors.
+For example, being able to yaw 90 degrees to the left and right can allow for faster scanning behaviors, increase arm reachability, and avoid unnecessary footsteps in tight spaces.</p>
+<h2 id="perception-and-teleoperation"><a class="header" href="#perception-and-teleoperation">Perception and Teleoperation</a></h2>
+<p>On the perception side, the most significant requirements are a color image, a high-accuracy depth image, and the availability of high quality YOLO models for any objects you want to interact with.
+There are many sensors available on the market that satisfy this requirement.
+We have tried the ZED X Mini and the RealSense D457  <a href="references.html#ref-intel2022d457">1</a>.
+We think both of those would work.</p>
+<p>Our preference and the one we currently use is the ZED X Mini because it has a stereo RGB camera pair which is useful for direct VR teleoperation.
+To author complicated behaviors, an idea ahead of time of how the robot will accomplish the task is desirable.
+With humanoid robots, this is helped by our natural intuition since the robot shares our form factor, but how the robot’s capabilities differ from our own can be unintuitive.
+This is why teleoperating a task can be a good way to quickly experiment with task strategies that work within the bounds of the robot’s capabilities, and why we chose the ZED X Mini.
+The ZED X Mini also has a human-like inter-pupillary distance, which makes for a natural robot embodiment by a VR teleoperator.</p>
+<p>The other major thing you will need is a library of YOLO models for everything you need to interact with.
+We have been using YOLOv8 because it does detections and segmentation for objects of interest.
+Arghya Chatterjee crafted the models we used, but it took him weeks and weeks of hand labeling and a year or so of experimentation to achieve high confidence detections.
+It might be good to find a vendor that provides professionally trained models.
+Typically the data needed is around five videos of the task, each on a different day and time, light and dark, where the videos orbit around the object and get close and far from it.</p>
+<h2 id="hands"><a class="header" href="#hands">Hands</a></h2>
+<p>For robot hands, we recommend a 5-finger anthropomorphic hand.
+We had a great experience with the Psyonic Ability Hand  <a href="references.html#ref-psyonic_ability_hand">22</a>.
+One major advantage of a 5-finger anthropomorphic hand is that, similar to the rest of the robot’s body, it mirrors the human form, which allows for an increased level of intuition in task planning.
+For example, a good start for planning how to get the robot to do a task is to just do it yourself and look at how you naturally do it.</p>
+<p>Furthermore, this extends to teleoperation, where you can constrain the set of possible solutions to what is achievable by the robot while still leaning on natural intuition.
+We use the Valve Index Controller’s  <a href="references.html#ref-valve_index_controllers">23</a> API to teleoperate the Ability Hands and it works great.
+In fact, the OpenVR software maps the Valve Index Controller’s finger estimation to six degrees of freedom which happens to match perfectly to the six degrees of freedom on the Ability Hand.</p>
+<h2 id="compute"><a class="header" href="#compute">Compute</a></h2>
+<p>Another thing you’ll need are NVIDIA GPUs if you want to use the ZED camera or if you want to use CUDA kernels.
+The ZED SDK requires NVIDIA GPUs to use its most essential features such as its neural-assisted stereo depth estimation.
+Additionally, we use CUDA heavily throughout the system, including for counting points and averaging color inside virtual shapes in the 3D point cloud, faster OpenCV functions, processing the output tensor of YOLO, non-maximum suppression of YOLO bounding boxes, and extraction of 3D points from the YOLO segmentation masks.</p>
+<p>We use a Jetson AGX Orin on-board the robot and a desktop computer with an NVIDIA Turing GPU for the operator computer.
+We run Linux on both except when doing VR teleoperation, when we use Windows.
+We have had success with VR on Linux in simulation tests, but not on the real robot.
+For VR headsets we’ve been using the Valve Index and the HTC Vive Focus 3.</p>
+<p>In the next several sections we will walk through some token behavior authoring examples while explaining how system components work as we encounter them.
+This is a guide to how the system works, but it’s meant for reading and understanding more than it’s meant to be literally followed as a tutorial.
+We’ll first use simulation examples to illustrate and explain some basic mechanisms without noise.
+Then, we’ll go through a real-robot authoring session: our 32 minute authoring session to get Unitree H1-2 opening a door repeatedly.</p>
+<!-- PAGE-REFERENCES-START -->
+<p><strong>References cited on this page</strong></p>
+<p><strong>[1]</strong> Intel Corporation, “Intel RealSense Depth Camera D457.” <a href="https://www.intelrealsense.com/depth-camera-d457/">https://www.intelrealsense.com/depth-camera-d457/</a>, 2022.</p>
+<p><strong>[22]</strong> PSYONIC, “Ability hand.” [Online]. Available: <a href="https://www.psyonic.io/ability-hand">https://www.psyonic.io/ability-hand</a></p>
+<p><strong>[23]</strong> Valve, “Valve index controllers.” [Online]. Available: <a href="https://store.steampowered.com/app/1059550/Valve_Index_Controllers/">https://store.steampowered.com/app/1059550/Valve_Index_Controllers/</a></p>
+<!-- PAGE-REFERENCES-END -->
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="4_story_of_building_and_architecture_8_reflections_on_a_decade_of_development.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="6_tutorial_1_limitations.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="5_tutorial_1_limitations.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="6_tutorial_3_basic_example_move_the_arms_and_walk.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -203,11 +255,11 @@ In this chapter, we’ll cover the system’s limitations, prerequisites, and ho
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="4_story_of_building_and_architecture_8_reflections_on_a_decade_of_development.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="6_tutorial_1_limitations.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="5_tutorial_1_limitations.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="6_tutorial_3_basic_example_move_the_arms_and_walk.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

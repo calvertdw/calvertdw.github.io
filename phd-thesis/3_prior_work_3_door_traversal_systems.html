@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-193a6b4a.js";
+            window.path_to_searchindex_js = "searchindex-28a852c0.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-a65faefc.js"></script>
+        <script src="toc-3c6d0428.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -194,7 +194,7 @@ The platforms remain statically stable wheeled mobile manipulators and the task 
 The behavior set in each paper is also fixed at deploy time rather than runtime-editable, so changing recovery logic, swapping perception, or adding a new variant requires returning to source.</p>
 <h3 id="2010-chitta"><a class="header" href="#2010-chitta">2010: Chitta</a></h3>
 <p>Chitta et al.  <a href="references.html#ref-2010ChittaDoorOpening">48</a> address coordinated base-and-arm motion planning for autonomous door opening on the Willow Garage PR2.
-Their key idea is to partition the planning problem rather than search a full whole-body state space: a graph search in ((x, y, \theta, d)) plans the omnidirectional base trajectory, where (d) is a binary “door interval” variable indicating whether the door is connected to the closed or open configuration, while the arm trajectory is recovered by inverse kinematics at each base waypoint so that the gripper stays on the handle and the door remains within the arm’s reachable workspace.
+Their key idea is to partition the planning problem rather than search a full whole-body state space: a graph search in <script type="math/tex">(x, y, \theta, d)</script> plans the omnidirectional base trajectory, where <script type="math/tex">d</script> is a binary “door interval” variable indicating whether the door is connected to the closed or open configuration, while the arm trajectory is recovered by inverse kinematics at each base waypoint so that the gripper stays on the handle and the door remains within the arm’s reachable workspace.
 The system was evaluated for 5/5 push and 5/5 pull trials on the PR2, demonstrating that opening and passage can be posed as a coupled base-arm planning problem rather than a hard-coded motion sequence.
 The contribution is planning-focused and assumes that the door has already been grasped and unlatched, that an initial door model is available from a building map, and that the world is static during execution; the paper explicitly does not handle disturbances such as a person holding the door closed.
 By contrast, this dissertation focuses on editable reactive task structure operating from task-time perception, and treats grasp acquisition, retries, and disturbance recovery as authored parts of the same behavior rather than as preconditions of the planner.</p>
@@ -206,19 +206,19 @@ It is the most variation-broad classical reference here, covering push and pull,
 Reported task times are 63 s for push knob, 128 s for pull knob, 83 s for push lever with closer, and 118 s for pull lever with closer, measured from first robot motion until the back of the robot clears the doorway, with the robot starting 1 m from the door.
 Reliability is reported only qualitatively at approximately 60% because, as the authors note, any phase failure aborts the run and no recovery behavior is authored.
 The behavior runtime executes on a laptop tethered to the robot, the operator-classified door and handle inputs gate which fixed sub-behavior runs, and the per-handle perception is hard coded with Hough circles and Sobel-filtered Hough lines.
-Axelrod and Huang therefore extends the variation coverage of behavior-decomposed door traversal in classical mobile manipulation, while reinforcing the same architectural distance from this thesis: fixed shared-autonomy decomposition, off-robot execution, and no editable recovery structure.</p>
+Axelrod and Huang therefore extend the variation coverage of behavior-decomposed door traversal in classical mobile manipulation, while reinforcing the same architectural distance from this thesis: fixed shared-autonomy decomposition, off-robot execution, and no editable recovery structure.</p>
 <h3 id="2015-banerjee-et-al"><a class="header" href="#2015-banerjee-et-al">2015: Banerjee et al.</a></h3>
 <p>Banerjee et al.  <a href="references.html#ref-Banerjee_2015">25</a>, WPI-CMU’s DARPA Robotics Challenge entry, is a particularly relevant classical humanoid door traversal reference.
 It reports a human-supervised semi-autonomous system in which Atlas detects a door, approaches it, opens it, and walks through it in the DRC setting.
 The system uses an event-driven finite-state machine executed on the robot, with human validation at critical transitions, motion planning for the manipulation phases, and both autonomous and operator-aided door detection.
 This is an important example of full-task humanoid door traversal under shared autonomy.
 Reported execution is slow by modern standards, at 9 min 23 s for the pull door case and 7 min 40 s for the push door case, and the DRC Finals deployment used the operator-aided detection mode for reliability.
-Relative to the system developed here, the key adaptability difference is that Banerjee et al. executes a pre-defined supervised FSM rather than a runtime-editable one, so it does not address fast behavior iteration, tighter perception-behavior integration, or repeated reactive execution.</p>
+Relative to the system developed here, the key adaptability difference is that Banerjee et al. execute a pre-defined supervised FSM rather than a runtime-editable one, so it does not address fast behavior iteration, tighter perception-behavior integration, or repeated reactive execution.</p>
 <h3 id="2023-jang-et-al"><a class="header" href="#2023-jang-et-al">2023: Jang et al.</a></h3>
-<p>Jang et al.  <a href="references.html#ref-2023JangDoorTraversal">43</a> extends the partitioned base-plus-arm planning idea from Chitta et al. to the full navigation problem on a Husky-based mobile manipulator with a Franka Emika Panda arm.
-A graph search in ((x, y, \theta, a)) plans the base pose and an <em>area indicator</em> (a \in {0,\dots,4}) that records where the robot is relative to the door, from approaching, to opening, to crossing the doorsill, to closing, to navigating to a goal beyond the door, and an inverse kinematics solver then recovers the arm path along the planned base trajectory.
+<p>Jang et al.  <a href="references.html#ref-2023JangDoorTraversal">43</a> extend the partitioned base-plus-arm planning idea from Chitta et al. to the full navigation problem on a Husky-based mobile manipulator with a Franka Emika Panda arm.
+A graph search in <script type="math/tex">(x, y, \theta, a)</script> plans the base pose and an <em>area indicator</em> <script type="math/tex">a \in {0,\dots,4}</script> that records where the robot is relative to the door, from approaching, to opening, to crossing the doorsill, to closing, to navigating to a goal beyond the door, and an inverse kinematics solver then recovers the arm path along the planned base trajectory.
 The integer area indicator generalizes the binary door interval from Chitta et al. and lets approach, opening, traversal, closing, and goal navigation be solved in a single search.
-In simulation across 25 push and 25 pull trials, the framework reaches 100% planning success against 76–80% for the equivalent separate-planning baseline, and is 8.7(\times) faster on pull doors and 2.3(\times) faster on push doors while producing shorter, lower-cost paths.
+In simulation across 25 push and 25 pull trials, the framework reaches 100% planning success against 76–80% for the equivalent separate-planning baseline, and is 8.7<script type="math/tex">\times</script> faster on pull doors and 2.3<script type="math/tex">\times</script> faster on push doors while producing shorter, lower-cost paths.
 The framework is offline and assumes the door type, joint range, and handle position as inputs, so adapting to a new door, recovering from a failed grasp, or reacting to scene change at task time falls outside the planner; the authors note closed-loop replanning as future work.</p>
 <h3 id="2023-sleiman-et-al"><a class="header" href="#2023-sleiman-et-al">2023: Sleiman et al.</a></h3>
 <p>Sleiman et al.  <a href="references.html#ref-Sleiman_2023">45</a> take a planning-centered approach to loco-manipulation on a quadrupedal mobile manipulator, an ANYmal with a 6-DoF arm.
@@ -236,24 +236,24 @@ The system combines handle segmentation and pose estimation, exploratory force-b
 It targets a complete benchmark task with varied handle types, door widths, and both push and pull doors, and explicitly compares a classical adaptive controller against a learned alternative inside one integrated system.
 The platform is a wheeled mobile manipulator rather than a legged humanoid, and the RL portion was trained only for a Push-CCW door while the other phases remained fixed procedural modules.
 In the real-world results, the RL controller was evaluated only on a single 0.9 m Push-CCW case, where it completed ST4 19% faster than the adaptive controller, while the broader real-world door-variation coverage came from the adaptive position-force controller.
-Kang et al. concentrates adaptability inside a controller layer within an otherwise fixed procedural pipeline, whereas this dissertation focuses on editing the task structure itself, including perception, coordination, and recovery logic, directly on the robot during development.
-Kang et al. is therefore prior art for full-sequence door opening and passage with a mobile manipulator and a benchmark-oriented comparison point, but not for fast editable loco-manipulation behavior structure on a humanoid robot.</p>
+Kang et al. concentrate adaptability inside a controller layer within an otherwise fixed procedural pipeline, whereas this dissertation focuses on editing the task structure itself, including perception, coordination, and recovery logic, directly on the robot during development.
+Kang et al. are therefore prior art for full-sequence door opening and passage with a mobile manipulator and a benchmark-oriented comparison point, but not for fast editable loco-manipulation behavior structure on a humanoid robot.</p>
 <h3 id="2025-schulze-et-al"><a class="header" href="#2025-schulze-et-al">2025: Schulze et al.</a></h3>
 <p>Schulze et al.  <a href="references.html#ref-Schulze_2025">46</a> report a deployed transport-and-messaging service on a SCITOS G5 differential-drive base with a Kinova Gen II 7-DoF arm, integrated to traverse closed doors and ride elevators in a populated multi-story environment.
 Across long-term field tests in an elderly-care facility and a university office building, the full system reported overall task success of 88.6% across 79 runs in one site and 80.0% across 40 runs in the other, with door manipulation alone exceeding 88% in both sites.
-This is one of the few real-world deployment references that integrates door manipulation with a longer mission and reports honest failure analysis at the system level, which makes it a useful precedent for the multi-step exploration and three-door composite behaviors discussed in <a href="#ch:evaluation" data-reference-type="ref+label" data-reference="ch:evaluation">[ch:evaluation]</a>.
+This is one of the few real-world deployment references that integrates door manipulation with a longer mission and reports honest failure analysis at the system level, which makes it a useful precedent for the multi-step exploration and three-door composite behaviors discussed in <a href="7_defense.html#ch:defense">Evaluation</a>.
 The platform is a wheeled differential-drive service robot rather than a bipedal humanoid, and the authored skill set is not a runtime-editable behavior tree, but the operating point and failure-mode discussion are directly relevant to deploying door behaviors in cluttered, populated environments.</p>
 <h2 id="learning-based-systems"><a class="header" href="#learning-based-systems">Learning-Based Systems</a></h2>
 <h3 id="2024-zhang-et-al"><a class="header" href="#2024-zhang-et-al">2024: Zhang et al.</a></h3>
-<p>Zhang et al.  <a href="references.html#ref-zhang2024learningopentraversedoors">49</a> presents a teacher-student reinforcement learning policy for an ANYmal-based legged manipulator to open and traverse doors.
+<p>Zhang et al.  <a href="references.html#ref-zhang2024learningopentraversedoors">49</a> present a teacher-student reinforcement learning policy for an ANYmal-based legged manipulator to open and traverse doors.
 The paper targets the combined task of opening and passing through the doorway on a legged platform rather than stopping at door opening alone.
 It claims a single learned policy that handles both push and pull doors without being given the opening direction a priori, and reports repeated-trial results on a single spring-loaded door of 20/20 traversals on the pull side and 18/20 on the push side, for an overall success rate of 95.0%.
 The two failures were not failures to open the door itself, but push-side traversal failures in which the robot got stuck on protruding doorway geometry that was not represented in the simulation model.
 This is a strong recent reference point for learned door traversal on a legged robot.
 The method is a monolithic learned controller rather than a runtime-editable behavior architecture, and the hardware experiments rely on externally provided handle and doorway measurements from motion capture or AprilTags rather than the onboard authored perception pipeline studied here.
 That failure mode also illustrates a low-adaptability workflow: because the issue arises from a simulation mismatch inside a learned monolithic policy, addressing it requires changing the simulation or training setup and retraining rather than making a runtime behavior edit, a turnaround on the order of at least a day in our own development terms.
-Zhang et al. is a learned door traversal comparator on a legged platform, but it does not address the behavior authoring speed, editable task structure, or robot-local behavior coordination that are central here.</p>
-<h3 id="2025-zue-et-al"><a class="header" href="#2025-zue-et-al">2025: Zue et al.</a></h3>
+Zhang et al. serve as a learned door traversal comparator on a legged platform, but they do not address the behavior authoring speed, editable task structure, or robot-local behavior coordination that are central here.</p>
+<h3 id="2025-xue-et-al"><a class="header" href="#2025-xue-et-al">2025: Xue et al.</a></h3>
 <p>The closest learned humanoid comparison point is Xue et al.  <a href="references.html#ref-xue2025opening">75</a>, which presents DoorMan, a teacher-student-bootstrap sim-to-real learning pipeline for humanoid door loco-manipulation from pure RGB perception.
 It closes several gaps left by earlier learned door systems: it uses a humanoid platform rather than a quadruped with arm or a wheeled manipulator, it does not rely on externally provided door measurements as in Zhang et al., and it evaluates real-world door interaction across three categories: push lever, pull lever, and push bar.
 DoorMan reports an overall task success rate of 83% and an average completion time of 15.40 s across those categories, while outperforming expert teleoperators on the same whole-body controller in task completion time.
@@ -266,23 +266,23 @@ The method is a monolithic learned policy trained through privileged-state teach
 <p>Build an ultra realistic and randomized physics simulation of the task.</p>
 </li>
 <li>
-<p>Tune PPO policy to get desired whole body motion with ground truth info.</p>
+<p>Tune a PPO policy to get desired whole body motion with ground truth information.</p>
 </li>
 <li>
-<p>Run Dagger to convert to vision based model.</p>
+<p>Run DAgger to convert to a vision based model.</p>
 </li>
 <li>
-<p>GRPO to wean dependence from ground truth to vision.</p>
+<p>Use GRPO to wean dependence from ground truth to vision.</p>
 </li>
 <li>
-<p>Test on real robot.</p>
+<p>Test on the real robot.</p>
 </li>
 </ol>
 <p>DoorMan uses multi-stage decomposition to shape rewards and resets during training, but the demonstrated runtime result is a single end-to-end door-interaction policy, with no reported task-level branching across multiple authored behaviors or composition of heterogeneous behaviors into longer autonomous sequences.
 Adaptation in DoorMan is therefore retraining-centered rather than edit-centered: changing the policy behavior requires revisiting simulation assets, reward shaping, and the training pipeline rather than modifying the executing task logic on the robot.
-Xue et al. is a major comparison point for high-performance RGB door execution on a humanoid, but not a baseline for robot-local autonomy, authoring effort, or targeted runtime adaptation.</p>
+Xue et al. serve as a major comparison point for high-performance RGB door execution on a humanoid, but not a baseline for robot-local autonomy, authoring effort, or targeted runtime adaptation.</p>
 <p>There is also broader recent work on learning for articulated-object manipulation, such as Xiong et al.  <a href="references.html#ref-xiong2024adaptive">40</a>.
-That work is relevant at the level of general manipulation direction, but the detailed comparison in <a href="#ch:evaluation" data-reference-type="ref+label" data-reference="ch:evaluation">[ch:evaluation]</a> stays bounded to door systems with overlapping task scope and reported speed or success metrics.</p>
+That work is relevant at the level of general manipulation direction, but the detailed comparison in <a href="7_defense.html#ch:defense">Evaluation</a> stays bounded to door systems with overlapping task scope and reported speed or success metrics.</p>
 <h3 id="2026-zhang-et-al"><a class="header" href="#2026-zhang-et-al">2026: Zhang et al.</a></h3>
 <p>Zhang et al.  <a href="references.html#ref-Zhang_2026_Sumo">47</a> present Sumo, a hybrid loco-manipulation framework that uses sample-based model-predictive control at runtime to steer a pre-trained whole-body reinforcement-learning policy.
 Sumo is most extensively evaluated on a Boston Dynamics Spot quadruped on dynamic whole-body tasks such as uprighting a tire and dragging a crowd-control barrier, and it also demonstrates the same hybrid framework in simulation on a Unitree G1 humanoid for door opening, table pushing, and box pushing.
@@ -310,11 +310,11 @@ This is closer in spirit to the edit-centered adaptation argued for in this thes
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="3_prior_work_3_architectural_influences.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="3_prior_work_2_architectural_influences.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="3_prior_work_5_design_space_summary.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="3_prior_work_4_design_space_summary.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -324,11 +324,11 @@ This is closer in spirit to the edit-centered adaptation argued for in this thes
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="3_prior_work_3_architectural_influences.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="3_prior_work_2_architectural_influences.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="3_prior_work_5_design_space_summary.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="3_prior_work_4_design_space_summary.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

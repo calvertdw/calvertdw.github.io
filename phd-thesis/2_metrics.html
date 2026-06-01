@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-193a6b4a.js";
+            window.path_to_searchindex_js = "searchindex-28a852c0.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-a65faefc.js"></script>
+        <script src="toc-3c6d0428.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -209,13 +209,13 @@ We want robots to be a drop-in for human work without an immediately huge tradeo
 This is particularly useful when doing manipulation.
 Before performing many manipulations, the robot will need to prepare the grasping arm in a pre-grasp-ready pose while putting the other arm in a collision-avoidance pose.
 Having to get into these ready poses sequentially would cause an unnecessary delay.
-This goes towards the speed metric, but also important for capability.
+This goes towards the speed metric, but is also important for capability.
 For example, for traversing spring-loaded doors, the robot must walk while keeping its arm out in the correct locations to prevent the door from closing on the robot.</p>
 <h2 id="reliability"><a class="header" href="#reliability">Reliability</a></h2>
-<p>You should be able to execute tasks repeatably without failures.
+<p>Robots should be able to execute tasks repeatably without failures.
 More formally, for a given task, given similar environmental conditions, the robot should consistently perform the task.
 If it succeeds, it should consistently succeed (and if it fails, it should consistently fail).
-In other words, you should be able to count on the robot to perform a task repeatedly without random failures that have little to do with environmental variance.</p>
+In other words, operators should be able to count on the robot to perform a task repeatedly without random failures that have little to do with environmental variance.</p>
 <h2 id="robustness"><a class="header" href="#robustness">Robustness</a></h2>
 <p>The robot and behavior system should be robust to environmental disturbances.
 These can be both physical and visual.
@@ -227,7 +227,7 @@ Any vision models should be trained using data from varied times of day and ligh
 We define resilience to mean being responsive and creative when facing task failures.
 For example, when the robot is trying to turn a door handle, perhaps a human is present and trying to test the reactivity of the system.
 In this case, the behavior system should be able to identify that the task is not proceeding nominally and enact some retry strategy.
-Retry strategies can include simply retry the action sequence, mutating the pose-grasp sequence, or aborting mission entirely and doing something else.
+Retry strategies can include simply retrying the action sequence, mutating the pose-grasp sequence, or aborting the mission entirely and doing something else.
 Resilience ultimately means surviving day-to-day unexpected events and failures.
 Attaining resilience is a long-tail robotics problem, but the prior examples are good places to start.</p>
 <h2 id="independence-from-external-systems"><a class="header" href="#independence-from-external-systems">Independence from External Systems</a></h2>
@@ -235,7 +235,7 @@ Attaining resilience is a long-tail robotics problem, but the prior examples are
 This mirrors animals in nature and supports a level of robustness by removing an unintuitive dependence on network communication.
 It also allows the robot to operate in more environments, including inside buildings with thick concrete walls and rural areas.</p>
 <p>Some behavior systems rely on external perception.
-It is desirable to perceive the world only via the robot and not be dependent on motion capture systems or fiducial markers, which are implements of a laboratory setup.
+It is desirable to perceive the world only via the robot and not be dependent on motion capture systems or fiducial markers, which are common in laboratory setups.
 We want the robots using our behavior system to thrive beyond the lab environment and provide useful service in the real world.
 It is also desirable to have humanoid robots be a drop-in replacement for human workers without having to make robot-specific adjustments to the environment, such as placing fiducial markers.
 It would be better if robots were to read the same signage and maps as humans.</p>
@@ -246,11 +246,11 @@ Additionally, it can be more intuitive and understandable when the robot’s vis
 Since we are building humanoid robots to fill in for humans, it could be a more surefire drop-in replacement by matching the mode of vision.</p>
 <h2 id="adaptability-of-the-operator-robot-team"><a class="header" href="#adaptability-of-the-operator-robot-team">Adaptability of the Operator-Robot Team</a></h2>
 <p>Given the near infinite world of tasks robots could help us with, we want a behavior system that can support creating new and adapting existing behaviors to tackle them.
-Adaptability means being able to survive in a changing environment and, for robots, this means you must be able to readily adapt robot behaviors to changing needs.
+Adaptability means being able to survive in a changing environment and, for robots, this means operators must be able to readily adapt robot behaviors to changing needs.
 One of the selling points of humanoid robots is their generality and similarity to humans, which means one application of them is to fill in for human work.
 Given the adaptiveness of humans and the existence and competitiveness of purpose-built machinery, the value-add for robots must exist in the realm of being an adaptable generalized form.
 Therefore, it is desirable to be able to create and modify behaviors to tackle various dull, dirty, and dangerous work tasks in a quick time frame.</p>
-<p>The following three characteristics are inherently required in building in the adaptability components, as defined by Coactive Design  <a href="references.html#ref-Johnson_2014">30</a>.</p>
+<p>The following three characteristics are inherently required in building the adaptability components, as defined by Coactive Design  <a href="references.html#ref-Johnson_2014">30</a>.</p>
 <h2 id="observability"><a class="header" href="#observability">Observability</a></h2>
 <p>This means knowing the current state of the system in order to understand what is going on.
 For a robot, there is a lot of information to take in at any particular moment and there are different levels of granularity in doing so.
@@ -356,15 +356,15 @@ Any system for running behaviors on humanoid robots should be easy to extend, fu
 For example, given the availability of a new footstep planner, it should be a straightforward process to include it as an option.
 Likewise, if a new comms protocol is adopted, it should not require a complete redesign of the architecture to switch over.
 Some ways that could help in achieving extendability are keeping the code well tested and maintaining separation of concerns in the design and implementation.</p>
-<p>There are a lot of different ways to achieve these characteristics, and in some sense there are tradeoffs depending on your specific requirements.
+<p>There are a lot of different ways to achieve these characteristics, and in some sense there are tradeoffs depending on the specific requirements.
 The tradeoffs could be in engineering time or they could be theoretical.
-For example, if you know your system will only be used by trained expert operators, you can invest more engineering time in the functional and utilitarian aspects like reducing number of clicks or relying more heavily on keyboard shortcuts.
-However, if your system needs to be usable by a more general audience, more engineering time needs to be spent on Nielsen’s 10 heuristics and you may even want to conduct a user study.</p>
-<p>An example of a more theoretical tradeoff would be what you show to the operator at any given time.
+For example, if a system will only be used by trained expert operators, more engineering time can be invested in the functional and utilitarian aspects like reducing number of clicks or relying more heavily on keyboard shortcuts.
+However, if a system needs to be usable by a more general audience, more engineering time needs to be spent on Nielsen’s 10 heuristics and a user study may even be warranted.</p>
+<p>An example of a more theoretical tradeoff would be what to show to the operator at any given time.
 There is only so much screen real estate and operator attention that can go around, so hard decisions need to be made about the value of information.
 We think this will vary from system to system and ultimately is based on the confidence levels of the particular subsystems.
-For example, if you have high trust in your controller’s ability to walk and balance, you may not show balance information to the operator.
-Conversely, if you depend on a semantic object detection subsystem that is always failing to detect objects, you will likely want that visible in high detail at all times so you can monitor and learn how to either exploit its properties or make informed improvements.</p>
+For example, if there is high trust in the controller’s ability to walk and balance, balance information may not need to be shown to the operator.
+Conversely, if the system depends on a semantic object detection subsystem that is always failing to detect objects, that subsystem will likely need to be visible in high detail at all times so operators can monitor and learn how to either exploit its properties or make informed improvements.</p>
 <p>Now that we have defined some desirable characteristics of a good behavior architecture, we’ll tell the story of our journey in navigating the tradeoffs and building one from near-scratch that met our requirements.</p>
 <!-- PAGE-REFERENCES-START -->
 <p><strong>References cited on this page</strong></p>

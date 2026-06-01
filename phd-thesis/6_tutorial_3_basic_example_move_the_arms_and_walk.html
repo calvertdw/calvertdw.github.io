@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-193a6b4a.js";
+            window.path_to_searchindex_js = "searchindex-28a852c0.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-a65faefc.js"></script>
+        <script src="toc-3c6d0428.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -291,7 +291,7 @@ The available node types are sorted into control nodes and action nodes.
 For this behavior, we will select the action sequence type, which serves as an organization element and a mechanism by which we save the behavior to file.</p>
 <figure id="fig:guide_sim_sequence_rename">
 <img src="media/guide/2026-04-28 19-55-33_BasicTutorial-00.00.19.322.jpg" />
-<figcaption>The sequence node has been added and renamed to "Demo Behavior.json".</figcaption>
+<figcaption>The sequence node has been added and renamed to “Demo Behavior.json”.</figcaption>
 </figure>
 <p>When the action sequence is created we double click the default name “Action sequence”, type in “Demo Behavior.json”, and hit the Enter key.
 This is shown in <a href="#fig:guide_sim_sequence_rename">5</a>.
@@ -444,18 +444,18 @@ In <a href="#fig:guide_sim_walk_settings">10</a>, the stance point, focus point,
 The quick footstep planner is the newest option.
 It is a procedural geometry-heuristic based planner that plans quickly and reliably.
 It is designed to have as few failure modes as possible and reduce unnecessary steps.
-Though the heuristics are general, we focused on ensuring the plan for approaching pull door and getting into the staggered stance was high quality.
+Though the heuristics are general, we focused on ensuring the plan for approaching pull doors and getting into the staggered stance was high quality.
 It supports walking to waypoints without specifying goal footsteps.
 The option to not specify goal footsteps can speed up behaviors by removing an unnecessary square-up step.
 It currently only supports flat ground, but we think it could be extended to plan over terrain maps.</p>
-<p>When the quick footstep planner is selected, an option for RRT-Connect <a href="references.html#ref-kuffner2000rrt">78</a> path planning is available.
+<p>When the quick footstep planner is selected, an option for RRT-Connect  <a href="references.html#ref-kuffner2000rrt">78</a> path planning is available.
 The current implementation will simply maintain a tunable distance from objects in the behavior scene while taking the shortest path.
 This is an experimental mode that we would like to make more general using an occupancy map or something.</p>
 <p>The turn-walk-turn is another procedural heuristic planner for flat ground, but often has many unnecessary steps in the plan, reducing overall behavior speed.
 We don’t use this one much.
 It is mainly intended to be a backup option in case the other two don’t work for some reason in certain situations.</p>
-<p>The A* planner, as presented in <a href="references.html#ref-griffin2019footstepplanner">27</a>, is a search based planner for flat ground and rough terrain.
-It uses a large set of parameters that define the ideal and boundary step criteria and then searches over an SE2 (X, Y, and Yaw) lattice to find the most optimal set of footsteps to the goal feet.
+<p>The A* planner, as presented in  <a href="references.html#ref-griffin2019footstepplanner">27</a>, is a search-based planner for flat ground and rough terrain.
+It uses a large set of parameters that define the ideal and boundary step criteria and then searches over an SE2 (X, Y, and Yaw) lattice to find the optimal set of footsteps to the goal feet.
 The planner can snap footsteps to planar regions and wiggle them as part of the search and in the pursuit of achieving a stable foothold.
 It can also plan over a height map.
 In this way, the A* planner gives the behavior system a rough terrain capability.
@@ -596,11 +596,11 @@ Virtual, numbered footsteps are displayed in the 3D view to show the robot contr
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="5_tutorial_2_prerequisites.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="6_tutorial_2_prerequisites.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="5_tutorial_4_concurrent_actions_example.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="6_tutorial_4_concurrent_actions_example.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -610,11 +610,11 @@ Virtual, numbered footsteps are displayed in the 3D view to show the robot contr
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="5_tutorial_2_prerequisites.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="6_tutorial_2_prerequisites.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="5_tutorial_4_concurrent_actions_example.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="6_tutorial_4_concurrent_actions_example.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

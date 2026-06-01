@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-193a6b4a.js";
+            window.path_to_searchindex_js = "searchindex-28a852c0.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-a65faefc.js"></script>
+        <script src="toc-3c6d0428.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -179,6 +179,26 @@
                     <main>
                         <h1 id="related-work"><a class="header" href="#related-work">Related Work</a></h1>
 <p><span id="ch:prior_work" label="ch:prior_work"></span></p>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
+<p>In this chapter we’ll cover literature that relates to this dissertation on reusable action structure, reactive task coordination, human-machine coordination, perception, and real robot door task demonstrations.
+Architectural references include CLARAty, Affordance Templates, Affordance Primitives, Coactive Design, Director, FlexBE, RAFCON, Drawing Board, and the CENTAURO behavior tree systems.
+Door task references span from classical and model-based mobile-manipulator and humanoid systems to recent learned legged and humanoid policies.
+The systems with metrics that overlap our benchmark are compared with each other and this thesis in <a href="7_defense.html#ch:defense">Evaluation</a>.</p>
+<p><a href="#fig:design_space_map">1</a> maps every system reviewed in this chapter across four dimensions: execution boundary, runtime editability, perception model, and door evidence.
+The execution boundary refers to where the process that controls the robot runs.
+It can be off-board, operator-in-the-loop, or purely on-board/robot-local.
+This is one part of qualifying our “Independence from External Systems” characteristic in <a href="2_metrics.html#ch:metrics">Desirable Characteristics</a>.</p>
+<p>In <a href="#fig:design_space_map">1</a>, each row is one system.
+The filled cells place that row on the execution-boundary axis (left band) and the runtime-editability axis (right band).
+The two rightmost columns encode the perception model used at task time, distinguishing behavior-time authored perception from a fixed onboard pipeline, learned end-to-end perception, and reliance on external measurement, alongside the strength of the system’s door-task evidence on a four-level scale from none to repeated-trial real-world.
+This thesis is the only row that combines robot-local execution, runtime structural and perception edits, behavior-time authored perception, and repeated-trial real-world door evidence.
+DoorMan is the only off-board entry, and the learned door systems concentrate on the policy-retrain column rather than runtime structural edits.</p>
+<figure id="fig:design_space_map">
+<span class="tikz-figure"><img class="tikz-light" src="media/generated/DesignSpaceMapTikz.light.jpg" /><img class="tikz-dark" src="media/generated/DesignSpaceMapTikz.dark.jpg" /></span>
+<figcaption>
+Design-space placement of every prior system reviewed in this chapter.
+</figcaption>
+</figure>
 
                     </main>
 
@@ -188,7 +208,7 @@
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="3_prior_work_1_introduction.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="3_prior_work_1_architectural_foundations.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -202,7 +222,7 @@
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="3_prior_work_1_introduction.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="3_prior_work_1_architectural_foundations.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
