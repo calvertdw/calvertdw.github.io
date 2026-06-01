@@ -29,6 +29,7 @@
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="theme-figures-e3dffecf.css">
+        <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -38,7 +39,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-28a852c0.js";
+            window.path_to_searchindex_js = "searchindex-f6bef07d.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-3c6d0428.js"></script>
@@ -181,15 +182,15 @@
 <h2 id="behavior-timeline"><a class="header" href="#behavior-timeline">Behavior Timeline</a></h2>
 <figure id="fig:guide_sim_nonconcurrent">
 <img src="media/guide/2026-04-28 23-14-10_ConcurrentLayeringDemonstration-00.00.10.788.jpg" />
-<figcaption>The non-concurrent starting behavior for the concurrency example.
+<figcaption><strong>Figure 113.</strong> The non-concurrent starting behavior for the concurrency example.
 A video of this demonstration is available at <a href="https://youtu.be/D53dKL-pgeo" class="uri">https://youtu.be/D53dKL-pgeo</a>.</figcaption>
 </figure>
 <p>In this example, we’ll show how we can schedule arm motions while walking using our concurrent action layering system.
-<a href="#fig:guide_sim_nonconcurrent">1</a> shows a behavior we have already built and run as the non-concurrent starting place.
+<a href="#fig:guide_sim_nonconcurrent">Figure 113</a> shows a behavior we have already built and run as the non-concurrent starting place.
 In this tree, we have added the pre-existing “Go Home” skill from a file, which allows us to reset the robot to the home configuration.
 This home configuration has the arms down by the sides in a natural position.
 Then there is a checkpoint node and a savable concurrency demo behavior, with a walk action followed by two arm actions and an always failing “STOP” condition.</p>
-<p>Our behavior timeline feature is presented in the bottom right of <a href="#fig:guide_sim_nonconcurrent">1</a>.
+<p>Our behavior timeline feature is presented in the bottom right of <a href="#fig:guide_sim_nonconcurrent">Figure 113</a>.
 It is a rendering of an action sequence over time meant to help with understanding the timing and concurrency of behavior actions.
 Here, it shows the tree as executed with each node running sequentially.</p>
 <h2 id="execute-after-layering-mechanism"><a class="header" href="#execute-after-layering-mechanism">“Execute After” Layering Mechanism</a></h2>
@@ -205,25 +206,25 @@ This is important for scheduling concurrent actions freely.</p>
 <p>The full algorithm is more complicated because the behavior can also be run step-by-step by clicking the “Manually” button.
 There is also a checkbox for disabling concurrency in the user interface, which effectively treats all “Execute after” fields as “Previous”.
 Further complexity is added to handle the fallback node’s try and catch mechanism.
-We present pseudocode in <a href="#alg:simplified_execution">2</a> without the fallback part.</p>
+We present pseudocode in <a href="#alg:simplified_execution">Algorithm 6</a> without the fallback part.</p>
 <figure id="alg:simplified_execution">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/alg_simplified_execution.light.jpg" /><img class="tikz-dark" src="media/generated/alg_simplified_execution.dark.jpg" /></span>
-<figcaption>Simplified Action Execution Trigger Logic</figcaption>
+<figcaption><strong>Algorithm 6.</strong> Simplified Action Execution Trigger Logic</figcaption>
 </figure>
 <h2 id="wait-nodes-and-dependencies"><a class="header" href="#wait-nodes-and-dependencies">Wait Nodes and Dependencies</a></h2>
 <figure id="fig:guide_sim_concurrent_waits">
 <img src="media/guide/2026-04-28 23-14-10_ConcurrentLayeringDemonstration-00.00.31.781.jpg" />
-<figcaption>Adding wait nodes after the walk action.
+<figcaption><strong>Figure 114.</strong> Adding wait nodes after the walk action.
 A video of this demonstration is available at <a href="https://youtu.be/D53dKL-pgeo" class="uri">https://youtu.be/D53dKL-pgeo</a>.</figcaption>
 </figure>
-<p>Our example behavior in <a href="#fig:guide_sim_nonconcurrent">1</a> starts out as a non-concurrent sequence of a short walk and two arm motions.
+<p>Our example behavior in <a href="#fig:guide_sim_nonconcurrent">Figure 113</a> starts out as a non-concurrent sequence of a short walk and two arm motions.
 Now we’ll change it so the arm motions are scheduled during the walk.
-In <a href="#fig:guide_sim_concurrent_waits">3</a>, we add two wait actions, one for 1 second and one for 2.5 seconds.
+In <a href="#fig:guide_sim_concurrent_waits">Figure 114</a>, we add two wait actions, one for 1 second and one for 2.5 seconds.
 These waits are used to schedule the arm motions.
 We’ll move the right arm 1 second into the walk and the left arm 2.5 seconds into the walk.</p>
 <figure id="fig:guide_sim_concurrent_execute_after">
 <img src="media/guide/2026-04-28 23-14-10_ConcurrentLayeringDemonstration-00.00.45.014.jpg" />
-<figcaption>Setting the execute after fields of the arm actions to point to the wait actions.
+<figcaption><strong>Figure 115.</strong> Setting the execute after fields of the arm actions to point to the wait actions.
 A video of this demonstration is available at <a href="https://youtu.be/D53dKL-pgeo" class="uri">https://youtu.be/D53dKL-pgeo</a>.</figcaption>
 </figure>
 <p>The wait actions need to execute with the walk action, not after it.
@@ -231,7 +232,7 @@ To accomplish this, we set the execute after fields of the wait actions to the �
 The sequence node is never executing, but pointing to it achieves the effect that the wait actions always start with the walk action.
 This method also keeps the sequence logic self contained and reusable, as opposed to referencing a specific node earlier than the sequence node.
 We then set the execute after field of the right arm action to the first wait action and the execute after field of the left arm action to the second wait action.
-In <a href="#fig:guide_sim_concurrent_execute_after">4</a>, we show setting the execute after field of the second arm action to the second wait action.</p>
+In <a href="#fig:guide_sim_concurrent_execute_after">Figure 115</a>, we show setting the execute after field of the second arm action to the second wait action.</p>
 <p>The figure also shows the execute after pointers as arrows on the right side of the tree view that point up from the defining action to the dependency action.
 You can see four such arrows that overlap.
 When the mouse hovers over a node, the corresponding arrow bolds to make it easy to verify dependencies when they are partially overlapping.
@@ -242,10 +243,10 @@ We will do that now.</p>
 <h2 id="concurrent-result"><a class="header" href="#concurrent-result">Concurrent Result</a></h2>
 <figure id="fig:guide_sim_concurrent_result">
 <img src="media/guide/2026-04-28 23-14-10_ConcurrentLayeringDemonstration-00.01.02.903.jpg" />
-<figcaption>The concurrently executed result.
+<figcaption><strong>Figure 116.</strong> The concurrently executed result.
 A video of this demonstration is available at <a href="https://youtu.be/D53dKL-pgeo" class="uri">https://youtu.be/D53dKL-pgeo</a>.</figcaption>
 </figure>
-<p>In <a href="#fig:guide_sim_concurrent_result">5</a>, we show the result of executing our now concurrent behavior.
+<p>In <a href="#fig:guide_sim_concurrent_result">Figure 116</a>, we show the result of executing our now concurrent behavior.
 The timeline has been updated to reflect the actual action start and stop times of the simulated behavior execution.
 As seen by comparing this timeline to the original, the behavior duration went from 11.7 seconds to 7.6 seconds, illustrating how this method can be used to speed up behaviors.</p>
 
@@ -300,6 +301,8 @@ As seen by comparing this timeline to the original, the behavior duration went f
         <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
+        <script src="citation-data-d2a0410c.js"></script>
+        <script src="citation-popups-d78943c6.js"></script>
 
 
 

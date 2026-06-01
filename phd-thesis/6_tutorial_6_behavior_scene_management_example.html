@@ -29,6 +29,7 @@
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="theme-figures-e3dffecf.css">
+        <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -38,7 +39,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-28a852c0.js";
+            window.path_to_searchindex_js = "searchindex-f6bef07d.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-3c6d0428.js"></script>
@@ -181,7 +182,7 @@
 <h2 id="scene-setup"><a class="header" href="#scene-setup">Scene Setup</a></h2>
 <figure id="fig:guide_sim_scene_action">
 <img src="media/guide/2026-04-29 09-06-34_BehaviorSceneDemo-00.00.01.588.jpg" />
-<figcaption>The beginning of our behavior scene demonstration.
+<figcaption><strong>Figure 118.</strong> The beginning of our behavior scene demonstration.
 A video of this demonstration is available at <a href="https://youtu.be/GN0_XoBxlv4" class="uri">https://youtu.be/GN0_XoBxlv4</a>.</figcaption>
 </figure>
 <p>In the next example, we’ll cover basic behavior scene management by locking on to a tennis ball and authoring a grasp approach arm pose.
@@ -189,7 +190,7 @@ The point of our behavior scene functionality is to provide authorable perceptio
 Authorable perception allows the human operator to encode context-specific and expert knowledge into the behavior.
 The flexibility provided here can be used to work around several categories of issues both theoretical and practical and both environmental and digital.
 Some examples of issues are: the hand occluding an object, a YOLO model having low confidence, and a latency or timing issue in the system.</p>
-<p><a href="#fig:guide_sim_scene_action">1</a> shows an example setting being played back in simulation but from a real data recording.
+<p><a href="#fig:guide_sim_scene_action">Figure 118</a> shows an example setting being played back in simulation but from a real data recording.
 The real environment contains a table with some transparent storage containers and tennis balls on it.
 An extension cord is on the table to prevent the balls from rolling off when the robot messes with them.</p>
 <p>On the left side of the figure, we see the behavior tree view with a look down action to get the table centered in the camera field of view and two scene actions, denoted by the clapperboard icon inspired by the film industry.
@@ -203,7 +204,7 @@ Finally, in the bottom right, our YOLO module is able to be turned on and off an
 <p>One of the first things we notice here is that the tennis ball is being detected as a bottle.
 This is because the initial YOLO model that is enabled, “best_multi_02_17_2026”, is one that we trained only for a specific set of classes which do not include the tennis ball.
 We aren’t sure why it’s detecting the ball as a bottle at 87% confidence.
-In any case, to fix this, as shown in <a href="#fig:guide_sim_scene_action">1</a>, we author a scene action with type <code>CONFIGURE_YOLO</code> to switch the YOLO model to the “yolov8n-seg” model.
+In any case, to fix this, as shown in <a href="#fig:guide_sim_scene_action">Figure 118</a>, we author a scene action with type <code>CONFIGURE_YOLO</code> to switch the YOLO model to the “yolov8n-seg” model.
 Additionally, we disable all classes except for the “sports ball” class by unchecking the “Enabled” checkbox next to where it says “UNIVERSAL ADJUSTER”.
 Then, we scroll to find the sports ball row and check that box.</p>
 <p>Unfortunately, the yolov8n-seg model isn’t very confident in detecting our tennis balls.
@@ -218,29 +219,29 @@ This is useful because sometimes we want to perform tasks involving objects whic
 <h2 id="persistent-detections"><a class="header" href="#persistent-detections">Persistent Detections</a></h2>
 <figure id="fig:guide_sim_scene_action_persistent_detections">
 <img src="media/guide/2026-04-29 09-06-34_BehaviorSceneDemo-00.00.14.294.jpg" />
-<figcaption>The behavior scene demonstration, after configuring YOLO, we are now configuring persistent detections.
+<figcaption><strong>Figure 119.</strong> The behavior scene demonstration, after configuring YOLO, we are now configuring persistent detections.
 Persistent detections are referred to in the user interface as “Stable Detections”, as we only show the stable ones.
 A video of this demonstration is available at <a href="https://youtu.be/GN0_XoBxlv4" class="uri">https://youtu.be/GN0_XoBxlv4</a>.</figcaption>
 </figure>
 <p>Another thing we want to do is configure the persistent detection parameters themselves.
-This is accomplished via the <code>CONFIGURE_PERSISTENT_DETECTIONS</code> scene action type, seen in <a href="#fig:guide_sim_scene_action_persistent_detections">2</a>.
+This is accomplished via the <code>CONFIGURE_PERSISTENT_DETECTIONS</code> scene action type, seen in <a href="#fig:guide_sim_scene_action_persistent_detections">Figure 119</a>.
 There are four parameters for the persistent detections: pose filter alpha, acceptance confidence, stability frequency, and history duration.
-<a href="#fig:persistent-detection-lifecycle">3</a> illustrates the instant and persistent detection management process, which happens continuously in the behavior scene.</p>
+<a href="#fig:persistent-detection-lifecycle">Figure 120</a> illustrates the instant and persistent detection management process, which happens continuously in the behavior scene.</p>
 <figure id="fig:persistent-detection-lifecycle">
-<figcaption>Lifecycle of persistent detections in the behavior scene. New instantaneous detections are greedily associated to existing persistent detections by comparing detector type, semantic class, and a fixed spatial gate. Unmatched detections spawn new persistent detections initialized with the configured filtering and temporal parameters.</figcaption>
+<figcaption><strong>Figure 120.</strong> Lifecycle of persistent detections in the behavior scene. New instantaneous detections are greedily associated to existing persistent detections by comparing detector type, semantic class, and a fixed spatial gate. Unmatched detections spawn new persistent detections initialized with the configured filtering and temporal parameters.</figcaption>
 </figure>
 <p>The parameter <script type="math/tex">\alpha</script> is the pose filter coefficient used when initializing each persistent detection, <script type="math/tex">c_{acc}</script> is the acceptance confidence threshold, <script type="math/tex">f_{stab}</script> is the required stability frequency, and <script type="math/tex">T_{hist}</script> is the history duration maintained by the persistent detection.</p>
 <p>For the tennis balls, we set the acceptance confidence threshold to 0.1 and the stability frequency to 0.5 and execute the scene action.
-The result is shown in <a href="#fig:guide_sim_scene_action_persistent_detections">2</a> where 3 sports balls are tracked as persistent detections.
-Note the confidence levels are not too bad in this case at around 50–60% and the 3 labelled coordinate frames are shown in the 3D view.</p>
+The result is shown in <a href="#fig:guide_sim_scene_action_persistent_detections">Figure 119</a> where 3 sports balls are tracked as persistent detections.
+Note the confidence levels are not too bad in this case at around 50-60% and the 3 labelled coordinate frames are shown in the 3D view.</p>
 <h2 id="setting-up-an-object"><a class="header" href="#setting-up-an-object">Setting up an Object</a></h2>
 <figure id="fig:guide_sim_scene_action_ball">
 <img src="media/guide/2026-04-29 09-06-34_BehaviorSceneDemo-00.00.41.452.jpg" />
-<figcaption>The behavior scene demonstration, after configuring persistent detections and setting up a sports ball object.
+<figcaption><strong>Figure 121.</strong> The behavior scene demonstration, after configuring persistent detections and setting up a sports ball object.
 A video of this demonstration is available at <a href="https://youtu.be/GN0_XoBxlv4" class="uri">https://youtu.be/GN0_XoBxlv4</a>.</figcaption>
 </figure>
 <p>Now that our list of stable persistent detections is populated, we will use a <code>SETUP_OBJECT</code> scene action to “lock on” to the closest tennis ball.
-In <a href="#fig:guide_sim_scene_action_ball">4</a> you can see we’ve added a scene action node called “Lock Onto Sports Ball”.
+In <a href="#fig:guide_sim_scene_action_ball">Figure 121</a> you can see we’ve added a scene action node called “Lock Onto Sports Ball”.
 In the settings area for that node, we’ve selected the <code>SETUP_OBJECT</code> type, the yolov8n-seg YOLO model, and the sports ball YOLO class.
 A timeout setting is also available.
 Because there may not be matching stable detections in the scene when this action is run, the timeout is a way to wait for one.
@@ -253,12 +254,12 @@ A shorter history size increases responsiveness but increases the risk of false 
 Our concept of an object does not have to be an actual object, even though it often is.
 They are privileged maintainers of reference frames that are subsequently usable for action definitions.
 There are two types of objects: direct and derived.
-The types are shown in <a href="#fig:setup-object-types">5</a>.
+The types are shown in <a href="#fig:setup-object-types">Figure 122</a>.
 The derived types allow us to model articulated objects like doors and implement heuristic environmental feature extraction, such as for table edges.</p>
 <figure id="fig:setup-object-types">
-<figcaption>Scene object types supported by the <code>SETUP_OBJECT</code> scene action. Direct objects are based on persistent detections, whereas derived objects are constructed from named frames, paired detections, or depth-based geometric calculations.</figcaption>
+<figcaption><strong>Figure 122.</strong> Scene object types supported by the <code>SETUP_OBJECT</code> scene action. Direct objects are based on persistent detections, whereas derived objects are constructed from named frames, paired detections, or depth-based geometric calculations.</figcaption>
 </figure>
-<p><a href="#fig:guide_sim_scene_action_ball">4</a> also shows the result of executing the setup object scene action.
+<p><a href="#fig:guide_sim_scene_action_ball">Figure 121</a> also shows the result of executing the setup object scene action.
 In the top right, a sports ball can be seen in the “Objects:” area.
 For each object, we show its world frame pose information and any referenced persistent detections.
 Here we can see the YOLOv8 persistent detection that’s attached.
@@ -269,7 +270,7 @@ A larger coordinate frame is shown for the sports ball object in the 3D view.</p
 <h2 id="freezing-scene-objects"><a class="header" href="#freezing-scene-objects">Freezing Scene Objects</a></h2>
 <figure id="fig:guide_sim_scene_action_freeze">
 <img src="media/guide/2026-04-29 09-06-34_BehaviorSceneDemo-00.01.07.672.jpg" />
-<figcaption>The behavior scene demonstration, after freezing the sports ball object.
+<figcaption><strong>Figure 123.</strong> The behavior scene demonstration, after freezing the sports ball object.
 A video of this demonstration is available at <a href="https://youtu.be/GN0_XoBxlv4" class="uri">https://youtu.be/GN0_XoBxlv4</a>.</figcaption>
 </figure>
 <p>Another scene action type is <code>FREEZE_OBJECT</code>.
@@ -289,9 +290,9 @@ As the hand closes in on the object, the position of the object can vary drastic
 For example, our door traversal footstep plan is authored with respect to the door frame, which is ultimately based on the detection of the door opening mechanism which we can usually no longer see or choose not to see after the door opening.
 The frozen frame from the handle pre-grasp is usually used throughout the remainder of the behavior.</p>
 <p>Setting up a freeze scene action is easy.
-As shown in <a href="#fig:guide_sim_scene_action_freeze">6</a>, we created a scene action named “Freeze Sports Ball”, set the action type to <code>FREEZE_OBJECT</code>, and set the YOLO model and class for the sports ball.
+As shown in <a href="#fig:guide_sim_scene_action_freeze">Figure 123</a>, we created a scene action named “Freeze Sports Ball”, set the action type to <code>FREEZE_OBJECT</code>, and set the YOLO model and class for the sports ball.
 When executed, if there is a matched object in the list, it is frozen; otherwise it will wait until the timeout and fail if there is still no match.
-In the top right of <a href="#fig:guide_sim_scene_action_freeze">6</a>, you can see the sports ball object is now marked as “FROZEN”.</p>
+In the top right of <a href="#fig:guide_sim_scene_action_freeze">Figure 123</a>, you can see the sports ball object is now marked as “FROZEN”.</p>
 <h2 id="other-scene-action-types"><a class="header" href="#other-scene-action-types">Other Scene Action Types</a></h2>
 <p>There are a few other simple scene action types at the moment.
 <code>DELETE_OBJECT</code> removes a matched object from the list and from being available for actions.
@@ -301,19 +302,19 @@ In the top right of <a href="#fig:guide_sim_scene_action_freeze">6</a>, you can 
 <h2 id="authoring-a-frame-based-arm-action"><a class="header" href="#authoring-a-frame-based-arm-action">Authoring a Frame Based Arm Action</a></h2>
 <figure id="fig:guide_sim_scene_action_arm">
 <img src="media/guide/2026-04-29 09-06-34_BehaviorSceneDemo-00.01.28.860.jpg" />
-<figcaption>The behavior scene demonstration, authoring an arm action with respect to a sports ball.
+<figcaption><strong>Figure 124.</strong> The behavior scene demonstration, authoring an arm action with respect to a sports ball.
 A video of this demonstration is available at <a href="https://youtu.be/GN0_XoBxlv4" class="uri">https://youtu.be/GN0_XoBxlv4</a>.</figcaption>
 </figure>
 <p>Now that we have locked onto a sports ball, we’ll show how to move the arm with respect to it.
 We’ll go over a full grasp sequence later in the real robot example.
-In <a href="#fig:guide_sim_scene_action_arm">7</a>, we’ve added an arm action.
+In <a href="#fig:guide_sim_scene_action_arm">Figure 124</a>, we’ve added an arm action.
 When using the taskspace mode, as opposed to the “Use Predefined Joint Angles” mode, there is a “Parent frame drop-down.
 The list of available frames includes a frame for each privileged object in the scene.
 In this case, it”s just the sports ball.
 We select the sports ball from the list and that’s it!
 The action is now defined as a hand pose relative to the object.</p>
 <p>For position-only objects like the YOLO sports ball, we use the orientation of the robot’s chest so frame relative actions are always valid for the robot’s current approach angle.
-In <a href="#fig:guide_sim_scene_action_arm">7</a>, the sports ball frame is frozen, but when objects are not frozen and actively tracked, the arm goal pose will continuously update based on the object’s current pose.
+In <a href="#fig:guide_sim_scene_action_arm">Figure 124</a>, the sports ball frame is frozen, but when objects are not frozen and actively tracked, the arm goal pose will continuously update based on the object’s current pose.
 The inverse kinematics solution for the arm will likewise continuously update and be displayed in the 3D view.</p>
 <p>When we save this behavior, the JSON will contain an object relative translation and rotation with respect to the object.
 This makes the action reusable for later runs and future instances of this object.</p>
@@ -369,6 +370,8 @@ This makes the action reusable for later runs and future instances of this objec
         <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
+        <script src="citation-data-d2a0410c.js"></script>
+        <script src="citation-popups-d78943c6.js"></script>
 
 
 

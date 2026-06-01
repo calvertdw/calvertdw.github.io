@@ -29,6 +29,7 @@
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="theme-figures-e3dffecf.css">
+        <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -38,7 +39,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-28a852c0.js";
+            window.path_to_searchindex_js = "searchindex-f6bef07d.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-3c6d0428.js"></script>
@@ -181,24 +182,28 @@
 <p>In this section, we’ll compare our work with others in the literature across speed, capability, reliability, resilience, and the speed of creating and adapting behaviors.
 We present our work against a handful of classical, model-based references and two learned references.</p>
 <h2 id="speed-and-capability"><a class="header" href="#speed-and-capability">Speed and Capability</a></h2>
-<p><a href="#fig:hero_speed_comparison">1</a> presents a comparison of the durations of robot door traversals across this thesis and the literature.
+<p><a href="#fig:hero_speed_comparison">Figure 171</a> presents a comparison of the durations of robot door traversals across this thesis and the literature.
 This represents every timed door traversal in the literature that we are aware of for both wheeled and legged robots.
 Our door traversals are dramatically faster than the classical model-based results, all of which take more than one minute to traverse a door.
 However, recent learned systems are quite fast.
-Zhang et al.  <a href="references.html#ref-zhang2024learningopentraversedoors">49</a>, with their ANYmal quadruped robot, demonstrate traversing a door in just 10 seconds.
-DoorMan  <a href="references.html#ref-xue2025opening">75</a> averages 15.4 seconds per door traversal.
+Zhang et al.  <a href="references.html#ref-zhang2024learningopentraversedoors" class="citation-ref">[49]</a>, with their ANYmal quadruped robot, demonstrate traversing a door in just 10 seconds.
+DoorMan  <a href="references.html#ref-xue2025opening" class="citation-ref">[75]</a> averages 15.4 seconds per door traversal.
 However, as highlighted by the dotted line in the figure, we have one door traversal that executed in 14 seconds, just beating DoorMan’s average.
 This firmly places our system in the “competitive with learned systems” regime.</p>
+<p>We think one of the ways Zhang et al achieves such a high speed is through their robot’s kinematics.
+They have a single, long arm mounted on the front of their quadruped robot which also has a high yaw range of motion that is something like 270 degrees or more.
+These design elements give the robot a massive reachability workspace.
+This allows it to open doors from a distance and swing the door panels all the way open in one sweeping motion.</p>
 <p>There are two important caveats with the learned systems, however.
 Zhang et al. used external motion capture and fiducial markers rather than robot vision.
 Xue et al. (DoorMan) used an off-board computer to run their vision based neural inference.
 This is in contrast to our system which uses only two color cameras on the robot for vision and all autonomous functionality is computed on board.</p>
 <figure id="fig:hero_speed_comparison">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/HeroSpeedComparison.light.jpg" /><img class="tikz-dark" src="media/generated/HeroSpeedComparison.dark.jpg" /></span>
-<figcaption>Literature comparison of real-robot door task duration on a log-second axis.</figcaption>
+<figcaption><strong>Figure 171.</strong> Literature comparison of real-robot door task duration on a log-second axis.</figcaption>
 </figure>
 <h2 id="reliability-and-resilience"><a class="header" href="#reliability-and-resilience">Reliability and Resilience</a></h2>
-<p><a href="#fig:hero_reliability_comparison">2</a> presents a comparison of our results against all door traversal reliability measurements that appear in the literature that we are aware of.
+<p><a href="#fig:hero_reliability_comparison">Figure 172</a> presents a comparison of our results against all door traversal reliability measurements that appear in the literature that we are aware of.
 Our premiere reliability tests were not full traversals, but were loco-manipulation behaviors.
 We did not measure repeated full door traversals because our walk through component was not reliable in the time we had to test it.
 Testing it could have damaged the robot beyond repair, preventing some of our more important results.
@@ -208,19 +213,19 @@ The unreliability of the door walk through had more to do with the walking contr
 Although we reported no failures, this does not mean our system is 100% reliable and it is not.
 A similar statement can be made for the results in the literature.
 Therefore, these repeated run measurements should be taken with a grain of salt, but they do serve as an indication that these systems are not super brittle “one-off” runs.</p>
-<p>Among the learned systems, DoorMan  <a href="references.html#ref-xue2025opening">75</a> actually stands out for saying “83%” reliability without giving the number of attempts or a summary of what went into the calculation of that number.
+<p>Among the learned systems, DoorMan  <a href="references.html#ref-xue2025opening" class="citation-ref">[75]</a> actually stands out for saying “83%” reliability without giving the number of attempts or a summary of what went into the calculation of that number.
 It is for that reason that we put “?/?” in the diagram and leave out that percentage.
 We do not feel like it is a reliable comparison to our thesis and the literature.</p>
 <figure id="fig:hero_reliability_comparison">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/HeroReliabilityComparison.light.jpg" /><img class="tikz-dark" src="media/generated/HeroReliabilityComparison.dark.jpg" /></span>
-<figcaption>Literature comparison of real-robot door-task success rate.</figcaption>
+<figcaption><strong>Figure 172.</strong> Literature comparison of real-robot door-task success rate.</figcaption>
 </figure>
 <h2 id="creation-and-adaptability"><a class="header" href="#creation-and-adaptability">Creation and Adaptability</a></h2>
 <p>This thesis is essentially unique in its focus on reporting behavior authoring duration.
 We focus on both the effort required to create new behaviors from scratch and modify existing ones, adapting them to new tasks.
 We didn’t find any documented results in the literature on the authoring durations of loco-manipulation behaviors on robots.</p>
-<p>For this section, we’ll simply compare against an estimate of what we consider to be our most relevant competition: DoorMan  <a href="references.html#ref-xue2025opening">75</a>.
-In <a href="#fig:hero_authoring_process_comparison">3</a> we give a step by step process of creating a door behavior from scratch and adapting an existing door behavior to a different door type.
+<p>For this section, we’ll simply compare against an estimate of what we consider to be our most relevant competition: DoorMan  <a href="references.html#ref-xue2025opening" class="citation-ref">[75]</a>.
+In <a href="#fig:hero_authoring_process_comparison">Figure 173</a> we give a step by step process of creating a door behavior from scratch and adapting an existing door behavior to a different door type.
 We use an actual measurement for our push door creation from scratch: 6 steps in 2 hours.
 For DoorMan, we use the steps presented in the paper and estimate the durations.</p>
 <p>Two main things stand out when doing this comparison.
@@ -231,10 +236,10 @@ For example, the difference between a pull door and a sliding door might just be
 However, DoorMan’s architecture requires a simulation refit, PPO policy tuneup, and an overnight retraining.</p>
 <figure id="fig:hero_authoring_process_comparison">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/HeroAuthoringProcessComparison.light.jpg" /><img class="tikz-dark" src="media/generated/HeroAuthoringProcessComparison.dark.jpg" /></span>
-<figcaption>This thesis versus DoorMan in from-scratch behavior creation (A) and a hypothetical behavior adaptation of an existing pull door traversal behavior to a sliding door behavior.</figcaption>
+<figcaption><strong>Figure 173.</strong> This thesis versus DoorMan in from-scratch behavior creation (A) and a hypothetical behavior adaptation of an existing pull door traversal behavior to a sliding door behavior.</figcaption>
 </figure>
 <!-- PAGE-REFERENCES-START -->
-**References cited on this page**
+<p><strong>References cited on this page</strong></p>
 <p><strong>[49]</strong> M. Zhang, Y. Ma, T. Miki, and M. Hutter, “Learning to open and traverse doors with a legged manipulator.” 2024. Available: <a href="https://arxiv.org/abs/2409.04882">https://arxiv.org/abs/2409.04882</a></p>
 <p><strong>[75]</strong> H. Xue <em>et al.</em>, “Opening the sim-to-real door for humanoid pixel-to-action policy transfer,” <em>arXiv preprint arXiv:2512.01061</em>, 2025.</p>
 <!-- PAGE-REFERENCES-END -->
@@ -290,6 +295,8 @@ However, DoorMan’s architecture requires a simulation refit, PPO policy tuneup
         <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
+        <script src="citation-data-d2a0410c.js"></script>
+        <script src="citation-popups-d78943c6.js"></script>
 
 
 

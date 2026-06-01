@@ -29,6 +29,7 @@
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="theme-figures-e3dffecf.css">
+        <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -38,7 +39,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-28a852c0.js";
+            window.path_to_searchindex_js = "searchindex-f6bef07d.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-3c6d0428.js"></script>
@@ -181,7 +182,7 @@
 <h2 id="large-language-model-integration"><a class="header" href="#large-language-model-integration">Large Language Model Integration</a></h2>
 <figure id="fig:2025_ai2r">
 <img src="media/nadia/2025-06-07_FullSimDemoNadia_LLMcoordination-00.02.42.631.jpg" />
-<figcaption>
+<figcaption><strong>Figure 51.</strong> 
 A demo using the “AI to Robot” (AI2R) node to work with an external LLM process to coordinate behavior using reasoning in natural language.
 </figcaption>
 </figure>
@@ -189,7 +190,7 @@ A demo using the “AI to Robot” (AI2R) node to work with an external LLM proc
 For this, we created another heuristic control node called the AI to Robot (AI2R) node.
 In a similar spirit to our door traversal node, this node would contain hard-coded interfacing to external AI processes.
 The goal was to use LLMs and VLMs to generate behavior and make decisions.
-By June 2025 we had a working demo in simulation, as shown in <a href="#fig:2025_ai2r">1</a>.
+By June 2025 we had a working demo in simulation, as shown in <a href="#fig:2025_ai2r">Figure 51</a>.
 The goal of this demo was to receive an object from a person, stick it to the door, and retreat.</p>
 <p>In this demo, the robot scans the area and reports the detected scene objects to the LLM, including people.
 The LLM is given a list of objects and poses, works out which person has the object, then tells the robot to go to the person with the object.
@@ -202,7 +203,7 @@ However, it has not yet been shown to be faster, more reliable, or more capable 
 <h2 id="runtime-editable-logic"><a class="header" href="#runtime-editable-logic">Runtime-Editable Logic</a></h2>
 <figure id="fig:2025_whiteboards">
 <img src="media/unitree/2025_BehaviorDesignMeetings.jpg" />
-<figcaption>
+<figcaption><strong>Figure 52.</strong> 
 Whiteboards from late 2024 and early 2025 behavior system design meetings.
 Left: “Design of the fallback node” from December 6, 2024, Center: “A tree with fallback, condition, and goto nodes” from January 31, 2025, and Right: “A design diagram showing how the scene graph would be deleted and a simpler ‘behavior frame references’ component would be built” from March 3, 2025.
 </figcaption>
@@ -210,8 +211,8 @@ Left: “Design of the fallback node” from December 6, 2024, Center: “A tree
 <p>In late 2024 and early 2025 we had a series of design meetings focused on two major areas.
 The first was how to extract the reactive logic from the door traversal node into a runtime-editable version that would extend to other loco-manipulation behaviors.
 The second was how to resolve reliability and code architecture issues we were facing between the behavior tree and the scene graph.
-Whiteboards from these meetings are shown in <a href="#fig:2025_whiteboards">2</a>.</p>
-<p>We had been looking to Behavior Trees (BTs)  <a href="references.html#ref-2022_iovino_behavior_trees">37</a>, <a href="references.html#ref-2018_colledanchise">53</a> in the literature for some time, and had used an implementation of them in the 2021 building exploration demo on Atlas, as we showed in <a href="4_story_of_building_and_architecture_3_2020_2021_atlas_rdx_behavior_tree_era.html#fig:2021_building_exploration_demo">[fig:2021_building_exploration_demo]</a>.
+Whiteboards from these meetings are shown in <a href="#fig:2025_whiteboards">Figure 52</a>.</p>
+<p>We had been looking to Behavior Trees (BTs)  <a href="references.html#ref-2022_iovino_behavior_trees" class="citation-ref">[37]</a>, <a href="references.html#ref-2018_colledanchise" class="citation-ref">[53]</a> in the literature for some time, and had used an implementation of them in the 2021 building exploration demo on Atlas, as we showed in <a href="4_story_of_building_and_architecture_3_2020_2021_atlas_rdx_behavior_tree_era.html#fig:2021_building_exploration_demo">Figure 22</a>.
 However, that 2021 implementation did not include runtime-editable behaviors.
 We wanted to figure out how to support behavior tree control nodes with our novel implementation of runtime-editable concurrent-capable action sequences.
 We decided to look for small, incremental modifications that made the biggest impact on reactivity.</p>
@@ -242,7 +243,7 @@ This was ultimately not very useful.</p>
 <h2 id="llm-condition-node"><a class="header" href="#llm-condition-node">LLM Condition Node</a></h2>
 <figure id="fig:2025_llm_condition_node">
 <img src="media/unitree/2025-03-06 17-08-LLMNode-15-00.00.04.763.jpg" />
-<figcaption>
+<figcaption><strong>Figure 53.</strong> 
 A condition node backed by an LLM.
 This test on March 6, 2025, replicated a simple persistent counter node using prompting and a regular expression matcher.
 In this example, the system prompt starts the count at 0, and the repeating prompt asks for the next number.
@@ -252,7 +253,7 @@ A video is available at <a href="https://youtu.be/OQhm2xduzuk" class="uri">https
 </figure>
 <p>In March 2025, we implemented an LLM condition node.
 It was based on the Llama 3.2 3B Instruct model with 8-bit quantization.
-As shown in <a href="#fig:2025_llm_condition_node">3</a>, we replicated the counter condition node type with the LLM type.
+As shown in <a href="#fig:2025_llm_condition_node">Figure 53</a>, we replicated the counter condition node type with the LLM type.
 After experimentation, we found that the LLM’s response format varied.
 To create a simple binary pass/fail as required by the condition node, we structured the node as three parts: the system prompt, a repeating prompt, and a response matcher.
 The system prompt would be input to the model once and the repeating prompt would be input to the model each time the condition node is executed.
@@ -272,11 +273,11 @@ This made the code a little nicer to deal with but didn’t have any meaningful 
 <h2 id="behavior-scene"><a class="header" href="#behavior-scene">Behavior Scene</a></h2>
 <figure id="fig:2025_scene_action_whiteboard">
 <img src="media/unitree/20251021_BehaviorSceneActionWhiteboard.jpg" />
-<figcaption>
+<figcaption><strong>Figure 54.</strong> 
 An October 21, 2025 behavior design meeting where the behavior scene and the concept of a scene action was solidified.
 </figcaption>
 </figure>
-<p>In late October of 2025, we finally acted on the March 3rd, 2025 design meeting, shown in <a href="#fig:2025_whiteboards">2</a>, and had another meeting shown in <a href="#fig:2025_scene_action_whiteboard">4</a>.
+<p>In late October of 2025, we finally acted on the March 3rd, 2025 design meeting, shown in <a href="#fig:2025_whiteboards">Figure 52</a>, and had another meeting shown in <a href="#fig:2025_scene_action_whiteboard">Figure 54</a>.
 At this time we introduced a behavior scene that is owned by the behavior system alongside the tree, as opposed to relying on an external scene graph system.
 The October 21, 2025 meeting is where we solidified the concept of a scene action node.
 We pulled the instant and persistent detection components from the scene graph and left everything else.
@@ -292,7 +293,7 @@ However, this capability of associating 3D depth data with semantic detection ma
 The association gives a high frequency 3D position of the centroid of the detected object, which is usable to act on constrained objects like door handles and symmetrical objects like tennis balls.</p>
 <figure id="fig:2025_scene_demo">
 <img src="media/unitree/2025-11-04_12-57-13-BehaviorScenePersistentDetections-00.00.23.240.jpg" />
-<figcaption>
+<figcaption><strong>Figure 55.</strong> 
 A November 4th, 2025 demo of the new behavior scene.
 On the right, the behavior scene gets its own panel, with the persistent detections listed as “Stable Detections”.
 The persistent detection entries show the semantic class (i.e. cup), the incoming instant detection frequency, and the current history size, which is the number of instant detections held by the persistent detection.
@@ -300,7 +301,7 @@ A video is available at <a href="https://youtu.be/NLDHnASOzCc" class="uri">https
 </figcaption>
 </figure>
 <p>Persistent detections are simply a collection of instant detections over time.
-An early demo is shown in <a href="#fig:2025_scene_demo">5</a>.
+An early demo is shown in <a href="#fig:2025_scene_demo">Figure 55</a>.
 The new behavior scene implementation carried over a similar logical structure to the detection manager that was in the scene graph.
 This algorithm sorts incoming instant detections into existing persistent detections or new ones based on location.
 If an incoming instant detection is the same semantic class as an existing persistent detection and is close by, it is sorted into that one.
@@ -335,13 +336,13 @@ The object’s frame, similarly, can still be used for physical action definitio
 <h2 id="ability-hand-and-reliability"><a class="header" href="#ability-hand-and-reliability">Ability Hand and Reliability</a></h2>
 <figure id="fig:2025_mustard_pickup">
 <img src="media/unitree/2025-11-10_17-10-16_MustardGraspSuccess-00.00.15.591.jpg" />
-<figcaption>A November 10th, 2025 demo where our Unitree H1-2  [77](references.md#ref-unitree_h1_2) robot picked up a mustard bottle automatically using the new scene action node.
+<figcaption><strong>Figure 56.</strong> A November 10th, 2025 demo where our Unitree H1-2  <a href="references.html#ref-unitree_h1_2" class="citation-ref">[77]</a> robot picked up a mustard bottle automatically using the new scene action node.
 A video is available at <a href="https://youtu.be/PVtL7KYMC9g" class="uri">https://youtu.be/PVtL7KYMC9g</a>.
 </figcaption>
 </figure>
 <p>A demonstration on November 10th, 2025, showed the utility of the new behavior scene and scene action node.
-This was the first time we picked up an object from a table in the fully automatic mode, as shown in <a href="#fig:2025_mustard_pickup">6</a>.
-It was also the first manipulation behavior we executed on the Unitree H1-2  <a href="references.html#ref-unitree_h1_2">77</a> robot we got that year.
+This was the first time we picked up an object from a table in the fully automatic mode, as shown in <a href="#fig:2025_mustard_pickup">Figure 56</a>.
+It was also the first manipulation behavior we executed on the Unitree H1-2  <a href="references.html#ref-unitree_h1_2" class="citation-ref">[77]</a> robot we got that year.
 There were still lots of little bugs and issues in this demo, but nothing super theoretical.
 For one, our whole body controller was not great at walking with the H1-2 so the approach stance was not accurate, resulting in a low quality IK solution for reaching the mustard due to not approaching the table closely enough.
 A low quality IK solution with our system has always meant a high error bar on the resulting hand pose.
@@ -350,11 +351,11 @@ We ended up fixing that on the hand controller side in the coming months.</p>
 <h2 id="proximity-condition"><a class="header" href="#proximity-condition">Proximity Condition</a></h2>
 <figure id="fig:2025_proximity_condition">
 <img src="media/unitree/2025-11-19 17-56-14_ProximityCondition-00.00.51.640.jpg" />
-<figcaption>A November 19, 2025 test of our new generalized proximity condition.
+<figcaption><strong>Figure 57.</strong> A November 19, 2025 test of our new generalized proximity condition.
 A video is available at <a href="https://youtu.be/CeHAXjiN4hw" class="uri">https://youtu.be/CeHAXjiN4hw</a>.
 </figcaption>
 </figure>
-<p>On November 19, 2025, we generalized an initial implementation of the proximity condition type, as seen in <a href="#fig:2025_proximity_condition">7</a>.
+<p>On November 19, 2025, we generalized an initial implementation of the proximity condition type, as seen in <a href="#fig:2025_proximity_condition">Figure 57</a>.
 In the bottom left of the screenshot, the options can be seen.
 The proximity condition type compares the positions of two reference frames.
 In the case shown, frame A is selected as “afterPelvis” (the pelvis frame) and frame B is selected as the mustard object, which we’ve instantiated and posed virtually in simulation.
@@ -366,12 +367,12 @@ Observing the current values can help the operator reason about which min and ma
 <h3 id="concurrency-visualization"><a class="header" href="#concurrency-visualization">Concurrency Visualization</a></h3>
 <figure id="fig:2025_execute_after_arrows">
 <img src="media/unitree/2025-11-13 15-14-44-ExecuteAfterIndicators-00.00.22.192.jpg" />
-<figcaption>
+<figcaption><strong>Figure 58.</strong> 
 A November 13th, 2025 development – showing arrows on the right side which represent the “execute after” dependencies visually.
 A video is available at <a href="https://youtu.be/4_26TwmRYr4" class="uri">https://youtu.be/4_26TwmRYr4</a>.
 </figcaption>
 </figure>
-<p>Later in November, we added a visualization element for the “execute after” field for action nodes, as shown in <a href="#fig:2025_execute_after_arrows">8</a>.
+<p>Later in November, we added a visualization element for the “execute after” field for action nodes, as shown in <a href="#fig:2025_execute_after_arrows">Figure 58</a>.
 Prior to this feature, to understand the concurrency of sequences you would select each action in the list and check the “execute after” field.
 You could also click the little green arrows and see if the ones after it were also green, indicating that they would execute together.
 However, we wanted to reduce uncertainty and increase understandability of the behavior at a glance.
@@ -382,7 +383,7 @@ The behavior shakeout consists of a sequence of open-loop walking and arm motion
 <h2 id="logging-behavior-data"><a class="header" href="#logging-behavior-data">Logging Behavior Data</a></h2>
 <figure id="fig:2025_behavior_yovariables">
 <img src="media/unitree/2025-12-10 12-08-14_BehaviorYoVariables-00.00.03.161.jpg" />
-<figcaption>A December 10, 2025 screenshot that shows the BehaviorTreeExecutor YoVariable registry in the tree on the left-hand side.
+<figcaption><strong>Figure 59.</strong> A December 10, 2025 screenshot that shows the BehaviorTreeExecutor YoVariable registry in the tree on the left-hand side.
 Behavior variables such as “automaticExecution” and “executionNextIndex” are plotted over time.
 A video is available at <a href="https://youtu.be/mcS6PkfpIWE" class="uri">https://youtu.be/mcS6PkfpIWE</a>.
 </figcaption>
@@ -390,40 +391,40 @@ A video is available at <a href="https://youtu.be/mcS6PkfpIWE" class="uri">https
 <p>Later in December, we implemented behavior data logging in a way that is synchronized and viewable alongside whole body controller data.
 In this system, the behavior system process sends a periodic ROS 2 message containing a registry of behavior YoVariables, the buffered data types supported in SCS.
 A subscriber is set up in the whole body controller process to subscribe to these variables and inject them into the whole body controller’s registry, which then gets logged in the normal way.
-A screenshot of a loaded log in SCS is displayed in <a href="#fig:2025_behavior_yovariables">9</a>, showing the behavior variables embedded in and synchronized with the whole body controller log.</p>
+A screenshot of a loaded log in SCS is displayed in <a href="#fig:2025_behavior_yovariables">Figure 59</a>, showing the behavior variables embedded in and synchronized with the whole body controller log.</p>
 <h2 id="foundationpose-integration"><a class="header" href="#foundationpose-integration">FoundationPose Integration</a></h2>
 <figure id="fig:2025_fp_mustard_pickup">
 <img src="media/unitree/2025-12-11_16-28-40_FoundationPoseMustardGrabAuto-00.00.08.825.jpg" />
-<figcaption>A December 11, 2025 demo where we used FoundationPose  [76](references.md#ref-wen2024foundationpose) to detect the pose of the mustard bottle and execute an automatic behavior to pick it up.
+<figcaption><strong>Figure 60.</strong> A December 11, 2025 demo where we used FoundationPose  <a href="references.html#ref-wen2024foundationpose" class="citation-ref">[76]</a> to detect the pose of the mustard bottle and execute an automatic behavior to pick it up.
 A video is available at <a href="https://youtu.be/tP2ZvOkEjFk" class="uri">https://youtu.be/tP2ZvOkEjFk</a>.
 </figcaption>
 </figure>
-<p>On December 11, 2025, we integrated FoundationPose  <a href="references.html#ref-wen2024foundationpose">76</a> into the behavior scene.
-We used this to create an improved version of the mustard pickup task, as shown in <a href="#fig:2025_fp_mustard_pickup">10</a>.
+<p>On December 11, 2025, we integrated FoundationPose  <a href="references.html#ref-wen2024foundationpose" class="citation-ref">[76]</a> into the behavior scene.
+We used this to create an improved version of the mustard pickup task, as shown in <a href="#fig:2025_fp_mustard_pickup">Figure 60</a>.
 This added the capability to grasp asymmetric objects as FoundationPose detects an object’s orientation and bounding box in addition to the position.
 The red box in the figure shows the FoundationPose bounding box.
 In the bottom right, the FoundationPose scene object for the mustard can be seen.
 At this point we had two types of scene objects: FoundationPose and YOLOv8.
 Our scene was now designed to handle different types of objects abstractly and be extended easily to support more types.</p>
 <h2 id="ability-hand-control"><a class="header" href="#ability-hand-control">Ability Hand Control</a></h2>
-<p>This demo was still somewhat unreliable due to the low level control code of our new 5-finger Psyonic Ability Hand  <a href="references.html#ref-akhtar2022touch">81</a> grippers.
+<p>This demo was still somewhat unreliable due to the low level control code of our new 5-finger PSYONIC Ability Hand  <a href="references.html#ref-akhtar2022touch" class="citation-ref">[81]</a> grippers.
 The hands would often not respond to behavior commands and, worse, retrying the command did not work.
 By December 15, after trying at least five different control strategies, we fixed this issue and finger control was very smooth and reliable.
-The on-board Ability Hand controller wants an alpha-filtered position setpoint input that is generated from an ideal velocity-limited trajectory, as presented in <a href="#alg:ability_hand_pos_vel_limit">11</a>.
+The on-board Ability Hand controller wants an alpha-filtered position setpoint input that is generated from an ideal velocity-limited trajectory, as presented in <a href="#alg:ability_hand_pos_vel_limit">Algorithm 5</a>.
 This helps the hand reliably move at the desired velocity to the desired setpoint and hold the position without jittering.</p>
 <figure id="alg:ability_hand_pos_vel_limit">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/alg_ability_hand_pos_vel_limit.light.jpg" /><img class="tikz-dark" src="media/generated/alg_ability_hand_pos_vel_limit.dark.jpg" /></span>
-<figcaption>Ability Hand Velocity-Limited Position Control Update</figcaption>
+<figcaption><strong>Algorithm 5.</strong> Ability Hand Velocity-Limited Position Control Update</figcaption>
 </figure>
 <h2 id="hand-and-finger-previewing"><a class="header" href="#hand-and-finger-previewing">Hand and Finger Previewing</a></h2>
 <figure id="fig:unitree_hand_previewing">
 <img src="media/unitree/2025-12-13 14-49-49_HandPreviewing-00.00.12.809.jpg" />
-<figcaption>A screenshot of the hand previewing feature from December 13, 2025.
+<figcaption><strong>Figure 61.</strong> A screenshot of the hand previewing feature from December 13, 2025.
 In the center, the transparent hand indicates the future grasp configuration.
 A video is available at <a href="https://youtu.be/ioqLeNys_Mc" class="uri">https://youtu.be/ioqLeNys_Mc</a>.
 </figcaption>
 </figure>
-<p>Later in December, we added hand and finger previewing in the behavior editor, as shown in <a href="#fig:unitree_hand_previewing">12</a>.
+<p>Later in December, we added hand and finger previewing in the behavior editor, as shown in <a href="#fig:unitree_hand_previewing">Figure 61</a>.
 This feature was designed to help the operator understand where the fingers will be during authoring.
 When a hand pose action is selected, the finger previews show up at the end of that arm pose.
 Since the pose of the arm and the configuration of the fingers are specified in separate actions and can be interwoven with other actions, this feature looks backwards in the sequence to find the most recent Ability Hand action.
@@ -434,59 +435,59 @@ First, we could also show the preview when an Ability Hand action is selected, u
 Secondly, if an arm action is selected and there are no prior Ability Hand actions, we could use the current configuration of the hand for the preview.</p>
 <figure id="fig:unitree_ability_hand_knob_grasp">
 <img src="media/unitree/AblityHandKnobGrasp.jpg" />
-<figcaption>Unitree H1-2 with Ability Hand performing a pinch grasp on the knob door handle.
+<figcaption><strong>Figure 62.</strong> Unitree H1-2 with Ability Hand performing a pinch grasp on the knob door handle.
 This is a very secure and reliable grasp, mimicking nature, and provides a wide error margin for pre-grasp hand poses.</figcaption>
 </figure>
 <h2 id="door-knob-turning"><a class="header" href="#door-knob-turning">Door Knob Turning</a></h2>
 <figure id="fig:unitree_knob_23x">
 <img src="media/unitree/2025-12-23_13-44-18_DoorKnobHighSuccessRate23x-00.01.49.756.jpg" />
-<figcaption>Our December 23, 2025 demonstration of a knob door handle repeated opening demo.
+<figcaption><strong>Figure 63.</strong> Our December 23, 2025 demonstration of a knob door handle repeated opening demo.
 A video is available at <a href="https://youtu.be/3hRLBV4dZ0Q" class="uri">https://youtu.be/3hRLBV4dZ0Q</a>.
 </figcaption>
 </figure>
-<p>On December 23, 2025, using the pinch grasp shown in <a href="#fig:unitree_ability_hand_knob_grasp">13</a>, we demonstrated a pull knob door handle opening task automatically 23 times in a row, as shown in <a href="#fig:unitree_knob_23x">14</a>.
+<p>On December 23, 2025, using the pinch grasp shown in <a href="#fig:unitree_ability_hand_knob_grasp">Figure 62</a>, we demonstrated a pull knob door handle opening task automatically 23 times in a row, as shown in <a href="#fig:unitree_knob_23x">Figure 63</a>.
 On the 24th attempt, the knob was not turned enough, and the hand slipped off on the pull.
 This was our first return to doors in over a year.
 Using now higher-confidence and more robust YOLO models for the door mechanisms in combination with the scene actions and the 5-finger Ability Hand gripper, door handle manipulation reliability has drastically increased.</p>
 <h2 id="lever-handle-door-opening-demo"><a class="header" href="#lever-handle-door-opening-demo">Lever-Handle Door Opening Demo</a></h2>
 <figure id="fig:unitree_lever_32x">
 <img src="media/unitree/2026-01-02_17-08-16_NeverFailingFastPullLeverHandle31x-00.05.31.588.jpg" />
-<figcaption>The 32-time pull lever door opening reliability demo run on January 2nd, 2026.
+<figcaption><strong>Figure 64.</strong> The 32-time pull lever door opening reliability demo run on January 2nd, 2026.
 A video is available at <a href="https://youtu.be/fQCNuXEF9xg" class="uri">https://youtu.be/fQCNuXEF9xg</a>.
 </figcaption>
 </figure>
-<p>On January 2, 2026, a similar demonstration with a door lever handle achieved 32 pull door openings in a row, as shown in <a href="#fig:unitree_lever_32x">15</a>.
+<p>On January 2, 2026, a similar demonstration with a door lever handle achieved 32 pull door openings in a row, as shown in <a href="#fig:unitree_lever_32x">Figure 64</a>.
 This time, the behavior was not run until failure.
 It was just run until we got bored.
 Similarly to the pull knob behavior, we think the Ability Hand being grippy and in an anthropomorphic 5-finger configuration contributed to the reliability along with the scene action and the maturation and stabilization of our behavior system as a whole.</p>
 <figure id="fig:unitree_fallback">
 <img src="media/unitree/20260104_UnitreeFallbackWorkaround.png" />
-<figcaption>The hand action fallback workaround from January 4th, 2026.
+<figcaption><strong>Figure 65.</strong> The hand action fallback workaround from January 4th, 2026.
 The behavior would try the “Curl fingers a little, thumb back” command, but keep going regardless of the result.</figcaption>
 </figure>
 <p>However, this demo was not issue-free.
 There was some kind of bug in the hand action unrelated to hand control that was causing the action to fail.
 In this case, simply ignoring the failure would work to get the behavior to succeed, because this finger curling motion only slightly increased reliability, but was not necessary.
-We were able to use a fallback node to keep the behavior going regardless of failure, as shown in <a href="#fig:unitree_fallback">16</a>, marking our first use of the fallback node in a real robot behavior.
+We were able to use a fallback node to keep the behavior going regardless of failure, as shown in <a href="#fig:unitree_fallback">Figure 65</a>, marking our first use of the fallback node in a real robot behavior.
 The use of the fallback node helped in this case not to overcome an environmental failure, but to overcome a bug in the code, which was not a use case we expected.
 We learned that the fallback node was also useful for working around bugs in the system, reducing the chance that we would need to stop the robot experiment and go fix code bugs.</p>
 <h2 id="scene-action-improvements"><a class="header" href="#scene-action-improvements">Scene Action Improvements</a></h2>
 <figure id="fig:unitree_scene_setup_type">
 <img src="media/unitree/2026-01-08 17-43-51_SceneActionMenu-00.00.15.217.jpg" />
-<figcaption>The scene action settings for setting up a YOLO object.
+<figcaption><strong>Figure 66.</strong> The scene action settings for setting up a YOLO object.
 Dropdown combo boxes are available to select the YOLO model and object class.
 A video is available at <a href="https://youtu.be/TPXugNdRx6E" class="uri">https://youtu.be/TPXugNdRx6E</a>.
 </figcaption>
 </figure>
-<p>On January 8, 2026, the scene action was extended to fully support our full library of FoundationPose and YOLO models as shown in <a href="#fig:unitree_scene_setup_type">17</a>.
+<p>On January 8, 2026, the scene action was extended to fully support our full library of FoundationPose and YOLO models as shown in <a href="#fig:unitree_scene_setup_type">Figure 66</a>.
 The operator was now able to select any semantic object type from either model architecture via drop-down menus.
 We also extended the scene object library to include heuristic objects, such as the door panel, shown here.</p>
 <h2 id="door-panel-tracking"><a class="header" href="#door-panel-tracking">Door Panel Tracking</a></h2>
 <figure id="fig:unitree_door_panel">
 <img src="media/unitree/2026-01-20 15-19-59-DoorPanel-00.00.13.153.jpg" />
-<figcaption>Our door panel detector in a screenshot from January 20, 2026.</figcaption>
+<figcaption><strong>Figure 67.</strong> Our door panel detector in a screenshot from January 20, 2026.</figcaption>
 </figure>
-<p>On January 20, 2026, we implemented that door panel heuristic scene object, as shown in <a href="#fig:unitree_door_panel">18</a>.
+<p>On January 20, 2026, we implemented that door panel heuristic scene object, as shown in <a href="#fig:unitree_door_panel">Figure 67</a>.
 It uses two YOLO persistent detections, one for the handle and one for the panel, and draws a line between the centroids to identify the orientation of the panel.
 This is possible with the assumption that door panels swing on a vertical hinge.</p>
 <!-- PAGE-REFERENCES-START -->
@@ -549,6 +550,8 @@ This is possible with the assumption that door panels swing on a vertical hinge.
         <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
+        <script src="citation-data-d2a0410c.js"></script>
+        <script src="citation-popups-d78943c6.js"></script>
 
 
 

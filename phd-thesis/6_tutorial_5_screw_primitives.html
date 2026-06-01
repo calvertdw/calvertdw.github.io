@@ -29,6 +29,7 @@
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="theme-figures-e3dffecf.css">
+        <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -38,7 +39,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-28a852c0.js";
+            window.path_to_searchindex_js = "searchindex-f6bef07d.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-3c6d0428.js"></script>
@@ -181,14 +182,14 @@
 <h2 id="motion-model"><a class="header" href="#motion-model">Motion Model</a></h2>
 <figure id="fig:guide_sim_screw_primitive">
 <img src="media/guide/20260519_161800_ScrewPrimitive.jpg" />
-<figcaption>Tuning a screw primitive action.
+<figcaption><strong>Figure 117.</strong> Tuning a screw primitive action.
 A video of this demonstration is available at <a href="https://youtu.be/NkX0Jo9TlYs" class="uri">https://youtu.be/NkX0Jo9TlYs</a>.</figcaption>
 </figure>
-<p><a href="#fig:guide_sim_screw_primitive">1</a> shows a screw primitive action being authored.
-Our screw primitive action is inspired by Pettinger’s 2022 paper  <a href="references.html#ref-Pettinger_2022">14</a> but differs in implementation.</p>
+<p><a href="#fig:guide_sim_screw_primitive">Figure 117</a> shows a screw primitive action being authored.
+Our screw primitive action is inspired by Pettinger’s 2022 paper  <a href="references.html#ref-Pettinger_2022" class="citation-ref">[14]</a> but differs in implementation.</p>
 <p>Our screw primitive action is defined relative to a user-defined screw reference frame, where the axis of the screw is strictly aligned with the local x-axis (<script type="math/tex">\hat{\mathbf{x}}</script>).
 The motion is parameterized by a total axial translation <script type="math/tex">\Delta x</script> and a total rotation <script type="math/tex">\Delta \theta</script>.
-<a href="#fig:guide_sim_screw_primitive">1</a> illustrates one parameterization for reference and the reference video shows varied parameterizations.</p>
+<a href="#fig:guide_sim_screw_primitive">Figure 117</a> illustrates one parameterization for reference and the reference video shows varied parameterizations.</p>
 <p>Let the initial position of the end-effector in the screw frame be <script type="math/tex">\mathbf{p}_0 = [x_0, y_0, z_0]^T</script>.
 The radial distance <script type="math/tex">r</script> from the screw axis to the end-effector is calculated by projecting the position onto the y-z plane:</p>
 <script type="math/tex; mode=display">
@@ -244,7 +245,7 @@ The scalar velocities are derived from the base duration:</p>
 </script>
 <p>This sequence of generated poses and spatial velocities is finally fed into an inverse kinematics solver to compute the joint-space trajectories.</p>
 <h2 id="tuning-and-preview"><a class="header" href="#tuning-and-preview">Tuning and Preview</a></h2>
-<p>As seen in <a href="#fig:guide_sim_screw_primitive">1</a>, the total axial translation, total rotation, max linear velocity, and max angular velocity can be specified using sliders.
+<p>As seen in <a href="#fig:guide_sim_screw_primitive">Figure 117</a>, the total axial translation, total rotation, max linear velocity, and max angular velocity can be specified using sliders.
 The 3D trajectory visualization is updated in real time as the user drags these sliders to help dial in the motion.
 As with the single pose trajectory arm action, the screw primitive has settings for the position and orientation tolerance.
 If the final goal pose is not reached within these tolerances, the action fails.</p>
@@ -308,6 +309,8 @@ The behavior author should strive to keep it blue throughout the motion.</p>
         <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
+        <script src="citation-data-d2a0410c.js"></script>
+        <script src="citation-popups-d78943c6.js"></script>
 
 
 

@@ -29,6 +29,7 @@
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="theme-figures-e3dffecf.css">
+        <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -38,7 +39,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-28a852c0.js";
+            window.path_to_searchindex_js = "searchindex-f6bef07d.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-3c6d0428.js"></script>
@@ -179,13 +180,13 @@
                     <main>
                         <h1 id="hypothesis-2-fast-behavior-authoring"><a class="header" href="#hypothesis-2-fast-behavior-authoring">Hypothesis 2: Fast Behavior Authoring</a></h1>
 <p>To support our second hypothesis, we’ll show how quickly new behaviors can be authored on the real robot using the runtime edit-test loop, rather than redeploy, restart, or retrain workflows.</p>
-<p>In <a href="#fig:in_house_authoring_from_scratch_timeline">1</a>, we summarize measured from-scratch authoring sessions on real hardware.
+<p>In <a href="#fig:in_house_authoring_from_scratch_timeline">Figure 162</a>, we summarize measured from-scratch authoring sessions on real hardware.
 Each row shows normalized active authoring time on a log-second axis with internal milestone structure recovered from screen recordings.
 Checkmarks mark first autonomous success.
 Gaps between daily sessions are excluded for the multi-day Alex bring-up.</p>
 <figure id="fig:in_house_authoring_from_scratch_timeline">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/InHouseAuthoringFromScratchTimeline.light.jpg" /><img class="tikz-dark" src="media/generated/InHouseAuthoringFromScratchTimeline.dark.jpg" /></span>
-<figcaption>
+<figcaption><strong>Figure 162.</strong> 
 In-house real-robot from-scratch authoring durations on a log-second axis with internal milestone structure.
 Rows are grouped by robot era.
 The Nadia 2023 row does a stand-in-place opening with ArUco perception and teleoperated traversal in the final segment.
@@ -193,15 +194,15 @@ Checkmarks mark first autonomous success.
 Times are normalized active authoring; gaps between daily sessions are excluded for the Alex bring-up.
 </figcaption>
 </figure>
-<p>The subsections below walk through each row in <a href="#fig:in_house_authoring_from_scratch_timeline">1</a> with a representative still, the authoring-time table, and a link to the screen recording.</p>
+<p>The subsections below walk through each row in <a href="#fig:in_house_authoring_from_scratch_timeline">Figure 162</a> with a representative still, the authoring-time table, and a link to the screen recording.</p>
 <h2 id="scratch-right-push-opening-nadia-2023"><a class="header" href="#scratch-right-push-opening-nadia-2023">Scratch Right Push Opening (Nadia 2023)</a></h2>
 <p>This row is our earliest measured scratch door opening on Nadia, at 33 minutes.
 However, the behavior used ArUco marker perception, a squared up approach, and teleoperation for the final traversal steps.
-The session is shown in <a href="#fig:h2_nadia_scratch_push_authoring">2</a>.
-Authoring times are presented in <a href="#tab:h2_nadia_scratch_push_authoring_timeline">1</a>.</p>
+The session is shown in <a href="#fig:h2_nadia_scratch_push_authoring">Figure 163</a>.
+Authoring times are presented in <a href="#tab:h2_nadia_scratch_push_authoring_timeline">Table 22</a>.</p>
 <figure id="fig:h2_nadia_scratch_push_authoring">
 <img src="media/nadia/2023_Calvert_NadiaRightPushDoorAuthoring.jpg" />
-<figcaption>Nadia during the 2023 scratch right push door authoring session.
+<figcaption><strong>Figure 163.</strong> Nadia during the 2023 scratch right push door authoring session.
 A video is available at <a href="https://youtu.be/SbBGpRHY_eE" class="uri">https://youtu.be/SbBGpRHY_eE</a>.</figcaption>
 </figure>
 <div id="tab:h2_nadia_scratch_push_authoring_timeline">
@@ -227,18 +228,18 @@ A video is available at <a href="https://youtu.be/SbBGpRHY_eE" class="uri">https
 </tbody>
 </table>
 </div>
-<p>Historical 2023 Nadia right push door authoring milestones for the session summarized in <a href="#fig:in_house_authoring_from_scratch_timeline">1</a>.</p>
+<p><strong>Table 22.</strong> Historical 2023 Nadia right push door authoring milestones for the session summarized in <a href="#fig:in_house_authoring_from_scratch_timeline">Figure 162</a>.</p>
 </div>
 
 <p><span id="tab:h2_nadia_scratch_push_authoring_timeline" label="tab:h2_nadia_scratch_push_authoring_timeline"></span></p>
 <h2 id="right-pull-opening-loop-unitree-h1-2-2026-01-02"><a class="header" href="#right-pull-opening-loop-unitree-h1-2-2026-01-02">Right Pull Opening Loop (Unitree H1-2, 2026-01-02)</a></h2>
 <p>On January 2, 2026, we authored a looping standing right pull lever handle opening behavior on the Unitree H1-2 from an empty behavior tree.
 The session reached first autonomous looping execution in 31 minutes and 43 seconds of active authoring time.
-The progression is shown in <a href="#fig:h2_unitree_scratch_authoring">3</a>.
-Authoring times are presented in <a href="#tab:h2_unitree_scratch_authoring_timeline">2</a>.</p>
+The progression is shown in <a href="#fig:h2_unitree_scratch_authoring">Figure 164</a>.
+Authoring times are presented in <a href="#tab:h2_unitree_scratch_authoring_timeline">Table 23</a>.</p>
 <figure id="fig:h2_unitree_scratch_authoring">
 <img src="media/unitree/2026-01-02_16-31-39_AuthoringRightPullLeverLoopingBehaviorFromScratch.jpg" />
-<figcaption>Key frames from the Unitree H1-2 scratch authoring session on January 2, 2026, from sequence creation through screw primitive tuning to looping autonomous opening.
+<figcaption><strong>Figure 164.</strong> Key frames from the Unitree H1-2 scratch authoring session on January 2, 2026, from sequence creation through screw primitive tuning to looping autonomous opening.
 A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https://youtu.be/7VGFufJWaR4</a>.</figcaption>
 </figure>
 <div id="tab:h2_unitree_scratch_authoring_timeline">
@@ -260,7 +261,7 @@ A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https
 </tbody>
 </table>
 </div>
-<p>Scratch authoring milestones for the January 2, 2026 Unitree H1-2 looping right pull lever handle opening behavior shown in <a href="#fig:h2_unitree_scratch_authoring">3</a>.</p>
+<p><strong>Table 23.</strong> Scratch authoring milestones for the January 2, 2026 Unitree H1-2 looping right pull lever handle opening behavior shown in <a href="#fig:h2_unitree_scratch_authoring">Figure 164</a>.</p>
 </div>
 
 <p><span id="tab:h2_unitree_scratch_authoring_timeline" label="tab:h2_unitree_scratch_authoring_timeline"></span></p>
@@ -268,11 +269,11 @@ A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https
 <p>From January 20 through 24, 2026, we brought up the first full Alex pull lever door traversal from scratch.
 The measured active authoring total is 11 hours, 10 minutes, and 17 seconds.
 That total is cumulative across five daily sessions and excludes inactive gaps between sessions.
-A frame from the bring up period is shown in <a href="#fig:h2_alex_first_pull_authoring">4</a>.
-Authoring times are presented in <a href="#tab:h2_alex_first_pull_authoring_timeline">3</a>.</p>
+A frame from the bring up period is shown in <a href="#fig:h2_alex_first_pull_authoring">Figure 165</a>.
+Authoring times are presented in <a href="#tab:h2_alex_first_pull_authoring_timeline">Table 24</a>.</p>
 <figure id="fig:h2_alex_first_pull_authoring">
 <img src="media/alex/20260124_AlexFirstPullDoor.jpg" />
-<figcaption>Alex during the January 20–24, 2026 first right pull door bring up, culminating in the first successful full traversal.
+<figcaption><strong>Figure 165.</strong> Alex during the January 20–24, 2026 first right pull door bring up, culminating in the first successful full traversal.
 A video is available at <a href="https://youtu.be/zYYnatMz3wU" class="uri">https://youtu.be/zYYnatMz3wU</a>.</figcaption>
 </figure>
 <div id="tab:h2_alex_first_pull_authoring_timeline">
@@ -298,7 +299,7 @@ A video is available at <a href="https://youtu.be/zYYnatMz3wU" class="uri">https
 </tbody>
 </table>
 </div>
-<p>Normalized authoring timeline for the January 20–24, 2026 first Alex right pull lever handle door traversal shown in <a href="#fig:h2_alex_first_pull_authoring">4</a>.
+<p><strong>Table 24.</strong> Normalized authoring timeline for the January 20–24, 2026 first Alex right pull lever handle door traversal shown in <a href="#fig:h2_alex_first_pull_authoring">Figure 165</a>.
 The time column is cumulative across days but excludes inactive gaps between daily sessions.</p>
 </div>
 
@@ -306,11 +307,11 @@ The time column is cumulative across days but excludes inactive gaps between dai
 <h2 id="scratch-left-push-door-alex-2026-02-22"><a class="header" href="#scratch-left-push-door-alex-2026-02-22">Scratch Left Push Door (Alex, 2026-02-22)</a></h2>
 <p>On February 22, 2026, we authored a left push door traversal on Alex from an empty <code>Left Push Door</code> sequence to first fully automatic success in 1 hour, 59 minutes, and 48 seconds of active authoring.
 This is the measured scratch case used in the comparative authoring process figure.
-The session is shown in <a href="#fig:h2_scratch_left_push_authoring">5</a>.
-Authoring times are presented in <a href="#tab:h2_scratch_left_push_authoring_timeline">4</a>.</p>
+The session is shown in <a href="#fig:h2_scratch_left_push_authoring">Figure 166</a>.
+Authoring times are presented in <a href="#tab:h2_scratch_left_push_authoring_timeline">Table 25</a>.</p>
 <figure id="fig:h2_scratch_left_push_authoring">
 <img src="media/alex/202602_AlexPushDoorAuthoring-00.00.17.864.jpg" />
-<figcaption>Screenshot from the February 22, 2026 scratch left push door authoring session on Alex.
+<figcaption><strong>Figure 166.</strong> Screenshot from the February 22, 2026 scratch left push door authoring session on Alex.
 A video is available at <a href="https://youtu.be/bLHQmV4GEFA" class="uri">https://youtu.be/bLHQmV4GEFA</a>.</figcaption>
 </figure>
 <div id="tab:h2_scratch_left_push_authoring_timeline">
@@ -334,7 +335,7 @@ A video is available at <a href="https://youtu.be/bLHQmV4GEFA" class="uri">https
 </tbody>
 </table>
 </div>
-<p>Normalized scratch authoring timeline for the February 22, 2026 left push door behavior shown in <a href="#fig:h2_scratch_left_push_authoring">5</a>.</p>
+<p><strong>Table 25.</strong> Normalized scratch authoring timeline for the February 22, 2026 left push door behavior shown in <a href="#fig:h2_scratch_left_push_authoring">Figure 166</a>.</p>
 </div>
 
 <p><span id="tab:h2_scratch_left_push_authoring_timeline" label="tab:h2_scratch_left_push_authoring_timeline"></span></p>
@@ -390,6 +391,8 @@ A video is available at <a href="https://youtu.be/bLHQmV4GEFA" class="uri">https
         <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
+        <script src="citation-data-d2a0410c.js"></script>
+        <script src="citation-popups-d78943c6.js"></script>
 
 
 

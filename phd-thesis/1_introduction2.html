@@ -29,6 +29,7 @@
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="theme-figures-e3dffecf.css">
+        <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -38,7 +39,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-28a852c0.js";
+            window.path_to_searchindex_js = "searchindex-f6bef07d.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-3c6d0428.js"></script>
@@ -178,7 +179,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <p><span id="ch:introduction2" label="ch:introduction2"></span></p>
-<h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
 <p>There is tremendous value in humanoid robots taking on the dull, dirty, and dangerous work in spaces built for humans.
 However, a useful system must coordinate locomotion, whole body motion, perception, contact, and operator supervision.
 It must also support adaptation to new tasks.
@@ -186,16 +187,18 @@ This chapter introduces the problem addressed by this dissertation and situates 
 <p>The central claim of this thesis is that our behavior architecture enables fast, resilient, and adaptive humanoid robot behaviors.
 Different architectural choices affect how quickly a behavior executes, how robustly it tolerates task variation and disturbance, and how much effort is required to adapt an existing behavior to a new variant.
 The work therefore focuses on the runtime structure that makes the task faster, more resilient, and easier to modify than prior versions.
-In <a href="4_story_of_building_and_architecture.html#ch:building">Building our Behavior Architecture</a>, we tell the story of how we arrived at our current design choices.</p>
-<p>This thesis demonstrates its relevance through performant real-robot demos on a variety of humanoid robot platforms, including IHMC’s recently developed Alex, a fully-electric humanoid robot with 29 degrees of freedom, as shown in <a href="#fig:20260309_AlexRightPullDoorProfessionalStill">1</a>.
-Alex uses the Psyonic Ability Hands, which are anthropomorphic 5-finger hands with 6 degrees of freedom each.
-It also perceives the world on-board, using just two stereo color cameras in the head with a human-like interpupillary distance.</p>
+In <a href="4_story_of_building_and_architecture.html#ch:building">Building our Behavior Architecture</a>, we tell the story of how we arrived at our current design choices.
+In <a href="5_current_architecture.html#ch:architecture2">Current Architecture</a>, we’ll present our current behavior system architecture.</p>
+<p>This thesis demonstrates its relevance through performant real-robot demos on a variety of humanoid robot platforms, including IHMC’s recently developed Alex, a fully-electric humanoid robot with 29 degrees of freedom, as shown in <a href="#fig:20260309_AlexRightPullDoorProfessionalStill">Figure 1</a>.
+Alex uses the PSYONIC Ability Hands, which are anthropomorphic 5-finger hands with 6 degrees of freedom each.
+It also perceives the world on-board, using just two stereo color cameras in the head with a human-like interpupillary distance.
+We present an evaluation of our results in <a href="7_defense.html#ch:defense">Evaluation</a>.</p>
 <p>We have run our system with several humanoid robots over the years, including the Boston Dynamics DARPA Robotics Challenge Atlas, NASA’s Valkyrie, IHMC and Boardwalk Robotics’ Nadia, Unitree’s H1-2, and IHMC’s Alex.
 This reflects the generality of our approach: it can run on a variety of humanoid robots.
 We describe the prerequisites in more detail in <a href="6_tutorial.html#ch:tutorial">Usage Guide</a>.</p>
 <figure id="fig:20260309_AlexRightPullDoorProfessionalStill">
 <img src="media/alex/20260309_AlexRightPullDoorProfessionalStill.jpg" style="width:62.0%" />
-<figcaption>IHMC’s fully electric Alex humanoid robot traversing a right pull door.
+<figcaption><strong>Figure 1.</strong> IHMC’s fully electric Alex humanoid robot traversing a right pull door.
 Alex is the primary platform in the final dissertation evaluations.
 A video is available at <a href="https://youtu.be/fP-9DfGFvW8" class="uri">https://youtu.be/fP-9DfGFvW8</a>.</figcaption>
 </figure>
@@ -209,7 +212,8 @@ This design can improve task speed, robustness under variation, and the time req
 In <a href="6_tutorial.html#ch:tutorial">Usage Guide</a>, we provide a guide on composing and editing humanoid robot loco-manipulation behaviors using our system.</p>
 <p>We compare our system to prior versions over a 10-year development period and to published results in the literature.
 However, we do not experimentally reproduce results from the literature.
-We also do not experimentally evaluate off-the-shelf alternatives such as MoveIt <a href="references.html#ref-MoveIt_2019">2</a>, MoveIt Pro <a href="references.html#ref-moveit_pro">7</a>, BehaviorTree.CPP <a href="references.html#ref-behaviortree_cpp">4</a>, and Groot <a href="references.html#ref-groot1">5</a>, <a href="references.html#ref-groot2">6</a>.</p>
+We also do not experimentally evaluate off-the-shelf alternatives such as MoveIt <a href="references.html#ref-MoveIt_2019" class="citation-ref">[2]</a>, MoveIt Pro <a href="references.html#ref-moveit_pro" class="citation-ref">[7]</a>, BehaviorTree.CPP <a href="references.html#ref-behaviortree_cpp" class="citation-ref">[4]</a>, and Groot <a href="references.html#ref-groot1" class="citation-ref">[5]</a>, <a href="references.html#ref-groot2" class="citation-ref">[6]</a>.
+We present related work in <a href="3_prior_work.html#ch:prior_work">Related Work</a>.</p>
 <h2 id="research-questions"><a class="header" href="#research-questions">Research Questions</a></h2>
 <p>This scope can be defined more formally by asking three research questions:</p>
 <ol>
@@ -243,64 +247,63 @@ Resilience means robust and reactive behavior under disturbance and task variati
 Adaptability means runtime-editable behaviors for rapid task retargeting.
 These pillars provide the main lens for evaluating the architecture and the results presented throughout the dissertation.
 In <a href="2_metrics.html#ch:metrics">Desirable Characteristics</a>, we cover the full set of desirable characteristics of a humanoid robot behavior architecture.</p>
-<h1 id="door-traversals-as-a-benchmark-task"><a class="header" href="#door-traversals-as-a-benchmark-task">Door Traversals as a Benchmark Task</a></h1>
+<h2 id="door-traversals-as-a-benchmark-task"><a class="header" href="#door-traversals-as-a-benchmark-task">Door Traversals as a Benchmark Task</a></h2>
 <p>We use door traversal as a benchmark task because it exposes the full coordination problem in a compact and repeatable setting.
 There are three main phases of door traversal: the approach, the opening, and the traversal walk.
 For the approach, footsteps must be precise to provide arm reachability while avoiding collisions between the door and the robot.
 Since the doors often have spring closers, a complex manipulation sequence is required to open the door all the way without failure.
 Finally, the traversal walk is difficult because the robot must maintain balance while avoiding collisions with the door frame and resisting lateral impacts from the spring loaded door panel.
-<a href="#fig:2024NadiaRightPullLeverHandleCycloid">2</a> shows a circa-2024 door behavior being executed on the Boardwalk Robotics and IHMC Nadia humanoid robot.</p>
+<a href="#fig:2024NadiaRightPullLeverHandleCycloid">Figure 2</a> shows a circa-2024 door behavior being executed on the Boardwalk Robotics and IHMC Nadia humanoid robot.</p>
 <figure id="fig:2024NadiaRightPullLeverHandleCycloid">
 <img src="media/nadia/2024NadiaRightPullLeverHandleCycloid.jpg" />
-<figcaption>The Nadia humanoid robot performing a right pull lever handle door traversal using cycloidal drive forearms and Sake grippers.</figcaption>
+<figcaption><strong>Figure 2.</strong> The Nadia humanoid robot performing a right pull lever handle door traversal using cycloidal drive forearms and Sake grippers.</figcaption>
 </figure>
-<p>There are many publications on door opening with wheeled base robots and arms, such as <a href="references.html#ref-Jain2008dooropening">41</a>, <a href="references.html#ref-2010ChittaDoorOpening">48</a>, <a href="references.html#ref-xiong2024adaptive">40</a>, and <a href="references.html#ref-kang2024door">50</a>.
-By contrast, there is relatively little published work on door traversal with bipedal humanoid robots <a href="references.html#ref-xue2025opening">75</a>.
+<p>There are many publications on door opening with wheeled base robots and arms, such as <a href="references.html#ref-Jain2008dooropening" class="citation-ref">[41]</a>, <a href="references.html#ref-2010ChittaDoorOpening" class="citation-ref">[48]</a>, <a href="references.html#ref-xiong2024adaptive" class="citation-ref">[40]</a>, and <a href="references.html#ref-kang2024door" class="citation-ref">[50]</a>.
+By contrast, there is relatively little published work on door traversal with bipedal humanoid robots <a href="references.html#ref-xue2025opening" class="citation-ref">[75]</a>.
 That gap matters because humanoids must manage foot placement, balance, reachability, body orientation, and environmental contact at the same time.
-The humanoid form is also especially well suited for navigating complex spaces that already assume a human body plan <a href="references.html#ref-Johnson_2017">32</a>.</p>
+The humanoid form is also especially well suited for navigating complex spaces that already assume a human body plan <a href="references.html#ref-Johnson_2017" class="citation-ref">[32]</a>.</p>
 <p>Although doors are the primary benchmark, the architecture is intended for loco-manipulation more broadly.
 The behavior library developed during this work spans more than twenty real robot task variants.
-<a href="#fig:behavior_library_taxonomy">3</a> groups the distinct behavior types by category.
-In addition to door traversals, the evaluation set includes a behavior in which the robot walks between two tables and sorts colored balls into the correct containers.
-That result shows the architecture extends beyond the canonical door task without changing the overall approach.</p>
+In one demonstration, the robot walks between two tables and sorts colored balls into the correct containers.
+<a href="#fig:behavior_library_taxonomy">Figure 3</a> groups the distinct behavior types by category.</p>
 <figure id="fig:behavior_library_taxonomy">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/BehaviorLibraryTaxonomyTikz.light.jpg" /><img class="tikz-dark" src="media/generated/BehaviorLibraryTaxonomyTikz.dark.jpg" /></span>
-<figcaption>Distinct real-robot behavior types developed during this work, grouped by category.</figcaption>
+<figcaption><strong>Figure 3.</strong> Distinct real-robot behavior types developed during this work, grouped by category.</figcaption>
 </figure>
 <h1 id="contributed-works"><a class="header" href="#contributed-works">Contributed Works</a></h1>
 <p>We contributed to the following publications while working on this thesis.
-The first paper in this list received the Humanoids 2022 Best Oral Paper Award <a href="references.html#ref-humanoids2022_awards">73</a>.
-The second paper in this list earned a Bronze Medal in Benjie Holson’s Humanoid Olympic Games for a round knob push door traversal timed at 18 s <a href="references.html#ref-holson2025_ihmc_bronze">74</a>.</p>
+The first paper in this list received the Humanoids 2022 Best Oral Paper Award <a href="references.html#ref-humanoids2022_awards" class="citation-ref">[73]</a>.
+The second paper in this list earned a Bronze Medal in Benjie Holson’s Humanoid Olympic Games for a round knob push door traversal timed at 18 s <a href="references.html#ref-holson2025_ihmc_bronze" class="citation-ref">[74]</a>.</p>
 <ol>
 <li>
-<p><strong>Duncan Calvert</strong>, Bhavyansh Mishra, Stephen McCrory, Sylvain Bertrand, Robert Griffin and Jerry Pratt (2022). A Fast, Autonomous, Bipedal Walking Behavior over Rapid Regions. <em>2022 IEEE-RAS 21st International Conference on Humanoid Robots (Humanoids)</em> <a href="references.html#ref-lookandstep">64</a>.</p>
+<p><strong>Duncan Calvert</strong>, Bhavyansh Mishra, Stephen McCrory, Sylvain Bertrand, Robert Griffin and Jerry Pratt (2022). A Fast, Autonomous, Bipedal Walking Behavior over Rapid Regions. <em>2022 IEEE-RAS 21st International Conference on Humanoid Robots (Humanoids)</em> <a href="references.html#ref-lookandstep" class="citation-ref">[64]</a>.</p>
 </li>
 <li>
-<p><strong>Duncan Calvert</strong>, Luigi Penco, Dexton Anderson, Tomasz Bialek, Arghya Chatterjee, Bhavyansh Mishra, Geoffrey Clark, Sylvain Bertrand and Robert Griffin (2024). A Behavior Architecture for Fast Humanoid Robot Door Traversals. <em>Robotics and Autonomous Systems</em> <a href="references.html#ref-calvert2024behavior">68</a>.</p>
+<p><strong>Duncan Calvert</strong>, Luigi Penco, Dexton Anderson, Tomasz Bialek, Arghya Chatterjee, Bhavyansh Mishra, Geoffrey Clark, Sylvain Bertrand and Robert Griffin (2024). A Behavior Architecture for Fast Humanoid Robot Door Traversals. <em>Robotics and Autonomous Systems</em> <a href="references.html#ref-calvert2024behavior" class="citation-ref">[68]</a>.</p>
 </li>
 <li>
-<p><strong>Duncan Calvert</strong>, Luigi Penco, Dexton Anderson, Tomasz Bialek, Arghya Chatterjee, Beomyeong Park, and Robert Griffin (2026). A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots. <em>IEEE Robotics and Automation Letters</em> (in preparation) <a href="references.html#ref-calvert2026resilient">69</a>.</p>
+<p><strong>Duncan Calvert</strong>, Luigi Penco, Dexton Anderson, Tomasz Bialek, Arghya Chatterjee, Beomyeong Park, and Robert Griffin (2026). A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots. <em>IEEE Robotics and Automation Letters</em> (in preparation) <a href="references.html#ref-calvert2026resilient" class="citation-ref">[69]</a>.</p>
 </li>
 <li>
-<p>Bhavyansh Mishra, <strong>Duncan Calvert</strong>, Sylvain Bertrand, Jerry Pratt, Hakki Erhan Sevil, and Robert Griffin (2024). Efficient Terrain Map Using Planar Regions for Footstep Planning on Humanoid Robots. Accepted for publication in the <em>Proceedings of the 2024 IEEE International Conference on Robotics and Automation (ICRA)</em> <a href="references.html#ref-Mishra_2023_SKIPR">65</a>.</p>
+<p>Bhavyansh Mishra, <strong>Duncan Calvert</strong>, Sylvain Bertrand, Jerry Pratt, Hakki Erhan Sevil, and Robert Griffin (2024). Efficient Terrain Map Using Planar Regions for Footstep Planning on Humanoid Robots. Accepted for publication in the <em>Proceedings of the 2024 IEEE International Conference on Robotics and Automation (ICRA)</em> <a href="references.html#ref-Mishra_2023_SKIPR" class="citation-ref">[65]</a>.</p>
 </li>
 <li>
-<p>Bhavyansh Mishra, <strong>Duncan Calvert</strong>, Brendon Ortolano, Max Asselmeier, Luke Fina, Stephen McCrory, Hakki Erhan Sevil, and Robert Griffin (2022). Perception engine using a multi-sensor head to enable high-level humanoid robot behaviors. Published in the <em>Proceedings of the 2022 International Conference on Robotics and Automation (ICRA)</em> <a href="references.html#ref-Mishra_2022_PerceptionEngine">67</a>.</p>
+<p>Bhavyansh Mishra, <strong>Duncan Calvert</strong>, Brendon Ortolano, Max Asselmeier, Luke Fina, Stephen McCrory, Hakki Erhan Sevil, and Robert Griffin (2022). Perception engine using a multi-sensor head to enable high-level humanoid robot behaviors. Published in the <em>Proceedings of the 2022 International Conference on Robotics and Automation (ICRA)</em> <a href="references.html#ref-Mishra_2022_PerceptionEngine" class="citation-ref">[67]</a>.</p>
 </li>
 <li>
-<p>Bhavyansh Mishra, <strong>Duncan Calvert</strong>, Sylvain Bertrand, Stephen McCrory, Robert Griffin, and Hakki Erhan Sevil (2024). GPU-Accelerated Rapid Planar Region Extraction for Dynamic Behaviors on Legged Robots. Published in the <em>Proceedings of the 2021 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</em> <a href="references.html#ref-Mishra_2021_RapidRegions">66</a>.</p>
+<p>Bhavyansh Mishra, <strong>Duncan Calvert</strong>, Sylvain Bertrand, Stephen McCrory, Robert Griffin, and Hakki Erhan Sevil (2024). GPU-Accelerated Rapid Planar Region Extraction for Dynamic Behaviors on Legged Robots. Published in the <em>Proceedings of the 2021 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</em> <a href="references.html#ref-Mishra_2021_RapidRegions" class="citation-ref">[66]</a>.</p>
 </li>
 <li>
-<p>Luigi Penco, Kazuhiko Momose, Stephen McCrory, Dexton Anderson, Nicholas Kitchel, <strong>Duncan Calvert</strong>, and Robert J Griffin (2024). Mixed reality teleoperation assistance for direct control of humanoids. <em>IEEE Robotics and Automation Letters</em>, 9(2), 1937-1944 <a href="references.html#ref-penco2024mixed">70</a>.</p>
+<p>Luigi Penco, Kazuhiko Momose, Stephen McCrory, Dexton Anderson, Nicholas Kitchel, <strong>Duncan Calvert</strong>, and Robert J Griffin (2024). Mixed reality teleoperation assistance for direct control of humanoids. <em>IEEE Robotics and Automation Letters</em>, 9(2), 1937-1944 <a href="references.html#ref-penco2024mixed" class="citation-ref">[70]</a>.</p>
 </li>
 <li>
-<p>Sylvain Bertrand, Luigi Penco, Dexton Anderson, <strong>Duncan Calvert</strong>, Valentine Roy, Stephen McCrory, Khizar Mohammed, Sebastian Sanchez, Will Griffith, Steve Morfey, Alexis Maslyczyk, Achintya Mohan, Cody Castello, Bingyin Ma, Kartik Suryavanshi, Patrick Dills, Jerry Pratt, Victor Ragusila, Brandon Shrewsbury, and Robert Griffin (2024). High-Speed and Impact Resilient Teleoperation of Humanoid Robots. <em>2024 IEEE-RAS 23rd International Conference on Humanoid Robots (Humanoids)</em> <a href="references.html#ref-bertrand2024highspeed">72</a>.</p>
+<p>Sylvain Bertrand, Luigi Penco, Dexton Anderson, <strong>Duncan Calvert</strong>, Valentine Roy, Stephen McCrory, Khizar Mohammed, Sebastian Sanchez, Will Griffith, Steve Morfey, Alexis Maslyczyk, Achintya Mohan, Cody Castello, Bingyin Ma, Kartik Suryavanshi, Patrick Dills, Jerry Pratt, Victor Ragusila, Brandon Shrewsbury, and Robert Griffin (2024). High-Speed and Impact Resilient Teleoperation of Humanoid Robots. <em>2024 IEEE-RAS 23rd International Conference on Humanoid Robots (Humanoids)</em> <a href="references.html#ref-bertrand2024highspeed" class="citation-ref">[72]</a>.</p>
 </li>
 <li>
-<p>Stephen McCrory, Sylvain Bertrand, Achintya Mohan, <strong>Duncan Calvert</strong>, Jerry Pratt, and Robert Griffin (2023). Generating humanoid multi-contact through feasibility visualization. <em>2023 IEEE-RAS 22nd International Conference on Humanoid Robots (Humanoids)</em> <a href="references.html#ref-mccrory2023generating">71</a>.</p>
+<p>Stephen McCrory, Sylvain Bertrand, Achintya Mohan, <strong>Duncan Calvert</strong>, Jerry Pratt, and Robert Griffin (2023). Generating humanoid multi-contact through feasibility visualization. <em>2023 IEEE-RAS 22nd International Conference on Humanoid Robots (Humanoids)</em> <a href="references.html#ref-mccrory2023generating" class="citation-ref">[71]</a>.</p>
 </li>
 <li>
-<p>Sylvain Bertrand, Inho Lee, Bhavyansh Mishra, <strong>Duncan Calvert</strong>, Jerry Pratt, and Robert Griffin (2020). Detecting Usable Planar Regions for Legged Robot Locomotion. <em>2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</em> <a href="references.html#ref-Bertrand_2020">28</a>.</p>
+<p>Sylvain Bertrand, Inho Lee, Bhavyansh Mishra, <strong>Duncan Calvert</strong>, Jerry Pratt, and Robert Griffin (2020). Detecting Usable Planar Regions for Legged Robot Locomotion. <em>2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</em> <a href="references.html#ref-Bertrand_2020" class="citation-ref">[28]</a>.</p>
 </li>
 </ol>
 <!-- PAGE-REFERENCES-START -->
@@ -381,6 +384,8 @@ The second paper in this list earned a Bronze Medal in Benjie Holson’s Humanoi
         <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
+        <script src="citation-data-d2a0410c.js"></script>
+        <script src="citation-popups-d78943c6.js"></script>
 
 
 

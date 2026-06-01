@@ -29,6 +29,7 @@
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="theme-figures-e3dffecf.css">
+        <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -38,7 +39,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-28a852c0.js";
+            window.path_to_searchindex_js = "searchindex-f6bef07d.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-3c6d0428.js"></script>
@@ -198,7 +199,7 @@ For example, being able to yaw 90 degrees to the left and right can allow for fa
 <h2 id="perception-and-teleoperation"><a class="header" href="#perception-and-teleoperation">Perception and Teleoperation</a></h2>
 <p>On the perception side, the most significant requirements are a color image, a high-accuracy depth image, and the availability of high quality YOLO models for any objects you want to interact with.
 There are many sensors available on the market that satisfy this requirement.
-We have tried the ZED X Mini and the RealSense D457  <a href="references.html#ref-intel2022d457">1</a>.
+We have tried the ZED X Mini and the RealSense D457  <a href="references.html#ref-intel2022d457" class="citation-ref">[1]</a>.
 We think both of those would work.</p>
 <p>Our preference and the one we currently use is the ZED X Mini because it has a stereo RGB camera pair which is useful for direct VR teleoperation.
 To author complicated behaviors, an idea ahead of time of how the robot will accomplish the task is desirable.
@@ -212,11 +213,11 @@ It might be good to find a vendor that provides professionally trained models.
 Typically the data needed is around five videos of the task, each on a different day and time, light and dark, where the videos orbit around the object and get close and far from it.</p>
 <h2 id="hands"><a class="header" href="#hands">Hands</a></h2>
 <p>For robot hands, we recommend a 5-finger anthropomorphic hand.
-We had a great experience with the Psyonic Ability Hand  <a href="references.html#ref-psyonic_ability_hand">22</a>.
+We had a great experience with the PSYONIC Ability Hand  <a href="references.html#ref-psyonic_ability_hand" class="citation-ref">[22]</a>.
 One major advantage of a 5-finger anthropomorphic hand is that, similar to the rest of the robot’s body, it mirrors the human form, which allows for an increased level of intuition in task planning.
 For example, a good start for planning how to get the robot to do a task is to just do it yourself and look at how you naturally do it.</p>
 <p>Furthermore, this extends to teleoperation, where you can constrain the set of possible solutions to what is achievable by the robot while still leaning on natural intuition.
-We use the Valve Index Controller’s  <a href="references.html#ref-valve_index_controllers">23</a> API to teleoperate the Ability Hands and it works great.
+We use the Valve Index Controller’s  <a href="references.html#ref-valve_index_controllers" class="citation-ref">[23]</a> API to teleoperate the Ability Hands and it works great.
 In fact, the OpenVR software maps the Valve Index Controller’s finger estimation to six degrees of freedom which happens to match perfectly to the six degrees of freedom on the Ability Hand.</p>
 <h2 id="compute"><a class="header" href="#compute">Compute</a></h2>
 <p>Another thing you’ll need are NVIDIA GPUs if you want to use the ZED camera or if you want to use CUDA kernels.
@@ -288,6 +289,8 @@ Then, we’ll go through a real-robot authoring session: our 32 minute authoring
         <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
+        <script src="citation-data-d2a0410c.js"></script>
+        <script src="citation-popups-d78943c6.js"></script>
 
 
 

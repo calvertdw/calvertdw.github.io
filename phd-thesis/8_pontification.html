@@ -29,6 +29,7 @@
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="theme-figures-e3dffecf.css">
+        <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -38,7 +39,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-28a852c0.js";
+            window.path_to_searchindex_js = "searchindex-f6bef07d.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-3c6d0428.js"></script>
@@ -245,10 +246,10 @@ We have seen that there may be some promising development in grasp planning, but
 For example, when going to operate tools designed for humans, it would be helpful and, we would think, feasible to plan a 5-finger grasp for them instead of having to manually specify finger configurations.</p>
 <p>The problem doesn’t have to be solved generally.
 For example, if the behavior authoring interface was adapted to virtual or augmented reality, the user could simply use their hands to demonstrate an example grasp technique to seed the planner.</p>
-<p>Our screw primitive action, inspired by  <a href="references.html#ref-Pettinger_2022">14</a>, is a very versatile manipulation planning abstraction.
+<p>Our screw primitive action, inspired by  <a href="references.html#ref-Pettinger_2022" class="citation-ref">[14]</a>, is a very versatile manipulation planning abstraction.
 We think there could be useful constructs like this that extend beyond positional sliding and turning.
 There may be interesting ways to model forces, torques, or the way objects can deform or move, using a similar approach.
-For example, there is some work like this on clothes folding where geometrical primitives are used to define folding patterns  <a href="references.html#ref-Moletta2023VRClothFolding">83</a>.</p>
+For example, there is some work like this on clothes folding where geometrical primitives are used to define folding patterns  <a href="references.html#ref-Moletta2023VRClothFolding" class="citation-ref">[83]</a>.</p>
 <p>Another fruitful area to explore would be navigation.
 In the behaviors presented in this thesis, even for the “building exploration” ones, we didn’t ever form a map and plan from point A to point B.
 They were more like a slightly reactive scripting of which door to go through next, with some stand-in-place visual searches.
@@ -261,10 +262,16 @@ For navigating from room to room in a building, a topological graph structure wo
 For traversing a space, a heightmap or octree might be the most useful.
 For locating objects in dense spaces, a detailed scene graph might be the most useful.
 It would be exciting and interesting to explore options for extending our behavior scene to include both maps and behavior specific planners.</p>
+<p>It would also be great if we could use virtual reality while authoring to record arm motions.
+These recordings could then be used directly as arm actions.
+This would enable the operator to quickly define complicated motions that are hard to specify with geometric authoring alone.
+That capability could also be extended by filtering the motions or by collecting repeated demonstrations and training a vision-action policy.
+It would be valuable to demonstrate and dispatch vision-action model training runs from within the authoring interface.
+On training completion, the resulting policies could be used as an alternative mode of the arm action.</p>
 <h1 id="why-not-fully-embrace-behavior-trees"><a class="header" href="#why-not-fully-embrace-behavior-trees">Why Not Fully Embrace Behavior Trees</a></h1>
-<p>One interesting part of this thesis is that we use a “behavior tree” architecture, but left out some of the key mechanisms from the literature version  <a href="references.html#ref-2018_colledanchise">53</a>.
+<p>One interesting part of this thesis is that we use a “behavior tree” architecture, but left out some of the key mechanisms from the literature version  <a href="references.html#ref-2018_colledanchise" class="citation-ref">[53]</a>.
 The most important part of why is just that we built what appeared to work best for us.
-The other aspect is that the lone result from the literature just wasn’t that convincing  <a href="references.html#ref-2023_centaur_bt">55</a>, being ultimately very slow and locomotion only.</p>
+The other aspect is that the lone result from the literature just wasn’t that convincing  <a href="references.html#ref-2023_centaur_bt" class="citation-ref">[55]</a>, being ultimately very slow and locomotion only.</p>
 <p>The reason we don’t tick from the root node is that, for authoring behavior at runtime, we have the robot in a particular configuration and doing a particular thing and we are trying to author a particular part.
 This means we want a “cursor”, just like in a text editor, that marks our current editing location.</p>
 <p>It may be beneficial to introduce the root node tick system for autonomous mode.
@@ -274,7 +281,7 @@ In dynamical situations, the robot really has to finish what it’s doing before
 In these cases, it needs to execute specific “abort mission” behaviors that are very dependent on current robot and task configuration.</p>
 <p>This is where we guess Behavior Trees would suggest using the blackboard.
 However, the Behavior Tree blackboard is an unstructured design component and we would strive for a more formal mechanism for doing things like this.
-A promising theory for this sort of reactivity includes sequential composition  <a href="references.html#ref-1999_burridge">52</a>.</p>
+A promising theory for this sort of reactivity includes sequential composition  <a href="references.html#ref-1999_burridge" class="citation-ref">[52]</a>.</p>
 <h1 id="the-future"><a class="header" href="#the-future">The Future</a></h1>
 <p>We would like to see a near future where technical people can buy or build their own robots and put them towards useful work.
 To us, it is most convincing if the system is open source, understandable, and tinkerable.
@@ -349,6 +356,8 @@ Cheers!</p>
         <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
+        <script src="citation-data-d2a0410c.js"></script>
+        <script src="citation-popups-d78943c6.js"></script>
 
 
 

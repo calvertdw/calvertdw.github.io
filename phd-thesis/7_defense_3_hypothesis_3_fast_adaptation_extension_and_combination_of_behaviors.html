@@ -29,6 +29,7 @@
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="theme-figures-e3dffecf.css">
+        <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -38,7 +39,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-28a852c0.js";
+            window.path_to_searchindex_js = "searchindex-f6bef07d.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-3c6d0428.js"></script>
@@ -179,7 +180,7 @@
                     <main>
                         <h1 id="hypothesis-3-fast-adaptation-extension-and-combination-of-behaviors"><a class="header" href="#hypothesis-3-fast-adaptation-extension-and-combination-of-behaviors">Hypothesis 3: Fast Adaptation, Extension, and Combination of Behaviors</a></h1>
 <p>To support our third hypothesis, we’ll show measured sessions where existing behaviors were adapted, composed, or extended rather than rebuilt from scratch.</p>
-<p>In <a href="#fig:in_house_adaptation_timeline">1</a>, we summarize three measured adaptation sessions on Alex.
+<p>In <a href="#fig:in_house_adaptation_timeline">Figure 167</a>, we summarize three measured adaptation sessions on Alex.
 Each row shows normalized active adaptation time on a log-second axis with internal milestone structure recovered from screen recordings.
 The bottle carry-through session composes existing pickup and door behaviors into one long-horizon task.
 The break-room session adapts a lab right-pull traversal to a real left-pull door: door-specific mirroring was only the starting transfer, and most time went to retuning opening, fallbacks, traversal, and footsteps.
@@ -187,7 +188,7 @@ The two-table sorting session extends the open-house ball-return behavior with l
 Checkmarks mark first autonomous success.</p>
 <figure id="fig:in_house_adaptation_timeline">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/InHouseAdaptationTimeline.light.jpg" /><img class="tikz-dark" src="media/generated/InHouseAdaptationTimeline.dark.jpg" /></span>
-<figcaption>
+<figcaption><strong>Figure 167.</strong> 
 In-house real-robot adaptation durations on a log-second axis with internal milestone structure.
 Rows are grouped by robot era and ordered chronologically.
 The bottle session composes existing behaviors; the break-room session adapts a mirrored lab behavior to a real door; the two-table session extends an existing manipulation behavior with locomotion and routing logic.
@@ -196,16 +197,16 @@ Checkmarks mark first autonomous success.
 Times are normalized active adaptation.
 </figcaption>
 </figure>
-<p>The subsections below walk through each row in <a href="#fig:in_house_adaptation_timeline">1</a> with a representative still, the authoring-time table, and a link to the screen recording.</p>
+<p>The subsections below walk through each row in <a href="#fig:in_house_adaptation_timeline">Figure 167</a> with a representative still, the authoring-time table, and a link to the screen recording.</p>
 <h2 id="bottle-carry-through-composition-alex-2026-03-18"><a class="header" href="#bottle-carry-through-composition-alex-2026-03-18">Bottle Carry Through Composition (Alex, 2026-03-18)</a></h2>
 <p>On March 18, 2026, we composed an existing bottle pickup behavior with the left push door traversal so Alex could carry a bottle through the door in one autonomous run.
 Most of the session wired the two behaviors together, recovered from a tooling failure while loading the door subtree, and tuned grasp and traversal so the bottle stayed in hand.
 First fully autonomous success came at 1 hour, 13 minutes, and 49 seconds of measured active adaptation time.
-The result is shown in <a href="#fig:h3_bottle_carry_through_authoring">2</a>.
-Authoring times are presented in <a href="#tab:h3_bottle_carry_through_authoring_timeline">1</a>.</p>
+The result is shown in <a href="#fig:h3_bottle_carry_through_authoring">Figure 168</a>.
+Authoring times are presented in <a href="#tab:h3_bottle_carry_through_authoring_timeline">Table 26</a>.</p>
 <figure id="fig:h3_bottle_carry_through_authoring">
 <img src="media/alex/20260319_FirstPickBottleAndPushDoorSuccessCrop.jpg" />
-<figcaption>Alex after the first fully autonomous bottle pickup, walk, and door traversal with the bottle in hand on March 18–19, 2026.
+<figcaption><strong>Figure 168.</strong> Alex after the first fully autonomous bottle pickup, walk, and door traversal with the bottle in hand on March 18–19, 2026.
 A video is available at <a href="https://youtu.be/AH2dFMW-IbY" class="uri">https://youtu.be/AH2dFMW-IbY</a>.</figcaption>
 </figure>
 <div id="tab:h3_bottle_carry_through_authoring_timeline">
@@ -226,7 +227,7 @@ A video is available at <a href="https://youtu.be/AH2dFMW-IbY" class="uri">https
 </tbody>
 </table>
 </div>
-<p>Cumulative adaptation timeline for the March 18, 2026 bottle carry-through composition session shown in <a href="#fig:h3_bottle_carry_through_authoring">2</a>.</p>
+<p><strong>Table 26.</strong> Cumulative adaptation timeline for the March 18, 2026 bottle carry-through composition session shown in <a href="#fig:h3_bottle_carry_through_authoring">Figure 168</a>.</p>
 </div>
 
 <p><span id="tab:h3_bottle_carry_through_authoring_timeline" label="tab:h3_bottle_carry_through_authoring_timeline"></span></p>
@@ -234,11 +235,11 @@ A video is available at <a href="https://youtu.be/AH2dFMW-IbY" class="uri">https
 <p>On March 26, 2026, we adapted the lab right pull door traversal to the break room left pull door on Alex.
 Door mirroring was only the starting point.
 Most of the 1 hour, 54 minutes, and 3 seconds of measured active adaptation time went to retuning opening, fallbacks, traversal, and footsteps on the real door.
-The successful run is shown in <a href="#fig:h3_break_room_adaptation">3</a>.
-Authoring times are presented in <a href="#tab:h3_break_room_adaptation_timeline">2</a>.</p>
+The successful run is shown in <a href="#fig:h3_break_room_adaptation">Figure 169</a>.
+Authoring times are presented in <a href="#tab:h3_break_room_adaptation_timeline">Table 27</a>.</p>
 <figure id="fig:h3_break_room_adaptation">
 <img src="media/alex/20260326_RealLeftPushDoorBreakRoom-00.00.17.952.jpg" />
-<figcaption>Alex opening the break room left pull door on March 26, 2026 after mirrored adaptation from the lab right pull behavior.
+<figcaption><strong>Figure 169.</strong> Alex opening the break room left pull door on March 26, 2026 after mirrored adaptation from the lab right pull behavior.
 A video is available at <a href="https://youtu.be/HcJPLoRfs3Q" class="uri">https://youtu.be/HcJPLoRfs3Q</a>.</figcaption>
 </figure>
 <div id="tab:h3_break_room_adaptation_timeline">
@@ -261,7 +262,7 @@ A video is available at <a href="https://youtu.be/HcJPLoRfs3Q" class="uri">https
 </tbody>
 </table>
 </div>
-<p>Continuous authoring timeline for the March 26, 2026 break room door adaptation shown in <a href="#fig:h3_break_room_adaptation">3</a>.</p>
+<p><strong>Table 27.</strong> Continuous authoring timeline for the March 26, 2026 break room door adaptation shown in <a href="#fig:h3_break_room_adaptation">Figure 169</a>.</p>
 </div>
 
 <p><span id="tab:h3_break_room_adaptation_timeline" label="tab:h3_break_room_adaptation_timeline"></span></p>
@@ -269,11 +270,11 @@ A video is available at <a href="https://youtu.be/HcJPLoRfs3Q" class="uri">https
 <p>From April 13 through 14, 2026, we extended the open house ball return behavior to sort colored balls between two tables with locomotion between stations.
 The measured total is 1 hour, 50 minutes, and 41 seconds, including 15 minutes and 30 seconds of off-robot pre-authoring before the real-robot follow-up session.
 The documented demonstration sorted nine of nine balls correctly, with three table approaches and two transitions between tables.
-A still from the task setup is shown in <a href="#fig:h3_two_table_sorting">4</a>.
-Authoring times are presented in <a href="#tab:h3_two_table_sorting_authoring_summary">3</a>.</p>
+A still from the task setup is shown in <a href="#fig:h3_two_table_sorting">Figure 170</a>.
+Authoring times are presented in <a href="#tab:h3_two_table_sorting_authoring_summary">Table 28</a>.</p>
 <figure id="fig:h3_two_table_sorting">
 <img src="media/alex/20260414_SortingBallTwoTables-00.00.02.284.jpg" />
-<figcaption>The two table ball sorting task on April 14, 2026.
+<figcaption><strong>Figure 170.</strong> The two table ball sorting task on April 14, 2026.
 A video is available at <a href="https://youtu.be/_3lqvcd_5WE" class="uri">https://youtu.be/_3lqvcd_5WE</a>.</figcaption>
 </figure>
 <div id="tab:h3_two_table_sorting_authoring_summary">
@@ -289,7 +290,7 @@ A video is available at <a href="https://youtu.be/_3lqvcd_5WE" class="uri">https
 </tbody>
 </table>
 </div>
-<p>Authoring summary for the April 13–14, 2026 two table sorting extension shown in <a href="#fig:h3_two_table_sorting">4</a>.</p>
+<p><strong>Table 28.</strong> Authoring summary for the April 13–14, 2026 two table sorting extension shown in <a href="#fig:h3_two_table_sorting">Figure 170</a>.</p>
 </div>
 
 <p><span id="tab:h3_two_table_sorting_authoring_summary" label="tab:h3_two_table_sorting_authoring_summary"></span></p>
@@ -345,6 +346,8 @@ A video is available at <a href="https://youtu.be/_3lqvcd_5WE" class="uri">https
         <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
+        <script src="citation-data-d2a0410c.js"></script>
+        <script src="citation-popups-d78943c6.js"></script>
 
 
 
