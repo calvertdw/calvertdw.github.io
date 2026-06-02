@@ -33,7 +33,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme-figures-738bcc10.css">
+        <link rel="stylesheet" href="theme-figures-84a4c90d.css">
         <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
@@ -44,7 +44,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-926a1a84.js";
+            window.path_to_searchindex_js = "searchindex-2a1397cf.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-13565dbe.js"></script>
@@ -183,8 +183,8 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="2024-2026-h1-2-5-fingers-manipulation-era"><a class="header" href="#2024-2026-h1-2-5-fingers-manipulation-era">2024-2026 H1-2, 5 Fingers, Manipulation Era</a></h1>
-<h2 id="large-language-model-integration"><a class="header" href="#large-language-model-integration">Large Language Model Integration</a></h2>
+                        <h1 id="46-2024-2026-h1-2-5-fingers-manipulation-era"><a class="header" href="#46-2024-2026-h1-2-5-fingers-manipulation-era"><span class="heading-number">4.6.</span> 2024-2026 H1-2, 5 Fingers, Manipulation Era</a></h1>
+<h2 id="461-large-language-model-integration"><a class="header" href="#461-large-language-model-integration"><span class="heading-number">4.6.1.</span> Large Language Model Integration</a></h2>
 <figure id="fig:2025_ai2r">
 <img src="media/nadia/2025-06-07_FullSimDemoNadia_LLMcoordination-00.02.42.631.jpg" />
 <figcaption><strong>Figure 4.42.</strong> 
@@ -205,7 +205,7 @@ The system also supports collision avoidance.
 In the case a person is blocking the robot’s path, the behavior will pause and the operator can, in natural language, ask the robot to go behind the last person.</p>
 <p>This hybrid behavior system shows that it is possible for LLMs to work in place of some classical components.
 However, it has not yet been shown to be faster, more reliable, or more capable than what is possible with classical methods.</p>
-<h2 id="runtime-editable-logic"><a class="header" href="#runtime-editable-logic">Runtime-Editable Logic</a></h2>
+<h2 id="462-runtime-editable-logic"><a class="header" href="#462-runtime-editable-logic"><span class="heading-number">4.6.2.</span> Runtime-Editable Logic</a></h2>
 <figure id="fig:2025_whiteboards">
 <img src="media/unitree/2025_BehaviorDesignMeetings.jpg" />
 <figcaption><strong>Figure 4.43.</strong> 
@@ -245,7 +245,7 @@ Instead, it would be better to detect that the door did not open with the hand b
 <p>It took longer to implement a condition node that had a meaningful impact on behavior capability.
 In February 2025, a simple counter condition node was implemented to execute loops with iteration limits.
 This was ultimately not very useful.</p>
-<h2 id="llm-condition-node"><a class="header" href="#llm-condition-node">LLM Condition Node</a></h2>
+<h2 id="463-llm-condition-node"><a class="header" href="#463-llm-condition-node"><span class="heading-number">4.6.3.</span> LLM Condition Node</a></h2>
 <figure id="fig:2025_llm_condition_node">
 <img src="media/unitree/2025-03-06 17-08-LLMNode-15-00.00.04.763.jpg" />
 <figcaption><strong>Figure 4.44.</strong> 
@@ -267,7 +267,7 @@ The behavior author is provided with an option for whether a match means a succe
 <p>This worked okay, but we had trouble with such a small LLM model generating meaningful results.
 This development did not result in any meaningful impact on the capabilities of loco-manipulation behaviors.
 Our focus quickly drifted to approaches that queried paid online VLM models via the AI2R node.</p>
-<h2 id="attempt-to-integrate-vlas"><a class="header" href="#attempt-to-integrate-vlas">Attempt to Integrate VLAs</a></h2>
+<h2 id="464-attempt-to-integrate-vlas"><a class="header" href="#464-attempt-to-integrate-vlas"><span class="heading-number">4.6.4.</span> Attempt to Integrate VLAs</a></h2>
 <p>For a seven-month period from March to October 2025, we tried to get Vision Language Action Models (VLAs) working for task sub-components like the door opening, but ultimately failed to reproduce the reported results and diverted our efforts back to our classical route.
 Our conclusion was that at this time, VLAs were not an “off-the-shelf” solution and still required expertise and possibly even an “artistic” talent to get working well.
 However, it may have also been that we had a bug somewhere.</p>
@@ -275,7 +275,7 @@ However, it may have also been that we had a bug somewhere.</p>
 This allowed more direct access to behavior-wide components.
 For example, for all executor nodes, the controller ROS 2 node, the behavior scene, and the root node were all made final and accessible directly without needing to navigate boilerplate.
 This made the code a little nicer to deal with but didn’t have any meaningful effects on operator usability or robot performance.</p>
-<h2 id="behavior-scene"><a class="header" href="#behavior-scene">Behavior Scene</a></h2>
+<h2 id="465-behavior-scene"><a class="header" href="#465-behavior-scene"><span class="heading-number">4.6.5.</span> Behavior Scene</a></h2>
 <figure id="fig:2025_scene_action_whiteboard">
 <img src="media/unitree/20251021_BehaviorSceneActionWhiteboard.jpg" />
 <figcaption><strong>Figure 4.45.</strong> 
@@ -312,7 +312,7 @@ This algorithm sorts incoming instant detections into existing persistent detect
 If an incoming instant detection is the same semantic class as an existing persistent detection and is close by, it is sorted into that one.
 If not, a new persistent detection is created.
 This system implements persistent object tracking which can be used to track objects for use in our frame-relative behaviors/affordance templates.</p>
-<h2 id="scene-action"><a class="header" href="#scene-action">Scene Action</a></h2>
+<h2 id="466-scene-action"><a class="header" href="#466-scene-action"><span class="heading-number">4.6.6.</span> Scene Action</a></h2>
 <p>Another innovation in November of 2025 was the introduction of the scene action.
 Now that we had an active list of persistent detections, we needed a mechanism for the behaviors to select one and use it.
 We had a list of issues we didn’t know how to fix from the prior scene graph implementation.
@@ -338,7 +338,7 @@ This allowed a “freeze” to be performed on a scene object just before graspi
 For example, a scene object can be set up, the hand moved towards it, but not occluding it, while still tracking the object, and a freeze object action can be executed just before finally occluding the object.
 The freeze operation has an effect equivalent to the object becoming “stale” as described earlier.
 The object’s frame, similarly, can still be used for physical action definitions.</p>
-<h2 id="ability-hand-and-reliability"><a class="header" href="#ability-hand-and-reliability">Ability Hand and Reliability</a></h2>
+<h2 id="467-ability-hand-and-reliability"><a class="header" href="#467-ability-hand-and-reliability"><span class="heading-number">4.6.7.</span> Ability Hand and Reliability</a></h2>
 <figure id="fig:2025_mustard_pickup">
 <img src="media/unitree/2025-11-10_17-10-16_MustardGraspSuccess-00.00.15.591.jpg" />
 <figcaption><strong>Figure 4.47.</strong> A November 10th, 2025 demo where our Unitree H1-2  <a href="references.html#ref-unitree_h1_2" class="citation-ref">[77]</a> robot picked up a mustard bottle automatically using the new scene action node.
@@ -353,7 +353,7 @@ For one, our whole body controller was not great at walking with the H1-2 so the
 A low quality IK solution with our system has always meant a high error bar on the resulting hand pose.
 Another of the biggest issues was that our finger control was unreliable.
 We ended up fixing that on the hand controller side in the coming months.</p>
-<h2 id="proximity-condition"><a class="header" href="#proximity-condition">Proximity Condition</a></h2>
+<h2 id="468-proximity-condition"><a class="header" href="#468-proximity-condition"><span class="heading-number">4.6.8.</span> Proximity Condition</a></h2>
 <figure id="fig:2025_proximity_condition">
 <img src="media/unitree/2025-11-19 17-56-14_ProximityCondition-00.00.51.640.jpg" />
 <figcaption><strong>Figure 4.48.</strong> A November 19, 2025 test of our new generalized proximity condition.
@@ -369,7 +369,7 @@ A min and max distance is specified to define the success criteria.
 When the condition executes, it continues executing until the criteria are met (success) or the timeout is reached (failure).
 The current distance is also presented in the operator interface to help with authoring.
 Observing the current values can help the operator reason about which min and max values are best.</p>
-<h3 id="concurrency-visualization"><a class="header" href="#concurrency-visualization">Concurrency Visualization</a></h3>
+<h3 id="4681-concurrency-visualization"><a class="header" href="#4681-concurrency-visualization"><span class="heading-number">4.6.8.1.</span> Concurrency Visualization</a></h3>
 <figure id="fig:2025_execute_after_arrows">
 <img src="media/unitree/2025-11-13 15-14-44-ExecuteAfterIndicators-00.00.22.192.jpg" />
 <figcaption><strong>Figure 4.49.</strong> 
@@ -385,7 +385,7 @@ We came up with the arrow design, seen in the figure, which starts at the defini
 <p>On December 1, 2025, we conducted our first behavior shakeout on IHMC’s new fully electric humanoid robot, Alex.
 We would soon transition behavior development fully to our new robot.
 The behavior shakeout consists of a sequence of open-loop walking and arm motions to test the system’s basic mechanics.</p>
-<h2 id="logging-behavior-data"><a class="header" href="#logging-behavior-data">Logging Behavior Data</a></h2>
+<h2 id="469-logging-behavior-data"><a class="header" href="#469-logging-behavior-data"><span class="heading-number">4.6.9.</span> Logging Behavior Data</a></h2>
 <figure id="fig:2025_behavior_yovariables">
 <img src="media/unitree/2025-12-10 12-08-14_BehaviorYoVariables-00.00.03.161.jpg" />
 <figcaption><strong>Figure 4.50.</strong> A December 10, 2025 screenshot that shows the BehaviorTreeExecutor YoVariable registry in the tree on the left-hand side.
@@ -397,7 +397,7 @@ A video is available at <a href="https://youtu.be/mcS6PkfpIWE" class="uri">https
 In this system, the behavior system process sends a periodic ROS 2 message containing a registry of behavior YoVariables, the buffered data types supported in SCS.
 A subscriber is set up in the whole body controller process to subscribe to these variables and inject them into the whole body controller’s registry, which then gets logged in the normal way.
 A screenshot of a loaded log in SCS is displayed in <a href="#fig:2025_behavior_yovariables">Figure 4.50</a>, showing the behavior variables embedded in and synchronized with the whole body controller log.</p>
-<h2 id="foundationpose-integration"><a class="header" href="#foundationpose-integration">FoundationPose Integration</a></h2>
+<h2 id="4610-foundationpose-integration"><a class="header" href="#4610-foundationpose-integration"><span class="heading-number">4.6.10.</span> FoundationPose Integration</a></h2>
 <figure id="fig:2025_fp_mustard_pickup">
 <img src="media/unitree/2025-12-11_16-28-40_FoundationPoseMustardGrabAuto-00.00.08.825.jpg" />
 <figcaption><strong>Figure 4.51.</strong> A December 11, 2025 demo where we used FoundationPose  <a href="references.html#ref-wen2024foundationpose" class="citation-ref">[76]</a> to detect the pose of the mustard bottle and execute an automatic behavior to pick it up.
@@ -411,7 +411,7 @@ The red box in the figure shows the FoundationPose bounding box.
 In the bottom right, the FoundationPose scene object for the mustard can be seen.
 At this point we had two types of scene objects: FoundationPose and YOLOv8.
 Our scene was now designed to handle different types of objects abstractly and be extended easily to support more types.</p>
-<h2 id="ability-hand-control"><a class="header" href="#ability-hand-control">Ability Hand Control</a></h2>
+<h2 id="4611-ability-hand-control"><a class="header" href="#4611-ability-hand-control"><span class="heading-number">4.6.11.</span> Ability Hand Control</a></h2>
 <p>This demo was still somewhat unreliable due to the low level control code of our new 5-finger PSYONIC Ability Hand  <a href="references.html#ref-akhtar2022touch" class="citation-ref">[81]</a> grippers.
 The hands would often not respond to behavior commands and, worse, retrying the command did not work.
 By December 15, after trying at least five different control strategies, we fixed this issue and finger control was very smooth and reliable.
@@ -421,7 +421,7 @@ This helps the hand reliably move at the desired velocity to the desired setpoin
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/alg_ability_hand_pos_vel_limit.light.jpg" /><img class="tikz-dark" src="media/generated/alg_ability_hand_pos_vel_limit.dark.jpg" /></span>
 <figcaption><strong>Algorithm 5.</strong> Ability Hand Velocity-Limited Position Control Update</figcaption>
 </figure>
-<h2 id="hand-and-finger-previewing"><a class="header" href="#hand-and-finger-previewing">Hand and Finger Previewing</a></h2>
+<h2 id="4612-hand-and-finger-previewing"><a class="header" href="#4612-hand-and-finger-previewing"><span class="heading-number">4.6.12.</span> Hand and Finger Previewing</a></h2>
 <figure id="fig:unitree_hand_previewing">
 <img src="media/unitree/2025-12-13 14-49-49_HandPreviewing-00.00.12.809.jpg" />
 <figcaption><strong>Figure 4.52.</strong> A screenshot of the hand previewing feature from December 13, 2025.
@@ -443,7 +443,7 @@ Secondly, if an arm action is selected and there are no prior Ability Hand actio
 <figcaption><strong>Figure 4.53.</strong> Unitree H1-2 with Ability Hand performing a pinch grasp on the knob door handle.
 This is a very secure and reliable grasp, mimicking nature, and provides a wide error margin for pre-grasp hand poses.</figcaption>
 </figure>
-<h2 id="door-knob-turning"><a class="header" href="#door-knob-turning">Door Knob Turning</a></h2>
+<h2 id="4613-door-knob-turning"><a class="header" href="#4613-door-knob-turning"><span class="heading-number">4.6.13.</span> Door Knob Turning</a></h2>
 <figure id="fig:unitree_knob_23x">
 <img src="media/unitree/2025-12-23_13-44-18_DoorKnobHighSuccessRate23x-00.01.49.756.jpg" />
 <figcaption><strong>Figure 4.54.</strong> Our December 23, 2025 demonstration of a knob door handle repeated opening demo.
@@ -454,7 +454,7 @@ A video is available at <a href="https://youtu.be/3hRLBV4dZ0Q" class="uri">https
 On the 24th attempt, the knob was not turned enough, and the hand slipped off on the pull.
 This was our first return to doors in over a year.
 Using now higher-confidence and more robust YOLO models for the door mechanisms in combination with the scene actions and the 5-finger Ability Hand gripper, door handle manipulation reliability has drastically increased.</p>
-<h2 id="lever-handle-door-opening-demo"><a class="header" href="#lever-handle-door-opening-demo">Lever-Handle Door Opening Demo</a></h2>
+<h2 id="4614-lever-handle-door-opening-demo"><a class="header" href="#4614-lever-handle-door-opening-demo"><span class="heading-number">4.6.14.</span> Lever-Handle Door Opening Demo</a></h2>
 <figure id="fig:unitree_lever_32x">
 <img src="media/unitree/2026-01-02_17-08-16_NeverFailingFastPullLeverHandle31x-00.05.31.588.jpg" />
 <figcaption><strong>Figure 4.55.</strong> The 32-time pull lever door opening reliability demo run on January 2nd, 2026.
@@ -476,7 +476,7 @@ In this case, simply ignoring the failure would work to get the behavior to succ
 We were able to use a fallback node to keep the behavior going regardless of failure, as shown in <a href="#fig:unitree_fallback">Figure 4.56</a>, marking our first use of the fallback node in a real robot behavior.
 The use of the fallback node helped in this case not to overcome an environmental failure, but to overcome a bug in the code, which was not a use case we expected.
 We learned that the fallback node was also useful for working around bugs in the system, reducing the chance that we would need to stop the robot experiment and go fix code bugs.</p>
-<h2 id="scene-action-improvements"><a class="header" href="#scene-action-improvements">Scene Action Improvements</a></h2>
+<h2 id="4615-scene-action-improvements"><a class="header" href="#4615-scene-action-improvements"><span class="heading-number">4.6.15.</span> Scene Action Improvements</a></h2>
 <figure id="fig:unitree_scene_setup_type">
 <img src="media/unitree/2026-01-08 17-43-51_SceneActionMenu-00.00.15.217.jpg" />
 <figcaption><strong>Figure 4.57.</strong> The scene action settings for setting up a YOLO object.
@@ -487,7 +487,7 @@ A video is available at <a href="https://youtu.be/TPXugNdRx6E" class="uri">https
 <p>On January 8, 2026, the scene action was extended to fully support our full library of FoundationPose and YOLO models as shown in <a href="#fig:unitree_scene_setup_type">Figure 4.57</a>.
 The operator was now able to select any semantic object type from either model architecture via drop-down menus.
 We also extended the scene object library to include heuristic objects, such as the door panel, shown here.</p>
-<h2 id="door-panel-tracking"><a class="header" href="#door-panel-tracking">Door Panel Tracking</a></h2>
+<h2 id="4616-door-panel-tracking"><a class="header" href="#4616-door-panel-tracking"><span class="heading-number">4.6.16.</span> Door Panel Tracking</a></h2>
 <figure id="fig:unitree_door_panel">
 <img src="media/unitree/2026-01-20 15-19-59-DoorPanel-00.00.13.153.jpg" />
 <figcaption><strong>Figure 4.58.</strong> Our door panel detector in a screenshot from January 20, 2026.</figcaption>

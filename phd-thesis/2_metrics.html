@@ -33,7 +33,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme-figures-738bcc10.css">
+        <link rel="stylesheet" href="theme-figures-84a4c90d.css">
         <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
@@ -44,7 +44,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-926a1a84.js";
+            window.path_to_searchindex_js = "searchindex-2a1397cf.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-13565dbe.js"></script>
@@ -183,7 +183,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="desirable-characteristics"><a class="header" href="#desirable-characteristics">Desirable Characteristics</a></h1>
+                        <h1 id="2-desirable-characteristics"><a class="header" href="#2-desirable-characteristics"><span class="heading-number">2.</span> Desirable Characteristics</a></h1>
 <p><span id="ch:metrics" label="ch:metrics"></span></p>
 <p>In this chapter, we’ll discuss some of our dream requirements for a behavior architecture, in order to set up our goals and the desired properties of a particular implementation.
 In this thesis we focus on behavior systems that require human expertise to dream up, create, adapt, and modify.
@@ -191,12 +191,12 @@ It is conceivable that a generally intelligent AI could replace this role in the
 This list of characteristics is therefore in the realm of Operator-Robot teams, be it any number of humans and robots.
 We leave the Operator-Robot ratio open-ended.
 Potentially, many humans could be managing one robot or one human could be managing a fleet of robots.</p>
-<h2 id="capability"><a class="header" href="#capability">Capability</a></h2>
+<h2 id="21-capability"><a class="header" href="#21-capability"><span class="heading-number">2.1.</span> Capability</a></h2>
 <p>The goal of a behavior system should be to support doing as many tasks as possible to help it achieve maximum utility.
 The whole point of a robot behavior system, as we are concerned with it in this thesis, is to fill in for the dull, dirty, and dangerous work humans do.
 We define capability as how many different tasks and their variations can be performed successfully.
 For example, a system that only supports door traversals is not as capable as one that supports exploring buildings.</p>
-<h2 id="feasibility"><a class="header" href="#feasibility">Feasibility</a></h2>
+<h2 id="22-feasibility"><a class="header" href="#22-feasibility"><span class="heading-number">2.2.</span> Feasibility</a></h2>
 <p>Any implementation of a behavior system must be feasible given real-world constraints.
 It is desirable to not require overly expensive computers or ones that are not readily available.
 If the robot needs to function autonomously in comms-degraded scenarios, the behavior should not rely on external comms or compute to operate.
@@ -204,31 +204,31 @@ The behaviors cannot require robot actuation hardware that is not reliable, read
 There should be no jetpack flying requirement for behaviors if robots with jetpacks and controllers for them do not exist or only exist as prototypes.
 The behaviors should not rely on control software that does not exist.
 For example, modern whole-body controllers do not do much in the way of planning out how to achieve complicated bracing positions and techniques to avoid falling in dynamic scenarios, so the behavior system should support getting the robot into positions and authoring at a primitive action level that allows the operator to reason about what the controller can handle while authoring the behavior actions.</p>
-<h2 id="speed"><a class="header" href="#speed">Speed</a></h2>
+<h2 id="23-speed"><a class="header" href="#23-speed"><span class="heading-number">2.3.</span> Speed</a></h2>
 <p>Behaviors should be watchable at 1x speed.
 Computational components of the system need to run within their allotted time boundaries, not causing any pauses.
 The robot hardware and the whole-body controller that the behavior system relies on should be capable of decently fast motions.
 We are not talking about super fast speeds here, just approaching casual human speed in performing day-to-day chore-like tasks.
 We want robots to be a drop-in for human work without an immediately huge tradeoff or question mark on speed.</p>
-<h2 id="parallelizability"><a class="header" href="#parallelizability">Parallelizability</a></h2>
+<h2 id="24-parallelizability"><a class="header" href="#24-parallelizability"><span class="heading-number">2.4.</span> Parallelizability</a></h2>
 <p>The system should support moving multiple parts of the body at once and the ability to walk while doing that.
 This is particularly useful when doing manipulation.
 Before performing many manipulations, the robot will need to prepare the grasping arm in a pre-grasp-ready pose while putting the other arm in a collision-avoidance pose.
 Having to get into these ready poses sequentially would cause an unnecessary delay.
 This goes towards the speed metric, but is also important for capability.
 For example, for traversing spring-loaded doors, the robot must walk while keeping its arm out in the correct locations to prevent the door from closing on the robot.</p>
-<h2 id="reliability"><a class="header" href="#reliability">Reliability</a></h2>
+<h2 id="25-reliability"><a class="header" href="#25-reliability"><span class="heading-number">2.5.</span> Reliability</a></h2>
 <p>Robots should be able to execute tasks repeatably without failures.
 More formally, for a given task, given similar environmental conditions, the robot should consistently perform the task.
 If it succeeds, it should consistently succeed (and if it fails, it should consistently fail).
 In other words, operators should be able to count on the robot to perform a task repeatedly without random failures that have little to do with environmental variance.</p>
-<h2 id="robustness"><a class="header" href="#robustness">Robustness</a></h2>
+<h2 id="26-robustness"><a class="header" href="#26-robustness"><span class="heading-number">2.6.</span> Robustness</a></h2>
 <p>The robot and behavior system should be robust to environmental disturbances.
 These can be both physical and visual.
 For example, slight pushes to the robot, unmodeled friction and inertias in manipulated items, and changes in lighting due to time of day should not cause task failures.
 Robustness mechanisms should be present via the whole-body controller or in the behavior system to address these.
 Any vision models should be trained using data from varied times of day and lighting conditions to prepare them for round-the-clock work.</p>
-<h2 id="resilience"><a class="header" href="#resilience">Resilience</a></h2>
+<h2 id="27-resilience"><a class="header" href="#27-resilience"><span class="heading-number">2.7.</span> Resilience</a></h2>
 <p>The behavior system should support resilience to changing task conditions and attempt to recover or work around gaps in reliability and robustness.
 We define resilience to mean being responsive and creative when facing task failures.
 For example, when the robot is trying to turn a door handle, perhaps a human is present and trying to test the reactivity of the system.
@@ -236,7 +236,7 @@ In this case, the behavior system should be able to identify that the task is no
 Retry strategies can include simply retrying the action sequence, mutating the pose-grasp sequence, or aborting the mission entirely and doing something else.
 Resilience ultimately means surviving day-to-day unexpected events and failures.
 Attaining resilience is a long-tail robotics problem, but the prior examples are good places to start.</p>
-<h2 id="independence-from-external-systems"><a class="header" href="#independence-from-external-systems">Independence from External Systems</a></h2>
+<h2 id="28-independence-from-external-systems"><a class="header" href="#28-independence-from-external-systems"><span class="heading-number">2.8.</span> Independence from External Systems</a></h2>
 <p>Ideally, the robot can execute behaviors without any connection to the outside world, given the behaviors have been authored and set up ahead of time.
 This mirrors animals in nature and supports a level of robustness by removing an unintuitive dependence on network communication.
 It also allows the robot to operate in more environments, including inside buildings with thick concrete walls and rural areas.</p>
@@ -245,19 +245,19 @@ It is desirable to perceive the world only via the robot and not be dependent on
 We want the robots using our behavior system to thrive beyond the lab environment and provide useful service in the real world.
 It is also desirable to have humanoid robots be a drop-in replacement for human workers without having to make robot-specific adjustments to the environment, such as placing fiducial markers.
 It would be better if robots were to read the same signage and maps as humans.</p>
-<h2 id="dependence-on-only-passive-color-vision"><a class="header" href="#dependence-on-only-passive-color-vision">Dependence on Only Passive Color Vision</a></h2>
+<h2 id="29-dependence-on-only-passive-color-vision"><a class="header" href="#29-dependence-on-only-passive-color-vision"><span class="heading-number">2.9.</span> Dependence on Only Passive Color Vision</a></h2>
 <p>By using only passive color vision, the robot mirrors human nature and is more robust to varied lighting conditions.
 For example, structured light projection sensors can have degraded performance outdoors and in the presence of certain frequencies of light.
 Additionally, it can be more intuitive and understandable when the robot’s vision modality is similar to human vision.
 Since we are building humanoid robots to fill in for humans, it could be a more surefire drop-in replacement by matching the mode of vision.</p>
-<h2 id="adaptability-of-the-operator-robot-team"><a class="header" href="#adaptability-of-the-operator-robot-team">Adaptability of the Operator-Robot Team</a></h2>
+<h2 id="210-adaptability-of-the-operator-robot-team"><a class="header" href="#210-adaptability-of-the-operator-robot-team"><span class="heading-number">2.10.</span> Adaptability of the Operator-Robot Team</a></h2>
 <p>Given the near infinite world of tasks robots could help us with, we want a behavior system that can support creating new and adapting existing behaviors to tackle them.
 Adaptability means being able to survive in a changing environment and, for robots, this means operators must be able to readily adapt robot behaviors to changing needs.
 One of the selling points of humanoid robots is their generality and similarity to humans, which means one application of them is to fill in for human work.
 Given the adaptiveness of humans and the existence and competitiveness of purpose-built machinery, the value-add for robots must exist in the realm of being an adaptable generalized form.
 Therefore, it is desirable to be able to create and modify behaviors to tackle various dull, dirty, and dangerous work tasks in a quick time frame.</p>
 <p>The following three characteristics are inherently required in building the adaptability components, as defined by Coactive Design  <a href="references.html#ref-Johnson_2014" class="citation-ref">[30]</a>.</p>
-<h2 id="observability"><a class="header" href="#observability">Observability</a></h2>
+<h2 id="211-observability"><a class="header" href="#211-observability"><span class="heading-number">2.11.</span> Observability</a></h2>
 <p>This means knowing the current state of the system in order to understand what is going on.
 For a robot, there is a lot of information to take in at any particular moment and there are different levels of granularity in doing so.
 Knowing the current state is required for a human operator to reason about the behavior to modify or adapt it.
@@ -290,7 +290,7 @@ Does the robot know where it is on a map?
 Is it aware of the major obstacles nearby?</p>
 </li>
 </ol>
-<h2 id="predictability"><a class="header" href="#predictability">Predictability</a></h2>
+<h2 id="212-predictability"><a class="header" href="#212-predictability"><span class="heading-number">2.12.</span> Predictability</a></h2>
 <p>This one is about a sense of what is going to happen next both with the robot and the environment.
 This is required for a human operator to create, adapt, and diagnose behaviors.
 For example, when authoring the next action(s), it is desirable to see a preview of the motion of the robot and environment as a way of verifying that action.
@@ -304,7 +304,7 @@ Primitive graphics like footsteps can be shown to convey where the robot will st
 Color can be used to convey feasibility.
 For example, a blue transparent graphic of an arm can represent a feasible solution and it can turn red to notify the operator of an infeasible or hard-to-reach configuration.
 On a longer horizon, a browsable list of actions could be shown which lists all future actions and sub-sequences in the behavior.</p>
-<h2 id="directability"><a class="header" href="#directability">Directability</a></h2>
+<h2 id="213-directability"><a class="header" href="#213-directability"><span class="heading-number">2.13.</span> Directability</a></h2>
 <p>The last of Johnson’s three characteristics in Coactive Design is directability.
 It is a measure of how expressive the operator can be in commanding the robot to do things.
 For a humanoid robot, at the basic level, it means being able to command the robot to take steps, walk, move its hands, look around with its head, and generally pose the whole body.
@@ -312,16 +312,16 @@ At a higher level, the availability of planners increases expressiveness.
 Good examples of high expressiveness would be the ability to ask the robot to clean a room or to fetch a particular object.
 We also extend the scope of directability to include non-direct ways of commanding the robot, such as tuning parameters of primitive actions, behavior logic, perception, or scene management.
 In this way, we want to not only directly command the robot’s physical actions, but also its cognitive model of the world and its plan.</p>
-<h2 id="learnability-operator-learning-curve"><a class="header" href="#learnability-operator-learning-curve">Learnability (Operator Learning Curve)</a></h2>
+<h2 id="214-learnability-operator-learning-curve"><a class="header" href="#214-learnability-operator-learning-curve"><span class="heading-number">2.14.</span> Learnability (Operator Learning Curve)</a></h2>
 <p>The operator interface should be designed in a way that facilitates a novice operator in learning how to use it.
 The behavior operator interface should be interactive and guide the user with cues to point them in the right direction and give them confidence that what they did is what they wanted to do.
 Nielsen’s 10 Usability Heuristics for User Interface Design is a good reference point for designing a user interface  <a href="references.html#ref-nielsen1994ten" class="citation-ref">[57]</a>.
 These 10 heuristics include: visibility of system status, match between the system and the real world, user control and freedom, consistency and standards, error prevention, recognition rather than recall, flexibility and efficiency of use, aesthetic and minimalist design, help users recognize, diagnose, and recover from errors, and help and documentation.</p>
-<h2 id="understandability-of-the-implementation"><a class="header" href="#understandability-of-the-implementation">Understandability (of the Implementation)</a></h2>
+<h2 id="215-understandability-of-the-implementation"><a class="header" href="#215-understandability-of-the-implementation"><span class="heading-number">2.15.</span> Understandability (of the Implementation)</a></h2>
 <p>It would be nice if it were easy to learn how the behavior system works by reviewing the code and observing behaviors in operation.
 Viewing a behavior’s composition in the user interface should give a good idea of what the behavior does by being organized and supporting abstractions.
 The use of hierarchical abstractions, for example, can allow the reader to understand the high level at a glance and dive deeper where they want to learn more.</p>
-<h2 id="usability"><a class="header" href="#usability">Usability</a></h2>
+<h2 id="216-usability"><a class="header" href="#216-usability"><span class="heading-number">2.16.</span> Usability</a></h2>
 <p>The user interface should be easy to use, even for an expert operator.
 Functionality should be organized in meaningful ways, such as grouping like functionalities, scene objects by category, and organizing primitive actions by part of the body.
 When behaviors get large, there should be mechanisms to abstract their contents into high-level parts.
@@ -329,7 +329,7 @@ One way to do this, for example, is to structure behaviors hierarchically, such 
 Functionalities should be organized into menus.
 Buttons and checkboxes should be easy to click.
 Text and widgets should be easy to read and size-adjustable.</p>
-<h2 id="ability-to-analyze-in-post"><a class="header" href="#ability-to-analyze-in-post">Ability to Analyze in Post</a></h2>
+<h2 id="217-ability-to-analyze-in-post"><a class="header" href="#217-ability-to-analyze-in-post"><span class="heading-number">2.17.</span> Ability to Analyze in Post</a></h2>
 <p>A lot can happen in the course of a robot run and sometimes it can happen very fast.
 When there are failures or potential improvements, it is often useful to do a post-mortem analysis of what happened.
 This characteristic is desirable especially because running and supervising robots is stressful and requires attention.
@@ -339,13 +339,13 @@ They do not necessarily need the same observability data; they can choose to dee
 The logged data should include (ideally lossless) recordings of the robot’s sensors, behavior state and parameter data over time, controller variables over time, robot configuration state over time, and more.
 This also implies the availability of post-mortem analysis software, which would allow the logged data to be explored in a rich and interactive way.
 Examples of this include a slider to scrub data over time, a 3D reconstruction of robot configuration state and 3D depth data, and time plots of controller and behavior logic variables.</p>
-<h2 id="debuggability"><a class="header" href="#debuggability">Debuggability</a></h2>
+<h2 id="218-debuggability"><a class="header" href="#218-debuggability"><span class="heading-number">2.18.</span> Debuggability</a></h2>
 <p>The system should provide outputs that assist in debugging when things go wrong or while bringing up new functionalities.
 Examples of this include good print statements in the robot processes and logging them, sending log messages from the robot to the user interface at runtime, and coloring the log messages by severity and importance.
 Dynamic user interface elements can also be helpful, for example, when an action fails, making it blink red to draw the operator’s attention.
 Another way to support debugging is to carefully select a representative set of state variables to log in a time-dependent buffer.
 These buffers can be streamed live or stored to disk and viewed as scrubbable plots.</p>
-<h2 id="testability"><a class="header" href="#testability">Testability</a></h2>
+<h2 id="219-testability"><a class="header" href="#219-testability"><span class="heading-number">2.19.</span> Testability</a></h2>
 <p>It is desirable to be able to test the system in an automated way.
 This could be with the real robot, virtually with real data, or using fully simulated data.
 For example, having test fixtures available for code continuous integration tools to perform simulated behaviors and inspect the results for success and performance characteristics would be helpful to ensure quality and prevent regressions.
@@ -356,7 +356,7 @@ It can be very difficult to reduce the sim-to-real gap for loco-manipulation beh
 Tasks often need to be rigged as articulated simulation assets as in the case of doors, which is a manual process that requires expertise.
 However, there is also a middle ground in which tradeoffs can be made and components replaced with dummies.
 For example, poses of objects in the scene could be given via ground truth knowledge, bypassing the vision system entirely or partially.</p>
-<h2 id="extendability"><a class="header" href="#extendability">Extendability</a></h2>
+<h2 id="220-extendability"><a class="header" href="#220-extendability"><span class="heading-number">2.20.</span> Extendability</a></h2>
 <p>We’re still firmly in the early stages of humanoid robots starting to work well.
 Any system for running behaviors on humanoid robots should be easy to extend, functionality-wise, to keep pace with the state of the art and maintain competitive usefulness.
 For example, given the availability of a new footstep planner, it should be a straightforward process to include it as an option.

@@ -33,7 +33,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme-figures-738bcc10.css">
+        <link rel="stylesheet" href="theme-figures-84a4c90d.css">
         <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
@@ -44,7 +44,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-926a1a84.js";
+            window.path_to_searchindex_js = "searchindex-2a1397cf.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-13565dbe.js"></script>
@@ -183,8 +183,8 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="2022-2023-nadia-runtime-editable-sequences-era"><a class="header" href="#2022-2023-nadia-runtime-editable-sequences-era">2022-2023 Nadia, Runtime-Editable Sequences Era</a></h1>
-<h2 id="runtime-editable-sequences"><a class="header" href="#runtime-editable-sequences">Runtime-Editable Sequences</a></h2>
+                        <h1 id="44-2022-2023-nadia-runtime-editable-sequences-era"><a class="header" href="#44-2022-2023-nadia-runtime-editable-sequences-era"><span class="heading-number">4.4.</span> 2022-2023 Nadia, Runtime-Editable Sequences Era</a></h1>
+<h2 id="441-runtime-editable-sequences"><a class="header" href="#441-runtime-editable-sequences"><span class="heading-number">4.4.1.</span> Runtime-Editable Sequences</a></h2>
 <p>In 2022, inspired by the Affordance Template framework, we started developing an interactive and runtime editable behavior authoring pipeline.
 This was the beginning of the architecture we still use in 2026.
 The initial goal was to replicate the door behaviors we had before, but in a runtime editable way.
@@ -204,7 +204,7 @@ A video is available at <a href="https://youtu.be/KfUFNM7SWz8" class="uri">https
 April 6, 2022.
 </figcaption>
 </figure>
-<h2 id="teleoperated-building-exploration"><a class="header" href="#teleoperated-building-exploration">Teleoperated Building Exploration</a></h2>
+<h2 id="442-teleoperated-building-exploration"><a class="header" href="#442-teleoperated-building-exploration"><span class="heading-number">4.4.2.</span> Teleoperated Building Exploration</a></h2>
 <p>Also in 2022, we switched to IHMC and Boardwalk Robotics’s Nadia humanoid robot and set some milestones for the next few years.
 Milestone 1 was a teleoperation-only multi-task demo.
 Milestone 1 was performed on the robot on September 9, 2022 using the RDX teleoperation UI, using an upgraded set of teleoperation features shown in <a href="#fig:nadia_interactables">Figure 4.17</a>.
@@ -237,7 +237,7 @@ The joysticks commanded x, y, and yaw velocities.
 <p>This user interface also supported multiple operators as a side effect.
 Often, the VR operator would have another operator observing the monitor and sometimes clicking buttons to put the robot in pre-defined arm configurations, like the home and door avoidance.
 This helped us overcome gaps in the VR interface quickly and allowed for “copilot” supervision and monitoring, which doesn’t usually work well for a VR system.</p>
-<h2 id="semi-autonomous-pick-and-place"><a class="header" href="#semi-autonomous-pick-and-place">Semi-Autonomous Pick and Place</a></h2>
+<h2 id="443-semi-autonomous-pick-and-place"><a class="header" href="#443-semi-autonomous-pick-and-place"><span class="heading-number">4.4.3.</span> Semi-Autonomous Pick and Place</a></h2>
 <p>A primary goal of the Milestone 1 demo was to get base functionalities in place with the plan to start adding autonomous components in later milestones.
 To that end, in 2023, we developed the next generation of behaviors, which were entirely authorable at runtime.
 We started with a can pick and place behavior and the push and pull door traversals.</p>
@@ -254,7 +254,7 @@ The operator had to visually check the state of the gripper fingers and re-execu
 There was no way to get the state of the gripper from the user interface at this time.
 The operator also had to wait for each action to complete before starting the next because action completion conditions were not finished.
 Regardless, it was a good real-robot test of a savable/loadable and runtime editable affordance template behavior sequence.</p>
-<h2 id="runtime-editable-door-behaviors"><a class="header" href="#runtime-editable-door-behaviors">Runtime-Editable Door Behaviors</a></h2>
+<h2 id="444-runtime-editable-door-behaviors"><a class="header" href="#444-runtime-editable-door-behaviors"><span class="heading-number">4.4.4.</span> Runtime-Editable Door Behaviors</a></h2>
 <figure id="fig:nadia_first_auto_push_door">
 <img src="media/nadia/20230627_PushDoorSequenceFirstAutonomousRun-00.00.14.481.jpg" />
 <figcaption><strong>Figure 4.20.</strong> Nadia executing an autonomous push door behavior in 36 seconds on June 27, 2023.
@@ -287,7 +287,7 @@ The force and torque data was pretty noisy and we weren’t sure how to handle i
 Another enhancement was the action progress bar indicators.
 This allows the operator to monitor the execution progress of the actions and give the operator confidence that action nominal duration and termination conditions were working correctly.
 The speed of the behavior was the same as the June run at 36 seconds.</p>
-<h2 id="footstep-plan-authoring"><a class="header" href="#footstep-plan-authoring">Footstep Plan Authoring</a></h2>
+<h2 id="445-footstep-plan-authoring"><a class="header" href="#445-footstep-plan-authoring"><span class="heading-number">4.4.5.</span> Footstep Plan Authoring</a></h2>
 <figure id="fig:2023_footstep_authoring">
 <img src="media/nadia/2023-09-01 16-53-26_NadiaSimFootstepPlanActionAuthoring-00.01.04.918.jpg" />
 <figcaption><strong>Figure 4.22.</strong> September 1, 2023 screenshot of a new behavior authoring feature.
@@ -297,7 +297,7 @@ A video is available at <a href="https://youtu.be/FZrVUsMcG7s" class="uri">https
 </figure>
 <p>In September 2023 we made enhancements to the walk action as seen in <a href="#fig:2023_footstep_authoring">Figure 4.22</a>, allowing the behavior author to interactively edit a multi-step footstep plan.
 This was especially useful for authoring door traversal walk-throughs, as a very specific set of footsteps are required to satisfy controller stability limits while avoiding collisions between the robot’s shoulders and the door frame.</p>
-<h2 id="behavior-node-decomposition"><a class="header" href="#behavior-node-decomposition">Behavior Node Decomposition</a></h2>
+<h2 id="446-behavior-node-decomposition"><a class="header" href="#446-behavior-node-decomposition"><span class="heading-number">4.4.6.</span> Behavior Node Decomposition</a></h2>
 <figure id="fig:2023_code_refactor">
 <img src="media/nadia/20230929_BehaviorCodeRefactor.png" />
 <figcaption><strong>Figure 4.23.</strong> An architecture diagram for the code structure of behavior nodes that was established in September 2023.</figcaption>
@@ -313,7 +313,7 @@ It is the only layer that commands the robot directly through its ROS 2 API.
 It is also the only layer that has access to full resolution and frequency perception data, as it is co-located with the perception sensors.
 Finally, the UI layer is for rendering the authoring interface elements in RDX.
 The UI layer is also contained in a UI-specific folder that has access to the graphics engine and widget libraries.</p>
-<h2 id="runtime-editable-behavior-tree"><a class="header" href="#runtime-editable-behavior-tree">Runtime-Editable Behavior Tree</a></h2>
+<h2 id="447-runtime-editable-behavior-tree"><a class="header" href="#447-runtime-editable-behavior-tree"><span class="heading-number">4.4.7.</span> Runtime-Editable Behavior Tree</a></h2>
 <figure id="fig:2023_tree_view">
 <img src="media/nadia/20231103_BehaviorTreeView.png" />
 <figcaption><strong>Figure 4.24.</strong> An early version of the behavior tree version of the runtime-editable behavior system.
@@ -322,7 +322,7 @@ Screenshot from November 3, 2023.</figcaption>
 <p>In November 2023, we started to convert the sequence into a tree, as seen in <a href="#fig:2023_tree_view">Figure 4.24</a>.
 Here, the root node “WalkingTest” can be seen at the top with an expanded arrow and the root node control widgets.
 Two child walk action nodes can be seen below it.</p>
-<h2 id="next-action-to-execute-pointer"><a class="header" href="#next-action-to-execute-pointer">Next Action to Execute Pointer</a></h2>
+<h2 id="448-next-action-to-execute-pointer"><a class="header" href="#448-next-action-to-execute-pointer"><span class="heading-number">4.4.8.</span> Next Action to Execute Pointer</a></h2>
 <figure id="fig:2023_green_arrow_context">
 <img src="media/nadia/Peek 2023-11-14 15-23-GreenArrowsContext-00.00.02.738.jpeg" />
 <figcaption><strong>Figure 4.25.</strong> A screenshot from November 14, 2023, showing the introduction of the green arrow to mark the action’s next execution index as well as a right-click context menu for inserting nodes.</figcaption>
@@ -332,7 +332,7 @@ As seen in <a href="#fig:2023_green_arrow_context">Figure 4.25</a>, a green arro
 This created a uniquely identifiable marker for the operator to focus on that was distinct from the default ImGui widgets.
 Clicking the green arrow is used to set the index.
 Later the arrow would blink blue to signal the action was currently executing.</p>
-<h2 id="moving-and-reordering-nodes"><a class="header" href="#moving-and-reordering-nodes">Moving and Reordering Nodes</a></h2>
+<h2 id="449-moving-and-reordering-nodes"><a class="header" href="#449-moving-and-reordering-nodes"><span class="heading-number">4.4.9.</span> Moving and Reordering Nodes</a></h2>
 <figure id="fig:2023_move_nodes">
 <img src="media/nadia/20231116_MoveNodesUI.png" />
 <figcaption><strong>Figure 4.26.</strong> A screenshot from November 16, 2023, showing the introduction of a move nodes context menu, which was used to reorder the nodes and place them under different parents.</figcaption>
@@ -340,7 +340,7 @@ Later the arrow would blink blue to signal the action was currently executing.</
 <p><a href="#fig:2023_move_nodes">Figure 4.26</a> shows a context menu feature used to reorder nodes and place them under different parents.
 This was especially useful if a node needed to be moved far away.
 Since switching to the tree-based view, this was the first time the nodes could be reordered or moved under new parents.</p>
-<h2 id="nesting-file-backed-subtrees"><a class="header" href="#nesting-file-backed-subtrees">Nesting File-Backed Subtrees</a></h2>
+<h2 id="4410-nesting-file-backed-subtrees"><a class="header" href="#4410-nesting-file-backed-subtrees"><span class="heading-number">4.4.10.</span> Nesting File-Backed Subtrees</a></h2>
 <figure id="fig:2023_nesting_json">
 <img src="media/nadia/Peek 2023-11-16 15-18-NestingJSON-00.00.06.726.jpeg" />
 <figcaption><strong>Figure 4.27.</strong> A screenshot from November 16, 2023, showing how nodes could be converted to nested JSON files.
@@ -350,7 +350,7 @@ A gif is available at <a href="https://giphy.com/gifs/N1sLeoz3z1zJeJfw8T" class=
 <p>A feature developed on November 16, 2023, can be seen in <a href="#fig:2023_nesting_json">Figure 4.27</a>, which shows how a node can be converted into a nested JSON file via the context menu.
 The JSON behavior loader now supported recursively loading behavior trees with nested JSON files.
 This supported the separation of skills into their own JSON files and kept larger tree files from getting too large.</p>
-<h2 id="screw-primitive-action"><a class="header" href="#screw-primitive-action">Screw Primitive Action</a></h2>
+<h2 id="4411-screw-primitive-action"><a class="header" href="#4411-screw-primitive-action"><span class="heading-number">4.4.11.</span> Screw Primitive Action</a></h2>
 <figure id="fig:2023_screw_primitive">
 <img src="media/nadia/2023-12-07 15-07-16-ScrewPrimitive-00.00.42.548.jpg" />
 <figcaption><strong>Figure 4.28.</strong> A screenshot from December 7, 2023, showing a new screw primitive action type.

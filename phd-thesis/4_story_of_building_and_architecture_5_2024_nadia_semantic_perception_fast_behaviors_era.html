@@ -33,7 +33,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme-figures-738bcc10.css">
+        <link rel="stylesheet" href="theme-figures-84a4c90d.css">
         <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
@@ -44,7 +44,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-926a1a84.js";
+            window.path_to_searchindex_js = "searchindex-2a1397cf.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-13565dbe.js"></script>
@@ -183,8 +183,8 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="2024-nadia-semantic-perception-fast-behaviors-era"><a class="header" href="#2024-nadia-semantic-perception-fast-behaviors-era">2024 Nadia, Semantic Perception, Fast Behaviors Era</a></h1>
-<h2 id="semantic-perception-for-manipulation"><a class="header" href="#semantic-perception-for-manipulation">Semantic Perception for Manipulation</a></h2>
+                        <h1 id="45-2024-nadia-semantic-perception-fast-behaviors-era"><a class="header" href="#45-2024-nadia-semantic-perception-fast-behaviors-era"><span class="heading-number">4.5.</span> 2024 Nadia, Semantic Perception, Fast Behaviors Era</a></h1>
+<h2 id="451-semantic-perception-for-manipulation"><a class="header" href="#451-semantic-perception-for-manipulation"><span class="heading-number">4.5.1.</span> Semantic Perception for Manipulation</a></h2>
 <figure id="fig:2024_shoe_in_box">
 <img src="media/nadia/20240121_PackShoeInBox.jpg" />
 <figcaption><strong>Figure 4.29.</strong> A behavior for picking up a shoe (top left), walking to the side (top right), placing the shoe in the box (bottom left), and picking up the box (bottom right) executed on January 21, 2024.
@@ -203,7 +203,7 @@ There was no onboard compute so a laptop was tethered to the robot to run the pe
 On top of those, the behavior system was still new and buggy.
 We also had a new implementation of a scene graph that worked with the behavior system, but separate.
 This scene graph had synchronization bugs.</p>
-<h2 id="behavior-system-user-interface"><a class="header" href="#behavior-system-user-interface">Behavior System User Interface</a></h2>
+<h2 id="452-behavior-system-user-interface"><a class="header" href="#452-behavior-system-user-interface"><span class="heading-number">4.5.2.</span> Behavior System User Interface</a></h2>
 <figure id="fig:2024_refreshed_ui">
 <img src="media/nadia/20240130_NewUI.jpg" />
 <figcaption><strong>Figure 4.30.</strong> A screenshot from January 30, 2024 showing a refreshed user interface for the behavior system.
@@ -239,7 +239,7 @@ The user could toggle between these two types of progress information.</p>
 A video is available at <a href="https://youtu.be/c929cDimaCY" class="uri">https://youtu.be/c929cDimaCY</a>.
 </figcaption>
 </figure>
-<h2 id="fast-behaviors"><a class="header" href="#fast-behaviors">Fast Behaviors</a></h2>
+<h2 id="453-fast-behaviors"><a class="header" href="#453-fast-behaviors"><span class="heading-number">4.5.3.</span> Fast Behaviors</a></h2>
 <p>On February 4, 2024, we achieved the fastest push door behavior yet on Nadia in 17 seconds, shown in <a href="#fig:2024_17s_push_door">Figure 4.31</a>.
 By this time, Nadia’s upper arms had been upgraded to a cycloid drive based design.
 It also used an “execute with next action” boolean option for action nodes which was added back in September 2023.
@@ -256,7 +256,7 @@ A gif is available at <a href="https://giphy.com/gifs/kqTj94XEMbo9l6gdDl" class=
 This was an important usability feature in behavior authoring, because accidental behavior modifications were common at this stage in the implementation.
 It was, therefore, important to understand when a modification was made so the operator could undo it if necessary.
 This feature involved some extra boilerplate in each node’s definition implementation but was well worth it for the usability improvement.</p>
-<h2 id="execute-after-concurrency-mechanism"><a class="header" href="#execute-after-concurrency-mechanism">“Execute After” Concurrency Mechanism</a></h2>
+<h2 id="454-execute-after-concurrency-mechanism"><a class="header" href="#454-execute-after-concurrency-mechanism"><span class="heading-number">4.5.4.</span> “Execute After” Concurrency Mechanism</a></h2>
 <figure id="fig:2024_14s_push_door">
 <img src="media/nadia/PXL_20240315_163444716.TS-14sPushDoor-00.00.15.494.jpg" />
 <figcaption><strong>Figure 4.33.</strong> The 14 second continuous walking spring-loaded push bar door traversal on March 15 2024.
@@ -271,7 +271,7 @@ This also allowed for action scheduling using the Wait action in combination wit
 For example, arm motions could be scheduled during walking.
 This feature enabled our fastest ever door traversal, performed on March 15 2024, as shown in <a href="#fig:2024_14s_push_door">Figure 4.33</a>.
 In this behavior, Nadia traversed a spring-loaded push door without stopping walking in 14 seconds, using nubs for hands and an ArUco marker for detecting the pose of the door.</p>
-<h2 id="bimanual-box-pick-and-place"><a class="header" href="#bimanual-box-pick-and-place">Bimanual Box Pick and Place</a></h2>
+<h2 id="455-bimanual-box-pick-and-place"><a class="header" href="#455-bimanual-box-pick-and-place"><span class="heading-number">4.5.5.</span> Bimanual Box Pick and Place</a></h2>
 <figure id="fig:2024_box_pick_and_place">
 <img src="media/nadia/202400409_AutonomousWBBoxPickUp.jpg" />
 <figcaption><strong>Figure 4.34.</strong> The April 9, 2024 bimanual box pick and place behavior.
@@ -280,7 +280,7 @@ A video is available at <a href="https://youtu.be/m0NC2EV4XB4" class="uri">https
 </figure>
 <p>On April 9, 2024, we demonstrated a bimanual box pick and place behavior as shown in <a href="#fig:2024_box_pick_and_place">Figure 4.34</a>.
 With some padding attached to the nub forearms, Nadia executed a behavior that picked a box up from a pallet on the ground, carried it to a table, set it down, and backed away.</p>
-<h2 id="hard-coded-disturbance-recovery"><a class="header" href="#hard-coded-disturbance-recovery">Hard-Coded Disturbance Recovery</a></h2>
+<h2 id="456-hard-coded-disturbance-recovery"><a class="header" href="#456-hard-coded-disturbance-recovery"><span class="heading-number">4.5.6.</span> Hard-Coded Disturbance Recovery</a></h2>
 <figure id="fig:2024_pull_door_tmotor">
 <img src="media/nadia/20240412_PullDoorBehavior.jpg" />
 <figcaption><strong>Figure 4.35.</strong> A 19 second pull door behavior executed on April 12, 2024.
@@ -327,7 +327,7 @@ Since this test required the full system to be online and two people to operate,
 experiment time was scarce.
 Having to change code, implement debugging output, redeploy, and restart the behavior to modify the reactive logic sucked up even more of that time.
 It was clear that a fallback node, proximity condition, and improved action success criteria would streamline this process in the future.</p>
-<h2 id="three-door-traversals-in-a-row"><a class="header" href="#three-door-traversals-in-a-row">Three Door Traversals in a Row</a></h2>
+<h2 id="457-three-door-traversals-in-a-row"><a class="header" href="#457-three-door-traversals-in-a-row"><span class="heading-number">4.5.7.</span> Three Door Traversals in a Row</a></h2>
 <figure id="fig:2024_3_doors">
 <img src="media/nadia/20240703_NadiaDoorTraversalsPushBarPushKnobPullHandleFall.jpg" />
 <figcaption><strong>Figure 4.37.</strong> Our July 3, 2024 run where we attempted to traverse three doors in a row with continuous autonomy.
@@ -349,7 +349,7 @@ This was a key moment in realizing that having at least three fingers would make
 The Nadia robot was tethered to a hydraulic pump across the room and the hydraulic cabling was very stiff.
 Also, Nadia’s hip pitch actuators in their configuration were barely strong enough to lift the leg when the arms were also out in front of the robot, as required for door traversals in avoiding collisions with the door frame.
 When the robot was positioned to traverse the third door, the hydraulic cables put enough extra torque on the robot to make walking through the door un-achievable for the robot and it repeatedly fell.</p>
-<h2 id="onr-building-exploration-demo"><a class="header" href="#onr-building-exploration-demo">ONR Building Exploration Demo</a></h2>
+<h2 id="458-onr-building-exploration-demo"><a class="header" href="#458-onr-building-exploration-demo"><span class="heading-number">4.5.8.</span> ONR Building Exploration Demo</a></h2>
 <figure id="fig:2024_onr_demo_partial">
 <img src="media/nadia/202407_NadiaONRDemoPushBarTrashCanPullHandleSearch.jpg" />
 <figcaption><strong>Figure 4.38.</strong> 

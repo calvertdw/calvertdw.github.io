@@ -33,7 +33,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme-figures-738bcc10.css">
+        <link rel="stylesheet" href="theme-figures-84a4c90d.css">
         <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
@@ -44,7 +44,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-926a1a84.js";
+            window.path_to_searchindex_js = "searchindex-2a1397cf.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-13565dbe.js"></script>
@@ -183,27 +183,27 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="architectural-influences"><a class="header" href="#architectural-influences">Architectural Influences</a></h1>
-<h2 id="mit-director"><a class="header" href="#mit-director">MIT Director</a></h2>
+                        <h1 id="32-architectural-influences"><a class="header" href="#32-architectural-influences"><span class="heading-number">3.2.</span> Architectural Influences</a></h1>
+<h2 id="321-mit-director"><a class="header" href="#321-mit-director"><span class="heading-number">3.2.1.</span> MIT Director</a></h2>
 <p>MIT’s DRC system Director  <a href="references.html#ref-Marion_2017" class="citation-ref">[15]</a> is an earlier example of a structured autonomy framework that integrated operator supervision, planners, a 3D scene, and behavior-level scripting.
 It combined locomotion and manipulation planning with an operator-in-the-loop execution pipeline and an embedded Python editor for writing task scripts.
 It is a relevant precedent for integrating high-level autonomy and operator tooling in one environment, but its behavior representation remained scripting-heavy and it did not target the combination of robot-local runtime editing, synchronized state sharing, and fast loco-manipulation studied here.</p>
-<h2 id="flexbe"><a class="header" href="#flexbe">FlexBE</a></h2>
+<h2 id="322-flexbe"><a class="header" href="#322-flexbe"><span class="heading-number">3.2.2.</span> FlexBE</a></h2>
 <p>Schillinger et al. introduced FlexBE, a high-level control framework for rescue robotics built on hierarchical state machines, adjustable-autonomy guards on state outcomes, and runtime modification of executing behaviors  <a href="references.html#ref-Schillinger_2016" class="citation-ref">[16]</a>.
 FlexBE is a particularly important precedent because it treats runtime behavior adaptation as a normal operational capability rather than an offline development step.
 The paper reports qualitative success in example scenarios and competition use, but it does not provide overlapping numerical measures of door traversal speed, door-task reliability, or authoring effort.
 FlexBE therefore contributes as an architectural design influence rather than as a direct quantitative baseline.</p>
-<h2 id="dlr-rafcon"><a class="header" href="#dlr-rafcon">DLR RAFCON</a></h2>
+<h2 id="323-dlr-rafcon"><a class="header" href="#323-dlr-rafcon"><span class="heading-number">3.2.3.</span> DLR RAFCON</a></h2>
 <p>In the same year, Brunner et al. introduced RAFCON, a DLR tool for engineering robotic tasks as hierarchical state machines with first-class concurrency  <a href="references.html#ref-Brunner_2016" class="citation-ref">[17]</a>.
 RAFCON exposes preemptive and barrier concurrency states alongside hierarchy and library states, allows the structure of a state machine and the Python code inside execution states to be modified while it is running, and supports stepping, an execution history with full data context, and backwards stepping for debugging.
 The state machine is persisted as a folder of JSON files that mirrors the tree, which makes it readable, version controllable, and amenable to multi-developer collaboration.
 The most complete demonstration is the SpaceBotCamp 2015 mission, in which a state machine of more than 700 states across 8 hierarchy levels orchestrated navigation, exploration, perception, and manipulation; it is therefore a strong precedent for runtime-modifiable graphical authoring at scale, but, like FlexBE, it does not provide overlapping numerical evidence on door-task speed, reliability, or authoring effort, and it remains a host-side orchestration tool over ROS components rather than a robot-local synchronized runtime.</p>
-<h2 id="drawing-board"><a class="header" href="#drawing-board">Drawing Board</a></h2>
+<h2 id="324-drawing-board"><a class="header" href="#324-drawing-board"><span class="heading-number">3.2.4.</span> Drawing Board</a></h2>
 <p>Senft et al.  <a href="references.html#ref-Senft_2021" class="citation-ref">[18]</a> present <em>Drawing Board</em>, a task-level authoring interface for remote teleoperation of a tabletop Franka Emika Panda arm.
 The system is built around four principles relevant here: interleaving observation and planning, action-level robot control, a unified augmented-reality interface, and graphical specification of actions.
 An 18-participant study showed that novices produced longer and more frequent autonomous periods with task-level authoring than with direct or point-and-click control.
 The architecture in this thesis shares the action-level authoring stance and unified-interface principle, and extends them to humanoid loco-manipulation, robot-local execution under degraded communications, and reactive tree structure with behavior-time perception authored as scene actions.</p>
-<h2 id="behaviors-on-centauro"><a class="header" href="#behaviors-on-centauro">Behaviors on CENTAURO</a></h2>
+<h2 id="325-behaviors-on-centauro"><a class="header" href="#325-behaviors-on-centauro"><span class="heading-number">3.2.5.</span> Behaviors on CENTAURO</a></h2>
 <p>More recent CENTAURO work shows how structured task coordination can extend into perception-aware execution.
 De Luca et al. used BehaviorTree.CPP and Groot to manage online replanning and recovery for rough-terrain navigation on the CENTAURO wheeled-legged robot  <a href="references.html#ref-2023_centaur_bt" class="citation-ref">[55]</a>.
 They have a robot centaur with four legs with wheels, two arms with hands, and a head.

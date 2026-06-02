@@ -33,7 +33,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme-figures-738bcc10.css">
+        <link rel="stylesheet" href="theme-figures-84a4c90d.css">
         <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
@@ -44,7 +44,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-926a1a84.js";
+            window.path_to_searchindex_js = "searchindex-2a1397cf.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-13565dbe.js"></script>
@@ -183,7 +183,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="fallback-mechanism-example"><a class="header" href="#fallback-mechanism-example">Fallback Mechanism Example</a></h1>
+                        <h1 id="68-fallback-mechanism-example"><a class="header" href="#68-fallback-mechanism-example"><span class="heading-number">6.8.</span> Fallback Mechanism Example</a></h1>
 <figure id="fig:guide_sim_fallback">
 <img src="media/guide/2026-04-28 20-10-14_FallbackMechanismDemo-00.00.52.192.jpg" />
 <figcaption><strong>Figure 6.29.</strong> The beginning of our fallback node demonstration.
@@ -205,7 +205,7 @@ In general, it would be good to look through the most used mechanisms in program
 In this demonstration, we want to check if the right hand is raised to a certain position and raise it if it isn’t.
 Once the hand is raised, we will yaw the spine.
 To check the hand position, we have added a “shape contains” condition node as the try action and named it “Check hand”.</p>
-<h2 id="condition-nodes"><a class="header" href="#condition-nodes">Condition Nodes</a></h2>
+<h2 id="681-condition-nodes"><a class="header" href="#681-condition-nodes"><span class="heading-number">6.8.1.</span> Condition Nodes</a></h2>
 <p>We currently have six types of condition nodes: <code>ALWAYS_FAIL</code>, <code>ALWAYS_SUCCEED</code>, <code>COUNTER</code>, <code>LLM</code>, <code>PROXIMITY</code>, and <code>SHAPE_CONTAINS</code>.
 A condition node is different from an action in that it does not directly perform an action, but instead is responsible for making a decision resulting in success or failure.
 Success and failure for a condition node, however, have the same effect on behavior execution as actions: if the node succeeds, the behavior keeps going and, if the node fails, it halts execution by disabling autonomous mode.
@@ -226,7 +226,7 @@ We also covered the proximity node in some more detail near <a href="4_story_of_
 In <a href="#fig:guide_sim_fallback">Figure 6.29</a>, our shape contains condition node is selected with the settings showing in the bottom-left.
 There are two modes for the shape contains condition: contains frame and contains points.
 We’ll be using contains frame in this example, but the contains points functionality, which counts the number of live point cloud points in the virtual shape, is covered near <a href="4_story_of_building_and_architecture_7_2026_alex_resilience_adaptability_era.html#fig:alex_shape_contains_condition">Figure 4.63</a>.</p>
-<h2 id="shape-contains-frame-condition"><a class="header" href="#shape-contains-frame-condition">Shape Contains Frame Condition</a></h2>
+<h2 id="682-shape-contains-frame-condition"><a class="header" href="#682-shape-contains-frame-condition"><span class="heading-number">6.8.2.</span> Shape Contains Frame Condition</a></h2>
 <p>In <a href="#fig:guide_sim_fallback">Figure 6.29</a>, you’ll see there are four main settings for the shape contains frame functionality.
 The shape parent frame, the shape pose, the sphere radius, and the frame to check containment of.
 We allow defining the shape’s pose with respect to any robot or object frame just like we do for actions.
@@ -241,7 +241,7 @@ A video of this demonstration is available at <a href="https://youtu.be/mw4z4H4K
 To robustify our behavior and apply corrective action if the hand is not where we want it, we will now add an arm action to the fallback catch, as shown in <a href="#fig:guide_sim_fallback_arm">Figure 6.30</a>.
 When we add the catch action, because it is not concurrent with the condition in the try, we see a thin horizontal line in the tree editor.
 This line, between the “Check hand” and “Arm action” nodes, shows us where the try-catch delineation is.</p>
-<h2 id="the-goto-node"><a class="header" href="#the-goto-node">The Goto Node</a></h2>
+<h2 id="683-the-goto-node"><a class="header" href="#683-the-goto-node"><span class="heading-number">6.8.3.</span> The Goto Node</a></h2>
 <figure id="fig:guide_sim_fallback_while">
 <img src="media/guide/2026-04-28 20-10-14_FallbackMechanismDemo-00.01.19.837.jpg" />
 <figcaption><strong>Figure 6.31.</strong> Adding a goto node to implement a while loop.
@@ -257,7 +257,7 @@ To handle the case when there are multiple nodes of the same name in the tree, w
 The closest matching node is chosen with levels of priority: children recursively come first, then siblings, then parents recursively.
 Our choice of priority is somewhat arbitrary.
 We recommend using unique node names where possible to avoid this ambiguity.</p>
-<h2 id="reactive-fallback-demonstration"><a class="header" href="#reactive-fallback-demonstration">Reactive Fallback Demonstration</a></h2>
+<h2 id="684-reactive-fallback-demonstration"><a class="header" href="#684-reactive-fallback-demonstration"><span class="heading-number">6.8.4.</span> Reactive Fallback Demonstration</a></h2>
 <figure id="fig:guide_sim_fallback_end">
 <img src="media/guide/2026-04-28 20-10-14_FallbackMechanismDemo-00.01.45.770.jpg" />
 <figcaption><strong>Figure 6.32.</strong> Completing our fallback demonstration by reactively moving the arm to the correct location and executing the spine yaw motion.

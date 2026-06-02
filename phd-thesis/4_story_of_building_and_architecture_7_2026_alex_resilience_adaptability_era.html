@@ -33,7 +33,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme-figures-738bcc10.css">
+        <link rel="stylesheet" href="theme-figures-84a4c90d.css">
         <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
@@ -44,7 +44,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-926a1a84.js";
+            window.path_to_searchindex_js = "searchindex-2a1397cf.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-13565dbe.js"></script>
@@ -183,8 +183,8 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="2026-alex-resilience-adaptability-era"><a class="header" href="#2026-alex-resilience-adaptability-era">2026 Alex, Resilience, Adaptability Era</a></h1>
-<h2 id="alex-pull-door-traversal"><a class="header" href="#alex-pull-door-traversal">Alex Pull Door Traversal</a></h2>
+                        <h1 id="47-2026-alex-resilience-adaptability-era"><a class="header" href="#47-2026-alex-resilience-adaptability-era"><span class="heading-number">4.7.</span> 2026 Alex, Resilience, Adaptability Era</a></h1>
+<h2 id="471-alex-pull-door-traversal"><a class="header" href="#471-alex-pull-door-traversal"><span class="heading-number">4.7.1.</span> Alex Pull Door Traversal</a></h2>
 <figure id="fig:alex_door_opening">
 <img src="media/alex/2026-01-20_AlexDoorOpening-00.23.15.396.jpg" />
 <figcaption><strong>Figure 4.59.</strong> Our first manipulation behavior on the IHMC Alex robot on January 20, 2026.
@@ -258,7 +258,7 @@ This solution can be seen in the tree in <a href="#fig:alex_first_pull_door_tree
 <img src="media/alex/20260127_AlexPullDoorBehaviorTree.png" />
 <figcaption><strong>Figure 4.62.</strong> The behavior tree used for Alex’s first pull door traversal on January 24, 2026.</figcaption>
 </figure>
-<h2 id="shape-contains-condition"><a class="header" href="#shape-contains-condition">Shape Contains Condition</a></h2>
+<h2 id="472-shape-contains-condition"><a class="header" href="#472-shape-contains-condition"><span class="heading-number">4.7.2.</span> Shape Contains Condition</a></h2>
 <figure id="fig:alex_shape_contains_condition">
 <img src="media/alex/2026-01-27 22-34-20_ShapeContainsCondition-00.00.16.227.jpg" />
 <figcaption><strong>Figure 4.63.</strong> A demonstration of the “shape contains” condition node type.
@@ -288,12 +288,12 @@ On the right, in the Scene panel, the door_lever object indicates “FROZEN”, 
 A video is available at <a href="https://youtu.be/dTM4Rw_912Q" class="uri">https://youtu.be/dTM4Rw_912Q</a>.
 </figcaption>
 </figure>
-<h2 id="freeze-scene-action-type"><a class="header" href="#freeze-scene-action-type">Freeze Scene Action Type</a></h2>
+<h2 id="473-freeze-scene-action-type"><a class="header" href="#473-freeze-scene-action-type"><span class="heading-number">4.7.3.</span> Freeze Scene Action Type</a></h2>
 <p>On January 29, 2026, we developed the planned freeze object scene action type, as shown in <a href="#fig:alex_freeze">Figure 4.64</a>.
 As mentioned previously, the freeze action helps with manipulation by preventing a partial hand occlusion of objects while actively tracking.
 By freezing the object frame just before occlusion by the hand, we prevent a corrupted object frame during the grasp.
 Another use case for the freeze action is to dead reckon from the frame of an object we saw in the past, as we do for door handles and the door traversal footsteps.</p>
-<h2 id="fully-automatic-repeatable-door-traversals"><a class="header" href="#fully-automatic-repeatable-door-traversals">Fully-Automatic Repeatable Door Traversals</a></h2>
+<h2 id="474-fully-automatic-repeatable-door-traversals"><a class="header" href="#474-fully-automatic-repeatable-door-traversals"><span class="heading-number">4.7.4.</span> Fully-Automatic Repeatable Door Traversals</a></h2>
 <p>On February 12, 2026, we had our first fully automatic pull door traversal on Alex, that is, there were no gaps in autonomous execution from start to finish.
 The first run traversed the door in about 45 seconds.
 In about 10 minutes of speed-focused behavior tuning, we were able to shave that speed down to around 30 seconds.
@@ -301,7 +301,7 @@ This was done by reducing action trajectory durations, reducing wait times, and 
 <p>As an anecdotal statement on the robustness of our Alex pull door behavior, we ran the pull door behavior from these runs again on February 17, without modification, and it worked the first try.
 We ran it again on February 18, and it had only one slight arm tolerance issue, which didn’t cause a fall, only a brief gap in autonomy, before completing the traversal successfully.
 This was a good indication that our behaviors worked independently of slight variations in environmental conditions, such as careful placement of the lab door and the natural lighting coming through the windows, which varies based on time of day.</p>
-<h2 id="from-scratch-push-door-authoring"><a class="header" href="#from-scratch-push-door-authoring">From-Scratch Push Door Authoring</a></h2>
+<h2 id="475-from-scratch-push-door-authoring"><a class="header" href="#475-from-scratch-push-door-authoring"><span class="heading-number">4.7.5.</span> From-Scratch Push Door Authoring</a></h2>
 <figure id="fig:alex_push_door_authoring">
 <img src="media/alex/202602_AlexPushDoorAuthoring-00.00.17.864.jpg" />
 <figcaption><strong>Figure 4.65.</strong> A screenshot from the authoring session on February 22, 2026 for the push door behavior.
@@ -336,17 +336,17 @@ The push door traversal executed in 21 seconds.</p>
 </div>
 
 <p><span id="tab:left_push_scratch_authoring_timeline_story" label="tab:left_push_scratch_authoring_timeline_story"></span></p>
-<h2 id="quick-footstep-planner"><a class="header" href="#quick-footstep-planner">Quick Footstep Planner</a></h2>
+<h2 id="476-quick-footstep-planner"><a class="header" href="#476-quick-footstep-planner"><span class="heading-number">4.7.6.</span> Quick Footstep Planner</a></h2>
 <p>Around this time, we started developing the Quick Footstep Planner to more reliably get footsteps for task approaches on flat ground.
 This footstep planner uses a procedural geometric heuristic instead of a search algorithm.
 This helped us by providing an alternative to the existing A* and turn-walk-turn planners.
 Since the author is able to choose the planning type for each walk action, alternative planning options increase the chance of finding a workable solution.</p>
-<h2 id="node-duplication-options"><a class="header" href="#node-duplication-options">Node Duplication Options</a></h2>
+<h2 id="477-node-duplication-options"><a class="header" href="#477-node-duplication-options"><span class="heading-number">4.7.7.</span> Node Duplication Options</a></h2>
 <p>On February 28, 2026, we introduced a duplication option for all behavior tree nodes.
 This allows the operator to right-click any node and select “Duplicate” to create a copy.
 This is useful to speed up authoring, as the author can mutate an existing node if a similar one is needed.
 Copying and mutating an existing node is often faster than creating a new one from scratch, especially for nearby nodes in a similar context.</p>
-<h2 id="new-behavior-node-icons"><a class="header" href="#new-behavior-node-icons">New Behavior Node Icons</a></h2>
+<h2 id="478-new-behavior-node-icons"><a class="header" href="#478-new-behavior-node-icons"><span class="heading-number">4.7.8.</span> New Behavior Node Icons</a></h2>
 <figure id="fig:alex_behavior_tree_icons">
 <img src="media/alex/20260301_NewIconsAndNodeCreationMenu.png" />
 <figcaption><strong>Figure 4.66.</strong> New icons for behavior tree nodes on March 3, 2026.</figcaption>
@@ -355,29 +355,29 @@ Copying and mutating an existing node is often faster than creating a new one fr
 At this point in time, the most common actions had an icon.
 Icons are useful when working with the behavior tree, because they help you locate things much easier and also give at-a-glance verification of node type.
 This takes the burden off the behavior author to include the action type in the name, which also helps reduce the amount of text in the view.</p>
-<h2 id="node-referencing-improvements"><a class="header" href="#node-referencing-improvements">Node Referencing Improvements</a></h2>
+<h2 id="479-node-referencing-improvements"><a class="header" href="#479-node-referencing-improvements"><span class="heading-number">4.7.9.</span> Node Referencing Improvements</a></h2>
 <p>In March, we made a modification that allows the “execute after” field of actions and the “node to goto” field of the goto node to point to non-leaf nodes.
 This helps avoid needing to create checkpoint nodes just for the purpose of creating a concurrent sequence.
 It also preps the goto node to eventually become a “gosub”, where it can point to a sequence with the guarantee that control will be returned when that sequence is complete.</p>
-<h2 id="jointspace-indicator"><a class="header" href="#jointspace-indicator">Jointspace Indicator</a></h2>
+<h2 id="4710-jointspace-indicator"><a class="header" href="#4710-jointspace-indicator"><span class="heading-number">4.7.10.</span> Jointspace Indicator</a></h2>
 <p>On March 3, 2026, we added a little theta indicator to arm actions when it is defined as joint angles rather than a taskspace pose.
 This was important because we would often tune the arm configurations using taskspace and forget to switch it back to jointspace.
 For arm configurations that are frame invariant, such as door frame avoidance or table surface avoidance configurations, the joint angle definition is important.
 However, after tuning these configurations, if the arm action definition was accidentally left in taskspace in world frame, when executed later, the arm would go crazy trying to reach whatever point in world we were at during authoring.
 We made the default frame of arm actions chest frame to mitigate this issue, but the visual indicator helps the operator to verify this important action option at a glance.
 Since jointspace actions are generally safer to execute, it also gives the operator some confidence in executing the action.</p>
-<h2 id="improved-frame-names"><a class="header" href="#improved-frame-names">Improved Frame Names</a></h2>
+<h2 id="4711-improved-frame-names"><a class="header" href="#4711-improved-frame-names"><span class="heading-number">4.7.11.</span> Improved Frame Names</a></h2>
 <p>On the same day, we cleaned up the default frame names available to behavior actions.
 They were now more human readable like “Left Hand” instead of “afterGripperZLeft” and “Pelvis” instead of “afterPelvisLink”.
 This could help new operators climb the learning curve faster and help reduce cognitive burden for expert operators.</p>
-<h2 id="reactive-pull-door-behavior"><a class="header" href="#reactive-pull-door-behavior">Reactive Pull Door Behavior</a></h2>
+<h2 id="4712-reactive-pull-door-behavior"><a class="header" href="#4712-reactive-pull-door-behavior"><span class="heading-number">4.7.12.</span> Reactive Pull Door Behavior</a></h2>
 <p>On March 9, 2026, we conducted a reactivity test of the pull door behavior with Alex.
 In addition to the fallback node for retrying the door opening, we added one that waits for the doorway to be clear of obstacles before walking through.
 The test was successful.
 The robot was disturbed while opening the door three times and retried each time, succeeding on the fourth try.
 Then, the robot waited for the human to move out of the doorway before starting the walk-through.
 Unfortunately, the robot fell during the walk-through due to loss of balance, but the reactivity test was a success.</p>
-<h2 id="preview-mode-and-nominal-frames"><a class="header" href="#preview-mode-and-nominal-frames">Preview Mode and Nominal Frames</a></h2>
+<h2 id="4713-preview-mode-and-nominal-frames"><a class="header" href="#4713-preview-mode-and-nominal-frames"><span class="heading-number">4.7.13.</span> Preview Mode and Nominal Frames</a></h2>
 <p>Earlier in March, we implemented a behavior “Preview Mode”, which allows the operator to execute the full behavior against a kinematics simulation robot instead of the real one.
 On March 12, 2026, we developed a new element to the scene action “setup object” type node called the “nominal frame”.
 This nominal frame field specifies a pre-defined pose of the object for use in preview mode.
@@ -385,14 +385,14 @@ At this point in time we do not have a photo-realistic or physics-accurate simul
 When the behavior is running in preview mode, setup type scene actions will use a JSON-saved nominal pose to place the object in the scene at that location.
 This enables the behavior to run through its nominal motions without perception.
 This feature turned out to also be useful for recording reference motions for training reinforcement learning mimic behaviors.</p>
-<h2 id="collision-avoidance-with-rrt-connect"><a class="header" href="#collision-avoidance-with-rrt-connect">Collision Avoidance with RRT-Connect</a></h2>
+<h2 id="4714-collision-avoidance-with-rrt-connect"><a class="header" href="#4714-collision-avoidance-with-rrt-connect"><span class="heading-number">4.7.14.</span> Collision Avoidance with RRT-Connect</a></h2>
 <p>On March 20, we introduced a navigational mode for the Quick Footstep Planner which uses RRT-Connect  <a href="references.html#ref-kuffner2000rrt" class="citation-ref">[78]</a> to avoid YOLO detected obstacles.
 It plans from the start to the goal but avoids any YOLO objects by maintaining a radius of avoidance.
 We didn’t end up using it in an actual behavior yet.
 We think it might be better to use a capsule point check with the point cloud to make it more general.
 However, RRT-Connect may be too slow when the collision checks have to query the point cloud.
 It may be a good application of an occupancy map.</p>
-<h2 id="behavior-timeline"><a class="header" href="#behavior-timeline">Behavior Timeline</a></h2>
+<h2 id="4715-behavior-timeline"><a class="header" href="#4715-behavior-timeline"><span class="heading-number">4.7.15.</span> Behavior Timeline</a></h2>
 <figure id="fig:alex_behavior_timeline">
 <img src="media/alex/2026-03-22 20-33-52-BehaviorTimeline-00.00.41.533.jpg" />
 <figcaption><strong>Figure 4.67.</strong> A view-only behavior timeline implementation from March 22, 2026.
@@ -405,7 +405,7 @@ On March 22, we took a stab at an initial behavior timeline implementation as se
 One immediate issue with rendering such a view is that action timings are not always known ahead of time.
 They are often dependent on real-time events, such as the scene node obtaining a stable detection.
 When the behavior is run in preview mode or regular mode, the actual action durations are stored in the bars, to provide a retrospective on the behavior’s actions over time.</p>
-<h2 id="action-and-subtree-mirroring"><a class="header" href="#action-and-subtree-mirroring">Action and Subtree Mirroring</a></h2>
+<h2 id="4716-action-and-subtree-mirroring"><a class="header" href="#4716-action-and-subtree-mirroring"><span class="heading-number">4.7.16.</span> Action and Subtree Mirroring</a></h2>
 <p>In trying to build out our general door traversal behavior, we needed mirrored versions of our right pull and left push door behaviors.
 This became a priority on March 25, 2026 because we were about to attempt our first real-world door traversal – our break room door.
 Our break room door was a left pull door.
@@ -417,7 +417,7 @@ This door-specific mirroring option applies to condition nodes, scene action nod
 <p>We also added the option to mirror subtrees, i.e. (“Mirror Subtree” and “Mirror Subtree (door)”), which would try its best to perform the mirroring on the subtree recursively using the functionality we just described on each node or no mirroring if it was not covered.
 This actually worked really well to create a mirrored version of the pull door behavior which we then took to the break room door to try it for the first time.
 We were able to preview the mirrored behavior in simulation to verify the general motions before deploying the real-robot.</p>
-<h2 id="traversal-of-a-real-door"><a class="header" href="#traversal-of-a-real-door">Traversal of a Real Door</a></h2>
+<h2 id="4717-traversal-of-a-real-door"><a class="header" href="#4717-traversal-of-a-real-door"><span class="heading-number">4.7.17.</span> Traversal of a Real Door</a></h2>
 <figure id="fig:alex_break_room_door">
 <img src="media/alex/20260326_RealLeftPushDoorBreakRoom-00.00.17.952.jpg" />
 <figcaption><strong>Figure 4.68.</strong> Alex opening the break room door on March 26, 2026.
@@ -427,7 +427,7 @@ A video is available at <a href="https://youtu.be/sv6r1ZBn6FA" class="uri">https
 <p>On March 26, we attempted to traverse the break room door, which would be the first time an IHMC robot has traversed a real-world door as opposed to a lab-constructed one.
 In less than two hours of tweaking the behavior and attempting the behavior, we got a full door traversal to execute successfully in about 33 seconds.
 A frame from this run is shown in <a href="#fig:alex_break_room_door">Figure 4.68</a>.</p>
-<h2 id="ball-pick-and-place"><a class="header" href="#ball-pick-and-place">Ball Pick and Place</a></h2>
+<h2 id="4718-ball-pick-and-place"><a class="header" href="#4718-ball-pick-and-place"><span class="heading-number">4.7.18.</span> Ball Pick and Place</a></h2>
 <figure id="fig:alex_jared_ball_pick_and_place">
 <img src="media/alex/20260331_AlexJaredBallPickAndPlace-00.00.49.389.jpg" />
 <figcaption><strong>Figure 4.69.</strong> Our first ball pick and place behavior on March 31, 2026.
@@ -445,14 +445,14 @@ We used our “sphere contains” condition check to only pick up balls that wer
 This version would often miss the grasps and had some unnatural looking arm configurations and slow trajectories.
 We also had some issues with the reliability of the YOLO persistent detections.
 Another problem was that we could not detect the storage containers and the balls at the same time because they were supported by two different YOLO models.</p>
-<h2 id="round-robin-yolo-model-inference"><a class="header" href="#round-robin-yolo-model-inference">Round-Robin YOLO Model Inference</a></h2>
+<h2 id="4719-round-robin-yolo-model-inference"><a class="header" href="#4719-round-robin-yolo-model-inference"><span class="heading-number">4.7.19.</span> Round-Robin YOLO Model Inference</a></h2>
 <p>By April 3 2026, just three days later, we had worked through a lot of these issues and achieved a much more resilient behavior.
 To start, we corrected unnatural arm configurations and sped up the motions, so the behavior was faster.
 Secondly, we added the ability to run more than one YOLO model at a time, round-robin style, so we could perceive the balls and the container at the same time.
 Thirdly, we implemented YOLO model and persistent detection settings management to the scene action node.
 This meant that the behavior author could decide which YOLO models were running, the enabled object classes within them, and the confidence thresholds for specific object classes for both the YOLO model and the persistent detections.
 This meant that the behaviors could configure the sports ball class to allow persistent detections of very low confidence, such as the 2% setting we used, to get much higher reliability.</p>
-<h2 id="reactive-colored-ball-sorting"><a class="header" href="#reactive-colored-ball-sorting">Reactive Colored Ball Sorting</a></h2>
+<h2 id="4720-reactive-colored-ball-sorting"><a class="header" href="#4720-reactive-colored-ball-sorting"><span class="heading-number">4.7.20.</span> Reactive Colored Ball Sorting</a></h2>
 <figure id="fig:alex_reactive_robust_ball_sorting">
 <img src="media/alex/20260404_ReactiveRobustBallSorting-00.00.29.328.jpg" />
 <figcaption><strong>Figure 4.70.</strong> A reactive and robust ball sorting behavior on April 4, 2026, in which the robot sorted 5 balls successfully while gracefully handling a human-caused disturbance.
@@ -466,12 +466,12 @@ On April 4, 2026, as seen in <a href="#fig:alex_reactive_robust_ball_sorting">Fi
 In this demo, the behavior was authored to pick up the balls and inspect them while still in hand for grasp success and color.
 If there were no points within the hand, we assumed the grasp failed and returned to pre-grasp.
 If there were points in the hand, we checked if they were yellow, in which case they would be placed in container A, else they would be placed in container B.</p>
-<h2 id="rl-mimic-action"><a class="header" href="#rl-mimic-action">RL Mimic Action</a></h2>
+<h2 id="4721-rl-mimic-action"><a class="header" href="#4721-rl-mimic-action"><span class="heading-number">4.7.21.</span> RL Mimic Action</a></h2>
 <p>Around this time we were also exploring options to increase the reliability of our door traversal walk-throughs, as the robot would often lose balance during them.
 Since we had been working with RL mimic policies for boxing and martial arts at the time, we decided to try to incorporate the door walk-throughs as a robustified RL mimic policy trained on the whole-body motion preview available in the behavior system.
 We trained push and pull door policies and integrated a behavior node called the “Mimic action” which would transition from our model based controller to the mimic controller, perform the mimicked motion, and transition back to the model based controller.
 We haven’t yet run the mimic policy for the door traversals at the time of writing, but we did train and demonstrate several dance moves as behaviors triggered by picking up different colors of balls, such as an “I love you!” dance, a “Dab” dance, and stretching dance.</p>
-<h2 id="hybrid-and-composite-frames"><a class="header" href="#hybrid-and-composite-frames">Hybrid and Composite Frames</a></h2>
+<h2 id="4722-hybrid-and-composite-frames"><a class="header" href="#4722-hybrid-and-composite-frames"><span class="heading-number">4.7.22.</span> Hybrid and Composite Frames</a></h2>
 <figure id="fig:alex_composite_frame">
 <img src="media/alex/20260512_143840_HybridFrame.png" />
 <figcaption><strong>Figure 4.71.</strong> The composite frame feature.
@@ -500,13 +500,13 @@ The hybrid frame is useful for approaching ajar door panels, where you want to a
 <p>Composite frames also can be layered.
 For example, the ajar door hybrid frame could be used in a subsequent approach frame to approach an ajar door’s handle from a distance.
 This composite frame mechanism is designed to be extended and generalized further based on encountered real world applications.</p>
-<h2 id="crucial-scene-bugfix"><a class="header" href="#crucial-scene-bugfix">Crucial Scene Bugfix</a></h2>
+<h2 id="4723-crucial-scene-bugfix"><a class="header" href="#4723-crucial-scene-bugfix"><span class="heading-number">4.7.23.</span> Crucial Scene Bugfix</a></h2>
 <p>On April 7, 2026, we fixed a pretty major race condition bug between the scene actions and the behavior scene.
 We had been having to put wait durations after scene actions because the bug would cause the subsequent physical actions to use outdated scene object frames when run in automatic mode.
 We fixed this through safer and more thorough scene management and synchronization.
 The behavior tree and scene are managed on the same thread, but it took multiple update ticks for the scene object’s pose to reflect the updated persistent detection’s pose.
 We mention this bug fix because it marks a leap in trust of the system, prevents user frustration, and avoids robot damage from actions reaching to stale, unreachable object poses.</p>
-<h2 id="approaching-tables-with-active-perception"><a class="header" href="#approaching-tables-with-active-perception">Approaching Tables with Active Perception</a></h2>
+<h2 id="4724-approaching-tables-with-active-perception"><a class="header" href="#4724-approaching-tables-with-active-perception"><span class="heading-number">4.7.24.</span> Approaching Tables with Active Perception</a></h2>
 <figure id="fig:alex_table_approach">
 <img src="media/alex/2026-04-06 16-15-17_TableApproachFrame.jpg" />
 <figcaption><strong>Figure 4.72.</strong> The table approach algorithm visualization.
@@ -529,7 +529,7 @@ This reference frame can then be used by a subsequent walk action to perform a s
 <p>Anecdotally, we found this technique to be very reliable and able to approach our tables within a few centimeters of accuracy.
 This was also an important capability milestone for our behavior system.
 The ability to approach tables with this degree of accuracy is a necessary part of obtaining the reachability of the items on the table and avoiding failures caused by running into the table.</p>
-<h2 id="high-volume-pick-and-place-demo"><a class="header" href="#high-volume-pick-and-place-demo">High-Volume Pick and Place Demo</a></h2>
+<h2 id="4725-high-volume-pick-and-place-demo"><a class="header" href="#4725-high-volume-pick-and-place-demo"><span class="heading-number">4.7.25.</span> High-Volume Pick and Place Demo</a></h2>
 <figure id="fig:alex_open_house_setup">
 <img src="media/alex/20260409_DoorBehaviorTriggeredByColoredBallCut-00.00.42.222.jpg" />
 <figcaption><strong>Figure 4.73.</strong> A still frame from our open house demo behavior preparation on April 9, 2026, where Alex has picked up a green ball from the table and is executing a door traversal behavior as part of the delivery sub-behavior.
@@ -545,7 +545,7 @@ For example, red balls would trigger the “I love you!” RL mimic dance.</p>
 <p>We did some partially successful rehearsals of this demo, but on April 10, 2026, just before the demo, the robot’s legs fell off its body in a dramatic fall.
 We were able to repair the robot, but avoided doing any more walking that day.
 During the demo, we picked and placed 199 balls at the table station.</p>
-<h2 id="multi-station-reactive-ball-sorting"><a class="header" href="#multi-station-reactive-ball-sorting">Multi-Station Reactive Ball Sorting</a></h2>
+<h2 id="4726-multi-station-reactive-ball-sorting"><a class="header" href="#4726-multi-station-reactive-ball-sorting"><span class="heading-number">4.7.26.</span> Multi-Station Reactive Ball Sorting</a></h2>
 <figure id="fig:alex_two_table_sorting">
 <img src="media/alex/20260414_SortingBallTwoTables-00.00.02.284.jpg" />
 <figcaption><strong>Figure 4.74.</strong> The two-station ball sorting task scenario, as filmed on April 4, 2026.
@@ -561,7 +561,7 @@ A still frame from this behavior is shown in <a href="#fig:alex_two_table_sortin
 In a 1 hour and 50 minute time period we were able to extend the stationary sorting behavior to multi-station sorting.
 In the final demonstration run, the robot sorted 9 balls correctly, with three table approaches including two table-to-table transitions.
 However, the robot did not perceive the containers and there was one pause where the human experimenter had to shift one of the balls to get YOLO to detect it.</p>
-<h2 id="repeated-run-reliability-tests"><a class="header" href="#repeated-run-reliability-tests">Repeated-Run Reliability Tests</a></h2>
+<h2 id="4727-repeated-run-reliability-tests"><a class="header" href="#4727-repeated-run-reliability-tests"><span class="heading-number">4.7.27.</span> Repeated-Run Reliability Tests</a></h2>
 <p>On that same night, we conducted two reliability tests for door approach and opening on both push and pull door variants.
 We were able to achieve 11 push door approach and openings in a row and 12 in a row for the pull door.
 This final demonstration in our story marked a reliability milestone in loco-manipulation.</p>

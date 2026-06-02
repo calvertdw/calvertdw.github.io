@@ -33,7 +33,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme-figures-738bcc10.css">
+        <link rel="stylesheet" href="theme-figures-84a4c90d.css">
         <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
@@ -44,7 +44,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-926a1a84.js";
+            window.path_to_searchindex_js = "searchindex-2a1397cf.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-13565dbe.js"></script>
@@ -183,8 +183,8 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="2020-2021-atlas-rdx-behavior-tree-era"><a class="header" href="#2020-2021-atlas-rdx-behavior-tree-era">2020-2021 Atlas, RDX, Behavior Tree Era</a></h1>
-<h2 id="evaluating-next-generation-tooling"><a class="header" href="#evaluating-next-generation-tooling">Evaluating Next-Generation Tooling</a></h2>
+                        <h1 id="43-2020-2021-atlas-rdx-behavior-tree-era"><a class="header" href="#43-2020-2021-atlas-rdx-behavior-tree-era"><span class="heading-number">4.3.</span> 2020-2021 Atlas, RDX, Behavior Tree Era</a></h1>
+<h2 id="431-evaluating-next-generation-tooling"><a class="header" href="#431-evaluating-next-generation-tooling"><span class="heading-number">4.3.1.</span> Evaluating Next-Generation Tooling</a></h2>
 <p>A Slack message from December 18, 2020, reads: “<script type="math/tex; mode=display">
 …
 </script> because of the graphics adapters for 2D and 3D you can”t easily use the underlying engine features and you can’t share graphics code with even our other JME apps like the DRC UI. <script type="math/tex; mode=display">
@@ -226,7 +226,7 @@ An element of the VR support was that the 3D view on the monitor would remain vi
 <p>ImGui  <a href="references.html#ref-dearimgui" class="citation-ref">[58]</a> included support for the dockspaces of panels, multi-window support, and even saving those entire layouts to .ini files.
 OpenVR  <a href="references.html#ref-openvr" class="citation-ref">[60]</a> was available for Java and supported any VR headset that would work in SteamVR, which is nearly all of them.
 We decided to rewrite the new framework from scratch and use libGDX, ImGui, and OpenVR.</p>
-<h2 id="robot-data-explorer"><a class="header" href="#robot-data-explorer">Robot Data eXplorer</a></h2>
+<h2 id="432-robot-data-explorer"><a class="header" href="#432-robot-data-explorer"><span class="heading-number">4.3.2.</span> Robot Data eXplorer</a></h2>
 <figure id="fig:rdx_early">
 <img src="media/atlas/20210113_VRIntegration-00.00.04.656.jpg" />
 <figcaption><strong>Figure 4.10.</strong> A screenshot of one of the first Robot Data eXplorer (RDX) applications on January 13, 2021.
@@ -255,7 +255,7 @@ The same panels available in the monitor, mouse, and keyboard modalities were al
 This continued the RDX design goals of reusability and versatility into the VR modality.
 We wanted VR to be simply another interaction method for the same data, not a separate framework.
 Additionally, we wanted switching between the monitor, keyboard, and mouse and virtual reality to be as simple as putting on and taking off the headset and picking up and setting down the controllers.</p>
-<h2 id="perceptive-locomotion"><a class="header" href="#perceptive-locomotion">Perceptive Locomotion</a></h2>
+<h2 id="433-perceptive-locomotion"><a class="header" href="#433-perceptive-locomotion"><span class="heading-number">4.3.3.</span> Perceptive Locomotion</a></h2>
 <figure id="fig:atlas_rdx_perceptive_locomotion_demo">
 <img src="media/atlas/2021-04-19 14-57-50_AtlasLookAndStepSuccessfulRunOverRoughTerrain-00.01.09.505.jpg" />
 <figcaption><strong>Figure 4.11.</strong> A perceptive locomotion behavior on Atlas in 2021 using RDX for operation.
@@ -272,7 +272,7 @@ A video is available at <a href="https://youtu.be/qAtfV7hTzYg" class="uri">https
 Bhavyansh Mishra developed a planar region extractor using OpenCL  <a href="references.html#ref-Mishra_2021_RapidRegions" class="citation-ref">[66]</a> which enabled the development of a perceptive locomotion behavior with active perception while walking.
 This led to one of the first autonomous behaviors that used RDX as the user interface, as shown in <a href="#fig:atlas_rdx_perceptive_locomotion_demo">Figure 4.11</a>.
 This work is covered in the 2022 paper  <a href="references.html#ref-lookandstep" class="citation-ref">[64]</a>.</p>
-<h2 id="behavior-trees"><a class="header" href="#behavior-trees">Behavior Trees</a></h2>
+<h2 id="434-behavior-trees"><a class="header" href="#434-behavior-trees"><span class="heading-number">4.3.4.</span> Behavior Trees</a></h2>
 <p>After the initial development of the perceptive locomotion behavior, “look and step”, we sought to build out multi-task behaviors as part of our building exploration demo.
 To assemble a hybrid teleoperated and autonomous multi-stage behavior, we looked to behavior trees.
 <a href="#fig:atlas_2d_behavior_tree_view">Figure 4.12</a> shows the very beginning of that effort in May of 2021.
@@ -282,7 +282,7 @@ We pulled in an ImGui library called ImNodes and started rendering a tree of beh
 <figcaption><strong>Figure 4.12.</strong> Development of the 2D canvas behavior tree view began in May 2021.
 A video is available at <a href="https://youtu.be/kpWE3UVIIvM" class="uri">https://youtu.be/kpWE3UVIIvM</a>.</figcaption>
 </figure>
-<h2 id="semi-autonomous-building-exploration"><a class="header" href="#semi-autonomous-building-exploration">Semi-Autonomous Building Exploration</a></h2>
+<h2 id="435-semi-autonomous-building-exploration"><a class="header" href="#435-semi-autonomous-building-exploration"><span class="heading-number">4.3.5.</span> Semi-Autonomous Building Exploration</a></h2>
 <figure id="fig:2021_building_exploration_demo">
 <img src="media/atlas/20210623_BuildingExplorationDemo.jpg" />
 <figcaption><strong>Figure 4.13.</strong> The June 23, 2021 building exploration demo consisting of seven tasks in a hybrid autonomy model.
@@ -306,7 +306,7 @@ It consists of the root node, named “Behavior Module”, a “Building Explora
 This hard-coded but interactable behavior tree allows the operator to monitor and guide the building exploration behavior at several levels of autonomy.
 A video is available at <a href="https://youtu.be/CFiFaO-ENPw" class="uri">https://youtu.be/CFiFaO-ENPw</a>.</figcaption>
 </figure>
-<h2 id="perception-sensor-upgrades"><a class="header" href="#perception-sensor-upgrades">Perception Sensor Upgrades</a></h2>
+<h2 id="436-perception-sensor-upgrades"><a class="header" href="#436-perception-sensor-upgrades"><span class="heading-number">4.3.6.</span> Perception Sensor Upgrades</a></h2>
 <p>After the building exploration demo, we switched from the MultiSense SL to the Ouster OS0-128 lidar sensor  <a href="references.html#ref-ouster_os0_lidar_sensor" class="citation-ref">[34]</a> in combination with a stereo pair of Blackfly cameras with fisheye lenses.
 A paper about this sensor suite is available at  <a href="references.html#ref-Mishra_2022_PerceptionEngine" class="citation-ref">[67]</a>.
 With the new sensor configuration, we had instantaneous dense lidar scans instead of needing to wait for the MultiSense SL to spin.

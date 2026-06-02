@@ -33,7 +33,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme-figures-738bcc10.css">
+        <link rel="stylesheet" href="theme-figures-84a4c90d.css">
         <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
@@ -44,7 +44,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-926a1a84.js";
+            window.path_to_searchindex_js = "searchindex-2a1397cf.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-13565dbe.js"></script>
@@ -183,12 +183,12 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="real-robot-example-repeated-door-opening"><a class="header" href="#real-robot-example-repeated-door-opening">Real Robot Example: Repeated Door Opening</a></h1>
+                        <h1 id="69-real-robot-example-repeated-door-opening"><a class="header" href="#69-real-robot-example-repeated-door-opening"><span class="heading-number">6.9.</span> Real Robot Example: Repeated Door Opening</a></h1>
 <p>In this final section of the usage guide, we’ll walk through a real robot authoring session in which we created a repeated door opening behavior from scratch in 32 minutes.
 For this experiment, we used the Unitree H1-2 robot.
 At the end of the authoring phase, we immediately entered a reliability test where we performed over 30 successful door openings with continuous autonomy.
 We didn’t run it until failure, just until we got bored.</p>
-<h2 id="starting-things-up"><a class="header" href="#starting-things-up">Starting Things Up</a></h2>
+<h2 id="691-starting-things-up"><a class="header" href="#691-starting-things-up"><span class="heading-number">6.9.1.</span> Starting Things Up</a></h2>
 <p>Starting things up typically requires powering on the robot and the operator computer.
 In this guide we’ll assume the robot is tetherless but starts on a hoist to get it into its initial standing state.
 We’ll assume powering on the robot will also power the computers and that they turn on and that the motors have power.</p>
@@ -196,7 +196,7 @@ We’ll assume powering on the robot will also power the computers and that they
 Once that is done, we launch the control and autonomy code on the robot via an SSH command line session and start the robot operator interface.
 The next step is to set the robot down and transition the controller to walking.
 We have a stand prep state and a walking state, with buttons in the operator interface to perform those transitions.</p>
-<h2 id="standing-and-the-operator-interface"><a class="header" href="#standing-and-the-operator-interface">Standing and the Operator Interface</a></h2>
+<h2 id="692-standing-and-the-operator-interface"><a class="header" href="#692-standing-and-the-operator-interface"><span class="heading-number">6.9.2.</span> Standing and the Operator Interface</a></h2>
 <figure id="fig:guide_unitree_initial_setup">
 <img src="media/unitree/2026-01-02_16-31-39_AuthoringRightPullLeverLoopingBehaviorFromScratch-00.05.03.061.jpg" />
 <figcaption><strong>Figure 6.33.</strong> The initial state of the application after we’ve started the robot and the controller and autonomy processes and created a blank initial behavior action sequence.
@@ -229,7 +229,7 @@ At this point we check a couple of things to make sure everything is ready to go
 <p>To start, we’ve created sequence nodes for our door opening behavior, with the top level being saved to JSON with the “*.json” extension.
 Saving the behavior frequently is important to avoid losing work.
 We’ve also loaded the go home skill as a convenient way to reset the robot when we need to.</p>
-<h2 id="the-ability-hand-action"><a class="header" href="#the-ability-hand-action">The Ability Hand Action</a></h2>
+<h2 id="693-the-ability-hand-action"><a class="header" href="#693-the-ability-hand-action"><span class="heading-number">6.9.3.</span> The Ability Hand Action</a></h2>
 <figure id="fig:guide_unitree_hand">
 <img src="media/guide/2026-01-02_16-31-39_AuthoringRightPullLeverLoopingBehaviorFromScratch-00.06.37.509.jpg" />
 <figcaption><strong>Figure 6.34.</strong> Adding a flat Ability Hand action.
@@ -249,7 +249,7 @@ A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https
 <p>It is also possible to set the individual finger joint angles for an Ability Hand action, as shown in <a href="#fig:guide_unitree_fingers">Figure 6.35</a>.
 The Ability Hand has six degrees of freedom, each with a slider and a velocity setting.
 If the Ability Hand comes before an arm action and is concurrent with that arm action, it can be previewed as it is tuned, as shown in the figure.</p>
-<h2 id="arm-ready-action"><a class="header" href="#arm-ready-action">Arm Ready Action</a></h2>
+<h2 id="694-arm-ready-action"><a class="header" href="#694-arm-ready-action"><span class="heading-number">6.9.4.</span> Arm Ready Action</a></h2>
 <figure id="fig:guide_unitree_arm_ready">
 <img src="media/guide/2026-01-02_16-31-39_AuthoringRightPullLeverLoopingBehaviorFromScratch-00.07.59.343.jpg" />
 <figcaption><strong>Figure 6.36.</strong> Authoring a “left arm ready” action, in preparation for pre-grasp.
@@ -275,7 +275,7 @@ In <a href="#fig:guide_unitree_lock_curl">Figure 6.37</a>, we’ve already run t
 We used the sliders on the hand action to form our desired grasp for the lever handle.
 The Ability Hand rubber is actually grippy enough that we won’t need to close our fingers around the handle.
 We then execute the Ability Hand action.</p>
-<h2 id="pre-grasp-actions"><a class="header" href="#pre-grasp-actions">Pre-Grasp Actions</a></h2>
+<h2 id="695-pre-grasp-actions"><a class="header" href="#695-pre-grasp-actions"><span class="heading-number">6.9.5.</span> Pre-Grasp Actions</a></h2>
 <figure id="fig:guide_unitree_pregrasp1">
 <img src="media/guide/2026-01-02_16-31-39_AuthoringRightPullLeverLoopingBehaviorFromScratch-00.14.11.515.jpg" />
 <figcaption><strong>Figure 6.38.</strong> Authoring first pre-grasp hand pose.
@@ -293,7 +293,7 @@ It can be difficult to gauge the hand’s pose with respect to the lever using t
 It’s a little easier in VR with stereo vision.
 Since we weren’t using VR for this demo, we addressed the problem by sitting in line-of-sight to the robot.
 The tuning process for this pre-grasp action is presented in <a href="#fig:guide_unitree_pregrasp_tuning_loop">Figure 6.39</a>.</p>
-<h2 id="manipulation-action-tuning-process"><a class="header" href="#manipulation-action-tuning-process">Manipulation Action Tuning Process</a></h2>
+<h2 id="696-manipulation-action-tuning-process"><a class="header" href="#696-manipulation-action-tuning-process"><span class="heading-number">6.9.6.</span> Manipulation Action Tuning Process</a></h2>
 <figure id="fig:guide_unitree_pregrasp_tuning_loop">
 <figcaption><strong>Figure 6.39.</strong> Iterative tuning loop for the first pre-grasp hand pose. The pose is guessed with the 3D gizmo, executed, inspected visually, and adjusted until it is good enough.</figcaption>
 </figure>
@@ -306,7 +306,7 @@ A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https
 <p>We tune the first pre-grasp action until the only thing left to do to grasp the handle is to move the hand directly down such that it rests on the lever handle.
 <a href="#fig:guide_unitree_pregrasp2">Figure 6.40</a> shows us authoring this action.
 We repeat the visual guess-execute-inspect process for this pre-grasp action.</p>
-<h2 id="turning-a-door-handle"><a class="header" href="#turning-a-door-handle">Turning a Door Handle</a></h2>
+<h2 id="697-turning-a-door-handle"><a class="header" href="#697-turning-a-door-handle"><span class="heading-number">6.9.7.</span> Turning a Door Handle</a></h2>
 <figure id="fig:guide_unitree_screw_turn">
 <img src="media/guide/2026-01-02_16-31-39_AuthoringRightPullLeverLoopingBehaviorFromScratch-00.23.40.974.jpg" />
 <figcaption><strong>Figure 6.41.</strong> Authoring the handle turn screw primitive.
@@ -328,7 +328,7 @@ Since the screw primitive is a motion relative to the hand’s current position,
 For this reason, we need to reset back to the next previous arm action, in this case pre-grasp 2, in order to re-execute the door lever turn action.</p>
 <p>Additionally, for the door lever turning action, we must make sure the handle is turned enough to unlatch the door sufficiently.
 This is why we also perform a direct visual inspection of the latch as part of this tuning process.</p>
-<h2 id="opening-a-door"><a class="header" href="#opening-a-door">Opening a Door</a></h2>
+<h2 id="698-opening-a-door"><a class="header" href="#698-opening-a-door"><span class="heading-number">6.9.8.</span> Opening a Door</a></h2>
 <figure id="fig:guide_unitree_screw_open">
 <img src="media/guide/2026-01-02_16-31-39_AuthoringRightPullLeverLoopingBehaviorFromScratch-00.28.28.976.jpg" />
 <figcaption><strong>Figure 6.42.</strong> Authoring the open door screw primitive.
@@ -341,7 +341,7 @@ It doesn’t have to be super precise – within a few centimeters in the X-Y ax
 <p>For door opening, the tuning process is a bit easier than the lever turning.
 This is because the hand is fairly compliant to the door since it’s applying a force on the handle and there is no unlatching requirement on this one.
 The direction of the axis alignment will determine whether the screw rotation value for opening is positive or negative.</p>
-<h2 id="looping-a-behavior"><a class="header" href="#looping-a-behavior">Looping a Behavior</a></h2>
+<h2 id="699-looping-a-behavior"><a class="header" href="#699-looping-a-behavior"><span class="heading-number">6.9.9.</span> Looping a Behavior</a></h2>
 <p>Once we finish up the door opening action and execute it successfully, the repeated door opening behavior is pretty much done!
 We set the execute after field of the pre-grasp 1 action to the scene action to curl the fingers at the same time.
 Then, we add a goto action at the end that goes back to the beginning, to create an infinite loop.

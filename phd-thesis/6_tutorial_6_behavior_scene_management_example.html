@@ -33,7 +33,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme-figures-738bcc10.css">
+        <link rel="stylesheet" href="theme-figures-84a4c90d.css">
         <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
@@ -44,7 +44,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-926a1a84.js";
+            window.path_to_searchindex_js = "searchindex-2a1397cf.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-13565dbe.js"></script>
@@ -183,8 +183,8 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="behavior-scene-management-example"><a class="header" href="#behavior-scene-management-example">Behavior Scene Management Example</a></h1>
-<h2 id="scene-setup"><a class="header" href="#scene-setup">Scene Setup</a></h2>
+                        <h1 id="66-behavior-scene-management-example"><a class="header" href="#66-behavior-scene-management-example"><span class="heading-number">6.6.</span> Behavior Scene Management Example</a></h1>
+<h2 id="661-scene-setup"><a class="header" href="#661-scene-setup"><span class="heading-number">6.6.1.</span> Scene Setup</a></h2>
 <figure id="fig:guide_sim_scene_action">
 <img src="media/guide/2026-04-29 09-06-34_BehaviorSceneDemo-00.00.01.588.jpg" />
 <figcaption><strong>Figure 6.19.</strong> The beginning of our behavior scene demonstration.
@@ -205,7 +205,7 @@ The bottom center shows the first person ZED camera view with the YOLO detection
 The detections are annotated with the class name and the confidence of the detection.
 In the top right, the behavior scene is shown with no privileged objects yet but with 3 stable detections: storage container, bottle, and robot hand.
 Finally, in the bottom right, our YOLO module is able to be turned on and off and each available mode is shown, which can each be toggled on and off and expanded to tune class specific options.</p>
-<h2 id="yolo-configuration"><a class="header" href="#yolo-configuration">YOLO Configuration</a></h2>
+<h2 id="662-yolo-configuration"><a class="header" href="#662-yolo-configuration"><span class="heading-number">6.6.2.</span> YOLO Configuration</a></h2>
 <p>One of the first things we notice here is that the tennis ball is being detected as a bottle.
 This is because the initial YOLO model that is enabled, “best_multi_02_17_2026”, is one that we trained only for a specific set of classes which do not include the tennis ball.
 We aren’t sure why it’s detecting the ball as a bottle at 87% confidence.
@@ -221,7 +221,7 @@ In behaviors that grasp tennis balls, we make the low confidence threshold safe 
 <p>The configure YOLO action also supports enabling multiple YOLO models at once.
 The behavior author picks the set of YOLO models that will be available at this time and all the class settings for each.
 This is useful because sometimes we want to perform tasks involving objects which are detected by different YOLO models.</p>
-<h2 id="persistent-detections"><a class="header" href="#persistent-detections">Persistent Detections</a></h2>
+<h2 id="663-persistent-detections"><a class="header" href="#663-persistent-detections"><span class="heading-number">6.6.3.</span> Persistent Detections</a></h2>
 <figure id="fig:guide_sim_scene_action_persistent_detections">
 <img src="media/guide/2026-04-29 09-06-34_BehaviorSceneDemo-00.00.14.294.jpg" />
 <figcaption><strong>Figure 6.20.</strong> The behavior scene demonstration, after configuring YOLO, we are now configuring persistent detections.
@@ -239,7 +239,7 @@ There are four parameters for the persistent detections: pose filter alpha, acce
 <p>For the tennis balls, we set the acceptance confidence threshold to 0.1 and the stability frequency to 0.5 and execute the scene action.
 The result is shown in <a href="#fig:guide_sim_scene_action_persistent_detections">Figure 6.20</a> where 3 sports balls are tracked as persistent detections.
 Note the confidence levels are not too bad in this case at around 50-60% and the 3 labelled coordinate frames are shown in the 3D view.</p>
-<h2 id="setting-up-an-object"><a class="header" href="#setting-up-an-object">Setting up an Object</a></h2>
+<h2 id="664-setting-up-an-object"><a class="header" href="#664-setting-up-an-object"><span class="heading-number">6.6.4.</span> Setting up an Object</a></h2>
 <figure id="fig:guide_sim_scene_action_ball">
 <img src="media/guide/2026-04-29 09-06-34_BehaviorSceneDemo-00.00.41.452.jpg" />
 <figcaption><strong>Figure 6.22.</strong> The behavior scene demonstration, after configuring persistent detections and setting up a sports ball object.
@@ -272,7 +272,7 @@ That persistent detection is still in the stable detections list, too – it doe
 However, when a persistent detection attached to an object stops tracking, unlike in the stable detections area, it doesn’t get removed.
 Instead, it renders as grayed out but is still usable by behavior actions in its last seen pose.
 A larger coordinate frame is shown for the sports ball object in the 3D view.</p>
-<h2 id="freezing-scene-objects"><a class="header" href="#freezing-scene-objects">Freezing Scene Objects</a></h2>
+<h2 id="665-freezing-scene-objects"><a class="header" href="#665-freezing-scene-objects"><span class="heading-number">6.6.5.</span> Freezing Scene Objects</a></h2>
 <figure id="fig:guide_sim_scene_action_freeze">
 <img src="media/guide/2026-04-29 09-06-34_BehaviorSceneDemo-00.01.07.672.jpg" />
 <figcaption><strong>Figure 6.24.</strong> The behavior scene demonstration, after freezing the sports ball object.
@@ -298,13 +298,13 @@ The frozen frame from the handle pre-grasp is usually used throughout the remain
 As shown in <a href="#fig:guide_sim_scene_action_freeze">Figure 6.24</a>, we created a scene action named “Freeze Sports Ball”, set the action type to <code>FREEZE_OBJECT</code>, and set the YOLO model and class for the sports ball.
 When executed, if there is a matched object in the list, it is frozen; otherwise it will wait until the timeout and fail if there is still no match.
 In the top right of <a href="#fig:guide_sim_scene_action_freeze">Figure 6.24</a>, you can see the sports ball object is now marked as “FROZEN”.</p>
-<h2 id="other-scene-action-types"><a class="header" href="#other-scene-action-types">Other Scene Action Types</a></h2>
+<h2 id="666-other-scene-action-types"><a class="header" href="#666-other-scene-action-types"><span class="heading-number">6.6.6.</span> Other Scene Action Types</a></h2>
 <p>There are a few other simple scene action types at the moment.
 <code>DELETE_OBJECT</code> removes a matched object from the list and from being available for actions.
 <code>CLEAR_SCENE</code> removes all objects from the list.
 <code>FREEZE_SCENE</code> freezes every object in the scene.
 <code>CONFIGURE_FOUNDATION_POSE</code> is an unimplemented placeholder for configuring FoundationPose.</p>
-<h2 id="authoring-a-frame-based-arm-action"><a class="header" href="#authoring-a-frame-based-arm-action">Authoring a Frame Based Arm Action</a></h2>
+<h2 id="667-authoring-a-frame-based-arm-action"><a class="header" href="#667-authoring-a-frame-based-arm-action"><span class="heading-number">6.6.7.</span> Authoring a Frame Based Arm Action</a></h2>
 <figure id="fig:guide_sim_scene_action_arm">
 <img src="media/guide/2026-04-29 09-06-34_BehaviorSceneDemo-00.01.28.860.jpg" />
 <figcaption><strong>Figure 6.25.</strong> The behavior scene demonstration, authoring an arm action with respect to a sports ball.

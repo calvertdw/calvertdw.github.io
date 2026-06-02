@@ -33,7 +33,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme-figures-738bcc10.css">
+        <link rel="stylesheet" href="theme-figures-84a4c90d.css">
         <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
@@ -44,7 +44,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-926a1a84.js";
+            window.path_to_searchindex_js = "searchindex-2a1397cf.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-13565dbe.js"></script>
@@ -183,14 +183,14 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="current-architecture"><a class="header" href="#current-architecture">Current Architecture</a></h1>
+                        <h1 id="5-current-architecture"><a class="header" href="#5-current-architecture"><span class="heading-number">5.</span> Current Architecture</a></h1>
 <p><span id="ch:architecture2" label="ch:architecture2"></span></p>
 <p>In <a href="4_story_of_building_and_architecture.html#ch:building">Building our Behavior Architecture</a>, we told the story of building our system and went over the components in some detail.
 In this chapter, we’ll cover the current structure again to round off the full current design.</p>
 <p>Our central design choice is to enable the robot to be autonomous but utilize human expert knowledge to set up the autonomous behavior.
 We do this by including a human operator in the loop through tight synchronization between a user interface and the robot.
 Once behaviors are set up sufficiently, our architecture, which keeps all perception and control on board the robot, allows the robot to function autonomously.</p>
-<h2 id="domain"><a class="header" href="#domain">Domain</a></h2>
+<h2 id="51-domain"><a class="header" href="#51-domain"><span class="heading-number">5.1.</span> Domain</a></h2>
 <p>There are many perspectives from which to view our system.
 <a href="#fig:Behavior_Overview">Figure 5.1</a> summarizes the primary components by domain: Behavior Coordination, Perception, and Whole-Body Control.
 This highlights that our system is built separately from depth and semantic perception and from whole body control.
@@ -212,7 +212,7 @@ A key dependency of the behavior system is YOLO, which is a neural net that prov
 It is crucial to our door behaviors and loco-manipulation behaviors, which perceive the world naturally, with no external sensing or fiducial markers.</p>
 <p>The other key dependency is a whole body controller that can reliably walk, pose, and exert meaningful forces on the world.
 Ours is set up uniquely to accept asynchronous commands for footsteps and the different body parts, triaging the requests into whole body motions while balancing.</p>
-<h2 id="process-structure"><a class="header" href="#process-structure">Process Structure</a></h2>
+<h2 id="52-process-structure"><a class="header" href="#52-process-structure"><span class="heading-number">5.2.</span> Process Structure</a></h2>
 <p>In <a href="#fig:RuntimeStructureAlex">Figure 5.2</a> we show another view of the system, where the parts are grouped by process and location.
 This is meant to illustrate that the behavior system and perception run on board the robot in a process alongside the whole-body controller, whereas the operator UI is on a separate computer.
 This structure is designed to tightly integrate the perception, behavior, and control stack on the robot for performance and for autonomous capability.
@@ -229,7 +229,7 @@ The split also isolates responsibilities cleanly: autonomy and perception focus 
 The runtime structure used in this thesis.
 Two processes run on the robot, and an operator process supports authoring, supervision, and visualization.</figcaption>
 </figure>
-<h2 id="node-structure"><a class="header" href="#node-structure">Node Structure</a></h2>
+<h2 id="53-node-structure"><a class="header" href="#53-node-structure"><span class="heading-number">5.3.</span> Node Structure</a></h2>
 <p>Each behavior tree node follows the four-part decomposition shown in <a href="#fig:BehaviorNodeDecomposition">Figure 5.3</a>: an operator-side UI, a robot-side executor, a synchronized runtime state, and a persisted definition.
 The persisted definition stores authored content (name, notes, parameters, children).
 The runtime state sits over the definition and adds runtime information (node identity, active status, recent log messages).
@@ -242,7 +242,7 @@ Four-part decomposition used for each behavior-tree node.
 Two process-specific layers, UI and executor, each own an instance of a runtime state, which in turn owns a persistent definition.
 The synchronization layer keeps the runtime state and the live-edited portion of the definition consistent across processes, while the full definition is persisted as JSON.</figcaption>
 </figure>
-<h2 id="robot-operator-data-synchronization"><a class="header" href="#robot-operator-data-synchronization">Robot-Operator Data Synchronization</a></h2>
+<h2 id="54-robot-operator-data-synchronization"><a class="header" href="#54-robot-operator-data-synchronization"><span class="heading-number">5.4.</span> Robot-Operator Data Synchronization</a></h2>
 <figure id="fig:BehaviorTreeSynchronization">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/BehaviorTreeSynchronizationTikz.light.jpg" /><img class="tikz-dark" src="media/generated/BehaviorTreeSynchronizationTikz.dark.jpg" /></span>
 <figcaption><strong>Figure 5.4.</strong> 
@@ -274,7 +274,7 @@ The tree root reference, whole-tree metadata including the next available node I
 On receipt, the subscriber reconstructs an intermediate message tree, matches nodes by stable IDs, and applies topology operations only where the incoming root or child-list modification is newer.
 New nodes are replicated locally through the node builder, moved or reordered nodes are reattached through the topology queue, and nodes that disappear from the incoming tree are destroyed.
 If a process comes online late or a dropped message leaves only partial data available, the receiver flags the node as needing full data and the peer resends the full payload on a later publication.</p>
-<h2 id="crdt-merge-algorithm"><a class="header" href="#crdt-merge-algorithm">CRDT Merge Algorithm</a></h2>
+<h2 id="55-crdt-merge-algorithm"><a class="header" href="#55-crdt-merge-algorithm"><span class="heading-number">5.5.</span> CRDT Merge Algorithm</a></h2>
 <p>Authored fields are editable from either side using timestamped bidirectional CRDT fields.
 The fields use a last-modified record that stores author identity, a monotonic modification number, and a timestamp.
 A local write records the writer GUID, modification number, and timestamp.
@@ -284,7 +284,7 @@ This estimator derives the time offset from ROS 2 ping-reply messages under a sy
 <p>Some fields (automatic execution, next execution index, manual-step requests, concurrency enable, preview mode, failure reset) are bidirectional because either side may legitimately initiate them.
 However, some execution and visualization data are unidirectional actor-owned status fields.
 Leaf execution flags such as <em>next for execution</em>, <em>can execute</em>, <em>is executing</em>, and <em>has failed</em> are robot-authored and mirrored to the UI without timestamp arbitration.</p>
-<h2 id="persistence-storage-of-behaviors"><a class="header" href="#persistence-storage-of-behaviors">Persistence Storage of Behaviors</a></h2>
+<h2 id="56-persistence-storage-of-behaviors"><a class="header" href="#56-persistence-storage-of-behaviors"><span class="heading-number">5.6.</span> Persistence Storage of Behaviors</a></h2>
 <p>We support saving authored behaviors to JSON files.
 This enables authored structure to be saved, loaded, copied, and versioned.
 The saved artifact is the definition layer from <a href="#fig:BehaviorNodeDecomposition">Figure 5.3</a>.
@@ -376,7 +376,7 @@ Condensed excerpt from <code>door/DoorTraversal.json</code>.
 Each node records its definition type, parameters, and nested <code>children</code>.
 Ellipses mark omitted sibling nodes and fields.</figcaption>
 </figure>
-<h2 id="whole-body-controller"><a class="header" href="#whole-body-controller">Whole-Body Controller</a></h2>
+<h2 id="57-whole-body-controller"><a class="header" href="#57-whole-body-controller"><span class="heading-number">5.7.</span> Whole-Body Controller</a></h2>
 <p>The behavior coordination layer interfaces with a whole-body and walking controller that executes arbitrary trajectory requests and footsteps.
 The behavior runtime sends requests to the controller and monitors execution through status messages.</p>
 <p>We use the whole-body momentum-based control framework developed by Koolen et al.  <a href="references.html#ref-Koolen_2016" class="citation-ref">[31]</a>.
@@ -416,7 +416,7 @@ To recover from external disturbances and instabilities, swings can also be sped
 State estimation combines kinematic foot-ground-contact proprioception for pelvis position with a pelvis-mounted IMU for pelvis orientation.
 When a foot is in contact (determined by a glitch-filtered, delay-compensated, ankle-torque-sensor-based virtual foot switch), we assume it does not slide, and pelvis position is computed through forward kinematics.
 The positional estimate is therefore susceptible to drift from inaccurate foot-contact detection, foot slipping, and lack of both feet on the ground.</p>
-<h2 id="operator-interface"><a class="header" href="#operator-interface">Operator Interface</a></h2>
+<h2 id="58-operator-interface"><a class="header" href="#58-operator-interface"><span class="heading-number">5.8.</span> Operator Interface</a></h2>
 <p>Our operator interface is based on a robotics software sandbox called Robot Data eXplorer (RDX), as introduced in <a href="4_story_of_building_and_architecture.html#ch:building">Building our Behavior Architecture</a>.
 Hands-on examples of how RDX is used to create and modify behaviors using our system are covered in <a href="6_tutorial.html#ch:tutorial">Usage Guide</a>.
 RDX provides dockable panels of widgets, an interactive 3D scene, overlays, toolbars, and persisted layout and configuration handling.
@@ -424,7 +424,7 @@ Its primary third-party libraries are Dear ImGui, libGDX, and OpenVR  <a href="
 This single UI framework covers behavior authoring, digital-twin visualization, perception debugging, graph-based logging, and direct teleoperation modes such as whole-body streaming, footstep placement, and joystick walking.
 The operator tooling co-evolved with the runtime and shares the same data structures, so authoring, execution, and diagnosis all operate over a common substrate.</p>
 <p>See <a href="6_tutorial.html#ch:tutorial">Usage Guide</a> for extensive coverage of operator interface features.</p>
-<h2 id="behavior-tree-structure"><a class="header" href="#behavior-tree-structure">Behavior Tree Structure</a></h2>
+<h2 id="59-behavior-tree-structure"><a class="header" href="#59-behavior-tree-structure"><span class="heading-number">5.9.</span> Behavior Tree Structure</a></h2>
 <p>Our behaviors are structured as a tree of nodes.
 The tree organization serves a dual-purpose.
 It allows for organization of behavior and also a way to author logic in a simple way.</p>
@@ -462,7 +462,7 @@ We cover the fallback node in detail in <a href="6_tutorial_8_fallback_mechanism
 That choice matched the rest of the operator workflow because the behavior view had to coexist with a 3D scene, first-person sensor imagery, scene-object panels, robot-status panels, and teleoperation widgets.</p>
 <p>In summary, our implementation is neither a Behavior Tree, a state machine, nor a hierarchical state machine.
 Instead, it combines elements from each to suit the needs of a runtime-editable behavior authoring system.</p>
-<h2 id="generalized-door-traversal-behavior"><a class="header" href="#generalized-door-traversal-behavior">Generalized Door Traversal Behavior</a></h2>
+<h2 id="510-generalized-door-traversal-behavior"><a class="header" href="#510-generalized-door-traversal-behavior"><span class="heading-number">5.10.</span> Generalized Door Traversal Behavior</a></h2>
 <p>As an example, <a href="#fig:TreeStructure">Figure 5.9</a> abstracts the authored structure of <code>door/DoorTraversal.json</code> and the expanded right-pull subtree in <code>door/RightPullDoor.json</code>.
 The top-level file handles the general approach, constructs the panel-, frame-, and hybrid-frame scene objects used for door-specific execution, and dispatches to left-push, left-pull, right-push, and right-pull branches.
 The right-pull branch is expanded because it makes the authored strategy clear: state-specific approach nodes feed a detailed lever-turn and door-opening sequence with explicit fallback loops before the final traversal.</p>
@@ -474,7 +474,7 @@ The upper portion abstracts <code>door/DoorTraversal.json</code>: a general appr
 The lower portion expands <code>door/RightPullDoor.json</code>, showing its closed-, ajar-, and open-door entry points and the detailed closed-door path through lever acquisition, handle turning, door opening, fallback retries, doorway-clear checks, and traversal.
 Intermediate action nodes are grouped into phase-level blocks for readability.</figcaption>
 </figure>
-<h2 id="node-library"><a class="header" href="#node-library">Node Library</a></h2>
+<h2 id="511-node-library"><a class="header" href="#511-node-library"><span class="heading-number">5.11.</span> Node Library</a></h2>
 <p>A full list of our node types is shown in <a href="#fig:BehaviorNodeLibrary">Figure 5.10</a>.
 The functionalities of these nodes are covered in detail in <a href="6_tutorial.html#ch:tutorial">Usage Guide</a>.</p>
 <figure id="fig:BehaviorNodeLibrary">
@@ -546,7 +546,7 @@ The menu is organized into creation entry points, reusable structural control no
 <p><strong>Leg Action.</strong> Commands a single foot pose relative to an authored parent frame for direct swing-foot placement outside the full footstep planning pipeline.</p>
 </li>
 </ul>
-<h2 id="behavior-scene"><a class="header" href="#behavior-scene">Behavior Scene</a></h2>
+<h2 id="512-behavior-scene"><a class="header" href="#512-behavior-scene"><span class="heading-number">5.12.</span> Behavior Scene</a></h2>
 <p>The last major architectural component of our system is the behavior scene.
 We maintain a set of persistent object detections local to the behaviors and for use only by the behaviors.
 This exclusivity allows behaviors to have full control over the perception they depend on.
@@ -565,7 +565,7 @@ Scene actions are used to manage the privileged objects and the underlying perce
 <p>Our scene object types, listed in <a href="#fig:BehaviorScene">Figure 5.11</a>, include directly detected object types, such as YOLO-only and FoundationPose objects, but also derived types that compute new frames from persistent detections, existing scene objects, or depth data.
 These specialized scene object types are a demonstration of how advanced perception and world modeling can be incorporated into our behavior system to extend capability to novel tasks.
 In the next several sections, we will describe these derived types.</p>
-<h2 id="door-panel-object"><a class="header" href="#door-panel-object">Door Panel Object</a></h2>
+<h2 id="513-door-panel-object"><a class="header" href="#513-door-panel-object"><span class="heading-number">5.13.</span> Door Panel Object</a></h2>
 <p>Our door panel object is a derived scene object built from two stable YOLO persistent detections: one for the opening mechanism and one for the door panel.
 A setup object type scene action can be set up to create a door panel object after those detections have passed the usual stability and proximity checks.
 An example is shown in <a href="4_story_of_building_and_architecture_6_2024_2026_h1_2_5_fingers_manipulation_era.html#fig:unitree_door_panel">Figure 4.58</a>.</p>
@@ -582,7 +582,7 @@ Stable YOLO persistent detections for the opening mechanism and door panel yield
 The vector from <span class="math inline"><em>C</em><sub><em>m</em></sub></span> to <span class="math inline"><em>C</em><sub><em>p</em></sub></span> defines panel orientation under the vertical hinge assumption.
 The privileged panel object frame is placed at <span class="math inline"><em>C</em><sub><em>m</em></sub></span> with <span class="math inline"><em>x̂</em></span> pointing toward the panel interior.</figcaption>
 </figure>
-<h2 id="door-frame-object"><a class="header" href="#door-frame-object">Door Frame Object</a></h2>
+<h2 id="514-door-frame-object"><a class="header" href="#514-door-frame-object"><span class="heading-number">5.14.</span> Door Frame Object</a></h2>
 <p>The door frame object extends the door panel object with semantic door geometry estimated from the live depth image.
 A door frame setup object type scene action requires an existing door panel object to be established in the scene.
 It then derives the door frame pose, push or pull type, and door open angle from that panel state and the current point cloud.</p>
@@ -617,7 +617,7 @@ A transparent yellow-green model shows the estimated panel pose, a coordinate fr
 Top: a closed lab left-push door, a real left-pull door at <span class="math inline">39<sup>∘</sup></span>, and a real right-push door of a double door at <span class="math inline">33<sup>∘</sup></span>.
 Bottom: a lab right-pull door at <span class="math inline">61<sup>∘</sup></span>, the same closed, and at <span class="math inline">81<sup>∘</sup></span> viewed from the back side.</figcaption>
 </figure>
-<h2 id="composite-and-hybrid-frames"><a class="header" href="#composite-and-hybrid-frames">Composite and Hybrid Frames</a></h2>
+<h2 id="515-composite-and-hybrid-frames"><a class="header" href="#515-composite-and-hybrid-frames"><span class="heading-number">5.15.</span> Composite and Hybrid Frames</a></h2>
 <p>A composite frame is a perception-less object derived from two existing scene frames.
 The reason for this is to perform geometric calculations to provide more useful reference frames.
 Like other privileged objects, it is created by a setup-object scene action and can be referenced by walk, arm, spine, and other physical actions in the same way as a detected object frame.
@@ -631,7 +631,7 @@ It is useful for approaching an ajar door panel, where the robot should walk wit
 <p>Composite frames can be layered.
 For example, an ajar-door hybrid frame can serve as one input to a subsequent approach frame that defines a distant handle approach stance.
 The top-level door traversal behavior in <a href="#fig:TreeStructure">Figure 5.9</a> constructs panel, frame, and hybrid-frame objects in this way before selecting a door specific subtree.</p>
-<h2 id="approach-table-object"><a class="header" href="#approach-table-object">Approach Table Object</a></h2>
+<h2 id="516-approach-table-object"><a class="header" href="#516-approach-table-object"><span class="heading-number">5.16.</span> Approach Table Object</a></h2>
 <p>The approach table object applies the same scene object pattern outside the door domain.
 It is a heuristic derived object that does not rely on semantic detections.
 Instead, it operates directly on the live depth image to produce a reusable table edge approach frame.

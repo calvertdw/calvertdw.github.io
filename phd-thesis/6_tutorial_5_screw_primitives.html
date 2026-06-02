@@ -33,7 +33,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme-figures-738bcc10.css">
+        <link rel="stylesheet" href="theme-figures-84a4c90d.css">
         <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
@@ -44,7 +44,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-926a1a84.js";
+            window.path_to_searchindex_js = "searchindex-2a1397cf.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-13565dbe.js"></script>
@@ -183,8 +183,8 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="screw-primitives"><a class="header" href="#screw-primitives">Screw Primitives</a></h1>
-<h2 id="motion-model"><a class="header" href="#motion-model">Motion Model</a></h2>
+                        <h1 id="65-screw-primitives"><a class="header" href="#65-screw-primitives"><span class="heading-number">6.5.</span> Screw Primitives</a></h1>
+<h2 id="651-motion-model"><a class="header" href="#651-motion-model"><span class="heading-number">6.5.1.</span> Motion Model</a></h2>
 <figure id="fig:guide_sim_screw_primitive">
 <img src="media/guide/20260519_161800_ScrewPrimitive.jpg" />
 <figcaption><strong>Figure 6.18.</strong> Tuning a screw primitive action.
@@ -216,7 +216,7 @@ The nominal duration of a single segment is:</p>
 </script>
 <p>To account for smooth acceleration and deceleration without requiring complex spline generation, the implementation applies a temporal boundary condition: the duration of the first and last trajectory segments is doubled (i.e., <script type="math/tex">2\delta t</script>), while all intermediate segments retain duration <script type="math/tex">\delta t</script>.
 Consequently, the total movement duration expands to <script type="math/tex">T = T_{base} + 2\delta t</script>.</p>
-<h2 id="trajectory-construction"><a class="header" href="#trajectory-construction">Trajectory Construction</a></h2>
+<h2 id="652-trajectory-construction"><a class="header" href="#652-trajectory-construction"><span class="heading-number">6.5.2.</span> Trajectory Construction</a></h2>
 <p>The trajectory maintains constant base velocities throughout the central portion of the motion.
 The scalar velocities are derived from the base duration:</p>
 <ul>
@@ -249,7 +249,7 @@ The scalar velocities are derived from the base duration:</p>
 \mathbf{T}_k = \mathbf{T}_{k-1} \begin{bmatrix} \mathbf{R}_x(\delta \theta) & \begin{bmatrix} \delta x \\ 0 \\ 0 \end{bmatrix} \\ \mathbf{0}^T & 1 \end{bmatrix}
 </script>
 <p>This sequence of generated poses and spatial velocities is finally fed into an inverse kinematics solver to compute the joint-space trajectories.</p>
-<h2 id="tuning-and-preview"><a class="header" href="#tuning-and-preview">Tuning and Preview</a></h2>
+<h2 id="653-tuning-and-preview"><a class="header" href="#653-tuning-and-preview"><span class="heading-number">6.5.3.</span> Tuning and Preview</a></h2>
 <p>As seen in <a href="#fig:guide_sim_screw_primitive">Figure 6.18</a>, the total axial translation, total rotation, max linear velocity, and max angular velocity can be specified using sliders.
 The 3D trajectory visualization is updated in real time as the user drags these sliders to help dial in the motion.
 As with the single pose trajectory arm action, the screw primitive has settings for the position and orientation tolerance.

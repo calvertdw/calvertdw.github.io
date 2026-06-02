@@ -33,7 +33,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme-figures-738bcc10.css">
+        <link rel="stylesheet" href="theme-figures-84a4c90d.css">
         <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
@@ -44,7 +44,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-926a1a84.js";
+            window.path_to_searchindex_js = "searchindex-2a1397cf.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-13565dbe.js"></script>
@@ -183,19 +183,19 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="limitations"><a class="header" href="#limitations">Limitations</a></h1>
-<h2 id="perception"><a class="header" href="#perception">Perception</a></h2>
+                        <h1 id="61-limitations"><a class="header" href="#61-limitations"><span class="heading-number">6.1.</span> Limitations</a></h1>
+<h2 id="611-perception"><a class="header" href="#611-perception"><span class="heading-number">6.1.1.</span> Perception</a></h2>
 <p>We’ve made a lot of progress and performed some compelling demonstrations, but there is still a way to go.
 In 2026, we’ve had an uptick in the expressiveness of our behaviors demonstrated on Alex through authorable perceptive reactivity and an expanded set of YOLO models.
 However, we still do not have reliable object pose perception, which is why we have done so many demos with colored balls.
 We have integrated FoundationPose for this, but it still needs a bit of work.
 It is still possible to manipulate asymmetric objects if assumptions can be made about their initial state.</p>
-<h2 id="platform-bringup"><a class="header" href="#platform-bringup">Platform Bringup</a></h2>
+<h2 id="612-platform-bringup"><a class="header" href="#612-platform-bringup"><span class="heading-number">6.1.2.</span> Platform Bringup</a></h2>
 <p>Another main limitation is that, to get this working on a new robot platform, there is significant bringup work.
 Computer software and hardware engineering is required to bring up support for different sensors, hands, or controllers that your robot may have.</p>
 <p>Another major limitation of the current implementation is the lack of navigational components.
 It is possible to create room searching behaviors by turning in place and walking through doors or walking to objects if you see them, but there is no functionality in the scene for storing semantic topological maps or high-fidelity detailed map models.</p>
-<h2 id="behavior-tree-limits"><a class="header" href="#behavior-tree-limits">Behavior Tree Limits</a></h2>
+<h2 id="613-behavior-tree-limits"><a class="header" href="#613-behavior-tree-limits"><span class="heading-number">6.1.3.</span> Behavior Tree Limits</a></h2>
 <p>There are some smaller limitations and user frustrations that are present as well.
 One of the bigger ones is the lack of the “GOSUB” functionality, where a sequence can be put on the stack and execution returned when it completes.
 All we have at the moment is GOTOs.

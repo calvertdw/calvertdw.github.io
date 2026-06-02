@@ -33,7 +33,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme-figures-738bcc10.css">
+        <link rel="stylesheet" href="theme-figures-84a4c90d.css">
         <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
@@ -44,7 +44,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-926a1a84.js";
+            window.path_to_searchindex_js = "searchindex-2a1397cf.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-13565dbe.js"></script>
@@ -183,8 +183,8 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="2016-2019-atlas-hard-coded-javafx-era"><a class="header" href="#2016-2019-atlas-hard-coded-javafx-era">2016-2019 Atlas, Hard-Coded, JavaFX Era</a></h1>
-<h2 id="state-machines-and-pipelines"><a class="header" href="#state-machines-and-pipelines">State Machines and Pipelines</a></h2>
+                        <h1 id="42-2016-2019-atlas-hard-coded-javafx-era"><a class="header" href="#42-2016-2019-atlas-hard-coded-javafx-era"><span class="heading-number">4.2.</span> 2016-2019 Atlas, Hard-Coded, JavaFX Era</a></h1>
+<h2 id="421-state-machines-and-pipelines"><a class="header" href="#421-state-machines-and-pipelines"><span class="heading-number">4.2.1.</span> State Machines and Pipelines</a></h2>
 <p>The next generation of behaviors at IHMC started around 2016, where we implemented code-defined behaviors as state machines and pipelines.
 These behaviors used the whole-body controller API directly, which is largely the same today.
 It allows asynchronous commands for the various body parts to be submitted in real time.
@@ -202,7 +202,7 @@ This behavior was hard-coded in Java.
 A video of a 2018 door behavior is available at <a href="https://youtu.be/-XBlT1H8ZZ4" class="uri">https://youtu.be/-XBlT1H8ZZ4</a>.
 </figcaption>
 </figure>
-<h2 id="system-limits"><a class="header" href="#system-limits">System Limits</a></h2>
+<h2 id="422-system-limits"><a class="header" href="#422-system-limits"><span class="heading-number">4.2.2.</span> System Limits</a></h2>
 <p>Perception was a big limitation in these behaviors.
 We relied on a MultiSense SL lidar scanner which took some time to spin around and gather sufficient data.
 We also didn’t have good software for buffering and querying the point cloud quickly.
@@ -213,7 +213,7 @@ This meant that iterating on behaviors required code changes for every tweak.
 In practice, this was done by running the behavior off-board on the operator computer and using a code-reloading tool called JRebel  <a href="references.html#ref-kabanov2014thousand" class="citation-ref">[79]</a>, <a href="references.html#ref-jrebel" class="citation-ref">[80]</a>.
 The iteration loop required magic number tweaking, code commenting, reordering, and restructuring.
 This authoring process was an unguided expert code tweaking exercise.</p>
-<h2 id="autonomous-locomotion-with-javafx-uis"><a class="header" href="#autonomous-locomotion-with-javafx-uis">Autonomous Locomotion with JavaFX UIs</a></h2>
+<h2 id="423-autonomous-locomotion-with-javafx-uis"><a class="header" href="#423-autonomous-locomotion-with-javafx-uis"><span class="heading-number">4.2.3.</span> Autonomous Locomotion with JavaFX UIs</a></h2>
 <figure id="fig:rough_terrain_autonomy_atlas">
 <img src="media/atlas/20190515_Atlas_AutonomousExplorationBehavior-00.02.11.576.jpg" />
 <figcaption><strong>Figure 4.6.</strong> A rough terrain autonomous exploration behavior that sought out high and low flat regions, turning and scanning the terrain in between.
@@ -244,7 +244,7 @@ A video is available at <a href="https://youtu.be/MHvjn6B9hQ4" class="uri">https
 <p>These planning and perception features departed from the DRC UI, opting to use JavaFX for the algorithm visualization.
 This meant that there was now a separate UI framework for algorithm development and robot operation.
 A complication was that JavaFX could not render point clouds efficiently like the DRC UI could, causing somewhat of a rift when deciding how to visualize robot data.</p>
-<h2 id="navigation-with-planar-regions"><a class="header" href="#navigation-with-planar-regions">Navigation with Planar Regions</a></h2>
+<h2 id="424-navigation-with-planar-regions"><a class="header" href="#424-navigation-with-planar-regions"><span class="heading-number">4.2.4.</span> Navigation with Planar Regions</a></h2>
 <p>Around 2019, we started to develop room-to-room navigation tools in the JavaFX ecosystem (<a href="#fig:atlas_maze">Figure 4.8</a>), while also starting the development of a rough terrain traversal behavior system that used active perception for each footstep.
 It was in 2019 that the work on this thesis started directly.
 One aspiration was to try to unify the tools used for robot operation and planning and perception algorithm development.
@@ -261,14 +261,14 @@ A video is available at <a href="https://youtu.be/0Ygti7aOxYM" class="uri">https
 </figure>
 <p>Another issue with the DRC UI was the friction in creating standalone applications.
 When developing planners and perception algorithms, it is desirable to create a test or demo app just for that, while maintaining the usability of those components in larger apps, such as algorithm visualization elements.</p>
-<h2 id="virtual-reality-teleoperation"><a class="header" href="#virtual-reality-teleoperation">Virtual Reality Teleoperation</a></h2>
+<h2 id="425-virtual-reality-teleoperation"><a class="header" href="#425-virtual-reality-teleoperation"><span class="heading-number">4.2.5.</span> Virtual Reality Teleoperation</a></h2>
 <p>Around this time, we had also developed some virtual reality (VR) applications based on the DRC UI, which allowed for teleoperating the robot.
 This virtual reality interface made authoring one-time-use footstep plans really fast.
 We ran a demonstration where the VR operator was able to manually place footsteps over a rough terrain cinder block field in the range of a few minutes.
 One caveat to this implementation was that the operator had to either launch the 2D DRC UI or the VR one and could not switch between VR and mouse and keyboard modalities without restarting the user interface.
 Restarting the user interface is a frustrating thing to have to do because you can lose any persistent state you may have in setting up robot commands.
 Additionally, it can take several minutes to relaunch the user interface, so it can really start to eat up time.</p>
-<h2 id="simulation-construction-set"><a class="header" href="#simulation-construction-set">Simulation Construction Set</a></h2>
+<h2 id="426-simulation-construction-set"><a class="header" href="#426-simulation-construction-set"><span class="heading-number">4.2.6.</span> Simulation Construction Set</a></h2>
 <p>We also had a simulation and data visualization engine called Simulation Construction Set (SCS), which allows users to programmatically create rigid-body dynamics simulations and robot controllers.
 On top of that, it featured a 3D view of the robot and scrubbable plots of buffered variable data, as seen in <a href="#fig:agile_hexapod">Figure 4.9</a>.
 SCS was implemented using an older version of jMonkeyEngine and features were not interchangeable with our DRC UI.

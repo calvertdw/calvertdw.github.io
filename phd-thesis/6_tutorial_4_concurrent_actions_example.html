@@ -33,7 +33,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme-figures-738bcc10.css">
+        <link rel="stylesheet" href="theme-figures-84a4c90d.css">
         <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
@@ -44,7 +44,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-926a1a84.js";
+            window.path_to_searchindex_js = "searchindex-2a1397cf.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-13565dbe.js"></script>
@@ -183,8 +183,8 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="concurrent-actions-example"><a class="header" href="#concurrent-actions-example">Concurrent Actions Example</a></h1>
-<h2 id="behavior-timeline"><a class="header" href="#behavior-timeline">Behavior Timeline</a></h2>
+                        <h1 id="64-concurrent-actions-example"><a class="header" href="#64-concurrent-actions-example"><span class="heading-number">6.4.</span> Concurrent Actions Example</a></h1>
+<h2 id="641-behavior-timeline"><a class="header" href="#641-behavior-timeline"><span class="heading-number">6.4.1.</span> Behavior Timeline</a></h2>
 <figure id="fig:guide_sim_nonconcurrent">
 <img src="media/guide/2026-04-28 23-14-10_ConcurrentLayeringDemonstration-00.00.10.788.jpg" />
 <figcaption><strong>Figure 6.14.</strong> The non-concurrent starting behavior for the concurrency example.
@@ -198,7 +198,7 @@ Then there is a checkpoint node and a savable concurrency demo behavior, with a 
 <p>Our behavior timeline feature is presented in the bottom right of <a href="#fig:guide_sim_nonconcurrent">Figure 6.14</a>.
 It is a rendering of an action sequence over time meant to help with understanding the timing and concurrency of behavior actions.
 Here, it shows the tree as executed with each node running sequentially.</p>
-<h2 id="execute-after-layering-mechanism"><a class="header" href="#execute-after-layering-mechanism">“Execute After” Layering Mechanism</a></h2>
+<h2 id="642-execute-after-layering-mechanism"><a class="header" href="#642-execute-after-layering-mechanism"><span class="heading-number">6.4.2.</span> “Execute After” Layering Mechanism</a></h2>
 <p>Concurrent action layering is implemented simply through an “Execute after” field in each action.
 It is selectable via a drop-down menu in the node settings, which offers every prior node as an option.
 By default this field is set to “Previous”, which is a dynamic reference to whatever node is immediately before.
@@ -216,7 +216,7 @@ We present pseudocode in <a href="#alg:simplified_execution">Algorithm 6</a> wit
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/alg_simplified_execution.light.jpg" /><img class="tikz-dark" src="media/generated/alg_simplified_execution.dark.jpg" /></span>
 <figcaption><strong>Algorithm 6.</strong> Simplified Action Execution Trigger Logic</figcaption>
 </figure>
-<h2 id="wait-nodes-and-dependencies"><a class="header" href="#wait-nodes-and-dependencies">Wait Nodes and Dependencies</a></h2>
+<h2 id="643-wait-nodes-and-dependencies"><a class="header" href="#643-wait-nodes-and-dependencies"><span class="heading-number">6.4.3.</span> Wait Nodes and Dependencies</a></h2>
 <figure id="fig:guide_sim_concurrent_waits">
 <img src="media/guide/2026-04-28 23-14-10_ConcurrentLayeringDemonstration-00.00.31.781.jpg" />
 <figcaption><strong>Figure 6.15.</strong> Adding wait nodes after the walk action.
@@ -245,7 +245,7 @@ At this point in time, the timeline view is updated to show the general structur
 In this prototype implementation of the timeline view, all wait actions are rendered as 1 second long.
 When we run the behavior, the timeline is redrawn with the actual timings.
 We will do that now.</p>
-<h2 id="concurrent-result"><a class="header" href="#concurrent-result">Concurrent Result</a></h2>
+<h2 id="644-concurrent-result"><a class="header" href="#644-concurrent-result"><span class="heading-number">6.4.4.</span> Concurrent Result</a></h2>
 <figure id="fig:guide_sim_concurrent_result">
 <img src="media/guide/2026-04-28 23-14-10_ConcurrentLayeringDemonstration-00.01.02.903.jpg" />
 <figcaption><strong>Figure 6.17.</strong> The concurrently executed result.

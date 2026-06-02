@@ -33,7 +33,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme-figures-738bcc10.css">
+        <link rel="stylesheet" href="theme-figures-84a4c90d.css">
         <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
@@ -44,7 +44,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-926a1a84.js";
+            window.path_to_searchindex_js = "searchindex-2a1397cf.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-13565dbe.js"></script>
@@ -183,8 +183,8 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h1>
-<h2 id="robot-platform-and-controller"><a class="header" href="#robot-platform-and-controller">Robot Platform and Controller</a></h2>
+                        <h1 id="62-prerequisites"><a class="header" href="#62-prerequisites"><span class="heading-number">6.2.</span> Prerequisites</a></h1>
+<h2 id="621-robot-platform-and-controller"><a class="header" href="#621-robot-platform-and-controller"><span class="heading-number">6.2.1.</span> Robot Platform and Controller</a></h2>
 <p>We have run our system with several humanoid robots over the years, including the Boston Dynamics DARPA Robotics Challenge Atlas, NASA’s Valkyrie, IHMC and Boardwalk Robotics’ Nadia, Unitree’s H1-2, and IHMC’s Alex.
 Our system is centered on the humanoid form factor with footstep, walk, arm, leg, spine, and neck actions.
 It is also centered on the presence of a whole body controller that can achieve those actions.
@@ -194,14 +194,14 @@ The controller could also be operated through a programmatic API and some of the
 <p>To get the best performance, the robot’s controller should have push-tolerant standing and walking.
 Even better if the robot can walk with the arms held up in front of the body.
 If it can do this, it would be sufficient for basic multi-station loco-manipulation tasks and door traversals.</p>
-<h2 id="motion-and-reachability"><a class="header" href="#motion-and-reachability">Motion and Reachability</a></h2>
+<h2 id="622-motion-and-reachability"><a class="header" href="#622-motion-and-reachability"><span class="heading-number">6.2.2.</span> Motion and Reachability</a></h2>
 <p>We think longer arms generally work better than shorter ones.
 A human-proportioned robot arm yields significantly less reachability than a human arm since humanoid robots typically don’t have clavicle joints which extend a human’s arm reach.
 We tend to think that robot arms that are long enough such that the hands touch the knees when they are hanging are a good balance.
 DRC Atlas and Nadia had these longer-arm proportions, but Alex didn’t and we felt that it limited reachability and increased task complexity for the pull door behaviors and when reaching across tables.</p>
 <p>Similarly, a high degree of freedom spine can help simplify behaviors.
 For example, being able to yaw 90 degrees to the left and right can allow for faster scanning behaviors, increase arm reachability, and avoid unnecessary footsteps in tight spaces.</p>
-<h2 id="perception-and-teleoperation"><a class="header" href="#perception-and-teleoperation">Perception and Teleoperation</a></h2>
+<h2 id="623-perception-and-teleoperation"><a class="header" href="#623-perception-and-teleoperation"><span class="heading-number">6.2.3.</span> Perception and Teleoperation</a></h2>
 <p>On the perception side, the most significant requirements are a color image, a high-accuracy depth image, and the availability of high quality YOLO models for any objects you want to interact with.
 There are many sensors available on the market that satisfy this requirement.
 We have tried the ZED X Mini and the RealSense D457  <a href="references.html#ref-intel2022d457" class="citation-ref">[1]</a>.
@@ -216,7 +216,7 @@ We have been using YOLOv8 because it does detections and segmentation for object
 Arghya Chatterjee crafted the models we used, but it took him weeks and weeks of hand labeling and a year or so of experimentation to achieve high confidence detections.
 It might be good to find a vendor that provides professionally trained models.
 Typically the data needed is around five videos of the task, each on a different day and time, light and dark, where the videos orbit around the object and get close and far from it.</p>
-<h2 id="hands"><a class="header" href="#hands">Hands</a></h2>
+<h2 id="624-hands"><a class="header" href="#624-hands"><span class="heading-number">6.2.4.</span> Hands</a></h2>
 <p>For robot hands, we recommend a 5-finger anthropomorphic hand.
 We had a great experience with the PSYONIC Ability Hand  <a href="references.html#ref-psyonic_ability_hand" class="citation-ref">[22]</a>.
 One major advantage of a 5-finger anthropomorphic hand is that, similar to the rest of the robot’s body, it mirrors the human form, which allows for an increased level of intuition in task planning.
@@ -224,7 +224,7 @@ For example, a good start for planning how to get the robot to do a task is to j
 <p>Furthermore, this extends to teleoperation, where you can constrain the set of possible solutions to what is achievable by the robot while still leaning on natural intuition.
 We use the Valve Index Controller’s  <a href="references.html#ref-valve_index_controllers" class="citation-ref">[23]</a> API to teleoperate the Ability Hands and it works great.
 In fact, the OpenVR software maps the Valve Index Controller’s finger estimation to six degrees of freedom which happens to match perfectly to the six degrees of freedom on the Ability Hand.</p>
-<h2 id="compute"><a class="header" href="#compute">Compute</a></h2>
+<h2 id="625-compute"><a class="header" href="#625-compute"><span class="heading-number">6.2.5.</span> Compute</a></h2>
 <p>Another thing you’ll need are NVIDIA GPUs if you want to use the ZED camera or if you want to use CUDA kernels.
 The ZED SDK requires NVIDIA GPUs to use its most essential features such as its neural-assisted stereo depth estimation.
 Additionally, we use CUDA heavily throughout the system, including for counting points and averaging color inside virtual shapes in the 3D point cloud, faster OpenCV functions, processing the output tensor of YOLO, non-maximum suppression of YOLO bounding boxes, and extraction of 3D points from the YOLO segmentation masks.</p>

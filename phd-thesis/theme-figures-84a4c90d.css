@@ -1,0 +1,51 @@
+/* Default: show light variant (covers light, rust, and pre-JS/no-class fallback) */
+.tikz-figure .tikz-dark {
+  display: none;
+}
+
+/* Dark mdBook themes */
+html.coal .tikz-figure .tikz-light,
+html.navy .tikz-figure .tikz-light,
+html.ayu .tikz-figure .tikz-light {
+  display: none;
+}
+
+html.coal .tikz-figure .tikz-dark,
+html.navy .tikz-figure .tikz-dark,
+html.ayu .tikz-figure .tikz-dark {
+  display: block;
+}
+
+.abstract-metadata {
+  text-align: center;
+  margin: 1.5em auto 2.5em;
+}
+
+.abstract-metadata p {
+  margin: 0.35em 0;
+}
+
+.abstract-thesis-title {
+  font-size: 1.2em;
+  font-weight: 600;
+  margin-bottom: 1em !important;
+}
+
+/* Sidebar: mdBook uses <strong> for chapter/section numbers and clones
+   .heading-number spans for the “On this page” subsection list (toc.js). */
+mdbook-sidebar-scrollbox a strong[aria-hidden="true"],
+mdbook-sidebar-scrollbox a .heading-number,
+.sidebar-scrollbox a strong[aria-hidden="true"],
+.sidebar-scrollbox a .heading-number {
+  font-weight: 700 !important;
+}
+
+/* Main content: same size/color as heading text; space + dot only. */
+.content a.header .heading-number,
+#mdbook-content a.header .heading-number {
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  margin-inline-end: 0.5em;
+  font-variant-numeric: tabular-nums;
+}

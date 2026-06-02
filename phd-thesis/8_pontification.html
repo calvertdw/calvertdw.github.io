@@ -33,7 +33,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme-figures-738bcc10.css">
+        <link rel="stylesheet" href="theme-figures-84a4c90d.css">
         <link rel="stylesheet" href="citation-popups-6a78d3d2.css">
 
         <!-- MathJax -->
@@ -44,7 +44,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-926a1a84.js";
+            window.path_to_searchindex_js = "searchindex-2a1397cf.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-13565dbe.js"></script>
@@ -183,7 +183,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="discussion"><a class="header" href="#discussion">Discussion</a></h1>
+                        <h1 id="8-discussion"><a class="header" href="#8-discussion"><span class="heading-number">8.</span> Discussion</a></h1>
 <p><span id="ch:pontification" label="ch:pontification"></span></p>
 <p>We are pretty happy with what we’ve been able to accomplish with a model based approach.
 The combination of DARPA Robotics Challenge inspired Coactive Design for humanoid robot operation, affordance templates, behavior trees, and a behavior-managed perception scene has proved to work very well.
@@ -191,7 +191,7 @@ In a 10 year period, we went from a 20 person team working tirelessly over years
 <p>Much of the field, and especially startup robotics companies, have now abandoned these fundamental approaches and have jumped ship for “end-to-end” learning.
 However, we are convinced that a lot of tasks can be solved both ways.
 In fact, with the increased prevalence of intelligent coding assistance, our more classical, model-based approach may even be able to keep pace with learned systems.</p>
-<h2 id="strong-points"><a class="header" href="#strong-points">Strong Points</a></h2>
+<h2 id="81-strong-points"><a class="header" href="#81-strong-points"><span class="heading-number">8.1.</span> Strong Points</a></h2>
 <p>We think our robot-local runtime-editable design is really the strongest success of our system.
 Running the compute locally robustifies the system by decoupling it from external digital disturbances such as communications failures and compute failures on remote servers.
 Editing behaviors online has enabled rapid bringup of new behaviors and modification, composition, and extension of existing behaviors as we have shown.</p>
@@ -207,7 +207,7 @@ Our design designates an expert human operator to evaluate and exploit available
 For example, as mentioned in <a href="4_story_of_building_and_architecture.html#ch:building">Building our Behavior Architecture</a>, we built an action node that executed a learned mimic policy, such as a dance or a door traversal walk through.
 More work in this direction could enable more robust door walkthroughs.
 We think this is a good way to get the best of both worlds for the time being.</p>
-<h2 id="weak-points"><a class="header" href="#weak-points">Weak Points</a></h2>
+<h2 id="82-weak-points"><a class="header" href="#82-weak-points"><span class="heading-number">8.2.</span> Weak Points</a></h2>
 <p>There are important caveats, however, with our current system.
 For one, our object-on-table manipulation demos center around a bottle pickup and balls.
 We haven’t cracked the nut on perceiving orientation of objects.
@@ -230,7 +230,7 @@ Two issues stand out.
 First, when loading in large subtrees, there can be a loading delay that can cause a glitch in the network synchronization.
 Second, for trees with a tall maximum depth, the behavior tree editor view entries near the leaves of the tree can become indented too much and hard to work with.
 We think both of these issues are very solvable.</p>
-<h2 id="natural-next-steps"><a class="header" href="#natural-next-steps">Natural Next Steps</a></h2>
+<h2 id="83-natural-next-steps"><a class="header" href="#83-natural-next-steps"><span class="heading-number">8.3.</span> Natural Next Steps</a></h2>
 <p>Throughout this work, we really want to add force-based action primitives.
 The codebase even includes a “wrench action” node, which was used to pick up boxes.
 Ultimately, we just didn’t have the bandwidth to approach it from a controls perspective.</p>
@@ -274,7 +274,7 @@ This would enable the operator to quickly define complicated motions that are ha
 That capability could also be extended by filtering the motions or by collecting repeated demonstrations and training a vision-action policy.
 It would be valuable to demonstrate and dispatch vision-action model training runs from within the authoring interface.
 On training completion, the resulting policies could be used as an alternative mode of the arm action.</p>
-<h2 id="why-not-fully-embrace-behavior-trees"><a class="header" href="#why-not-fully-embrace-behavior-trees">Why Not Fully Embrace Behavior Trees</a></h2>
+<h2 id="84-why-not-fully-embrace-behavior-trees"><a class="header" href="#84-why-not-fully-embrace-behavior-trees"><span class="heading-number">8.4.</span> Why Not Fully Embrace Behavior Trees</a></h2>
 <p>One interesting part of this thesis is that we use a “behavior tree” architecture, but left out some of the key mechanisms from the literature version  <a href="references.html#ref-2018_colledanchise" class="citation-ref">[53]</a>.
 The most important part of why is just that we built what appeared to work best for us.
 The other aspect is that the lone result from the literature just wasn’t that convincing  <a href="references.html#ref-2023_centaur_bt" class="citation-ref">[55]</a>, being ultimately very slow and locomotion only.</p>
@@ -288,7 +288,7 @@ In these cases, it needs to execute specific “abort mission” behaviors that 
 <p>This is where we guess Behavior Trees would suggest using the blackboard.
 However, the Behavior Tree blackboard is an unstructured design component and we would strive for a more formal mechanism for doing things like this.
 A promising theory for this sort of reactivity includes sequential composition  <a href="references.html#ref-1999_burridge" class="citation-ref">[52]</a>.</p>
-<h2 id="the-future"><a class="header" href="#the-future">The Future</a></h2>
+<h2 id="85-the-future"><a class="header" href="#85-the-future"><span class="heading-number">8.5.</span> The Future</a></h2>
 <p>We would like to see a near future where technical people can buy or build their own robots and put them towards useful work.
 To us, it is most convincing if the system is open source, understandable, and tinkerable.
 We would like to be able to modify and extend the capabilities of personally owned robots without being beholden to subscriptions or AI datacenters.
