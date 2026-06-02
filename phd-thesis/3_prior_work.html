@@ -1,6 +1,11 @@
 <!DOCTYPE HTML>
 <html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
+<script id="mdbook-theme-early-boot">
+(function(){var p=new URLSearchParams(location.search).get("theme"),c=["light","rust","coal","navy","ayu"];
+if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.remove("light","rust","coal","navy","ayu");h.classList.add(p);}})();
+</script>
+
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Related Work - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
@@ -39,10 +44,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-6a3415fa.js";
+            window.path_to_searchindex_js = "searchindex-926a1a84.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-3c6d0428.js"></script>
+        <script src="toc-13565dbe.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -185,18 +190,18 @@
 Architectural references include CLARAty, Affordance Templates, Affordance Primitives, Coactive Design, Director, FlexBE, RAFCON, Drawing Board, and the CENTAURO behavior tree systems.
 Door task references span from classical and model-based mobile-manipulator and humanoid systems to recent learned legged and humanoid policies.
 The systems with metrics that overlap our benchmark are compared with each other and this thesis in <a href="7_defense.html#ch:defense">Evaluation</a>.</p>
-<p><a href="#fig:design_space_map">Figure 4</a> maps every system reviewed in this chapter across four dimensions: execution boundary, runtime editability, perception model, and door evidence.
+<p><a href="#fig:design_space_map">Figure 3.1</a> maps every system reviewed in this chapter across four dimensions: execution boundary, runtime editability, perception model, and door evidence.
 The execution boundary refers to where the process that controls the robot runs.
 It can be off-board, operator-in-the-loop, or purely on-board/robot-local.
 This is one part of qualifying our “Independence from External Systems” characteristic in <a href="2_metrics.html#ch:metrics">Desirable Characteristics</a>.</p>
-<p>In <a href="#fig:design_space_map">Figure 4</a>, each row is one system.
+<p>In <a href="#fig:design_space_map">Figure 3.1</a>, each row is one system.
 The filled cells place that row on the execution-boundary axis (left band) and the runtime-editability axis (right band).
 The two rightmost columns encode the perception model used at task time, distinguishing behavior-time authored perception from a fixed onboard pipeline, learned end-to-end perception, and reliance on external measurement, alongside the strength of the system’s door-task evidence on a four-level scale from none to repeated-trial real-world.
 This thesis is the only row that combines robot-local execution, runtime structural and perception edits, behavior-time authored perception, and repeated-trial real-world door evidence.
 DoorMan is the only off-board entry, and the learned door systems concentrate on the policy-retrain column rather than runtime structural edits.</p>
 <figure id="fig:design_space_map">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/DesignSpaceMapTikz.light.jpg" /><img class="tikz-dark" src="media/generated/DesignSpaceMapTikz.dark.jpg" /></span>
-<figcaption><strong>Figure 4.</strong> 
+<figcaption><strong>Figure 3.1.</strong> 
 Design-space placement of every prior system reviewed in this chapter.
 </figcaption>
 </figure>
@@ -254,6 +259,7 @@ Design-space placement of every prior system reviewed in this chapter.
         <!-- Custom JS scripts -->
         <script src="citation-data-d2a0410c.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
+        <script src="theme-persist-5a94a5be.js"></script>
 
 
 

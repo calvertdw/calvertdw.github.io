@@ -1,6 +1,11 @@
 <!DOCTYPE HTML>
 <html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
+<script id="mdbook-theme-early-boot">
+(function(){var p=new URLSearchParams(location.search).get("theme"),c=["light","rust","coal","navy","ayu"];
+if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.remove("light","rust","coal","navy","ayu");h.classList.add(p);}})();
+</script>
+
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>2016-2019 Atlas, Hard-Coded, JavaFX Era - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
@@ -39,10 +44,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-6a3415fa.js";
+            window.path_to_searchindex_js = "searchindex-926a1a84.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-3c6d0428.js"></script>
+        <script src="toc-13565dbe.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -187,12 +192,12 @@ The controller maintains a list of active commands that it is actively controlli
 For example, you can send a list of footsteps for the robot to take, a 3D hand pose for the robot to reach to, or a list of joint angles for the spine, a leg, an arm, or the neck.
 Pipelines allowed a level of hard-coded action concurrency by branching out into parallel states before rejoining.</p>
 <p>This generation of behaviors started to use perception in the form of basic OpenCV color filters, blob detectors, fiducial detectors, and simple lidar processing.
-This enabled us to perform behaviors such as pull-door traversals (<a href="#fig:door_diagram">Figure 14</a>) and autonomous ball pickup behaviors.
+This enabled us to perform behaviors such as pull-door traversals (<a href="#fig:door_diagram">Figure 4.5</a>) and autonomous ball pickup behaviors.
 These behaviors were slow in the several minutes range for door traversals and maybe 5 to 10 minutes for picking up colored balls off the floor.
 They were performed with the Boston Dynamics DRC Atlas.</p>
 <figure id="fig:door_diagram">
 <img src="media/atlas/DoorBehaviorDiagram.png" />
-<figcaption><strong>Figure 14.</strong> The door traversal behavior hierarchical state machine from the 2019 era.
+<figcaption><strong>Figure 4.5.</strong> The door traversal behavior hierarchical state machine from the 2019 era.
 This behavior was hard-coded in Java.
 A video of a 2018 door behavior is available at <a href="https://youtu.be/-XBlT1H8ZZ4" class="uri">https://youtu.be/-XBlT1H8ZZ4</a>.
 </figcaption>
@@ -211,7 +216,7 @@ This authoring process was an unguided expert code tweaking exercise.</p>
 <h2 id="autonomous-locomotion-with-javafx-uis"><a class="header" href="#autonomous-locomotion-with-javafx-uis">Autonomous Locomotion with JavaFX UIs</a></h2>
 <figure id="fig:rough_terrain_autonomy_atlas">
 <img src="media/atlas/20190515_Atlas_AutonomousExplorationBehavior-00.02.11.576.jpg" />
-<figcaption><strong>Figure 15.</strong> A rough terrain autonomous exploration behavior that sought out high and low flat regions, turning and scanning the terrain in between.
+<figcaption><strong>Figure 4.6.</strong> A rough terrain autonomous exploration behavior that sought out high and low flat regions, turning and scanning the terrain in between.
 A planar region map was built over time and used to traverse the rough terrain.
 A video is available at <a href="https://youtu.be/cwnrZzzueFA" class="uri">https://youtu.be/cwnrZzzueFA</a>.
 (May 2019)</figcaption>
@@ -220,10 +225,10 @@ A video is available at <a href="https://youtu.be/cwnrZzzueFA" class="uri">https
 We developed an A* footstep planner  <a href="references.html#ref-griffin2019footstepplanner" class="citation-ref">[27]</a> and a planar region segmentation perception algorithm  <a href="references.html#ref-Bertrand_2020" class="citation-ref">[28]</a> that worked together.
 Using the MultiSense SL lidar scanner, we could wait for 20 seconds or so, pool an octomap terrain representation, segment it into planar regions, and plan footsteps over it.
 This facilitated a leap in robot autonomy.
-The robot was now able to traverse sections of rough terrain autonomously, as shown in <a href="#fig:rough_terrain_autonomy_atlas">Figure 15</a> and <a href="#fig:rough_terrain_autonomy_sim">Figure 16</a>.</p>
+The robot was now able to traverse sections of rough terrain autonomously, as shown in <a href="#fig:rough_terrain_autonomy_atlas">Figure 4.6</a> and <a href="#fig:rough_terrain_autonomy_sim">Figure 4.7</a>.</p>
 <figure id="fig:rough_terrain_autonomy_sim">
 <img src="media/atlas/2019-05-02_SimRoughTerrainBehavior.jpeg" />
-<figcaption><strong>Figure 16.</strong> A simulation example of the rough terrain up and down exploration behavior.
+<figcaption><strong>Figure 4.7.</strong> A simulation example of the rough terrain up and down exploration behavior.
 This behavior was a hard-coded state machine for perceptive locomotion over planar regions operated via the widgets shown.
 The robot would plan one or several steps at a time while perceiving and traversing rough terrain.
 It allowed for manual or automatic waypoint placement represented as the yellow ball and green arrow.
@@ -240,7 +245,7 @@ A video is available at <a href="https://youtu.be/MHvjn6B9hQ4" class="uri">https
 This meant that there was now a separate UI framework for algorithm development and robot operation.
 A complication was that JavaFX could not render point clouds efficiently like the DRC UI could, causing somewhat of a rift when deciding how to visualize robot data.</p>
 <h2 id="navigation-with-planar-regions"><a class="header" href="#navigation-with-planar-regions">Navigation with Planar Regions</a></h2>
-<p>Around 2019, we started to develop room-to-room navigation tools in the JavaFX ecosystem (<a href="#fig:atlas_maze">Figure 17</a>), while also starting the development of a rough terrain traversal behavior system that used active perception for each footstep.
+<p>Around 2019, we started to develop room-to-room navigation tools in the JavaFX ecosystem (<a href="#fig:atlas_maze">Figure 4.8</a>), while also starting the development of a rough terrain traversal behavior system that used active perception for each footstep.
 It was in 2019 that the work on this thesis started directly.
 One aspiration was to try to unify the tools used for robot operation and planning and perception algorithm development.
 The reason this was important was to simplify the decision of what tools to use when developing a feature and also reduce code duplication.
@@ -248,7 +253,7 @@ For example, the JavaFX UI could not render point clouds efficiently and it was 
 Conversely, the DRC UI code was aging and it was time to evaluate a more modern set of building blocks while cleaning up the code.</p>
 <figure id="fig:atlas_maze">
 <img src="media/atlas/AtlasNavigatingOccludedMaze-00.01.18.518.jpg" />
-<figcaption><strong>Figure 17.</strong> A simulation of Atlas performing a navigation behavior in the JavaFX-based behavior system user interface.
+<figcaption><strong>Figure 4.8.</strong> A simulation of Atlas performing a navigation behavior in the JavaFX-based behavior system user interface.
 This phase of the behavior system heavily relied on planar regions for locomotion.
 A video is available at <a href="https://youtu.be/0Ygti7aOxYM" class="uri">https://youtu.be/0Ygti7aOxYM</a>.
 (December 2019)
@@ -265,13 +270,13 @@ Restarting the user interface is a frustrating thing to have to do because you c
 Additionally, it can take several minutes to relaunch the user interface, so it can really start to eat up time.</p>
 <h2 id="simulation-construction-set"><a class="header" href="#simulation-construction-set">Simulation Construction Set</a></h2>
 <p>We also had a simulation and data visualization engine called Simulation Construction Set (SCS), which allows users to programmatically create rigid-body dynamics simulations and robot controllers.
-On top of that, it featured a 3D view of the robot and scrubbable plots of buffered variable data, as seen in <a href="#fig:agile_hexapod">Figure 18</a>.
+On top of that, it featured a 3D view of the robot and scrubbable plots of buffered variable data, as seen in <a href="#fig:agile_hexapod">Figure 4.9</a>.
 SCS was implemented using an older version of jMonkeyEngine and features were not interchangeable with our DRC UI.
 For UI widgets, SCS used Java Swing, but using a very different code path than the Java Swing used in the DRC UI.
 The takeaway here is that while SCS and the DRC UI used the same underlying libraries, functionality could not be shared between them.</p>
 <figure id="fig:agile_hexapod">
 <img src="media/atlas/AgileHexapod.png" />
-<figcaption><strong>Figure 18.</strong> The Agile Hexapod simulation in Simulation Construction Set.
+<figcaption><strong>Figure 4.9.</strong> The Agile Hexapod simulation in Simulation Construction Set.
 In the upper area, the simulated robot and terrain is visible.
 In the center, simulation and buffer controls are available.
 The gear runs the simulation forward and the play button plays it back via the buffered data.
@@ -341,6 +346,7 @@ Screenshot taken in 2026.</figcaption>
         <!-- Custom JS scripts -->
         <script src="citation-data-d2a0410c.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
+        <script src="theme-persist-5a94a5be.js"></script>
 
 
 

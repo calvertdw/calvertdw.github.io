@@ -1,6 +1,11 @@
 <!DOCTYPE HTML>
 <html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
+<script id="mdbook-theme-early-boot">
+(function(){var p=new URLSearchParams(location.search).get("theme"),c=["light","rust","coal","navy","ayu"];
+if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.remove("light","rust","coal","navy","ayu");h.classList.add(p);}})();
+</script>
+
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>2020-2021 Atlas, RDX, Behavior Tree Era - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
@@ -39,10 +44,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-6a3415fa.js";
+            window.path_to_searchindex_js = "searchindex-926a1a84.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-3c6d0428.js"></script>
+        <script src="toc-13565dbe.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -224,14 +229,14 @@ We decided to rewrite the new framework from scratch and use libGDX, ImGui, and 
 <h2 id="robot-data-explorer"><a class="header" href="#robot-data-explorer">Robot Data eXplorer</a></h2>
 <figure id="fig:rdx_early">
 <img src="media/atlas/20210113_VRIntegration-00.00.04.656.jpg" />
-<figcaption><strong>Figure 19.</strong> A screenshot of one of the first Robot Data eXplorer (RDX) applications on January 13, 2021.
+<figcaption><strong>Figure 4.10.</strong> A screenshot of one of the first Robot Data eXplorer (RDX) applications on January 13, 2021.
 It features an Atlas simulation with planar regions.
 RDX features dockable panels of widgets, an interactive 3D view, and VR support by default.
 It is designed as a sandbox for general robotics data computation and exploration while also being extendable to more purpose-specific applications such as teleoperation and simulation.
 A video is available at <a href="https://youtu.be/APSf1y6VryQ" class="uri">https://youtu.be/APSf1y6VryQ</a>.
 </figcaption>
 </figure>
-<p>This effort ultimately culminated in the robotics sandbox application suite later named Robot Data eXplorer (RDX), shown in <a href="#fig:rdx_early">Figure 19</a>.
+<p>This effort ultimately culminated in the robotics sandbox application suite later named Robot Data eXplorer (RDX), shown in <a href="#fig:rdx_early">Figure 4.10</a>.
 We wanted this set of tools to be useful for teleoperation, simulation, and perception and control algorithm development.
 It was designed in a similar spirit to SCS in that the user would first create a main entry point for their project and implement what they needed programmatically.
 For example, the application could be a test of a point cloud renderer, displaying it in 3D while also providing tuning widgets for point size, color, etc.
@@ -244,7 +249,7 @@ We implemented a mouse ray projection into the 3D scene in RDX which was general
 For the gizmo, this was used to intersect with the gizmo orientation control tori and translation control cylinders and cones.
 The gizmo’s axes are colored as Red, Green, and Blue, to match X, Y, and Z, and Roll, Pitch, and Yaw.
 The way to remember it is “RGB -&gt; XYZ”.
-We also re-implemented the walk path control ring and virtual interactable footsteps, as shown in a 2022 screenshot in <a href="4_story_of_building_and_architecture_4_2022_2023_nadia_runtime_editable_sequences_era.html#fig:nadia_interactables">Figure 26</a>.</p>
+We also re-implemented the walk path control ring and virtual interactable footsteps, as shown in a 2022 screenshot in <a href="4_story_of_building_and_architecture_4_2022_2023_nadia_runtime_editable_sequences_era.html#fig:nadia_interactables">Figure 4.17</a>.</p>
 <p>The VR mode in RDX also featured ImGui widgets.
 The same panels available in the monitor, mouse, and keyboard modalities were also available as panels mounted on the wrist in VR, and they were operable via point and click with the VR controller.
 This continued the RDX design goals of reusability and versatility into the VR modality.
@@ -253,7 +258,7 @@ Additionally, we wanted switching between the monitor, keyboard, and mouse and v
 <h2 id="perceptive-locomotion"><a class="header" href="#perceptive-locomotion">Perceptive Locomotion</a></h2>
 <figure id="fig:atlas_rdx_perceptive_locomotion_demo">
 <img src="media/atlas/2021-04-19 14-57-50_AtlasLookAndStepSuccessfulRunOverRoughTerrain-00.01.09.505.jpg" />
-<figcaption><strong>Figure 20.</strong> A perceptive locomotion behavior on Atlas in 2021 using RDX for operation.
+<figcaption><strong>Figure 4.11.</strong> A perceptive locomotion behavior on Atlas in 2021 using RDX for operation.
 This behavior used the rapid planar region extractor from  <a href="references.html#ref-Mishra_2021_RapidRegions" class="citation-ref">[66]</a> as an input to a hard-coded reactive perceptive locomotion behavior called “look and step”.
 In the top left, the 3D scene is shown featuring the live robot configuration, the perceived 3D planar regions, and the walk path.
 The input to the behavior was a waypoint, as shown by the small teal ball and arrow at the end of the green, yellow, and red path.
@@ -265,35 +270,35 @@ A video is available at <a href="https://youtu.be/qAtfV7hTzYg" class="uri">https
 </figure>
 <p>In 2020, we started using the RealSense L515 depth sensor  <a href="references.html#ref-l515" class="citation-ref">[33]</a> for perceptive locomotion.
 Bhavyansh Mishra developed a planar region extractor using OpenCL  <a href="references.html#ref-Mishra_2021_RapidRegions" class="citation-ref">[66]</a> which enabled the development of a perceptive locomotion behavior with active perception while walking.
-This led to one of the first autonomous behaviors that used RDX as the user interface, as shown in <a href="#fig:atlas_rdx_perceptive_locomotion_demo">Figure 20</a>.
+This led to one of the first autonomous behaviors that used RDX as the user interface, as shown in <a href="#fig:atlas_rdx_perceptive_locomotion_demo">Figure 4.11</a>.
 This work is covered in the 2022 paper  <a href="references.html#ref-lookandstep" class="citation-ref">[64]</a>.</p>
 <h2 id="behavior-trees"><a class="header" href="#behavior-trees">Behavior Trees</a></h2>
 <p>After the initial development of the perceptive locomotion behavior, “look and step”, we sought to build out multi-task behaviors as part of our building exploration demo.
 To assemble a hybrid teleoperated and autonomous multi-stage behavior, we looked to behavior trees.
-<a href="#fig:atlas_2d_behavior_tree_view">Figure 21</a> shows the very beginning of that effort in May of 2021.
+<a href="#fig:atlas_2d_behavior_tree_view">Figure 4.12</a> shows the very beginning of that effort in May of 2021.
 We pulled in an ImGui library called ImNodes and started rendering a tree of behaviors in a 2D canvas.</p>
 <figure id="fig:atlas_2d_behavior_tree_view">
 <img src="media/atlas/2021-05-28 13-34-49_ImNodes-00.00.08.664.jpg" />
-<figcaption><strong>Figure 21.</strong> Development of the 2D canvas behavior tree view began in May 2021.
+<figcaption><strong>Figure 4.12.</strong> Development of the 2D canvas behavior tree view began in May 2021.
 A video is available at <a href="https://youtu.be/kpWE3UVIIvM" class="uri">https://youtu.be/kpWE3UVIIvM</a>.</figcaption>
 </figure>
 <h2 id="semi-autonomous-building-exploration"><a class="header" href="#semi-autonomous-building-exploration">Semi-Autonomous Building Exploration</a></h2>
 <figure id="fig:2021_building_exploration_demo">
 <img src="media/atlas/20210623_BuildingExplorationDemo.jpg" />
-<figcaption><strong>Figure 22.</strong> The June 23, 2021 building exploration demo consisting of seven tasks in a hybrid autonomy model.
+<figcaption><strong>Figure 4.13.</strong> The June 23, 2021 building exploration demo consisting of seven tasks in a hybrid autonomy model.
 A video is available at <a href="https://youtu.be/CFiFaO-ENPw" class="uri">https://youtu.be/CFiFaO-ENPw</a>.</figcaption>
 </figure>
 <p>In June 2021, we worked on a building exploration demo which consisted of seven tasks with a hybrid autonomy model: an autonomous rough terrain traversal using perceptive locomotion, an automatic pull door behavior, VR teleoperated debris clearing, and automatic push door traversal, obtaining a mock pipe bomb from the top of a flight of stairs, walking back down, and placing the mock pipe bomb in a trash can.
-The tasks are shown in <a href="#fig:2021_building_exploration_demo">Figure 22</a>.
+The tasks are shown in <a href="#fig:2021_building_exploration_demo">Figure 4.13</a>.
 We successfully performed the demo on June 23, 2021, in 22 minutes.</p>
 <p>This demo tested our ability to incorporate autonomous behaviors with operator supervision and teleoperation.
 Major innovations in the demo with respect to the DRC were VR kinematics streaming, continuous perceptive locomotion, and automatic push and pull door behaviors.
 However, the behavior structure for the locomotion, the door traversals, and the building exploration assembly were still hard-coded and not runtime editable, and perception of semantic objects was still reliant on fiducial markers.
 Push and pull door and stairs behaviors were selected by the fiducial IDs.
-The UI for this demo can be seen in <a href="#fig:2021_building_exploration_demo_ui">Figure 23</a>.</p>
+The UI for this demo can be seen in <a href="#fig:2021_building_exploration_demo_ui">Figure 4.14</a>.</p>
 <figure id="fig:2021_building_exploration_demo_ui">
 <img src="media/atlas/2021-06-23 16-23-54_AtlasDemoFullRunOneFall-00.10.31.758.jpg" />
-<figcaption><strong>Figure 23.</strong> The June 23, 2021 building exploration demo user interface.
+<figcaption><strong>Figure 4.14.</strong> The June 23, 2021 building exploration demo user interface.
 In the center, a 3D view with the robot and the planar region environment is shown.
 In the bottom center, a video panel shows the first person view of the robot with an overlay that outlines the ArUco fiducial marker.
 On the upper right, a 2D canvas behavior tree view is shown.
@@ -305,10 +310,10 @@ A video is available at <a href="https://youtu.be/CFiFaO-ENPw" class="uri">https
 <p>After the building exploration demo, we switched from the MultiSense SL to the Ouster OS0-128 lidar sensor  <a href="references.html#ref-ouster_os0_lidar_sensor" class="citation-ref">[34]</a> in combination with a stereo pair of Blackfly cameras with fisheye lenses.
 A paper about this sensor suite is available at  <a href="references.html#ref-Mishra_2022_PerceptionEngine" class="citation-ref">[67]</a>.
 With the new sensor configuration, we had instantaneous dense lidar scans instead of needing to wait for the MultiSense SL to spin.
-This enabled us to develop the person following behavior shown in <a href="#fig:atlas_follow_person_over_rough_terrain">Figure 24</a>.</p>
+This enabled us to develop the person following behavior shown in <a href="#fig:atlas_follow_person_over_rough_terrain">Figure 4.15</a>.</p>
 <figure id="fig:atlas_follow_person_over_rough_terrain">
 <img src="media/atlas/2021-09-11 20-06-28_FollowPersonOverRoughTerrainFlatGroundDetectionFall-00.00.30.482.jpg" />
-<figcaption><strong>Figure 24.</strong> A person following behavior which used a YOLO  <a href="references.html#ref-redmon2016yolo" class="citation-ref">[36]</a> person detection and segmentation model in combination with the Ouster point cloud to provide a continuously updating position of a person.
+<figcaption><strong>Figure 4.15.</strong> A person following behavior which used a YOLO  <a href="references.html#ref-redmon2016yolo" class="citation-ref">[36]</a> person detection and segmentation model in combination with the Ouster point cloud to provide a continuously updating position of a person.
 The existing “Look and Step” locomotion behavior was adapted to walk towards the person in a loop.
 This demo was conducted in September, 2021.
 A video is available at <a href="https://youtu.be/z51BHiq3OQs" class="uri">https://youtu.be/z51BHiq3OQs</a>.</figcaption>
@@ -381,6 +386,7 @@ A video is available at <a href="https://youtu.be/z51BHiq3OQs" class="uri">https
         <!-- Custom JS scripts -->
         <script src="citation-data-d2a0410c.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
+        <script src="theme-persist-5a94a5be.js"></script>
 
 
 

@@ -1,6 +1,11 @@
 <!DOCTYPE HTML>
 <html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
+<script id="mdbook-theme-early-boot">
+(function(){var p=new URLSearchParams(location.search).get("theme"),c=["light","rust","coal","navy","ayu"];
+if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.remove("light","rust","coal","navy","ayu");h.classList.add(p);}})();
+</script>
+
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Introduction - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
@@ -39,10 +44,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-6a3415fa.js";
+            window.path_to_searchindex_js = "searchindex-926a1a84.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-3c6d0428.js"></script>
+        <script src="toc-13565dbe.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -178,8 +183,9 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <p><span id="ch:introduction2" label="ch:introduction2"></span></p>
-<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
+                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p><span id="ch:introduction2" label="ch:introduction2"></span></p>
+<h2 id="introduction-1"><a class="header" href="#introduction-1">Introduction</a></h2>
 <p>There is tremendous value in humanoid robots taking on the dull, dirty, and dangerous work in spaces built for humans.
 However, a useful system must coordinate locomotion, whole body motion, perception, contact, and operator supervision.
 It must also support adaptation to new tasks.
@@ -189,7 +195,7 @@ Different architectural choices affect how quickly a behavior executes, how robu
 The work therefore focuses on the runtime structure that makes the task faster, more resilient, and easier to modify than prior versions.
 In <a href="4_story_of_building_and_architecture.html#ch:building">Building our Behavior Architecture</a>, we tell the story of how we arrived at our current design choices.
 In <a href="5_current_architecture.html#ch:architecture2">Current Architecture</a>, we’ll present our current behavior system architecture.</p>
-<p>This thesis demonstrates its relevance through performant real-robot demos on a variety of humanoid robot platforms, including IHMC’s recently developed Alex, a fully-electric humanoid robot with 29 degrees of freedom, as shown in <a href="#fig:20260309_AlexRightPullDoorProfessionalStill">Figure 1</a>.
+<p>This thesis demonstrates its relevance through performant real-robot demos on a variety of humanoid robot platforms, including IHMC’s recently developed Alex, a fully-electric humanoid robot with 29 degrees of freedom, as shown in <a href="#fig:20260309_AlexRightPullDoorProfessionalStill">Figure 1.1</a>.
 Alex uses the PSYONIC Ability Hands, which are anthropomorphic 5-finger hands with 6 degrees of freedom each.
 It also perceives the world on-board, using just two stereo color cameras in the head with a human-like interpupillary distance.
 We present an evaluation of our results in <a href="7_defense.html#ch:defense">Evaluation</a>.</p>
@@ -198,7 +204,7 @@ This reflects the generality of our approach: it can run on a variety of humanoi
 We describe the prerequisites in more detail in <a href="6_tutorial.html#ch:tutorial">Usage Guide</a>.</p>
 <figure id="fig:20260309_AlexRightPullDoorProfessionalStill">
 <img src="media/alex/20260309_AlexRightPullDoorProfessionalStill.jpg" style="width:62.0%" />
-<figcaption><strong>Figure 1.</strong> IHMC’s fully electric Alex humanoid robot traversing a right pull door.
+<figcaption><strong>Figure 1.1.</strong> IHMC’s fully electric Alex humanoid robot traversing a right pull door.
 Alex is the primary platform in the final dissertation evaluations.
 A video is available at <a href="https://youtu.be/fP-9DfGFvW8" class="uri">https://youtu.be/fP-9DfGFvW8</a>.</figcaption>
 </figure>
@@ -253,10 +259,10 @@ There are three main phases of door traversal: the approach, the opening, and th
 For the approach, footsteps must be precise to provide arm reachability while avoiding collisions between the door and the robot.
 Since the doors often have spring closers, a complex manipulation sequence is required to open the door all the way without failure.
 Finally, the traversal walk is difficult because the robot must maintain balance while avoiding collisions with the door frame and resisting lateral impacts from the spring loaded door panel.
-<a href="#fig:2024NadiaRightPullLeverHandleCycloid">Figure 2</a> shows a circa-2024 door behavior being executed on the Boardwalk Robotics and IHMC Nadia humanoid robot.</p>
+<a href="#fig:2024NadiaRightPullLeverHandleCycloid">Figure 1.2</a> shows a circa-2024 door behavior being executed on the Boardwalk Robotics and IHMC Nadia humanoid robot.</p>
 <figure id="fig:2024NadiaRightPullLeverHandleCycloid">
 <img src="media/nadia/2024NadiaRightPullLeverHandleCycloid.jpg" />
-<figcaption><strong>Figure 2.</strong> The Nadia humanoid robot performing a right pull lever handle door traversal using cycloidal drive forearms and Sake grippers.</figcaption>
+<figcaption><strong>Figure 1.2.</strong> The Nadia humanoid robot performing a right pull lever handle door traversal using cycloidal drive forearms and Sake grippers.</figcaption>
 </figure>
 <p>There are many publications on door opening with wheeled base robots and arms, such as <a href="references.html#ref-Jain2008dooropening" class="citation-ref">[41]</a>, <a href="references.html#ref-2010ChittaDoorOpening" class="citation-ref">[48]</a>, <a href="references.html#ref-xiong2024adaptive" class="citation-ref">[40]</a>, and <a href="references.html#ref-kang2024door" class="citation-ref">[50]</a>.
 By contrast, there is relatively little published work on door traversal with bipedal humanoid robots <a href="references.html#ref-xue2025opening" class="citation-ref">[75]</a>.
@@ -265,10 +271,10 @@ The humanoid form is also especially well suited for navigating complex spaces t
 <p>Although doors are the primary benchmark, the architecture is intended for loco-manipulation more broadly.
 The behavior library developed during this work spans more than twenty real robot task variants.
 In one demonstration, the robot walks between two tables and sorts colored balls into the correct containers.
-<a href="#fig:behavior_library_taxonomy">Figure 3</a> groups the distinct behavior types by category.</p>
+<a href="#fig:behavior_library_taxonomy">Figure 1.3</a> groups the distinct behavior types by category.</p>
 <figure id="fig:behavior_library_taxonomy">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/BehaviorLibraryTaxonomyTikz.light.jpg" /><img class="tikz-dark" src="media/generated/BehaviorLibraryTaxonomyTikz.dark.jpg" /></span>
-<figcaption><strong>Figure 3.</strong> Distinct real-robot behavior types developed during this work, grouped by category.</figcaption>
+<figcaption><strong>Figure 1.3.</strong> Distinct real-robot behavior types developed during this work, grouped by category.</figcaption>
 </figure>
 <h1 id="contributed-works"><a class="header" href="#contributed-works">Contributed Works</a></h1>
 <p>We contributed to the following publications while working on this thesis.
@@ -386,6 +392,7 @@ The second paper in this list earned a Bronze Medal in Benjie Holson’s Humanoi
         <!-- Custom JS scripts -->
         <script src="citation-data-d2a0410c.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
+        <script src="theme-persist-5a94a5be.js"></script>
 
 
 

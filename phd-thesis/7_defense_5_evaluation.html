@@ -1,6 +1,11 @@
 <!DOCTYPE HTML>
 <html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
+<script id="mdbook-theme-early-boot">
+(function(){var p=new URLSearchParams(location.search).get("theme"),c=["light","rust","coal","navy","ayu"];
+if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.remove("light","rust","coal","navy","ayu");h.classList.add(p);}})();
+</script>
+
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Evaluation - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
@@ -39,10 +44,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-6a3415fa.js";
+            window.path_to_searchindex_js = "searchindex-926a1a84.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-3c6d0428.js"></script>
+        <script src="toc-13565dbe.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -193,30 +198,30 @@ First, let’s state them again:</p>
 </li>
 </ol>
 <p>We can say that our first hypothesis holds.
-We showed that our system with robot-local execution, synchronized UI state, concurrent action layering, reactive tree logic, and behavior-time semantic perception is sufficient to yield door behaviors that are faster than a prior IHMC baseline in <a href="7_defense_1_hypothesis_1_fast_loco_manipulation_behaviors.html#fig:in_house_speed_phase_timeline">Figure 143</a>.
+We showed that our system with robot-local execution, synchronized UI state, concurrent action layering, reactive tree logic, and behavior-time semantic perception is sufficient to yield door behaviors that are faster than a prior IHMC baseline in <a href="7_defense_1_hypothesis_1_fast_loco_manipulation_behaviors.html#fig:in_house_speed_phase_timeline">Figure 7.1</a>.
 The 2021 Atlas door behavior took 3.9x longer to execute than our 2024 Nadia pull door behavior.
-We also showed that it was competitive in speed with reinforcement learning policies in <a href="7_defense_4_comparative_analysis.html#fig:hero_speed_comparison">Figure 171</a>.
+We also showed that it was competitive in speed with reinforcement learning policies in <a href="7_defense_4_comparative_analysis.html#fig:hero_speed_comparison">Figure 7.29</a>.
 Our door behaviors are in the same tens of seconds regime as Zhang et al.  <a href="references.html#ref-zhang2024learningopentraversedoors" class="citation-ref">[49]</a> and DoorMan  <a href="references.html#ref-xue2025opening" class="citation-ref">[75]</a>.</p>
-<p>For reliability, unfortunately, there is a lack of data for prior IHMC baselines, but in <a href="7_defense_1_hypothesis_1_fast_loco_manipulation_behaviors.html#fig:in_house_reliability_resilience_summary">Figure 156</a>, we show that our loco-manipulation behaviors, namely, door approach and opening, were able to be repeated 11 and 12 times without failure.
+<p>For reliability, unfortunately, there is a lack of data for prior IHMC baselines, but in <a href="7_defense_1_hypothesis_1_fast_loco_manipulation_behaviors.html#fig:in_house_reliability_resilience_summary">Figure 7.14</a>, we show that our loco-manipulation behaviors, namely, door approach and opening, were able to be repeated 11 and 12 times without failure.
 Likewise, evidence for door behavior reliability on learned systems is limited.
 Zhang et al.  <a href="references.html#ref-zhang2024learningopentraversedoors" class="citation-ref">[49]</a> show the most convincing reliability with their 20/20 and 18/20 trial sets for full door traversals.
 DoorMan  <a href="references.html#ref-xue2025opening" class="citation-ref">[75]</a> claims “83%” reliability, but does not share the data from which that number is calculated.
-We can say that the reliability of our system is competitive with learned door systems, especially when the resilience capabilities are factored in, which are also presented in <a href="7_defense_1_hypothesis_1_fast_loco_manipulation_behaviors.html#fig:in_house_reliability_resilience_summary">Figure 156</a>.</p>
+We can say that the reliability of our system is competitive with learned door systems, especially when the resilience capabilities are factored in, which are also presented in <a href="7_defense_1_hypothesis_1_fast_loco_manipulation_behaviors.html#fig:in_house_reliability_resilience_summary">Figure 7.14</a>.</p>
 <p>We can also say that our second and third hypotheses hold.
-Runtime-editable behaviors and perception have reduced our behavior authoring times to the hours regime as shown in <a href="7_defense_2_hypothesis_2_fast_behavior_authoring.html#fig:in_house_authoring_from_scratch_timeline">Figure 162</a>.
+Runtime-editable behaviors and perception have reduced our behavior authoring times to the hours regime as shown in <a href="7_defense_2_hypothesis_2_fast_behavior_authoring.html#fig:in_house_authoring_from_scratch_timeline">Figure 7.20</a>.
 Creating new behaviors from scratch has been shown to require failure diagnostics, logic modification, and re-testing on the robot, which we have shown in our authoring videos and tables and described.
-While we don’t have direct comparisons with prior IHMC baselines, <a href="#fig:ihmc_behavior_development_timeline">Figure 174</a> suggests a drastic reduction in the iteration loop required to create new behaviors.
+While we don’t have direct comparisons with prior IHMC baselines, <a href="#fig:ihmc_behavior_development_timeline">Figure 7.32</a> suggests a drastic reduction in the iteration loop required to create new behaviors.
 This figure spans a decade of IHMC real-robot behavior milestones from the 2015 DRC Finals through the Alex loco-manipulation demos in 2026.
 What we see is a drastic increase in the rate of new behavior demonstrations over time given the same or less resources allocated to creating them.</p>
 <p>The literature does not provide data on the creation or modification timelines of loco-manipulation behaviors.
 Standing alone in measuring this is one of the most novel aspects of our work.
-However, given knowledge of DoorMan  <a href="references.html#ref-xue2025opening" class="citation-ref">[75]</a>’s architecture, we can estimate that our behavior authoring process is 50 to 100 times faster, as illustrated in <a href="7_defense_4_comparative_analysis.html#fig:hero_authoring_process_comparison">Figure 173</a>.
+However, given knowledge of DoorMan  <a href="references.html#ref-xue2025opening" class="citation-ref">[75]</a>’s architecture, we can estimate that our behavior authoring process is 50 to 100 times faster, as illustrated in <a href="7_defense_4_comparative_analysis.html#fig:hero_authoring_process_comparison">Figure 7.31</a>.
 We credit this speed to our architectural decisions where we decompose behaviors into reusable primitives, subtrees, and scene actions.
 This allows us to edit a small part of a working behavior rather than rebuilding the whole thing from scratch.
 The ability to perform these edits and re-test the behavior at runtime speeds up the process even further.</p>
 <figure id="fig:ihmc_behavior_development_timeline">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/IhmcBehaviorDevelopmentTimeline.light.jpg" /><img class="tikz-dark" src="media/generated/IhmcBehaviorDevelopmentTimeline.dark.jpg" /></span>
-<figcaption><strong>Figure 174.</strong> 
+<figcaption><strong>Figure 7.32.</strong> 
 Calendar timeline of IHMC real robot behavior milestones since the 2015 DRC Finals.
 Colors distinguish teleoperation, hybrid or supervised operation, legacy hard-coded autonomy, and runtime-authored door, manipulation, and loco-manipulation behaviors.
 Entries include teleoperated and non-loco-manipulation demos from the development story in [Building our Behavior Architecture](4_story_of_building_and_architecture.md#ch:building).
@@ -227,7 +232,7 @@ Entries include teleoperated and non-loco-manipulation demos from the developmen
 We think we did pretty well.</p>
 <p>Our system is highly capable.
 We demonstrated dozens of different task varieties, from door traversal types and sorting objects on tables to building exploration.
-A taxonomy is illustrated in <a href="1_introduction2.html#fig:behavior_library_taxonomy">Figure 3</a>.</p>
+A taxonomy is illustrated in <a href="1_introduction2.html#fig:behavior_library_taxonomy">Figure 1.3</a>.</p>
 <p>Demonstrating our system was certainly feasible, as is shown by our results on real hardware.
 However, we did not show that it was feasible to take our system off-site and reproduce the results.</p>
 <p>Our system definitely supports fast behaviors.
@@ -318,6 +323,7 @@ This train of extension is still in active motion.</p>
         <!-- Custom JS scripts -->
         <script src="citation-data-d2a0410c.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
+        <script src="theme-persist-5a94a5be.js"></script>
 
 
 

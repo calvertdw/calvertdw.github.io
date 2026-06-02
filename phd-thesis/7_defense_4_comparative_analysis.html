@@ -1,6 +1,11 @@
 <!DOCTYPE HTML>
 <html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
+<script id="mdbook-theme-early-boot">
+(function(){var p=new URLSearchParams(location.search).get("theme"),c=["light","rust","coal","navy","ayu"];
+if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.remove("light","rust","coal","navy","ayu");h.classList.add(p);}})();
+</script>
+
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Comparative Analysis - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
@@ -39,10 +44,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-6a3415fa.js";
+            window.path_to_searchindex_js = "searchindex-926a1a84.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-3c6d0428.js"></script>
+        <script src="toc-13565dbe.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -182,7 +187,7 @@
 <p>In this section, we’ll compare our work with others in the literature across speed, capability, reliability, resilience, and the speed of creating and adapting behaviors.
 We present our work against a handful of classical, model-based references and two learned references.</p>
 <h2 id="speed-and-capability"><a class="header" href="#speed-and-capability">Speed and Capability</a></h2>
-<p><a href="#fig:hero_speed_comparison">Figure 171</a> presents a comparison of the durations of robot door traversals across this thesis and the literature.
+<p><a href="#fig:hero_speed_comparison">Figure 7.29</a> presents a comparison of the durations of robot door traversals across this thesis and the literature.
 This represents every timed door traversal in the literature that we are aware of for both wheeled and legged robots.
 Our door traversals are dramatically faster than the classical model-based results, all of which take more than one minute to traverse a door.
 However, recent learned systems are quite fast.
@@ -200,10 +205,10 @@ Xue et al. (DoorMan) used an off-board computer to run their vision based neura
 This is in contrast to our system which uses only two color cameras on the robot for vision and all autonomous functionality is computed on board.</p>
 <figure id="fig:hero_speed_comparison">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/HeroSpeedComparison.light.jpg" /><img class="tikz-dark" src="media/generated/HeroSpeedComparison.dark.jpg" /></span>
-<figcaption><strong>Figure 171.</strong> Literature comparison of real-robot door task duration on a log-second axis.</figcaption>
+<figcaption><strong>Figure 7.29.</strong> Literature comparison of real-robot door task duration on a log-second axis.</figcaption>
 </figure>
 <h2 id="reliability-and-resilience"><a class="header" href="#reliability-and-resilience">Reliability and Resilience</a></h2>
-<p><a href="#fig:hero_reliability_comparison">Figure 172</a> presents a comparison of our results against all door traversal reliability measurements that appear in the literature that we are aware of.
+<p><a href="#fig:hero_reliability_comparison">Figure 7.30</a> presents a comparison of our results against all door traversal reliability measurements that appear in the literature that we are aware of.
 Our premiere reliability tests were not full traversals, but were loco-manipulation behaviors.
 We did not measure repeated full door traversals because our walk through component was not reliable in the time we had to test it.
 Testing it could have damaged the robot beyond repair, preventing some of our more important results.
@@ -218,14 +223,14 @@ It is for that reason that we put “?/?” in the diagram and leave out that pe
 We do not feel like it is a reliable comparison to our thesis and the literature.</p>
 <figure id="fig:hero_reliability_comparison">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/HeroReliabilityComparison.light.jpg" /><img class="tikz-dark" src="media/generated/HeroReliabilityComparison.dark.jpg" /></span>
-<figcaption><strong>Figure 172.</strong> Literature comparison of real-robot door-task success rate.</figcaption>
+<figcaption><strong>Figure 7.30.</strong> Literature comparison of real-robot door-task success rate.</figcaption>
 </figure>
 <h2 id="creation-and-adaptability"><a class="header" href="#creation-and-adaptability">Creation and Adaptability</a></h2>
 <p>This thesis is essentially unique in its focus on reporting behavior authoring duration.
 We focus on both the effort required to create new behaviors from scratch and modify existing ones, adapting them to new tasks.
 We didn’t find any documented results in the literature on the authoring durations of loco-manipulation behaviors on robots.</p>
 <p>For this section, we’ll simply compare against an estimate of what we consider to be our most relevant competition: DoorMan  <a href="references.html#ref-xue2025opening" class="citation-ref">[75]</a>.
-In <a href="#fig:hero_authoring_process_comparison">Figure 173</a> we give a step by step process of creating a door behavior from scratch and adapting an existing door behavior to a different door type.
+In <a href="#fig:hero_authoring_process_comparison">Figure 7.31</a> we give a step by step process of creating a door behavior from scratch and adapting an existing door behavior to a different door type.
 We use an actual measurement for our push door creation from scratch: 6 steps in 2 hours.
 For DoorMan, we use the steps presented in the paper and estimate the durations.</p>
 <p>Two main things stand out when doing this comparison.
@@ -236,7 +241,7 @@ For example, the difference between a pull door and a sliding door might just be
 However, DoorMan’s architecture requires a simulation refit, PPO policy tuneup, and an overnight retraining.</p>
 <figure id="fig:hero_authoring_process_comparison">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/HeroAuthoringProcessComparison.light.jpg" /><img class="tikz-dark" src="media/generated/HeroAuthoringProcessComparison.dark.jpg" /></span>
-<figcaption><strong>Figure 173.</strong> This thesis versus DoorMan in from-scratch behavior creation (A) and a hypothetical behavior adaptation of an existing pull door traversal behavior to a sliding door behavior.</figcaption>
+<figcaption><strong>Figure 7.31.</strong> This thesis versus DoorMan in from-scratch behavior creation (A) and a hypothetical behavior adaptation of an existing pull door traversal behavior to a sliding door behavior.</figcaption>
 </figure>
 <!-- PAGE-REFERENCES-START -->
 <p><strong>References cited on this page</strong></p>
@@ -297,6 +302,7 @@ However, DoorMan’s architecture requires a simulation refit, PPO policy tuneup
         <!-- Custom JS scripts -->
         <script src="citation-data-d2a0410c.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
+        <script src="theme-persist-5a94a5be.js"></script>
 
 
 

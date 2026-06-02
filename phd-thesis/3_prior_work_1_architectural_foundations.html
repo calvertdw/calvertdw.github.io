@@ -1,6 +1,11 @@
 <!DOCTYPE HTML>
 <html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
+<script id="mdbook-theme-early-boot">
+(function(){var p=new URLSearchParams(location.search).get("theme"),c=["light","rust","coal","navy","ayu"];
+if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.remove("light","rust","coal","navy","ayu");h.classList.add(p);}})();
+</script>
+
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Architectural Foundations - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
@@ -39,10 +44,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-6a3415fa.js";
+            window.path_to_searchindex_js = "searchindex-926a1a84.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-3c6d0428.js"></script>
+        <script src="toc-13565dbe.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -196,14 +201,14 @@ An affordance template is a robotics construct providing a theoretical foundatio
 This makes it one of the most consequential design inspirations for our work.</p>
 <figure id="fig:affordance_template_reference">
 <img src="media/affordance_templates/ValveTemplate.png" />
-<figcaption><strong>Figure 5.</strong> “Placing a wheel-turning template in RViz.”, taken from  <a href="references.html#ref-Hart_2014" class="citation-ref">[19]</a>.
+<figcaption><strong>Figure 3.2.</strong> “Placing a wheel-turning template in RViz.”, taken from  <a href="references.html#ref-Hart_2014" class="citation-ref">[19]</a>.
 (a) shows NASA Valkyrie turning a valve using an affordance template in the DARPA Robotics Challenge Trials.
 (b) shows the perceptual 3D point cloud scan, colored by depth.
 (c) shows a virtual affordance template before it is aligned to the object.
 (d) shows the affordance template after it has been aligned to the object by a human operator.
 </figcaption>
 </figure>
-<p>In 2022, Hart et al.  <a href="references.html#ref-Hart_2022" class="citation-ref">[24]</a> generalized and further demonstrated the power of this approach, as shown in <a href="#fig:affordance_template_2">Figure 6</a>.
+<p>In 2022, Hart et al.  <a href="references.html#ref-Hart_2022" class="citation-ref">[24]</a> generalized and further demonstrated the power of this approach, as shown in <a href="#fig:affordance_template_2">Figure 3.3</a>.
 Tools for footstep planning, motion planning, stance generation, and grasping were incorporated to enable increased autonomous functionality.
 This was demonstrated on NASA Valkyrie for integrated task execution, including car-door interaction and explosive-device handling  <a href="references.html#ref-2019_Jorgensen_valEOD" class="citation-ref">[51]</a>.
 In this work, the operator could load, edit, and execute templates at runtime.</p>
@@ -211,7 +216,7 @@ In this work, the operator could load, edit, and execute templates at runtime.</
 The screw primitive in particular shows how a reusable low-level action can capture a class of constrained manipulation motions without hard coding them.</p>
 <figure id="fig:affordance_template_2">
 <img src="media/affordance_templates/AT2022.png" />
-<figcaption><strong>Figure 6.</strong> “NASA Valkyrie using an AT to remove a bag from a table”, taken from  <a href="references.html#ref-Hart_2022" class="citation-ref">[24]</a>.
+<figcaption><strong>Figure 3.3.</strong> “NASA Valkyrie using an AT to remove a bag from a table”, taken from  <a href="references.html#ref-Hart_2022" class="citation-ref">[24]</a>.
 (a) shows the alignment of an affordance for picking up a bag to the point cloud.
 Tools are then invoked for footstep planning, stance generation, and manipulation and visualized as shown.
 (b) shows the robot’s state at the conclusion of the bag pickup task.
@@ -232,29 +237,29 @@ A node is executed if and only if it receives ticks.
 If an action is underway, it returns running to the parent.
 When it is done it returns success or failure.</p>
 <p>A sequence node is the most fundamental Behavior Tree control node.
-It runs each node in order while they are successful, as shown in <a href="#fig:behavior_tree_sequence">Figure 7</a> and <a href="#alg:sequence_node">Algorithm 1</a>.</p>
+It runs each node in order while they are successful, as shown in <a href="#fig:behavior_tree_sequence">Figure 3.4</a> and <a href="#alg:sequence_node">Algorithm 1</a>.</p>
 <figure id="fig:behavior_tree_sequence">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/BehaviorTreeSequenceTikz.light.jpg" /><img class="tikz-dark" src="media/generated/BehaviorTreeSequenceTikz.dark.jpg" /></span>
-<figcaption><strong>Figure 7.</strong> A sequence node with N children.</figcaption>
+<figcaption><strong>Figure 3.4.</strong> A sequence node with N children.</figcaption>
 </figure>
 <figure id="alg:sequence_node">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/alg_sequence_node.light.jpg" /><img class="tikz-dark" src="media/generated/alg_sequence_node.dark.jpg" /></span>
 <figcaption><strong>Algorithm 1.</strong> Pseudocode of a Sequence node with <span class="math inline"><em>N</em></span> children</figcaption>
 </figure>
 <p>A fallback node runs each node in order while they are failing.
-This is shown in <a href="#fig:behavior_tree_fallback">Figure 8</a> and <a href="#alg:fallback_node">Algorithm 2</a>.</p>
+This is shown in <a href="#fig:behavior_tree_fallback">Figure 3.5</a> and <a href="#alg:fallback_node">Algorithm 2</a>.</p>
 <figure id="fig:behavior_tree_fallback">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/BehaviorTreeFallbackTikz.light.jpg" /><img class="tikz-dark" src="media/generated/BehaviorTreeFallbackTikz.dark.jpg" /></span>
-<figcaption><strong>Figure 8.</strong> A fallback node with N children.</figcaption>
+<figcaption><strong>Figure 3.5.</strong> A fallback node with N children.</figcaption>
 </figure>
 <figure id="alg:fallback_node">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/alg_fallback_node.light.jpg" /><img class="tikz-dark" src="media/generated/alg_fallback_node.dark.jpg" /></span>
 <figcaption><strong>Algorithm 2.</strong> Pseudocode of a Fallback node with <span class="math inline"><em>N</em></span> children</figcaption>
 </figure>
-<p>The remaining types of nodes are summarized in <a href="#fig:behavior_tree_nodes">Figure 9</a>.</p>
+<p>The remaining types of nodes are summarized in <a href="#fig:behavior_tree_nodes">Figure 3.6</a>.</p>
 <figure id="fig:behavior_tree_nodes">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/BehaviorTreeNodeTable.light.jpg" /><img class="tikz-dark" src="media/generated/BehaviorTreeNodeTable.dark.jpg" /></span>
-<figcaption><strong>Figure 9.</strong> The different types of Behavior Tree nodes.</figcaption>
+<figcaption><strong>Figure 3.6.</strong> The different types of Behavior Tree nodes.</figcaption>
 </figure>
 <h2 id="coactive-design"><a class="header" href="#coactive-design">Coactive Design</a></h2>
 <p>The Coactive Design method  <a href="references.html#ref-Johnson_2014" class="citation-ref">[30]</a> is an iterative process comprised of three main processes: an identification process, a selection and implementation process, and an evaluation of change process.
@@ -334,6 +339,7 @@ Coactive Design directly motivates the authoring and supervision interfaces in <
         <!-- Custom JS scripts -->
         <script src="citation-data-d2a0410c.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
+        <script src="theme-persist-5a94a5be.js"></script>
 
 
 

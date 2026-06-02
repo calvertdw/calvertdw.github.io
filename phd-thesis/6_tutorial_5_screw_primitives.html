@@ -1,6 +1,11 @@
 <!DOCTYPE HTML>
 <html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
+<script id="mdbook-theme-early-boot">
+(function(){var p=new URLSearchParams(location.search).get("theme"),c=["light","rust","coal","navy","ayu"];
+if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.remove("light","rust","coal","navy","ayu");h.classList.add(p);}})();
+</script>
+
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Screw Primitives - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
@@ -39,10 +44,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-6a3415fa.js";
+            window.path_to_searchindex_js = "searchindex-926a1a84.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-3c6d0428.js"></script>
+        <script src="toc-13565dbe.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -182,14 +187,14 @@
 <h2 id="motion-model"><a class="header" href="#motion-model">Motion Model</a></h2>
 <figure id="fig:guide_sim_screw_primitive">
 <img src="media/guide/20260519_161800_ScrewPrimitive.jpg" />
-<figcaption><strong>Figure 117.</strong> Tuning a screw primitive action.
+<figcaption><strong>Figure 6.18.</strong> Tuning a screw primitive action.
 A video of this demonstration is available at <a href="https://youtu.be/NkX0Jo9TlYs" class="uri">https://youtu.be/NkX0Jo9TlYs</a>.</figcaption>
 </figure>
-<p><a href="#fig:guide_sim_screw_primitive">Figure 117</a> shows a screw primitive action being authored.
+<p><a href="#fig:guide_sim_screw_primitive">Figure 6.18</a> shows a screw primitive action being authored.
 Our screw primitive action is inspired by Pettinger’s 2022 paper  <a href="references.html#ref-Pettinger_2022" class="citation-ref">[14]</a> but differs in implementation.</p>
 <p>Our screw primitive action is defined relative to a user-defined screw reference frame, where the axis of the screw is strictly aligned with the local x-axis (<script type="math/tex">\hat{\mathbf{x}}</script>).
 The motion is parameterized by a total axial translation <script type="math/tex">\Delta x</script> and a total rotation <script type="math/tex">\Delta \theta</script>.
-<a href="#fig:guide_sim_screw_primitive">Figure 117</a> illustrates one parameterization for reference and the reference video shows varied parameterizations.</p>
+<a href="#fig:guide_sim_screw_primitive">Figure 6.18</a> illustrates one parameterization for reference and the reference video shows varied parameterizations.</p>
 <p>Let the initial position of the end-effector in the screw frame be <script type="math/tex">\mathbf{p}_0 = [x_0, y_0, z_0]^T</script>.
 The radial distance <script type="math/tex">r</script> from the screw axis to the end-effector is calculated by projecting the position onto the y-z plane:</p>
 <script type="math/tex; mode=display">
@@ -245,7 +250,7 @@ The scalar velocities are derived from the base duration:</p>
 </script>
 <p>This sequence of generated poses and spatial velocities is finally fed into an inverse kinematics solver to compute the joint-space trajectories.</p>
 <h2 id="tuning-and-preview"><a class="header" href="#tuning-and-preview">Tuning and Preview</a></h2>
-<p>As seen in <a href="#fig:guide_sim_screw_primitive">Figure 117</a>, the total axial translation, total rotation, max linear velocity, and max angular velocity can be specified using sliders.
+<p>As seen in <a href="#fig:guide_sim_screw_primitive">Figure 6.18</a>, the total axial translation, total rotation, max linear velocity, and max angular velocity can be specified using sliders.
 The 3D trajectory visualization is updated in real time as the user drags these sliders to help dial in the motion.
 As with the single pose trajectory arm action, the screw primitive has settings for the position and orientation tolerance.
 If the final goal pose is not reached within these tolerances, the action fails.</p>
@@ -311,6 +316,7 @@ The behavior author should strive to keep it blue throughout the motion.</p>
         <!-- Custom JS scripts -->
         <script src="citation-data-d2a0410c.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
+        <script src="theme-persist-5a94a5be.js"></script>
 
 
 

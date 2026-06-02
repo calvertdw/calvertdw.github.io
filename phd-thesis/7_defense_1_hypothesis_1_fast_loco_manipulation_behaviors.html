@@ -1,6 +1,11 @@
 <!DOCTYPE HTML>
 <html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
+<script id="mdbook-theme-early-boot">
+(function(){var p=new URLSearchParams(location.search).get("theme"),c=["light","rust","coal","navy","ayu"];
+if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.remove("light","rust","coal","navy","ayu");h.classList.add(p);}})();
+</script>
+
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Hypothesis 1: Fast Loco-Manipulation Behaviors - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
@@ -39,10 +44,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-6a3415fa.js";
+            window.path_to_searchindex_js = "searchindex-926a1a84.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-3c6d0428.js"></script>
+        <script src="toc-13565dbe.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -182,7 +187,7 @@
 <p>To support our first hypothesis, we’ll present the demonstrations that highlight the system’s capabilities and breadth while also executing with high speed relative to prior and comparative works.
 This section also includes demonstrations of repeated-run reliability and resilience to external disturbances when trying to traverse doors and pick and place objects.</p>
 <h2 id="speed-and-capability-evidence"><a class="header" href="#speed-and-capability-evidence">Speed and Capability Evidence</a></h2>
-<p>In <a href="#fig:in_house_speed_phase_timeline">Figure 143</a>, we present a representative sample of our loco-manipulation behaviors.
+<p>In <a href="#fig:in_house_speed_phase_timeline">Figure 7.1</a>, we present a representative sample of our loco-manipulation behaviors.
 This figure shows that our door behaviors were very slow on Atlas, over a minute, when we had hard-coded behaviors.
 Door behaviors were drastically sped up on Nadia with runtime-editable structure and concurrent action layering.
 Later on Alex, we demonstrate new manipulation tasks and locomotion transitions in the same speed regime of seconds to minutes.</p>
@@ -192,17 +197,17 @@ Triangle and square markers indicate object grasps and placements.
 The dashed vertical line marks the fastest IHMC door traversal on record (14 s, Nadia 2024 left push-bar).</p>
 <figure id="fig:in_house_speed_phase_timeline">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/InHouseSpeedPhaseTimeline.light.jpg" /><img class="tikz-dark" src="media/generated/InHouseSpeedPhaseTimeline.dark.jpg" /></span>
-<figcaption><strong>Figure 143.</strong> 
+<figcaption><strong>Figure 7.1.</strong> 
 In-house real robot task durations on a log-second axis with internal phase structure.
 </figcaption>
 </figure>
 <h3 id="look-and-step-rough-terrain"><a class="header" href="#look-and-step-rough-terrain">Look-and-Step Rough Terrain</a></h3>
 <p>An early speed result was in our perceptive locomotion work <a href="references.html#ref-lookandstep" class="citation-ref">[64]</a>.
-<a href="#fig:look_and_step_nadia_continuity">Figure 144</a> illustrates a 14-step key result, taking 14 autonomous steps in 37 seconds.
-The speed of this behavior compared to prior work in the literature and an estimated human baseline is presented in <a href="#tab:rough_terrain_speed_comparison_ch4">Table 5</a>.</p>
+<a href="#fig:look_and_step_nadia_continuity">Figure 7.2</a> illustrates a 14-step key result, taking 14 autonomous steps in 37 seconds.
+The speed of this behavior compared to prior work in the literature and an estimated human baseline is presented in <a href="#tab:rough_terrain_speed_comparison_ch4">Table 7.1</a>.</p>
 <figure id="fig:look_and_step_nadia_continuity">
 <img src="media/nadia/20221117_14AutonomousLookAndStepsNadia.jpg" />
-<figcaption><strong>Figure 144.</strong> The Nadia humanoid performing a rough-terrain traversal with the <em>look-and-step</em> behavior. The composite view shows the real robot on the terrain, the 3D footstep plan, the extracted planar regions, and the first-person planar-region segmentation view used during execution.
+<figcaption><strong>Figure 7.2.</strong> The Nadia humanoid performing a rough-terrain traversal with the <em>look-and-step</em> behavior. The composite view shows the real robot on the terrain, the 3D footstep plan, the extracted planar regions, and the first-person planar-region segmentation view used during execution.
 A video is available at <a href="https://youtu.be/nBMn1lJ57TU" class="uri">https://youtu.be/nBMn1lJ57TU</a>.
 </figcaption>
 </figure>
@@ -219,25 +224,25 @@ A video is available at <a href="https://youtu.be/nBMn1lJ57TU" class="uri">https
 </tbody>
 </table>
 </div>
-<p><strong>Table 5.</strong> Rough-terrain speed comparison used in the first speed pillar claim.</p>
+<p><strong>Table 7.1.</strong> Rough-terrain speed comparison used in the first speed pillar claim.</p>
 </div>
 
 <p><span id="tab:rough_terrain_speed_comparison_ch4" label="tab:rough_terrain_speed_comparison_ch4"></span></p>
 <h3 id="atlas-hard-coded-pull-door-traversal"><a class="header" href="#atlas-hard-coded-pull-door-traversal">Atlas Hard-Coded Pull-Door Traversal</a></h3>
-<p>Our earliest in-house door-speed anchor is the hard-coded IHMC Atlas pull-door traversal from the June 2021 building exploration era, shown in <a href="#fig:2021_building_exploration_demo_defense">Figure 145</a>.
+<p>Our earliest in-house door-speed anchor is the hard-coded IHMC Atlas pull-door traversal from the June 2021 building exploration era, shown in <a href="#fig:2021_building_exploration_demo_defense">Figure 7.3</a>.
 That step-by-step behavior took 106 s from approach start to full traversal completion, with long pauses, fiducial dependence, and no robot-local authored recovery.</p>
 <figure id="fig:2021_building_exploration_demo_defense">
 <img src="media/atlas/20210623_BuildingExplorationDemo.jpg" />
-<figcaption><strong>Figure 145.</strong> The June 23, 2021 building exploration demo on IHMC Atlas, including the hard-coded automatic pull-door behavior used as the 106 s speed anchor in [Figure 143](#fig:in_house_speed_phase_timeline).
+<figcaption><strong>Figure 7.3.</strong> The June 23, 2021 building exploration demo on IHMC Atlas, including the hard-coded automatic pull-door behavior used as the 106 s speed anchor in [Figure 7.1](#fig:in_house_speed_phase_timeline).
 A video is available at <a href="https://youtu.be/CFiFaO-ENPw" class="uri">https://youtu.be/CFiFaO-ENPw</a>.</figcaption>
 </figure>
 <h3 id="supervised-can-pick-and-place"><a class="header" href="#supervised-can-pick-and-place">Supervised Can Pick-and-Place</a></h3>
-<p>On June 20, 2023, we executed a supervised can-of-soup pick-and-place behavior on Nadia in 1 minute and 46 seconds, shown in <a href="#fig:nadia_pick_soup_defense">Figure 146</a>.
+<p>On June 20, 2023, we executed a supervised can-of-soup pick-and-place behavior on Nadia in 1 minute and 46 seconds, shown in <a href="#fig:nadia_pick_soup_defense">Figure 7.4</a>.
 The run was operator-supervised, used an ArUco marker rather than direct can detection, and required manual gripper retries between actions.
-Timestamps are presented in <a href="#tab:pick_and_place_execution_2023">Table 6</a>.</p>
+Timestamps are presented in <a href="#tab:pick_and_place_execution_2023">Table 7.2</a>.</p>
 <figure id="fig:nadia_pick_soup_defense">
 <img src="media/nadia/2023-06-20 12-13-45_PickAndPlaceCan-00.01.29.023.jpg" />
-<figcaption><strong>Figure 146.</strong> Nadia executing the supervised can-of-soup pick-and-place behavior on June 20, 2023.
+<figcaption><strong>Figure 7.4.</strong> Nadia executing the supervised can-of-soup pick-and-place behavior on June 20, 2023.
 Videos are available at <a href="https://youtu.be/V8jMvhVdP8k" class="uri">https://youtu.be/V8jMvhVdP8k</a> and <a href="https://youtu.be/ZBj8zs1wzik" class="uri">https://youtu.be/ZBj8zs1wzik</a>.</figcaption>
 </figure>
 <div id="tab:pick_and_place_execution_2023">
@@ -260,17 +265,17 @@ Videos are available at <a href="https://youtu.be/V8jMvhVdP8k" class="uri">https
 </tbody>
 </table>
 </div>
-<p><strong>Table 6.</strong> Step-by-step supervised execution of picking and placing can of soup.</p>
+<p><strong>Table 7.2.</strong> Step-by-step supervised execution of picking and placing can of soup.</p>
 </div>
 
 <p><span id="tab:pick_and_place_execution_2023" label="tab:pick_and_place_execution_2023"></span></p>
 <h3 id="14-s-nadia-left-push-bar-traversal"><a class="header" href="#14-s-nadia-left-push-bar-traversal">14 s Nadia Left Push-Bar Traversal</a></h3>
-<p>Our fastest door traversal ever was on March 15, 2024, and is presented in <a href="#fig:20240315_NadiaLeftPushBarWithCloserContinuousWalking">Figure 147</a>.
+<p>Our fastest door traversal ever was on March 15, 2024, and is presented in <a href="#fig:20240315_NadiaLeftPushBarWithCloserContinuousWalking">Figure 7.5</a>.
 The robot walked continuously during this run, using concurrent arm actions to open the push bar door during the traversal.
-Timestamps are presented in <a href="#tab:nadia_left_push_bar_event_timeline">Table 7</a>.</p>
+Timestamps are presented in <a href="#tab:nadia_left_push_bar_event_timeline">Table 7.3</a>.</p>
 <figure id="fig:20240315_NadiaLeftPushBarWithCloserContinuousWalking">
 <img src="media/nadia/20240315_NadiaLeftPushBarWithCloserContinuousWalking.jpg" style="height:32.0%" />
-<figcaption><strong>Figure 147.</strong> March 15, 2024 Nadia left push-bar traversal on a door with a closer.
+<figcaption><strong>Figure 7.5.</strong> March 15, 2024 Nadia left push-bar traversal on a door with a closer.
 This continuous-walking run executed in 14 s, our fastest door traversal on record.
 A video is available at <a href="https://youtu.be/DrR2Ng3ft5Y" class="uri">https://youtu.be/DrR2Ng3ft5Y</a>.</figcaption>
 </figure>
@@ -288,17 +293,17 @@ A video is available at <a href="https://youtu.be/DrR2Ng3ft5Y" class="uri">https
 </tbody>
 </table>
 </div>
-<p><strong>Table 7.</strong> Event times for the March 15, 2024 Nadia left push-bar traversal shown in <a href="#fig:20240315_NadiaLeftPushBarWithCloserContinuousWalking">Figure 147</a>.</p>
+<p><strong>Table 7.3.</strong> Event times for the March 15, 2024 Nadia left push-bar traversal shown in <a href="#fig:20240315_NadiaLeftPushBarWithCloserContinuousWalking">Figure 7.5</a>.</p>
 </div>
 
 <p><span id="tab:nadia_left_push_bar_event_timeline" label="tab:nadia_left_push_bar_event_timeline"></span></p>
 <h3 id="three-doors-in-a-row"><a class="header" href="#three-doors-in-a-row">Three Doors in a Row</a></h3>
-<p>On July 3, 2024, we attempted to traverse three lab doors consecutively in one continuous run, shown in <a href="#fig:2024_3_doors_defense">Figure 148</a>.
+<p>On July 3, 2024, we attempted to traverse three lab doors consecutively in one continuous run, shown in <a href="#fig:2024_3_doors_defense">Figure 7.6</a>.
 The robot cleared the first two doors but fell during traversal of the third; the timed run ended at 1 minute and 30 seconds.
-Timestamps are presented in <a href="#tab:three_doors_event_timeline">Table 8</a>.</p>
+Timestamps are presented in <a href="#tab:three_doors_event_timeline">Table 7.4</a>.</p>
 <figure id="fig:2024_3_doors_defense">
 <img src="media/nadia/20240703_NadiaDoorTraversalsPushBarPushKnobPullHandleFall.jpg" />
-<figcaption><strong>Figure 148.</strong> The July 3, 2024 Nadia run attempting three consecutive door traversals with continuous autonomy.
+<figcaption><strong>Figure 7.6.</strong> The July 3, 2024 Nadia run attempting three consecutive door traversals with continuous autonomy.
 The robot cleared the first two doors but fell after opening the third.
 A video is available at <a href="https://youtu.be/cd-lo-l7pPI" class="uri">https://youtu.be/cd-lo-l7pPI</a>.</figcaption>
 </figure>
@@ -321,16 +326,16 @@ A video is available at <a href="https://youtu.be/cd-lo-l7pPI" class="uri">https
 </tbody>
 </table>
 </div>
-<p><strong>Table 8.</strong> Event times for the July 3, 2024 Nadia three-door run shown in <a href="#fig:2024_3_doors_defense">Figure 148</a>.</p>
+<p><strong>Table 7.4.</strong> Event times for the July 3, 2024 Nadia three-door run shown in <a href="#fig:2024_3_doors_defense">Figure 7.6</a>.</p>
 </div>
 
 <p><span id="tab:three_doors_event_timeline" label="tab:three_doors_event_timeline"></span></p>
 <h3 id="nadia-right-pull-handle-traversal"><a class="header" href="#nadia-right-pull-handle-traversal">Nadia Right Pull-Handle Traversal</a></h3>
-<p>On July 19, 2024, Nadia completed a representative right pull-handle door traversal with hook hands in 27 seconds, shown in <a href="#fig:20240719_ONRDemoRun2PullHandleDoorNadia">Figure 149</a>.
-Timestamps are presented in <a href="#tab:nadia_right_pull_handle_event_timeline">Table 9</a>.</p>
+<p>On July 19, 2024, Nadia completed a representative right pull-handle door traversal with hook hands in 27 seconds, shown in <a href="#fig:20240719_ONRDemoRun2PullHandleDoorNadia">Figure 7.7</a>.
+Timestamps are presented in <a href="#tab:nadia_right_pull_handle_event_timeline">Table 7.5</a>.</p>
 <figure id="fig:20240719_ONRDemoRun2PullHandleDoorNadia">
 <img src="media/nadia/20240719_ONRDemoRun2PullHandleDoorNadia.jpg" style="height:32.0%" />
-<figcaption><strong>Figure 149.</strong> July 19, 2024 Nadia right pull-handle traversal with hook hands.
+<figcaption><strong>Figure 7.7.</strong> July 19, 2024 Nadia right pull-handle traversal with hook hands.
 This representative pull-side run completed in 27 s from approach start.
 A video of the full mock-building demo run is available at <a href="https://youtu.be/D0gylAJEdZw" class="uri">https://youtu.be/D0gylAJEdZw</a>.</figcaption>
 </figure>
@@ -348,17 +353,17 @@ A video of the full mock-building demo run is available at <a href="https://yout
 </tbody>
 </table>
 </div>
-<p><strong>Table 9.</strong> Event times for the July 19, 2024 Nadia hook-hands right pull-handle traversal shown in <a href="#fig:20240719_ONRDemoRun2PullHandleDoorNadia">Figure 149</a>.</p>
+<p><strong>Table 7.5.</strong> Event times for the July 19, 2024 Nadia hook-hands right pull-handle traversal shown in <a href="#fig:20240719_ONRDemoRun2PullHandleDoorNadia">Figure 7.7</a>.</p>
 </div>
 
 <p><span id="tab:nadia_right_pull_handle_event_timeline" label="tab:nadia_right_pull_handle_event_timeline"></span></p>
 <h3 id="onr-mock-building-demo-run-2"><a class="header" href="#onr-mock-building-demo-run-2">ONR Mock-Building Demo Run 2</a></h3>
-<p>On July 19, 2024, we executed the second timed full run of our ONR mock-building search demo in 7 minutes and 45 seconds, shown in <a href="#fig:20240719_ONRDemoRun2">Figure 150</a>.
+<p>On July 19, 2024, we executed the second timed full run of our ONR mock-building search demo in 7 minutes and 45 seconds, shown in <a href="#fig:20240719_ONRDemoRun2">Figure 7.8</a>.
 This run searched three rooms, cleared a blocked doorway, moved furniture, and ended with a salute behavior.
-Timestamps are presented in <a href="#tab:onr_demo_run_2_event_timeline">Table 10</a>.</p>
+Timestamps are presented in <a href="#tab:onr_demo_run_2_event_timeline">Table 7.6</a>.</p>
 <figure id="fig:20240719_ONRDemoRun2">
 <img src="media/nadia/20240719_ONRDemoRun2.jpg" />
-<figcaption><strong>Figure 150.</strong> July 19, 2024 Nadia ONR mock-building demo run 2 collage.
+<figcaption><strong>Figure 7.8.</strong> July 19, 2024 Nadia ONR mock-building demo run 2 collage.
 The run entered through a push-bar door, searched multiple rooms, cleared a blocked doorway, traversed additional doors, moved furniture to recover a hidden object, and ended with a salute behavior in 7 minutes and 45 seconds.
 A video is available at <a href="https://youtu.be/D0gylAJEdZw" class="uri">https://youtu.be/D0gylAJEdZw</a>.</figcaption>
 </figure>
@@ -393,16 +398,16 @@ A video is available at <a href="https://youtu.be/D0gylAJEdZw" class="uri">https
 </tbody>
 </table>
 </div>
-<p><strong>Table 10.</strong> Event times for the July 19, 2024 Nadia ONR mock-building demo run 2.</p>
+<p><strong>Table 7.6.</strong> Event times for the July 19, 2024 Nadia ONR mock-building demo run 2.</p>
 </div>
 
 <p><span id="tab:onr_demo_run_2_event_timeline" label="tab:onr_demo_run_2_event_timeline"></span></p>
 <h3 id="alex-right-pull-lever-traversal"><a class="header" href="#alex-right-pull-lever-traversal">Alex Right Pull Lever Traversal</a></h3>
-<p>On March 9, 2026, Alex completed a right pull lever-handle door traversal in 45 seconds, shown in <a href="#fig:AlexRightPullDoorProfessional">Figure 151</a>.
-Timestamps are presented in <a href="#tab:alex_right_pull_event_timeline">Table 11</a>.</p>
+<p>On March 9, 2026, Alex completed a right pull lever-handle door traversal in 45 seconds, shown in <a href="#fig:AlexRightPullDoorProfessional">Figure 7.9</a>.
+Timestamps are presented in <a href="#tab:alex_right_pull_event_timeline">Table 7.7</a>.</p>
 <figure id="fig:AlexRightPullDoorProfessional">
 <img src="media/alex/20260309_AlexRightPullDoorProfessional.jpg" />
-<figcaption><strong>Figure 151.</strong> Current Alex right pull lever-handle traversal key frames from the March 9, 2026 run.
+<figcaption><strong>Figure 7.9.</strong> Current Alex right pull lever-handle traversal key frames from the March 9, 2026 run.
 From left to right and top to bottom: coarse approach begins at 0:02, fine approach begins at 0:09, opening stance is achieved at 0:14, the door is unlatched at 0:18, the door is opened and traversal begins at 0:33, the shoulders align with the frame at 0:42, and traversal completes at 0:47.
 A video is available at <a href="https://youtu.be/fP-9DfGFvW8" class="uri">https://youtu.be/fP-9DfGFvW8</a>.</figcaption>
 </figure>
@@ -423,7 +428,7 @@ A video is available at <a href="https://youtu.be/fP-9DfGFvW8" class="uri">https
 </tbody>
 </table>
 </div>
-<p><strong>Table 11.</strong> Timestamped events for the March 9, 2026 Alex right pull lever-handle traversal shown in <a href="#fig:AlexRightPullDoorProfessional">Figure 151</a>.</p>
+<p><strong>Table 7.7.</strong> Timestamped events for the March 9, 2026 Alex right pull lever-handle traversal shown in <a href="#fig:AlexRightPullDoorProfessional">Figure 7.9</a>.</p>
 </div>
 
 <p><span id="tab:alex_right_pull_event_timeline" label="tab:alex_right_pull_event_timeline"></span></p>
@@ -441,16 +446,16 @@ A video is available at <a href="https://youtu.be/fP-9DfGFvW8" class="uri">https
 </tbody>
 </table>
 </div>
-<p><strong>Table 12.</strong> Per-phase timing breakdown for the March 9, 2026 Alex right pull lever-handle traversal.</p>
+<p><strong>Table 7.8.</strong> Per-phase timing breakdown for the March 9, 2026 Alex right pull lever-handle traversal.</p>
 </div>
 
 <p><span id="tab:alex_right_pull_phase_breakdown" label="tab:alex_right_pull_phase_breakdown"></span></p>
 <h3 id="alex-left-push-lever-traversal"><a class="header" href="#alex-left-push-lever-traversal">Alex Left Push Lever Traversal</a></h3>
-<p>On March 9, 2026, Alex completed a left push lever-handle door traversal in 34 seconds, shown in <a href="#fig:AlexLeftPushDoorProfessional">Figure 152</a>.
-Timestamps are presented in <a href="#tab:alex_left_push_event_timeline">Table 13</a>.</p>
+<p>On March 9, 2026, Alex completed a left push lever-handle door traversal in 34 seconds, shown in <a href="#fig:AlexLeftPushDoorProfessional">Figure 7.10</a>.
+Timestamps are presented in <a href="#tab:alex_left_push_event_timeline">Table 7.9</a>.</p>
 <figure id="fig:AlexLeftPushDoorProfessional">
 <img src="media/alex/20260309_AlexLeftPushDoorProfessional.jpg" />
-<figcaption><strong>Figure 152.</strong> Current Alex left push lever-handle traversal key frames from the March 9, 2026 run.
+<figcaption><strong>Figure 7.10.</strong> Current Alex left push lever-handle traversal key frames from the March 9, 2026 run.
 From left to right and top to bottom: coarse approach begins at 0:03, fine approach begins at 0:12, opening stance is achieved at 0:17, the lever is unlatched at 0:20, the door is open and traversal begins at 0:26, the shoulders align with the frame at 0:27, and traversal completes at 0:34.
 A video is available at <a href="https://youtu.be/rKOUzo2sZ70" class="uri">https://youtu.be/rKOUzo2sZ70</a>.</figcaption>
 </figure>
@@ -471,7 +476,7 @@ A video is available at <a href="https://youtu.be/rKOUzo2sZ70" class="uri">https
 </tbody>
 </table>
 </div>
-<p><strong>Table 13.</strong> Timestamped events for the March 9, 2026 Alex left push lever-handle traversal shown in <a href="#fig:AlexLeftPushDoorProfessional">Figure 152</a>.</p>
+<p><strong>Table 7.9.</strong> Timestamped events for the March 9, 2026 Alex left push lever-handle traversal shown in <a href="#fig:AlexLeftPushDoorProfessional">Figure 7.10</a>.</p>
 </div>
 
 <p><span id="tab:alex_left_push_event_timeline" label="tab:alex_left_push_event_timeline"></span></p>
@@ -489,16 +494,16 @@ A video is available at <a href="https://youtu.be/rKOUzo2sZ70" class="uri">https
 </tbody>
 </table>
 </div>
-<p><strong>Table 14.</strong> Per-phase timing breakdown for the March 9, 2026 Alex left push lever-handle traversal.</p>
+<p><strong>Table 7.10.</strong> Per-phase timing breakdown for the March 9, 2026 Alex left push lever-handle traversal.</p>
 </div>
 
 <p><span id="tab:alex_left_push_phase_breakdown" label="tab:alex_left_push_phase_breakdown"></span></p>
 <h3 id="reactive-single-table-ball-sorting"><a class="header" href="#reactive-single-table-ball-sorting">Reactive Single-Table Ball Sorting</a></h3>
-<p>On April 4, 2026, Alex completed a reactive single-table ball-sorting run in 45.2 seconds while humans continuously placed and sometimes removed balls on the table, shown in <a href="#fig:ReactiveRobustBallSortingDisturbance">Figure 153</a>.
-Timestamps are presented in <a href="#tab:AlexReactiveRobustBallSortingTimeline">Table 15</a>.</p>
+<p>On April 4, 2026, Alex completed a reactive single-table ball-sorting run in 45.2 seconds while humans continuously placed and sometimes removed balls on the table, shown in <a href="#fig:ReactiveRobustBallSortingDisturbance">Figure 7.11</a>.
+Timestamps are presented in <a href="#tab:AlexReactiveRobustBallSortingTimeline">Table 7.11</a>.</p>
 <figure id="fig:ReactiveRobustBallSortingDisturbance">
 <img src="media/alex/20260404_ReactiveRobustBallSorting.jpg" />
-<figcaption><strong>Figure 153.</strong> Alex reactive single-table ball sorting on April 4, 2026.
+<figcaption><strong>Figure 7.11.</strong> Alex reactive single-table ball sorting on April 4, 2026.
 The run includes human disturbances; the tree abandons a stale pick and returns to search when the hand-centered containment check shows that the object is no longer in the hand.
 A video is available at <a href="https://youtu.be/9DhgbjIRynM" class="uri">https://youtu.be/9DhgbjIRynM</a>.</figcaption>
 </figure>
@@ -530,17 +535,17 @@ A video is available at <a href="https://youtu.be/9DhgbjIRynM" class="uri">https
 </tbody>
 </table>
 </div>
-<p><strong>Table 15.</strong> Timeline of the Alex reactive ball-sorting demonstration. Times are relative to the first human ball placement, which occurs at 1.2 s in the source video.</p>
+<p><strong>Table 7.11.</strong> Timeline of the Alex reactive ball-sorting demonstration. Times are relative to the first human ball placement, which occurs at 1.2 s in the source video.</p>
 </div>
 
 <p><span id="tab:AlexReactiveRobustBallSortingTimeline" label="tab:AlexReactiveRobustBallSortingTimeline"></span></p>
 <h3 id="two-table-loco-manipulation-sorting"><a class="header" href="#two-table-loco-manipulation-sorting">Two-Table Loco-Manipulation Sorting</a></h3>
-<p>On April 14, 2026, we extended the reactive ball-sorting behavior to a two-table loco-manipulation task, shown in <a href="#fig:alex_two_table_sorting_defense">Figure 154</a>.
-In the timed execution run used in <a href="#fig:in_house_speed_phase_timeline">Figure 143</a>, the robot sorted nine balls across two tables in 2 minutes and 8 seconds.
-Timestamps are presented in <a href="#tab:alex_two_table_sorting_event_timeline">Table 16</a>.</p>
+<p>On April 14, 2026, we extended the reactive ball-sorting behavior to a two-table loco-manipulation task, shown in <a href="#fig:alex_two_table_sorting_defense">Figure 7.12</a>.
+In the timed execution run used in <a href="#fig:in_house_speed_phase_timeline">Figure 7.1</a>, the robot sorted nine balls across two tables in 2 minutes and 8 seconds.
+Timestamps are presented in <a href="#tab:alex_two_table_sorting_event_timeline">Table 7.12</a>.</p>
 <figure id="fig:alex_two_table_sorting_defense">
 <img src="media/alex/20260414_AlexLocoBallSortingTwoTables.jpg" />
-<figcaption><strong>Figure 154.</strong> The April 14, 2026 Alex two-table loco-manipulation ball-sorting task.
+<figcaption><strong>Figure 7.12.</strong> The April 14, 2026 Alex two-table loco-manipulation ball-sorting task.
 A video is available at <a href="https://youtu.be/KxIihoDiMtc" class="uri">https://youtu.be/KxIihoDiMtc</a>.</figcaption>
 </figure>
 <div id="tab:alex_two_table_sorting_event_timeline">
@@ -578,25 +583,25 @@ A video is available at <a href="https://youtu.be/KxIihoDiMtc" class="uri">https
 </tbody>
 </table>
 </div>
-<p><strong>Table 16.</strong> Event times for the April 14, 2026 Alex two-table loco-manipulation sorting run shown in <a href="#fig:alex_two_table_sorting_defense">Figure 154</a>.</p>
+<p><strong>Table 7.12.</strong> Event times for the April 14, 2026 Alex two-table loco-manipulation sorting run shown in <a href="#fig:alex_two_table_sorting_defense">Figure 7.12</a>.</p>
 </div>
 
 <p><span id="tab:alex_two_table_sorting_event_timeline" label="tab:alex_two_table_sorting_event_timeline"></span></p>
 <h3 id="nadia-door-traversal-progress-curves"><a class="header" href="#nadia-door-traversal-progress-curves">Nadia Door-Traversal Progress Curves</a></h3>
-<p><a href="#fig:DoorTraversalTimingsSpeed">Figure 155</a> illustrates representative forward progress curves for door traversals on Nadia, showing the difference between push and pull doors.
+<p><a href="#fig:DoorTraversalTimingsSpeed">Figure 7.13</a> illustrates representative forward progress curves for door traversals on Nadia, showing the difference between push and pull doors.
 Pull doors can take longer because the robot must stay clear of the panel as it opens.</p>
 <figure id="fig:DoorTraversalTimingsSpeed">
 <img src="media/generated/DoorTraversalProgress.jpg" style="width:100%" alt="DoorTraversalProgress" />
-<figcaption><strong>Figure 155.</strong> Distance progress through the door frame for four representative 2024 Nadia real-robot door traversals. Push-door behaviors are faster because the robot can keep making forward progress. Pull-door behaviors take longer because the robot must stay clear of the panel while fully opening it before traversal.</figcaption>
+<figcaption><strong>Figure 7.13.</strong> Distance progress through the door frame for four representative 2024 Nadia real-robot door traversals. Push-door behaviors are faster because the robot can keep making forward progress. Pull-door behaviors take longer because the robot must stay clear of the panel while fully opening it before traversal.</figcaption>
 </figure>
 <h2 id="reliability-and-resilience-evidence"><a class="header" href="#reliability-and-resilience-evidence">Reliability and Resilience Evidence</a></h2>
-<p>In <a href="#fig:in_house_reliability_resilience_summary">Figure 156</a>, we summarize our main in-house reliability and resilience anchors.
+<p>In <a href="#fig:in_house_reliability_resilience_summary">Figure 7.14</a>, we summarize our main in-house reliability and resilience anchors.
 The top band shows consecutive successful trials for repeated door approach and opening on Alex and Unitree H1-2.
 The bottom band shows disturbed runs where the robot retried and recovered.
 Photos and event tables for each run follow in the subsections below.</p>
 <figure id="fig:in_house_reliability_resilience_summary">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/InHouseReliabilityResilienceSummary.light.jpg" /><img class="tikz-dark" src="media/generated/InHouseReliabilityResilienceSummary.dark.jpg" /></span>
-<figcaption><strong>Figure 156.</strong> 
+<figcaption><strong>Figure 7.14.</strong> 
 In-house reliability and resilience evidence at a glance.
 The repeated run band encodes each successful trial as a green cell (11/11, 12/12, and 32/32).
 The disturbance resilience band shows elapsed time phases with disturbances, retries, and opening success marked at measured timestamps (Nadia reactive pull 44 s, Alex reactive pull 65 s, ball sort 45.2 s).
@@ -611,11 +616,11 @@ An operator was present at the UI.
 We did not run the test to failure.
 Each run completed the approach and opening phases without failure.
 We did not repeat full doorway traversal in this test.
-The test is shown in <a href="#fig:alex_push_reliability_20260414">Figure 157</a>.
-Trial outcomes are presented in <a href="#tab:alex_push_reliability_runs">Table 17</a>.</p>
+The test is shown in <a href="#fig:alex_push_reliability_20260414">Figure 7.15</a>.
+Trial outcomes are presented in <a href="#tab:alex_push_reliability_runs">Table 7.13</a>.</p>
 <figure id="fig:alex_push_reliability_20260414">
 <img src="media/alex/20260309_AlexLeftPushDoorProfessional.jpg" />
-<figcaption><strong>Figure 157.</strong> April 14, 2026 Alex left push door approach and opening reliability test.
+<figcaption><strong>Figure 7.15.</strong> April 14, 2026 Alex left push door approach and opening reliability test.
 Key frames from the behavior repeated in the test.
 A video is available at <a href="https://youtu.be/N4rzKOKUjIA" class="uri">https://youtu.be/N4rzKOKUjIA</a>.</figcaption>
 </figure>
@@ -640,7 +645,7 @@ A video is available at <a href="https://youtu.be/N4rzKOKUjIA" class="uri">https
 </tbody>
 </table>
 </div>
-<p><strong>Table 17.</strong> Trial outcomes for the April 14, 2026 Alex left push approach and opening reliability test shown in <a href="#fig:alex_push_reliability_20260414">Figure 157</a>.</p>
+<p><strong>Table 7.13.</strong> Trial outcomes for the April 14, 2026 Alex left push approach and opening reliability test shown in <a href="#fig:alex_push_reliability_20260414">Figure 7.15</a>.</p>
 </div>
 
 <p><span id="tab:alex_push_reliability_runs" label="tab:alex_push_reliability_runs"></span></p>
@@ -653,11 +658,11 @@ An operator was present at the UI.
 We did not run the test to failure.
 Each run completed the approach and opening phases without failure.
 We did not repeat full doorway traversal in this test.
-The test is shown in <a href="#fig:alex_pull_reliability_20260414">Figure 158</a>.
-Trial outcomes are presented in <a href="#tab:alex_pull_reliability_runs">Table 18</a>.</p>
+The test is shown in <a href="#fig:alex_pull_reliability_20260414">Figure 7.16</a>.
+Trial outcomes are presented in <a href="#tab:alex_pull_reliability_runs">Table 7.14</a>.</p>
 <figure id="fig:alex_pull_reliability_20260414">
 <img src="media/alex/20260309_AlexRightPullDoorProfessional.jpg" />
-<figcaption><strong>Figure 158.</strong> April 14, 2026 Alex right pull door approach and opening reliability test.
+<figcaption><strong>Figure 7.16.</strong> April 14, 2026 Alex right pull door approach and opening reliability test.
 Key frames from the behavior repeated in the test.
 A video is available at <a href="https://youtu.be/l2piKf40ea4" class="uri">https://youtu.be/l2piKf40ea4</a>.</figcaption>
 </figure>
@@ -683,7 +688,7 @@ A video is available at <a href="https://youtu.be/l2piKf40ea4" class="uri">https
 </tbody>
 </table>
 </div>
-<p><strong>Table 18.</strong> Trial outcomes for the April 14, 2026 Alex right pull approach and opening reliability test shown in <a href="#fig:alex_pull_reliability_20260414">Figure 158</a>.</p>
+<p><strong>Table 7.14.</strong> Trial outcomes for the April 14, 2026 Alex right pull approach and opening reliability test shown in <a href="#fig:alex_pull_reliability_20260414">Figure 7.16</a>.</p>
 </div>
 
 <p><span id="tab:alex_pull_reliability_runs" label="tab:alex_pull_reliability_runs"></span></p>
@@ -694,11 +699,11 @@ An operator was present at the UI.
 We stopped after 32 successes; we did not run the test to failure.
 The robot opened the door from a standing start each time.
 The full test took about five minutes.
-The test is shown in <a href="#fig:unitree_pull_opening_reliability_20260102">Figure 159</a>.
-The test protocol is presented in <a href="#tab:unitree_pull_opening_reliability_protocol">Table 19</a>.</p>
+The test is shown in <a href="#fig:unitree_pull_opening_reliability_20260102">Figure 7.17</a>.
+The test protocol is presented in <a href="#tab:unitree_pull_opening_reliability_protocol">Table 7.15</a>.</p>
 <figure id="fig:unitree_pull_opening_reliability_20260102">
 <img src="media/unitree/2026-01-02_17-08-16_NeverFailingFastPullLeverHandle31x.jpg" />
-<figcaption><strong>Figure 159.</strong> January 2, 2026 Unitree H1-2 right pull opening reliability test.
+<figcaption><strong>Figure 7.17.</strong> January 2, 2026 Unitree H1-2 right pull opening reliability test.
 The left three panels show operator UI key frames.
 The right panel shows a third person view.
 The behavior opened the door 32 times in a row from a standing start.
@@ -723,7 +728,7 @@ A video is available at <a href="https://youtu.be/fQCNuXEF9xg" class="uri">https
 </tbody>
 </table>
 </div>
-<p><strong>Table 19.</strong> Protocol summary for the January 2, 2026 Unitree H1-2 standing right pull opening repeat test shown in <a href="#fig:unitree_pull_opening_reliability_20260102">Figure 159</a>.</p>
+<p><strong>Table 7.15.</strong> Protocol summary for the January 2, 2026 Unitree H1-2 standing right pull opening repeat test shown in <a href="#fig:unitree_pull_opening_reliability_20260102">Figure 7.17</a>.</p>
 </div>
 
 <p><span id="tab:unitree_pull_opening_reliability_protocol" label="tab:unitree_pull_opening_reliability_protocol"></span></p>
@@ -731,11 +736,11 @@ A video is available at <a href="https://youtu.be/fQCNuXEF9xg" class="uri">https
 <p>On April 12, 2024, we disturbed a Nadia left pull door opening five times during one run.
 The hard coded door traversal node detected each failure and retried until the door opened.
 The robot finished the full traversal without operator intervention.
-The run is shown in <a href="#fig:nadia_reactive_pull_20240412">Figure 160</a>.
-Timestamps are presented in <a href="#tab:nadia_reactive_pull_event_timeline">Table 20</a>.</p>
+The run is shown in <a href="#fig:nadia_reactive_pull_20240412">Figure 7.18</a>.
+Timestamps are presented in <a href="#tab:nadia_reactive_pull_event_timeline">Table 7.16</a>.</p>
 <figure id="fig:nadia_reactive_pull_20240412">
 <img src="media/nadia/20240412_NadiaDisturbanceReactiveLeftPullHandleTmotor.jpg" />
-<figcaption><strong>Figure 160.</strong> April 12, 2024 Nadia reactive left pull handle opening under human disturbance.
+<figcaption><strong>Figure 7.18.</strong> April 12, 2024 Nadia reactive left pull handle opening under human disturbance.
 The robot retried five times and completed the full door traversal.
 A video is available at <a href="https://youtu.be/j_rzh5cAP2E" class="uri">https://youtu.be/j_rzh5cAP2E</a>.</figcaption>
 </figure>
@@ -763,7 +768,7 @@ A video is available at <a href="https://youtu.be/j_rzh5cAP2E" class="uri">https
 </tbody>
 </table>
 </div>
-<p><strong>Table 20.</strong> Event times for the April 12, 2024 Nadia reactive left pull handle opening shown in <a href="#fig:nadia_reactive_pull_20240412">Figure 160</a>.</p>
+<p><strong>Table 7.16.</strong> Event times for the April 12, 2024 Nadia reactive left pull handle opening shown in <a href="#fig:nadia_reactive_pull_20240412">Figure 7.18</a>.</p>
 </div>
 
 <p><span id="tab:nadia_reactive_pull_event_timeline" label="tab:nadia_reactive_pull_event_timeline"></span></p>
@@ -771,11 +776,11 @@ A video is available at <a href="https://youtu.be/j_rzh5cAP2E" class="uri">https
 <p>On March 13, 2026, we disturbed an Alex right pull lever door opening four times during the opening phase.
 A human also blocked the doorway before traversal.
 The behavior retried the opening and waited until the doorway was clear.
-The run is shown in <a href="#fig:alex_reactive_pull_20260313">Figure 161</a>.
-Timestamps are presented in <a href="#tab:alex_reactive_pull_event_timeline">Table 21</a>.</p>
+The run is shown in <a href="#fig:alex_reactive_pull_20260313">Figure 7.19</a>.
+Timestamps are presented in <a href="#tab:alex_reactive_pull_event_timeline">Table 7.17</a>.</p>
 <figure id="fig:alex_reactive_pull_20260313">
 <img src="media/alex/20260313_AlexRightPullDoorReactivityProfessional.jpg" />
-<figcaption><strong>Figure 161.</strong> March 13, 2026 Alex right pull door reactivity demonstration.
+<figcaption><strong>Figure 7.19.</strong> March 13, 2026 Alex right pull door reactivity demonstration.
 The opening retries and blocked doorway wait are authored in the behavior tree.
 A video is available at <a href="https://youtu.be/pWxptD5j8b4" class="uri">https://youtu.be/pWxptD5j8b4</a>.</figcaption>
 </figure>
@@ -803,7 +808,7 @@ A video is available at <a href="https://youtu.be/pWxptD5j8b4" class="uri">https
 </tbody>
 </table>
 </div>
-<p><strong>Table 21.</strong> Event times for the March 13, 2026 Alex reactive right pull lever door run shown in <a href="#fig:alex_reactive_pull_20260313">Figure 161</a>.</p>
+<p><strong>Table 7.17.</strong> Event times for the March 13, 2026 Alex reactive right pull lever door run shown in <a href="#fig:alex_reactive_pull_20260313">Figure 7.19</a>.</p>
 </div>
 
 <p><span id="tab:alex_reactive_pull_event_timeline" label="tab:alex_reactive_pull_event_timeline"></span></p>
@@ -811,8 +816,8 @@ A video is available at <a href="https://youtu.be/pWxptD5j8b4" class="uri">https
 <p>On April 4, 2026, a human removed a ball from the table while Alex was reaching to grasp it.
 The behavior detected the failed pick and returned to search.
 The robot still sorted all six balls in the run.
-The run is shown in <a href="#fig:ReactiveRobustBallSortingDisturbance">Figure 153</a>.
-Timestamps are presented in <a href="#tab:AlexReactiveRobustBallSortingTimeline">Table 15</a>.</p>
+The run is shown in <a href="#fig:ReactiveRobustBallSortingDisturbance">Figure 7.11</a>.
+Timestamps are presented in <a href="#tab:AlexReactiveRobustBallSortingTimeline">Table 7.11</a>.</p>
 <!-- PAGE-REFERENCES-START -->
 <p><strong>References cited on this page</strong></p>
 <p><strong>[29]</strong> M. F. Fallon <em>et al.</em>, “Continuous humanoid locomotion over uneven terrain using stereo fusion,” in <em>2015 IEEE-RAS 15th international conference on humanoid robots (humanoids)</em>, 2015, pp. 881–888.</p>
@@ -872,6 +877,7 @@ Timestamps are presented in <a href="#tab:AlexReactiveRobustBallSortingTimeline"
         <!-- Custom JS scripts -->
         <script src="citation-data-d2a0410c.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
+        <script src="theme-persist-5a94a5be.js"></script>
 
 
 

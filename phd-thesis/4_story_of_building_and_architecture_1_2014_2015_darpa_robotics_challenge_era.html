@@ -1,6 +1,11 @@
 <!DOCTYPE HTML>
 <html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
+<script id="mdbook-theme-early-boot">
+(function(){var p=new URLSearchParams(location.search).get("theme"),c=["light","rust","coal","navy","ayu"];
+if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.remove("light","rust","coal","navy","ayu");h.classList.add(p);}})();
+</script>
+
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>2014-2015 DARPA Robotics Challenge Era - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
@@ -39,10 +44,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-6a3415fa.js";
+            window.path_to_searchindex_js = "searchindex-926a1a84.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-3c6d0428.js"></script>
+        <script src="toc-13565dbe.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -192,10 +197,10 @@ The challenge featured low bandwidth communication with the robot at all times a
 Teams that had autonomous functionalities on-board the robot would have had the advantage of being able to proceed without waiting through the challenge’s communication blackouts.
 Teams that did not rely on human-guided perceptual registration would have been able to teleoperate more quickly, with less risk of needing to wait through multiple communications blackouts.</p>
 <p>Even through teleoperation, the challenge taught us a lot about the effectiveness of a particular style of user interface for humanoid robot-operator teaming.
-In the challenge, Team IHMC used a hybrid operator interface comprised of two 3D views: a third-person view with a posable viewport camera and a first-person view that looks at the world from the perspective of the robot’s head camera, such that virtual graphics could be situated within the scene to provide an augmented reality experience, as shown in <a href="#fig:drc_ui_valve_task">Figure 10</a> and <a href="#fig:drc_ui_door_task">Figure 11</a>.</p>
+In the challenge, Team IHMC used a hybrid operator interface comprised of two 3D views: a third-person view with a posable viewport camera and a first-person view that looks at the world from the perspective of the robot’s head camera, such that virtual graphics could be situated within the scene to provide an augmented reality experience, as shown in <a href="#fig:drc_ui_valve_task">Figure 4.1</a> and <a href="#fig:drc_ui_door_task">Figure 4.2</a>.</p>
 <figure id="fig:drc_ui_valve_task">
 <img src="media/atlas/IHMC DRC Finals Run June 6th _ValveTask.jpg" />
-<figcaption><strong>Figure 10.</strong> The IHMC DRC operator interface during the Valve Task in the DARPA Robotics Challenge Finals.
+<figcaption><strong>Figure 4.1.</strong> The IHMC DRC operator interface during the Valve Task in the DARPA Robotics Challenge Finals.
 On the left side, a virtual valve has been placed in the scene on top of the point cloud to register the task.
 On the right side the current and next hand poses can be seen as two separate graphics.
 Also, the control gizmo for the hand can be seen as the large colored tori that revolve around the hand.
@@ -211,20 +216,20 @@ These included a unique 3D scene camera control and orbit system, quick access b
 <p>A video is available at <a href="https://youtu.be/TstdKAvPfEs" class="uri">https://youtu.be/TstdKAvPfEs</a>.
 <span id="fig:drc_ui_door_task" data-label="fig:drc_ui_door_task"></span></p>
 
-<figcaption><strong>Figure 11.</strong> The IHMC DRC operator interface during the Door Task in the DARPA Robotics Challenge Finals.
+<figcaption><strong>Figure 4.2.</strong> The IHMC DRC operator interface during the Door Task in the DARPA Robotics Challenge Finals.
 In the first-person view on the left, virtual planned footsteps can be seen.
 On the right, the virtual door modifiable has been placed at the pose of the real door.
 The small red arc shows the door panel edge arc if it were to swing open.</figcaption>
 </figure>
 <p>Gizmo has become a colloquial term in robotics to describe a virtual interactable 3D set of widgets that assist a user in defining or modifying a 3D position, orientation, or pose.
-There are a few implementations out there such as in RViz  <a href="references.html#ref-Rviz" class="citation-ref">[9]</a> and ImGuizmo  <a href="references.html#ref-Imguizmo" class="citation-ref">[10]</a>, with a representative MoveIt pose-gizmo example shown in <a href="#fig:rviz_gizmo">Figure 12</a>.
+There are a few implementations out there such as in RViz  <a href="references.html#ref-Rviz" class="citation-ref">[9]</a> and ImGuizmo  <a href="references.html#ref-Imguizmo" class="citation-ref">[10]</a>, with a representative MoveIt pose-gizmo example shown in <a href="#fig:rviz_gizmo">Figure 4.3</a>.
 The DRC UI featured a custom one built by John Carff in jMonkeyEngine (JME) using colored tori for controlling orientation.
 The DRC UI gizmo was mainly controlled by keyboard shortcuts, with the F keys being used to select the axis and the arrow keys being used to move the gizmo along or about that axis.
 It featured orientation and position control and was used to specify poses of the virtual interactable objects such as hands, footsteps, torso motions, and scene objects.</p>
 <h2 id="virtually-placeable-objects"><a class="header" href="#virtually-placeable-objects">Virtually Placeable Objects</a></h2>
 <figure id="fig:rviz_gizmo">
 <img src="media/atlas/rviz_plugin_visualize_robots.jpg" />
-<figcaption><strong>Figure 12.</strong> A still from the MoveIt tutorial  <a href="references.html#ref-MoveIt_quickstart_rviz_tutorial" class="citation-ref"> <a href="references.html#ref-Rviz" class="citation-ref">[9]</a></a> showing the red, green, and blue pose gizmo used to move the robot’s end effector.
+<figcaption><strong>Figure 4.3.</strong> A still from the MoveIt tutorial  <a href="references.html#ref-MoveIt_quickstart_rviz_tutorial" class="citation-ref"> <a href="references.html#ref-Rviz" class="citation-ref">[9]</a></a> showing the red, green, and blue pose gizmo used to move the robot’s end effector.
 The user can drag the circular planes to reorient the pose and drag the arrows to translate it.</figcaption>
 </figure>
 <p>Virtually placeable objects included a door, a hand drill, and variable-sized valves.
@@ -235,13 +240,13 @@ The word affordance comes from Gibson’s book, <em>The Ecological Approach to V
 It is used in the sense that an environmental feature affords an action.
 For example, the ground is an affordance for walking and a handle is an affordance for turning.</p>
 <h2 id="scripted-behaviors"><a class="header" href="#scripted-behaviors">Scripted Behaviors</a></h2>
-<p>The DRC-era behaviors were scripts executed from the user interface as seen in <a href="#fig:drc_ui_door_task">Figure 11</a>.
+<p>The DRC-era behaviors were scripts executed from the user interface as seen in <a href="#fig:drc_ui_door_task">Figure 4.2</a>.
 The operator would step through the actions one by one.
 They also did not close the loop on perception.
 Tasks were aligned to the scene manually by the operator using the point cloud and images.</p>
 <figure id="fig:drc_ui_egress_scripting">
 <img src="media/atlas/IHMC DRC Finals Run June 6th_EgressScripting.jpg" />
-<figcaption><strong>Figure 13.</strong> The IHMC DRC operator interface during the Car Egress Task in the DARPA Robotics Challenge Finals.
+<figcaption><strong>Figure 4.4.</strong> The IHMC DRC operator interface during the Car Egress Task in the DARPA Robotics Challenge Finals.
 This is an example of a scripted behavior.
 The current state is “A7_tiltLateral” as seen in the bottom right.
 Scripts were loadable and savable locally to the operator computer.
@@ -313,6 +318,7 @@ A video is available at <a href="https://youtu.be/TstdKAvPfEs" class="uri">https
         <!-- Custom JS scripts -->
         <script src="citation-data-d2a0410c.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
+        <script src="theme-persist-5a94a5be.js"></script>
 
 
 

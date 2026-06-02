@@ -1,6 +1,11 @@
 <!DOCTYPE HTML>
 <html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
+<script id="mdbook-theme-early-boot">
+(function(){var p=new URLSearchParams(location.search).get("theme"),c=["light","rust","coal","navy","ayu"];
+if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.remove("light","rust","coal","navy","ayu");h.classList.add(p);}})();
+</script>
+
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Basic Example: Move the Arms and Walk - A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots</title>
@@ -39,10 +44,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-6a3415fa.js";
+            window.path_to_searchindex_js = "searchindex-926a1a84.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-3c6d0428.js"></script>
+        <script src="toc-13565dbe.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -186,12 +191,12 @@ We use a kinematics-only simulation of the robot that plays back the nominal mot
 In effect, this means that the desireds ultimately get set to the actuals for free motions and a special heuristic is used to hold the feet in place when ground contact is expected.</p>
 <figure id="fig:guide_sim_initial">
 <img src="media/guide/2026-04-28 19-55-33_BasicTutorial-00.00.01.168.jpg" />
-<figcaption><strong>Figure 100.</strong> The behavior test facilitator on startup.
+<figcaption><strong>Figure 6.1.</strong> The behavior test facilitator on startup.
 A video of this example is available at <a href="https://youtu.be/e3fk-EAJ5EQ" class="uri">https://youtu.be/e3fk-EAJ5EQ</a>.
 </figcaption>
 </figure>
 <p>To open the program, we will run the Java program <a href="https://github.com/ihmcrobotics/ihmc-open-robotics-software/blob/53f47de86106e996b657dae1c6a6fd0bd76e63ec/zulu/src/test/java/us/ihmc/zulu/rdx/ZuluRDXBehaviorTestFacilitator.java"><code>AlexRDXBehaviorTestFacilitator</code></a>.
-The initial view is shown in <a href="#fig:guide_sim_initial">Figure 100</a>.
+The initial view is shown in <a href="#fig:guide_sim_initial">Figure 6.1</a>.
 The behavior tree panel is on the left and the 3D view is on the right.
 The behavior tree panel is where an interactive model of the currently loaded behavior tree is rendered.
 The 3D view renders the current, live robot state as an opaque, realistically colored robot model alongside virtual interactable elements that model planned actions and virtual scene elements.</p>
@@ -208,7 +213,7 @@ The camera orbits the focal point using a longitude and latitude.
 The longitude freely loops 360 degrees around the focal point about its world Z axis.
 The latitude, however, is bounded by +/- 90 degrees above and below the focal sphere’s “equator”.
 For example, the limits are top down and bottom up, preventing the view from going upside down on the other side.
-The full set of 3D view camera controls are presented in <a href="#tab:focus_based_camera_keys">Table 3</a>.</p>
+The full set of 3D view camera controls are presented in <a href="#tab:focus_based_camera_keys">Table 6.1</a>.</p>
 <div id="tab:focus_based_camera_keys">
 <div class="table-wrapper">
 <table>
@@ -231,7 +236,7 @@ The full set of 3D view camera controls are presented in <a href="#tab:focus_bas
 </tbody>
 </table>
 </div>
-<p><strong>Table 3.</strong> Focus based camera keyboard shortcuts</p>
+<p><strong>Table 6.1.</strong> Focus based camera keyboard shortcuts</p>
 </div>
 
 <h2 id="loading-the-tree"><a class="header" href="#loading-the-tree">Loading the Tree</a></h2>
@@ -240,13 +245,13 @@ There are two options from here: starting from scratch with a new root node or l
 In this example, we’ll start from scratch and click “Root Node”.</p>
 <figure id="fig:guide_sim_root_only">
 <img src="media/guide/2026-04-28 19-55-33_BasicTutorial-00.00.04.565.jpg" />
-<figcaption><strong>Figure 101.</strong> 
+<figcaption><strong>Figure 6.2.</strong> 
 An empty behavior with just a root node.
 A video is available at <a href="https://youtu.be/e3fk-EAJ5EQ" class="uri">https://youtu.be/e3fk-EAJ5EQ</a>.
 </figcaption>
 </figure>
 <h2 id="behavior-operation"><a class="header" href="#behavior-operation">Behavior Operation</a></h2>
-<p>At this point, the view has transitioned into the primary working area for a loaded tree, as shown in <a href="#fig:guide_sim_root_only">Figure 101</a>.
+<p>At this point, the view has transitioned into the primary working area for a loaded tree, as shown in <a href="#fig:guide_sim_root_only">Figure 6.2</a>.
 At the top of the behavior tree panel, Conflict-Free Replicated Data Type (CRDT) statistics are shown.
 This helps keep the operator informed about whether data is synchronizing correctly between the user interface and the robot-side autonomy process.
 Next to the file and view menus, the node count for the operator-side and robot-side are shown.
@@ -275,27 +280,27 @@ The final element in the view is the root node, with a representative icon with 
 <h2 id="building-the-first-behavior"><a class="header" href="#building-the-first-behavior">Building the First Behavior</a></h2>
 <figure id="fig:guide_sim_add_child">
 <img src="media/guide/2026-04-28 19-55-33_BasicTutorial-00.00.06.794.jpg" />
-<figcaption><strong>Figure 102.</strong> 
+<figcaption><strong>Figure 6.3.</strong> 
 The root node context menu where we are adding a child node.
 </figcaption>
 </figure>
-<p>Right clicking the root node prompts a context menu which offers the option to add our first child node, as shown in <a href="#fig:guide_sim_add_child">Figure 102</a>.
+<p>Right clicking the root node prompts a context menu which offers the option to add our first child node, as shown in <a href="#fig:guide_sim_add_child">Figure 6.3</a>.
 In this first example, we’ll build a small, simple behavior that moves the arms and walks.</p>
 <figure id="fig:guide_sim_node_creation">
 <img src="media/guide/2026-04-28 19-55-33_BasicTutorial-00.00.08.758.jpg" />
-<figcaption><strong>Figure 103.</strong> 
+<figcaption><strong>Figure 6.4.</strong> 
 The node creation menu being used to create an action sequence node.
 </figcaption>
 </figure>
-<p><a href="#fig:guide_sim_node_creation">Figure 103</a> shows the node creation menu, which allows the operator to create a new node of any available type or loading an existing tree from file.
+<p><a href="#fig:guide_sim_node_creation">Figure 6.4</a> shows the node creation menu, which allows the operator to create a new node of any available type or loading an existing tree from file.
 The available node types are sorted into control nodes and action nodes.
 For this behavior, we will select the action sequence type, which serves as an organization element and a mechanism by which we save the behavior to file.</p>
 <figure id="fig:guide_sim_sequence_rename">
 <img src="media/guide/2026-04-28 19-55-33_BasicTutorial-00.00.19.322.jpg" />
-<figcaption><strong>Figure 104.</strong> The sequence node has been added and renamed to “Demo Behavior.json”.</figcaption>
+<figcaption><strong>Figure 6.5.</strong> The sequence node has been added and renamed to “Demo Behavior.json”.</figcaption>
 </figure>
 <p>When the action sequence is created we double click the default name “Action sequence”, type in “Demo Behavior.json”, and hit the Enter key.
-This is shown in <a href="#fig:guide_sim_sequence_rename">Figure 104</a>.
+This is shown in <a href="#fig:guide_sim_sequence_rename">Figure 6.5</a>.
 Adding “.json” to the end of a node name is what makes it saveable to file.
 Saving is done by right clicking the node and selecting “Save to File”, pressing “Ctrl + S” while the mouse is hovering in the behavior tree panel, or using the file menu at the top of the panel.
 An asterisk symbol (*) is shown next to the node name when changes are present that have not been saved.
@@ -304,12 +309,12 @@ The behavior can safely be saved at any time and we do it often to avoid losing 
 <h2 id="arm-actions"><a class="header" href="#arm-actions">Arm Actions</a></h2>
 <figure id="fig:guide_sim_arm_action">
 <img src="media/guide/2026-04-28 19-55-33_BasicTutorial-00.00.29.885.jpg" />
-<figcaption><strong>Figure 105.</strong> A right arm action has been created.</figcaption>
+<figcaption><strong>Figure 6.6.</strong> A right arm action has been created.</figcaption>
 </figure>
 <p>We then add an arm action by right clicking the sequence node and clicking “Add Child Node…” as before, then click “Right” on the Arm row which instantiates a new arm action node with side set to right.
 For sided actions, we currently don’t allow changing the side after creation, however, that isn’t an entirely purposeful design choice.
 Now that the arm action has been created, the node can be seen in the tree, beneath our sequence node and indented to the right, signifying that it is a child of the sequence node.</p>
-<p>When we single-click select the arm action node (anywhere except on the sideways arrow icon), the node’s line is highlighted, as shown in <a href="#fig:guide_sim_arm_action">Figure 105</a>.
+<p>When we single-click select the arm action node (anywhere except on the sideways arrow icon), the node’s line is highlighted, as shown in <a href="#fig:guide_sim_arm_action">Figure 6.6</a>.
 In the lower portion of the behavior tree panel, there is a node settings area.
 This area can be closed using the “X” in the top right of its area, but will open whenever a node is selected, as we did above.
 This setting area renders the settings of whichever node is selected, but only for one node at a time.</p>
@@ -318,17 +323,17 @@ There are two main ways to define this arm action: by adjusting the hand goal po
 This is decided using the “Use Predefined Joint Angles” checkbox.</p>
 <figure id="fig:guide_sim_arm_gizmo">
 <img src="media/guide/20260518_120558_ArmGizmo.jpg" />
-<figcaption><strong>Figure 106.</strong> A right arm action with the 3D pose gizmo activated.</figcaption>
+<figcaption><strong>Figure 6.7.</strong> A right arm action with the 3D pose gizmo activated.</figcaption>
 </figure>
 <h2 id="3d-pose-gizmo"><a class="header" href="#3d-pose-gizmo">3D Pose Gizmo</a></h2>
-<p>As shown in <a href="#fig:guide_sim_arm_gizmo">Figure 106</a>, to adjust the arm action via hand pose, check the “Adjust Goal Pose” box.
+<p>As shown in <a href="#fig:guide_sim_arm_gizmo">Figure 6.7</a>, to adjust the arm action via hand pose, check the “Adjust Goal Pose” box.
 A 3D pose gizmo appears in the 3D view.
 The gizmo’s axes are colored as Red, Green, and Blue, to match X, Y, and Z, and Roll, Pitch, and Yaw.
 A way to remember it is “RGB -&gt; XYZ”.
 The tori can be dragged with the mouse to adjust the orientation.
 The arrow heads and tails can be dragged with the mouse to adjust the translation.
 The gizmo can also be adjusted via the keyboard.
-A key for gizmo keyboard controls is presented in <a href="#tab:pose_3d_gizmo_keys">Table 4</a>.
+A key for gizmo keyboard controls is presented in <a href="#tab:pose_3d_gizmo_keys">Table 6.2</a>.
 Right clicking the gizmo will display a context menu that allows for numerical pose adjustment, fine and coarse increments, resetting to zero, and changing the modification frame.
 The gizmo is, by default, modified in camera Z up frame so it translates laterally on the world X-Y plane and vertically on the world Z axis, similar to the focus based camera.</p>
 <div id="tab:pose_3d_gizmo_keys">
@@ -358,7 +363,7 @@ The gizmo is, by default, modified in camera Z up frame so it translates lateral
 </tbody>
 </table>
 </div>
-<p><strong>Table 4.</strong> Pose 3D gizmo keyboard shortcuts</p>
+<p><strong>Table 6.2.</strong> Pose 3D gizmo keyboard shortcuts</p>
 </div>
 
 <h2 id="frame-relative-action"><a class="header" href="#frame-relative-action">Frame-Relative Action</a></h2>
@@ -373,7 +378,7 @@ The inverse kinematics solution quality is displayed where values from 0 to 1 ar
 Bad solutions mean the pose is unreachable and will not be achieved consistently with our implementation.
 The transparent arm graphic will turn red to signify this.
 A “Set Pose to Synced Hand” option is available to reset the pose to where the hand currently is on the real robot.</p>
-<p>As seen in the bottom left of <a href="#fig:guide_sim_arm_gizmo">Figure 106</a>, position and orientation error tolerance settings are available.
+<p>As seen in the bottom left of <a href="#fig:guide_sim_arm_gizmo">Figure 6.7</a>, position and orientation error tolerance settings are available.
 If the hand’s pose is not within the error tolerance of the goal pose by the end of the trajectory duration, the action will fail.
 This setting can be adjusted based on the required precision of the motion.
 This functionality is very context and controller dependent.
@@ -384,12 +389,12 @@ It may also be that we should add a timeout for achieving the motion in addition
 <h2 id="jointspace-mode"><a class="header" href="#jointspace-mode">Jointspace Mode</a></h2>
 <figure id="fig:guide_sim_arm_jointspace">
 <img src="media/guide/20260518_120800_ArmJointspace.jpg" />
-<figcaption><strong>Figure 107.</strong> A right arm action being adjusted in jointspace.</figcaption>
+<figcaption><strong>Figure 6.8.</strong> A right arm action being adjusted in jointspace.</figcaption>
 </figure>
 <p>The other way to define arm actions is by specifying the joint angles directly.
 To do this, check the “Use Predefined Joint Angles” box.
 This will dynamically change the available settings in the panel, now showing sliders for all the joints.
-As shown in <a href="#fig:guide_sim_arm_jointspace">Figure 107</a>, these sliders can be used to set the joint angles.
+As shown in <a href="#fig:guide_sim_arm_jointspace">Figure 6.8</a>, these sliders can be used to set the joint angles.
 As the sliders are dragged, the full arm 3D preview is updated to provide an interactive experience.
 The sliders are bounded by the joint limits from the robot model.
 A joint angle can also be input as a number manually in the input box next to the slider.
@@ -407,20 +412,20 @@ Using multi-waypoint trajectories would allow the arm to keep moving through pos
 <h2 id="mirroring-an-arm-action"><a class="header" href="#mirroring-an-arm-action">Mirroring an Arm Action</a></h2>
 <figure id="fig:guide_sim_arm_mirroring">
 <img src="media/guide/2026-04-28 19-55-33_BasicTutorial-00.00.49.202.jpg" />
-<figcaption><strong>Figure 108.</strong> The node mirroring context menu option.</figcaption>
+<figcaption><strong>Figure 6.9.</strong> The node mirroring context menu option.</figcaption>
 </figure>
-<p>Next, we will mirror this action for the left arm using the “Mirror Node” context menu entry on the arm node, as shown in <a href="#fig:guide_sim_arm_mirroring">Figure 108</a>.
+<p>Next, we will mirror this action for the left arm using the “Mirror Node” context menu entry on the arm node, as shown in <a href="#fig:guide_sim_arm_mirroring">Figure 6.9</a>.
 A second arm action appears, already in joint angle mode and mirroring the other arm action.
 We manually execute this action.</p>
 <h2 id="walk-action"><a class="header" href="#walk-action">Walk Action</a></h2>
 <figure id="fig:guide_sim_walk_settings">
 <img src="media/guide/20260518_144523_WalkAction.jpg" />
-<figcaption><strong>Figure 109.</strong> The walk action settings and goal tuning.</figcaption>
+<figcaption><strong>Figure 6.10.</strong> The walk action settings and goal tuning.</figcaption>
 </figure>
 <p>As the final action in this first example behavior, we will walk forward a little bit.
 We right-click the second arm action, click “Insert Node After…”, and select the walk action.
 The walk action now appears in the tree.
-We click it to access its settings, which are shown in <a href="#fig:guide_sim_walk_settings">Figure 109</a>.
+We click it to access its settings, which are shown in <a href="#fig:guide_sim_walk_settings">Figure 6.10</a>.
 For this example, we’ll keep the frame set to “Walking” frame, which is a frame on the ground underneath and facing the direction of the pelvis.</p>
 <p>The walk action supports setting controller specific settings such as the walking speed via the foot swing and double support transition durations.
 An “execution mode” setting specifies whether the robot should finish any steps it may have queued versus overriding those and taking the first step of this walk action after the current step is completed.
@@ -439,7 +444,7 @@ This separation acts as a “lever arm” for goal orientation precision.</p>
 By default they are even at the controller’s default stance width for a squared up goal stance.
 However, for many task approaches, such as pull doors, we require a staggered stance.
 The “Left Foot to Goal” and “Right Foot to Goal” checkboxes toggle gizmos to tune the goal footsteps.
-In <a href="#fig:guide_sim_walk_settings">Figure 109</a>, the stance point, focus point, and the right footstep are all being tuned.</p>
+In <a href="#fig:guide_sim_walk_settings">Figure 6.10</a>, the stance point, focus point, and the right footstep are all being tuned.</p>
 <h2 id="footstep-planning"><a class="header" href="#footstep-planning">Footstep Planning</a></h2>
 <p>We currently have three footstep planners available to the walk action: the quick footstep planner, the turn-walk-turn planner, and the A* planner.
 The quick footstep planner is the newest option.
@@ -472,14 +477,14 @@ It also helps to make the footstep plan narrower, to reduce side-to-side sway, w
 <h2 id="executing-a-walk-action"><a class="header" href="#executing-a-walk-action">Executing a Walk Action</a></h2>
 <figure id="fig:guide_sim_walk_executing">
 <img src="media/guide/2026-04-28 19-55-33_BasicTutorial-00.01.25.339.jpg" />
-<figcaption><strong>Figure 110.</strong> The walk action executing.</figcaption>
+<figcaption><strong>Figure 6.11.</strong> The walk action executing.</figcaption>
 </figure>
-<p>In <a href="#fig:guide_sim_walk_executing">Figure 110</a>, we execute the walk action to complete our first example.
+<p>In <a href="#fig:guide_sim_walk_executing">Figure 6.11</a>, we execute the walk action to complete our first example.
 A progress bar can be seen that is tracking the action.
 The 7.58 second total is calculated by adding up all the transfer and swing times of the planned footsteps.
 Virtual, numbered footsteps are displayed in the 3D view to show the robot controller’s current queue.</p>
 <h2 id="simple-behavior-json-file"><a class="header" href="#simple-behavior-json-file">Simple Behavior JSON File</a></h2>
-<p>A simplified version of the saved JSON for this simple example is presented in <a href="#fig:demo_behavior_json_part_1">Figure 111</a> and <a href="#fig:demo_behavior_json_part_2">Figure 112</a>.</p>
+<p>A simplified version of the saved JSON for this simple example is presented in <a href="#fig:demo_behavior_json_part_1">Figure 6.12</a> and <a href="#fig:demo_behavior_json_part_2">Figure 6.13</a>.</p>
 <figure id="fig:demo_behavior_json_part_1">
 <div class="minipage">
 <pre><code>[
@@ -536,7 +541,7 @@ Virtual, numbered footsteps are displayed in the 3D view to show the robot contr
 
 </div>
 
-<figcaption><strong>Figure 111.</strong> Example behavior definition serialized as JSON (Part 1).</figcaption>
+<figcaption><strong>Figure 6.12.</strong> Example behavior definition serialized as JSON (Part 1).</figcaption>
 </figure>
 <figure id="fig:demo_behavior_json_part_2">
 <div class="minipage">
@@ -585,7 +590,7 @@ Virtual, numbered footsteps are displayed in the 3D view to show the robot contr
 
 </div>
 
-<figcaption><strong>Figure 112.</strong> Example behavior definition serialized as JSON (Part 2).</figcaption>
+<figcaption><strong>Figure 6.13.</strong> Example behavior definition serialized as JSON (Part 2).</figcaption>
 </figure>
 <!-- PAGE-REFERENCES-START -->
 <p><strong>References cited on this page</strong></p>
@@ -646,6 +651,7 @@ Virtual, numbered footsteps are displayed in the 3D view to show the robot contr
         <!-- Custom JS scripts -->
         <script src="citation-data-d2a0410c.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
+        <script src="theme-persist-5a94a5be.js"></script>
 
 
 
