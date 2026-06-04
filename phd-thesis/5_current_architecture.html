@@ -44,7 +44,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-f963728d.js";
+            window.path_to_searchindex_js = "searchindex-d3ba1492.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-13565dbe.js"></script>
@@ -295,7 +295,7 @@ Each node is serialized with a <code>type</code> field and a <code>children</cod
 For example, instead of saving a number “0.1349159123”, we round it to “0.135”.
 We also use degrees instead of radians because it’s easier to reason about.
 Still, we recommend viewing behaviors in the operator interface for the best understanding.
-A step-by-step tutorial example is given in <a href="6_tutorial_3_basic_example_move_the_arms_and_walk.html#sec:simple_behavior_json_file">[sec:simple_behavior_json_file]</a>.</p>
+A step-by-step tutorial example is given in <a href="6_tutorial_3_basic_example_move_the_arms_and_walk.html#6317-simple-behavior-json-file">Section 6.3.17</a>.</p>
 <figure id="fig:architecture_behavior_json">
 <div class="minipage">
 <pre><code>[
@@ -424,7 +424,36 @@ Its primary third-party libraries are Dear ImGui, libGDX, and OpenVR  <a href="
 This single UI framework covers behavior authoring, digital-twin visualization, perception debugging, graph-based logging, and direct teleoperation modes such as whole-body streaming, footstep placement, and joystick walking.
 The operator tooling co-evolved with the runtime and shares the same data structures, so authoring, execution, and diagnosis all operate over a common substrate.</p>
 <p>See <a href="6_tutorial.html#ch:tutorial">Usage Guide</a> for extensive coverage of operator interface features.</p>
-<h2 id="59-behavior-tree-structure"><a class="header" href="#59-behavior-tree-structure"><span class="heading-number">5.9.</span> Behavior Tree Structure</a></h2>
+<h2 id="59-object-centric-action-definition"><a class="header" href="#59-object-centric-action-definition"><span class="heading-number">5.9.</span> Object-Centric Action Definition</a></h2>
+<p>In our system, many of our physical actions can be defined in the coordinate frame of a part of the robot or a scene object.
+This includes hand poses, footsteps, spine action, the screw primitive axes, and the neck action.
+When approaching objects like tables and doors, the footsteps are defined with respect to the perceived object frame or door frame.
+When grasping an object, the pre-grasp hand poses are defined with respect to the perceived object.
+This important architectural design element is inspired by both the IHMC DARPA Robotics Challenge user interface presented in <a href="4_story_of_building_and_architecture_1_2014_2015_darpa_robotics_challenge_era.html#41-2014-2015-darpa-robotics-challenge-era">Section 4.1</a> and the Affordance Template Framework  <a href="references.html#ref-Hart_2014" class="citation-ref">[19]</a>, <a href="references.html#ref-Hart_2015" class="citation-ref">[21]</a> discussed in <a href="3_prior_work_1_architectural_foundations.html#311-affordance-templates">Section 3.1.1</a>.</p>
+<p>This is also referred to as “object-centric” action, which is acting with respect to the object, versus “ego-centric” action, which is acting with respect to the robot.
+Object-centric action definition is actually essential and core to the reusability of behaviors.
+It serves two main purposes.
+The first is to enable varied starting conditions of the robot.
+For example, task approach should be specified with respect to the task.
+The other is to reduce compounding errors.
+Ego-centric actions in sequence are subject to state estimator drift and other control errors.</p>
+<p>If you played back a door traversal behavior fully ego-centrically, assuming the robot started at the same initial pose as during authoring, it would likely miss the handle grasp or run into the door panel or frame.
+As an example of why, the door traversal approach stance may not achieve the desired footsteps accurately due to bad balance and recovery during the final steps.
+This would result in a stance that is slightly different than planned.
+If it were to then try to grasp the handle with respect to that stance (self) instead of the handle, even though it may have worked before, it will likely not work this time.
+The pre-grasp hand pose would be misaligned.
+Instead, by using the actively perceived or re-perceived door handle pose to define the pre-grasp action, the grasp should succeed, overcoming the prior error using the inverse kinematics solver to achieve the correct pose.</p>
+<p>Object-centric action definition is a way of doing sequential composition in the sense proposed by  <a href="references.html#ref-1999_burridge" class="citation-ref">[52]</a>.
+The example above may be viewed as Lyapunov funnels, where task approach is funnel A.
+The opening of funnel A is the space of possible starting locations of the robot.
+Funnel B is the handle grasp action.
+The size and shape of the opening of funnel B would represent the tolerance to different robot stance locations.
+It would be mainly based on arm reachability from the various stances.
+In this way, you could say that object-centric actions are a way to achieve task stability given a system with accruing errors.</p>
+<p>This is implemented using the Euclid math library  <a href="references.html#ref-ihmc_euclid" class="citation-ref">[84]</a>, which provides a reference frame tree with world frame as the root and the robot and all scene objects as subtrees and leaves.
+Euclid makes it easy to create new reference frames and calculate transformations between any two frames in the tree.</p>
+<p>We show how to define a hand pose with respect to a perceived object in <a href="6_tutorial_6_behavior_scene_management_example.html#667-authoring-a-frame-based-arm-action">Section 6.6.7</a>.</p>
+<h2 id="510-behavior-tree-structure"><a class="header" href="#510-behavior-tree-structure"><span class="heading-number">5.10.</span> Behavior Tree Structure</a></h2>
 <p>Our behaviors are structured as a tree of nodes.
 The tree organization serves a dual-purpose.
 It allows for organization of behavior and also a way to author logic in a simple way.</p>
@@ -457,12 +486,12 @@ The fallback node catch is a sequence instead of a list of additional things to 
 Goto nodes are used to modify the next action to execute index.</figcaption>
 </figure>
 <p>We also have a unique implementation of a fallback node, which is not a list of steps to try, but rather one thing to try and a sequence as a catch.
-We cover the fallback node in detail in <a href="6_tutorial_8_fallback_mechanism_example.html#sec:fallback_node">[sec:fallback_node]</a>.</p>
+We cover the fallback node in detail in <a href="6_tutorial_8_fallback_mechanism_example.html#68-fallback-mechanism-example">Section 6.8</a>.</p>
 <p>The tree view in the operator interface is closer to a hierarchical file browser than to a dense 2D graph editor.
 That choice matched the rest of the operator workflow because the behavior view had to coexist with a 3D scene, first-person sensor imagery, scene-object panels, robot-status panels, and teleoperation widgets.</p>
 <p>In summary, our implementation is neither a Behavior Tree, a state machine, nor a hierarchical state machine.
 Instead, it combines elements from each to suit the needs of a runtime-editable behavior authoring system.</p>
-<h2 id="510-generalized-door-traversal-behavior"><a class="header" href="#510-generalized-door-traversal-behavior"><span class="heading-number">5.10.</span> Generalized Door Traversal Behavior</a></h2>
+<h2 id="511-generalized-door-traversal-behavior"><a class="header" href="#511-generalized-door-traversal-behavior"><span class="heading-number">5.11.</span> Generalized Door Traversal Behavior</a></h2>
 <p>As an example, <a href="#fig:TreeStructure">Figure 5.9</a> abstracts the authored structure of <code>door/DoorTraversal.json</code> and the expanded right-pull subtree in <code>door/RightPullDoor.json</code>.
 The top-level file handles the general approach, constructs the panel-, frame-, and hybrid-frame scene objects used for door-specific execution, and dispatches to left-push, left-pull, right-push, and right-pull branches.
 The right-pull branch is expanded because it makes the authored strategy clear: state-specific approach nodes feed a detailed lever-turn and door-opening sequence with explicit fallback loops before the final traversal.</p>
@@ -474,7 +503,7 @@ The upper portion abstracts <code>door/DoorTraversal.json</code>: a general appr
 The lower portion expands <code>door/RightPullDoor.json</code>, showing its closed-, ajar-, and open-door entry points and the detailed closed-door path through lever acquisition, handle turning, door opening, fallback retries, doorway-clear checks, and traversal.
 Intermediate action nodes are grouped into phase-level blocks for readability.</figcaption>
 </figure>
-<h2 id="511-node-library"><a class="header" href="#511-node-library"><span class="heading-number">5.11.</span> Node Library</a></h2>
+<h2 id="512-node-library"><a class="header" href="#512-node-library"><span class="heading-number">5.12.</span> Node Library</a></h2>
 <p>A full list of our node types is shown in <a href="#fig:BehaviorNodeLibrary">Figure 5.10</a>.
 The functionalities of these nodes are covered in detail in <a href="6_tutorial.html#ch:tutorial">Usage Guide</a>.</p>
 <figure id="fig:BehaviorNodeLibrary">
@@ -546,7 +575,7 @@ The menu is organized into creation entry points, reusable structural control no
 <p><strong>Leg Action.</strong> Commands a single foot pose relative to an authored parent frame for direct swing-foot placement outside the full footstep planning pipeline.</p>
 </li>
 </ul>
-<h2 id="512-behavior-scene"><a class="header" href="#512-behavior-scene"><span class="heading-number">5.12.</span> Behavior Scene</a></h2>
+<h2 id="513-behavior-scene"><a class="header" href="#513-behavior-scene"><span class="heading-number">5.13.</span> Behavior Scene</a></h2>
 <p>The last major architectural component of our system is the behavior scene.
 We maintain a set of persistent object detections local to the behaviors and for use only by the behaviors.
 This exclusivity allows behaviors to have full control over the perception they depend on.
@@ -565,7 +594,7 @@ Scene actions are used to manage the privileged objects and the underlying perce
 <p>Our scene object types, listed in <a href="#fig:BehaviorScene">Figure 5.11</a>, include directly detected object types, such as YOLO-only and FoundationPose objects, but also derived types that compute new frames from persistent detections, existing scene objects, or depth data.
 These specialized scene object types are a demonstration of how advanced perception and world modeling can be incorporated into our behavior system to extend capability to novel tasks.
 In the next several sections, we will describe these derived types.</p>
-<h2 id="513-door-panel-object"><a class="header" href="#513-door-panel-object"><span class="heading-number">5.13.</span> Door Panel Object</a></h2>
+<h2 id="514-door-panel-object"><a class="header" href="#514-door-panel-object"><span class="heading-number">5.14.</span> Door Panel Object</a></h2>
 <p>Our door panel object is a derived scene object built from two stable YOLO persistent detections: one for the opening mechanism and one for the door panel.
 A setup object type scene action can be set up to create a door panel object after those detections have passed the usual stability and proximity checks.
 An example is shown in <a href="4_story_of_building_and_architecture_6_2024_2026_h1_2_5_fingers_manipulation_era.html#fig:unitree_door_panel">Figure 4.58</a>.</p>
@@ -582,7 +611,7 @@ Stable YOLO persistent detections for the opening mechanism and door panel yield
 The vector from <span class="math inline"><em>C</em><sub><em>m</em></sub></span> to <span class="math inline"><em>C</em><sub><em>p</em></sub></span> defines panel orientation under the vertical hinge assumption.
 The privileged panel object frame is placed at <span class="math inline"><em>C</em><sub><em>m</em></sub></span> with <span class="math inline"><em>x̂</em></span> pointing toward the panel interior.</figcaption>
 </figure>
-<h2 id="514-door-frame-object"><a class="header" href="#514-door-frame-object"><span class="heading-number">5.14.</span> Door Frame Object</a></h2>
+<h2 id="515-door-frame-object"><a class="header" href="#515-door-frame-object"><span class="heading-number">5.15.</span> Door Frame Object</a></h2>
 <p>The door frame object extends the door panel object with semantic door geometry estimated from the live depth image.
 A door frame setup object type scene action requires an existing door panel object to be established in the scene.
 It then derives the door frame pose, push or pull type, and door open angle from that panel state and the current point cloud.</p>
@@ -617,7 +646,7 @@ A transparent yellow-green model shows the estimated panel pose, a coordinate fr
 Top: a closed lab left-push door, a real left-pull door at <span class="math inline">39<sup>∘</sup></span>, and a real right-push door of a double door at <span class="math inline">33<sup>∘</sup></span>.
 Bottom: a lab right-pull door at <span class="math inline">61<sup>∘</sup></span>, the same closed, and at <span class="math inline">81<sup>∘</sup></span> viewed from the back side.</figcaption>
 </figure>
-<h2 id="515-composite-and-hybrid-frames"><a class="header" href="#515-composite-and-hybrid-frames"><span class="heading-number">5.15.</span> Composite and Hybrid Frames</a></h2>
+<h2 id="516-composite-and-hybrid-frames"><a class="header" href="#516-composite-and-hybrid-frames"><span class="heading-number">5.16.</span> Composite and Hybrid Frames</a></h2>
 <p>A composite frame is a perception-less object derived from two existing scene frames.
 The reason for this is to perform geometric calculations to provide more useful reference frames.
 Like other privileged objects, it is created by a setup-object scene action and can be referenced by walk, arm, spine, and other physical actions in the same way as a detected object frame.
@@ -631,7 +660,7 @@ It is useful for approaching an ajar door panel, where the robot should walk wit
 <p>Composite frames can be layered.
 For example, an ajar-door hybrid frame can serve as one input to a subsequent approach frame that defines a distant handle approach stance.
 The top-level door traversal behavior in <a href="#fig:TreeStructure">Figure 5.9</a> constructs panel, frame, and hybrid-frame objects in this way before selecting a door specific subtree.</p>
-<h2 id="516-approach-table-object"><a class="header" href="#516-approach-table-object"><span class="heading-number">5.16.</span> Approach Table Object</a></h2>
+<h2 id="517-approach-table-object"><a class="header" href="#517-approach-table-object"><span class="heading-number">5.17.</span> Approach Table Object</a></h2>
 <p>The approach table object applies the same scene object pattern outside the door domain.
 It is a heuristic derived object that does not rely on semantic detections.
 Instead, it operates directly on the live depth image to produce a reusable table edge approach frame.
@@ -667,14 +696,18 @@ Right: the operator UI view showing the detected capsules, the generated approac
 <p>In the next chapter, we’ll dive into the specific functionalities of all these architectural features with a hands-on guide to creating and modifying behaviors using our system.</p>
 <!-- PAGE-REFERENCES-START -->
 <p><strong>References cited on this page</strong></p>
+<p><strong>[19]</strong> S. Hart, P. Dinh, and K. A. Hambuchen, “Affordance templates for shared robot control,” in <em>AAAI fall symposium on artificial intelligence and human-robot interaction</em>, Arlington, VA, USA: AAAI, Nov. 2014. Available: <a href="https://ntrs.nasa.gov/citations/20140012413">https://ntrs.nasa.gov/citations/20140012413</a></p>
+<p><strong>[21]</strong> S. Hart, P. Dinh, and K. A. Hambuchen, “The affordance template ROS package for robot task programming,” in <em>Proceedings of the IEEE international conference on robotics and automation (ICRA)</em>, 2015, pp. 6227–6234. doi: <a href="https://doi.org/10.1109/ICRA.2015.7140073">10.1109/ICRA.2015.7140073</a>.</p>
 <p><strong>[31]</strong> T. Koolen <em>et al.</em>, “Design of a momentum-based control framework and application to the humanoid robot atlas,” <em>International Journal of Humanoid Robotics</em>, vol. 13, no. 1, p. 1650007, 2016.</p>
 <p><strong>[38]</strong> J. E. Pratt, S. Bertrand, and T. Koolen, “Stepping for balance maintenance including push-recovery,” in <em>Humanoid robotics: A reference</em>, A. Goswami and P. Vadakkepat, Eds., Dordrecht: Springer Netherlands, 2019, pp. 1419–1466. doi: <a href="https://doi.org/10.1007/978-94-007-6046-2_41">10.1007/978-94-007-6046-2_41</a>.</p>
 <p><strong>[39]</strong> J. Pratt, J. Carff, S. Drakunov, and A. Goswami, “Capture point: A step toward humanoid push recovery,” in <em>2006 6th IEEE-RAS international conference on humanoid robots</em>, 2006, pp. 200–207. doi: <a href="https://doi.org/10.1109/ICHR.2006.321385">10.1109/ICHR.2006.321385</a>.</p>
+<p><strong>[52]</strong> R. R. Burridge, A. A. Rizzi, and D. E. Koditschek, “Sequential composition of dynamically dexterous robot behaviors,” <em>The International Journal of Robotics Research</em>, vol. 18, no. 6, pp. 534–555, 1999, doi: <a href="https://doi.org/10.1177/02783649922066385">10.1177/02783649922066385</a>.</p>
 <p><strong>[53]</strong> M. Colledanchise and P. “Ogren, <em>Behavior trees in robotics and AI: An introduction</em>. CRC Press, Taylor; Francis Group, 2018. doi: <a href="https://doi.org/10.1201/9780429489105">10.1201/9780429489105</a>.</p>
 <p><strong>[58]</strong> O. Cornut, “Dear ImGui.” 2024. Available: <a href="https://www.dearimgui.com/">https://www.dearimgui.com/</a></p>
 <p><strong>[59]</strong> libGDX Community, “libGDX.” 2024. Available: <a href="https://libgdx.com">https://libgdx.com</a></p>
 <p><strong>[60]</strong> Valve Software, “OpenVR.” 2024. Available: <a href="https://github.com/ValveSoftware/openvr">https://github.com/ValveSoftware/openvr</a></p>
 <p><strong>[82]</strong> M. Shapiro, N. Preguiça, C. Baquero, and M. Zawirski, “Conflict-free replicated data types,” in <em>Proceedings of the 13th international symposium on stabilization, safety, and security of distributed systems (SSS 2011)</em>, in Lecture notes in computer science, vol. 6976. Springer, 2011, pp. 386–400. doi: <a href="https://doi.org/10.1007/978-3-642-24550-3_29">10.1007/978-3-642-24550-3_29</a>.</p>
+<p><strong>[84]</strong> S. Bertrand and I. Robotics, <em>Euclid: Vector math and geometry library</em>. (2026). Available: <a href="https://github.com/ihmcrobotics/euclid">https://github.com/ihmcrobotics/euclid</a></p>
 <!-- PAGE-REFERENCES-END -->
 
                     </main>
@@ -728,7 +761,7 @@ Right: the operator UI view showing the detected capsules, the generated approac
         <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="citation-data-d2a0410c.js"></script>
+        <script src="citation-data-578f8bf9.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
         <script src="theme-persist-5a94a5be.js"></script>
 
