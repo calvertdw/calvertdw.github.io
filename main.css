@@ -4,6 +4,37 @@ body {
     margin-left: 150px;
 	max-width: 750px;
 }
+
+.social-links {
+    position: fixed;
+    top: 20px;
+    left: 150px;
+    width: 750px;
+    max-width: calc(100% - 150px);
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    z-index: 100;
+}
+
+.social-links a {
+    color: #d4dae6;
+    display: flex;
+    align-items: center;
+    transition: color 0.15s ease;
+}
+
+.social-links a:hover {
+    color: #8ab4ff;
+}
+
+.social-links a:visited {
+    color: #d4dae6;
+}
+
+.social-links a:visited:hover {
+    color: #8ab4ff;
+}
 h1, h2, h3 {
     font-family: "Verdana", Verdana, serif;
     color: #f4f6fb;
