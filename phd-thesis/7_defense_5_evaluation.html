@@ -44,10 +44,10 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-cc4d89e8.js";
+            window.path_to_searchindex_js = "searchindex-2084a571.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-13565dbe.js"></script>
+        <script src="toc-fe631b60.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -201,11 +201,11 @@ First, let’s state them again:</p>
 We showed that our system with robot-local execution, synchronized UI state, concurrent action layering, reactive tree logic, and behavior-time semantic perception is sufficient to yield door behaviors that are faster than a prior IHMC baseline in <a href="7_defense_1_hypothesis_1_fast_loco_manipulation_behaviors.html#fig:in_house_speed_phase_timeline">Figure 7.1</a>.
 The 2021 Atlas door behavior took 3.9x longer to execute than our 2024 Nadia pull door behavior.
 We also showed that it was competitive in speed with reinforcement learning policies in <a href="7_defense_4_comparative_analysis.html#fig:hero_speed_comparison">Figure 7.29</a>.
-Our door behaviors are in the same tens of seconds regime as Zhang et al.  <a href="references.html#ref-zhang2024learningopentraversedoors" class="citation-ref">[49]</a> and DoorMan  <a href="references.html#ref-xue2025opening" class="citation-ref">[75]</a>.</p>
+Our door behaviors are in the same tens of seconds regime as Zhang et al.  <a href="references.html#ref-zhang2024learningopentraversedoors" class="citation-ref">[56]</a> and DoorMan  <a href="references.html#ref-xue2025opening" class="citation-ref">[82]</a>.</p>
 <p>For reliability, unfortunately, there is a lack of data for prior IHMC baselines, but in <a href="7_defense_1_hypothesis_1_fast_loco_manipulation_behaviors.html#fig:in_house_reliability_resilience_summary">Figure 7.14</a>, we show that our loco-manipulation behaviors, namely, door approach and opening, were able to be repeated 11 and 12 times without failure.
 Likewise, evidence for door behavior reliability on learned systems is limited.
-Zhang et al.  <a href="references.html#ref-zhang2024learningopentraversedoors" class="citation-ref">[49]</a> show the most convincing reliability with their 20/20 and 18/20 trial sets for full door traversals.
-DoorMan  <a href="references.html#ref-xue2025opening" class="citation-ref">[75]</a> claims “83%” reliability, but does not share the data from which that number is calculated.
+Zhang et al.  <a href="references.html#ref-zhang2024learningopentraversedoors" class="citation-ref">[56]</a> show the most convincing reliability with their 20/20 and 18/20 trial sets for full door traversals.
+DoorMan  <a href="references.html#ref-xue2025opening" class="citation-ref">[82]</a> claims “83%” reliability, but does not share the data from which that number is calculated.
 We can say that the reliability of our system is competitive with learned door systems, especially when the resilience capabilities are factored in, which are also presented in <a href="7_defense_1_hypothesis_1_fast_loco_manipulation_behaviors.html#fig:in_house_reliability_resilience_summary">Figure 7.14</a>.</p>
 <p>We can also say that our second and third hypotheses hold.
 Runtime-editable behaviors and perception have reduced our behavior authoring times to the hours regime as shown in <a href="7_defense_2_hypothesis_2_fast_behavior_authoring.html#fig:in_house_authoring_from_scratch_timeline">Figure 7.20</a>.
@@ -215,7 +215,7 @@ This figure spans a decade of IHMC real-robot behavior milestones from the 2015 
 What we see is a drastic increase in the rate of new behavior demonstrations over time given the same or less resources allocated to creating them.</p>
 <p>The literature does not provide data on the creation or modification timelines of loco-manipulation behaviors.
 Standing alone in measuring this is one of the most novel aspects of our work.
-However, given knowledge of DoorMan  <a href="references.html#ref-xue2025opening" class="citation-ref">[75]</a>’s architecture, we can estimate that our behavior authoring process is 50 to 100 times faster, as illustrated in <a href="7_defense_4_comparative_analysis.html#fig:hero_authoring_process_comparison">Figure 7.31</a>.
+However, given knowledge of DoorMan  <a href="references.html#ref-xue2025opening" class="citation-ref">[82]</a>’s architecture, we can estimate that our behavior authoring process is 50 to 100 times faster, as illustrated in <a href="7_defense_4_comparative_analysis.html#fig:hero_authoring_process_comparison">Figure 7.31</a>.
 We credit this speed to our architectural decisions where we decompose behaviors into reusable primitives, subtrees, and scene actions.
 This allows us to edit a small part of a working behavior rather than rebuilding the whole thing from scratch.
 The ability to perform these edits and re-test the behavior at runtime speeds up the process even further.</p>
@@ -224,7 +224,7 @@ The ability to perform these edits and re-test the behavior at runtime speeds up
 <figcaption><strong>Figure 7.32.</strong> 
 Calendar timeline of IHMC real robot behavior milestones since the 2015 DRC Finals.
 Colors distinguish teleoperation, hybrid or supervised operation, legacy hard-coded autonomy, and runtime-authored door, manipulation, and loco-manipulation behaviors.
-Entries include teleoperated and non-loco-manipulation demos from the development story in [Building our Behavior Architecture](4_story_of_building_and_architecture.md#ch:building).
+Entries include teleoperated and non-loco-manipulation demos from the development story in [Building Our Behavior Architecture](4_story_of_building_and_architecture.md#ch:building).
 </figcaption>
 </figure>
 <h2 id="751-desirable-characteristics"><a class="header" href="#751-desirable-characteristics"><span class="heading-number">7.5.1.</span> Desirable Characteristics</a></h2>
@@ -265,12 +265,12 @@ This application uses a kinematic simulation combined with the playback of real 
 Very often, bugs can be reproduced and fixed in this environment.
 We also use this application to automate behavior tests.</p>
 <p>Lastly, we view our system as being very extendable.
-As laid out in <a href="4_story_of_building_and_architecture.html#ch:building">Building our Behavior Architecture</a>, the story of building it has been feature after brainstormed feature.
+As laid out in <a href="4_story_of_building_and_architecture.html#ch:building">Building Our Behavior Architecture</a>, the story of building it has been feature after brainstormed feature.
 This train of extension is still in active motion.</p>
 <!-- PAGE-REFERENCES-START -->
 <p><strong>References cited on this page</strong></p>
-<p><strong>[49]</strong> M. Zhang, Y. Ma, T. Miki, and M. Hutter, “Learning to open and traverse doors with a legged manipulator.” 2024. Available: <a href="https://arxiv.org/abs/2409.04882">https://arxiv.org/abs/2409.04882</a></p>
-<p><strong>[75]</strong> H. Xue <em>et al.</em>, “Opening the sim-to-real door for humanoid pixel-to-action policy transfer,” <em>arXiv preprint arXiv:2512.01061</em>, 2025.</p>
+<p><strong>[56]</strong> M. Zhang, Y. Ma, T. Miki, and M. Hutter, “Learning to open and traverse doors with a legged manipulator.” 2024. Available: <a href="https://arxiv.org/abs/2409.04882">https://arxiv.org/abs/2409.04882</a></p>
+<p><strong>[82]</strong> H. Xue <em>et al.</em>, “Opening the sim-to-real door for humanoid pixel-to-action policy transfer,” <em>arXiv preprint arXiv:2512.01061</em>, 2025.</p>
 <!-- PAGE-REFERENCES-END -->
 
                     </main>
@@ -324,10 +324,10 @@ This train of extension is still in active motion.</p>
         <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="citation-data-578f8bf9.js"></script>
+        <script src="citation-data-f786c247.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
         <script src="theme-persist-5a94a5be.js"></script>
-        <script src="pdf-download-40e21669.js"></script>
+        <script src="pdf-download-841dcc54.js"></script>
 
 
 

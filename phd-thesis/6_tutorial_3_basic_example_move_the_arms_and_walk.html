@@ -44,10 +44,10 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-cc4d89e8.js";
+            window.path_to_searchindex_js = "searchindex-2084a571.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-13565dbe.js"></script>
+        <script src="toc-fe631b60.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -454,13 +454,13 @@ Though the heuristics are general, we focused on ensuring the plan for approachi
 It supports walking to waypoints without specifying goal footsteps.
 The option to not specify goal footsteps can speed up behaviors by removing an unnecessary square-up step.
 It currently only supports flat ground, but we think it could be extended to plan over terrain maps.</p>
-<p>When the quick footstep planner is selected, an option for RRT-Connect  <a href="references.html#ref-kuffner2000rrt" class="citation-ref">[78]</a> path planning is available.
+<p>When the quick footstep planner is selected, an option for RRT-Connect  <a href="references.html#ref-kuffner2000rrt" class="citation-ref">[85]</a> path planning is available.
 The current implementation will simply maintain a tunable distance from objects in the behavior scene while taking the shortest path.
 This is an experimental mode that we would like to make more general using an occupancy map or something.</p>
 <p>The turn-walk-turn is another procedural heuristic planner for flat ground, but often has many unnecessary steps in the plan, reducing overall behavior speed.
 We don’t use this one much.
 It is mainly intended to be a backup option in case the other two don’t work for some reason in certain situations.</p>
-<p>The A* planner, as presented in  <a href="references.html#ref-griffin2019footstepplanner" class="citation-ref">[27]</a>, is a search-based planner for flat ground and rough terrain.
+<p>The A* planner, as presented in  <a href="references.html#ref-griffin2019footstepplanner" class="citation-ref">[31]</a>, is a search-based planner for flat ground and rough terrain.
 It uses a large set of parameters that define the ideal and boundary step criteria and then searches over an SE2 (X, Y, and Yaw) lattice to find the optimal set of footsteps to the goal feet.
 The planner can snap footsteps to planar regions and wiggle them as part of the search and in the pursuit of achieving a stable foothold.
 It can also plan over a height map.
@@ -594,8 +594,8 @@ Virtual, numbered footsteps are displayed in the 3D view to show the robot contr
 </figure>
 <!-- PAGE-REFERENCES-START -->
 <p><strong>References cited on this page</strong></p>
-<p><strong>[27]</strong> R. Griffin, G. Wiedebach, S. McCrory, S. Bertrand, I. Lee, and J. Pratt, “Footstep planning for autonomous walking over rough terrain,” arXiv, 2019. Available: <a href="https://arxiv.org/abs/1907.08673">https://arxiv.org/abs/1907.08673</a></p>
-<p><strong>[78]</strong> J. J. Kuffner and S. M. LaValle, “RRT-connect: An efficient approach to single-query path planning,” in <em>Proceedings 2000 ICRA. Millennium conference. IEEE international conference on robotics and automation. Symposia proceedings (cat. No. 00CH37065)</em>, IEEE, 2000, pp. 995–1001.</p>
+<p><strong>[31]</strong> R. Griffin, G. Wiedebach, S. McCrory, S. Bertrand, I. Lee, and J. Pratt, “Footstep planning for autonomous walking over rough terrain,” arXiv, 2019. Available: <a href="https://arxiv.org/abs/1907.08673">https://arxiv.org/abs/1907.08673</a></p>
+<p><strong>[85]</strong> J. J. Kuffner and S. M. LaValle, “RRT-connect: An efficient approach to single-query path planning,” in <em>Proceedings 2000 ICRA. Millennium conference. IEEE international conference on robotics and automation. Symposia proceedings (cat. No. 00CH37065)</em>, IEEE, 2000, pp. 995–1001.</p>
 <!-- PAGE-REFERENCES-END -->
 
                     </main>
@@ -649,10 +649,10 @@ Virtual, numbered footsteps are displayed in the 3D view to show the robot contr
         <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="citation-data-578f8bf9.js"></script>
+        <script src="citation-data-f786c247.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
         <script src="theme-persist-5a94a5be.js"></script>
-        <script src="pdf-download-40e21669.js"></script>
+        <script src="pdf-download-841dcc54.js"></script>
 
 
 

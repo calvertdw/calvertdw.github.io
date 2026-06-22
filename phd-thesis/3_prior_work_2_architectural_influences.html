@@ -44,10 +44,10 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-cc4d89e8.js";
+            window.path_to_searchindex_js = "searchindex-2084a571.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-13565dbe.js"></script>
+        <script src="toc-fe631b60.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -199,27 +199,30 @@ RAFCON exposes preemptive and barrier concurrency states alongside hierarchy and
 The state machine is persisted as a folder of JSON files that mirrors the tree, which makes it readable, version controllable, and amenable to multi-developer collaboration.
 The most complete demonstration is the SpaceBotCamp 2015 mission, in which a state machine of more than 700 states across 8 hierarchy levels orchestrated navigation, exploration, perception, and manipulation; it is therefore a strong precedent for runtime-modifiable graphical authoring at scale, but, like FlexBE, it does not provide overlapping numerical evidence on door-task speed, reliability, or authoring effort, and it remains a host-side orchestration tool over ROS components rather than a robot-local synchronized runtime.</p>
 <h2 id="324-drawing-board"><a class="header" href="#324-drawing-board"><span class="heading-number">3.2.4.</span> Drawing Board</a></h2>
-<p>Senft et al.  <a href="references.html#ref-Senft_2021" class="citation-ref">[18]</a> present <em>Drawing Board</em>, a task-level authoring interface for remote teleoperation of a tabletop Franka Emika Panda arm.
+<p>Senft et al.  <a href="references.html#ref-Senft_2021" class="citation-ref">[19]</a> present <em>Drawing Board</em>, a task-level authoring interface for remote teleoperation of a tabletop Franka Emika Panda arm.
 The system is built around four principles relevant here: interleaving observation and planning, action-level robot control, a unified augmented-reality interface, and graphical specification of actions.
 An 18-participant study showed that novices produced longer and more frequent autonomous periods with task-level authoring than with direct or point-and-click control.
 The architecture in this thesis shares the action-level authoring stance and unified-interface principle, and extends them to humanoid loco-manipulation, robot-local execution under degraded communications, and reactive tree structure with behavior-time perception authored as scene actions.</p>
 <h2 id="325-behaviors-on-centauro"><a class="header" href="#325-behaviors-on-centauro"><span class="heading-number">3.2.5.</span> Behaviors on CENTAURO</a></h2>
 <p>More recent CENTAURO work shows how structured task coordination can extend into perception-aware execution.
-De Luca et al. used BehaviorTree.CPP and Groot to manage online replanning and recovery for rough-terrain navigation on the CENTAURO wheeled-legged robot  <a href="references.html#ref-2023_centaur_bt" class="citation-ref">[55]</a>.
+De Luca et al. used BehaviorTree.CPP  <a href="references.html#ref-behaviortree_cpp" class="citation-ref">[4]</a> and Groot  <a href="references.html#ref-groot1" class="citation-ref">[5]</a>, <a href="references.html#ref-groot2" class="citation-ref">[6]</a> to manage online replanning and recovery for rough-terrain navigation on the CENTAURO wheeled-legged robot  <a href="references.html#ref-2023_centaur_bt" class="citation-ref">[62]</a>.
 They have a robot centaur with four legs with wheels, two arms with hands, and a head.
-That system is a useful reference point for BT-managed online planning, but it remains navigation only and does not demonstrate fast execution, with real-robot runs reported between 225 s and 335 s.
-A later paper by Wang et al.  <a href="references.html#ref-2024_wang_grounded_lm" class="citation-ref">[56]</a> moved into simple loco-manipulation by combining a predefined behavior library with task graphs executed as behavior trees.
+That system is a useful reference point for online planning using Behavior Trees, but it remains navigation only and does not demonstrate fast execution, with real-robot runs reported between 225 s and 335 s.
+A later paper by Wang et al.  <a href="references.html#ref-2024_wang_grounded_lm" class="citation-ref">[63]</a> moved into simple loco-manipulation by combining a predefined behavior library with task graphs executed as behavior trees.
 That paper is especially relevant because perceptual operations such as object detection, grip-force sensing, and visual question answering are inserted into the task structure as authored behaviors, which is a precedent for the scene action idea developed here.
 The reported real-world execution remains slow, with pick-and-place times of 160.6 s in the nominal case and 203.2 s with failure recovery.
-Together these structured systems show important pieces of the design space, but they do not establish fast humanoid loco-manipulation with editable authored structure and task-local perception.</p>
+Together, these structured systems show important pieces of the design space, but they do not establish fast humanoid loco-manipulation with editable authored structure and task-local perception.</p>
 <!-- PAGE-REFERENCES-START -->
 <p><strong>References cited on this page</strong></p>
+<p><strong>[4]</strong> D. Faconti and BehaviorTree.CPP Contributors, <em>BehaviorTree.CPP</em>. (2019). Available: <a href="https://github.com/BehaviorTree/BehaviorTree.CPP">https://github.com/BehaviorTree/BehaviorTree.CPP</a></p>
+<p><strong>[5]</strong> D. Faconti and Groot Contributors, <em>Groot 1.0</em>. (2019). Available: <a href="https://github.com/BehaviorTree/Groot">https://github.com/BehaviorTree/Groot</a></p>
+<p><strong>[6]</strong> D. Faconti and A. Robotics, <em>Groot2</em>. (2022). Available: <a href="https://www.behaviortree.dev/groot">https://www.behaviortree.dev/groot</a></p>
 <p><strong>[15]</strong> P. Marion <em>et al.</em>, “Director: A user interface designed for robot operation with shared autonomy,” <em>Journal of Field Robotics</em>, vol. 34, no. 2, pp. 262–280, 2017.</p>
 <p><strong>[16]</strong> P. Schillinger, S. Kohlbrecher, and O. von Stryk, “Human-robot collaborative high-level control with application to rescue robotics,” in <em>2016 IEEE international conference on robotics and automation (ICRA)</em>, 2016, pp. 3898–3905. doi: <a href="https://doi.org/10.1109/ICRA.2016.7487584">10.1109/ICRA.2016.7487584</a>.</p>
 <p><strong>[17]</strong> S. G. Brunner, F. Steinmetz, R. Belder, and A. Dömel, “RAFCON: A graphical tool for engineering complex, robotic tasks,” in <em>2016 IEEE/RSJ international conference on intelligent robots and systems (IROS)</em>, 2016.</p>
-<p><strong>[18]</strong> E. Senft <em>et al.</em>, “Task-level authoring for remote robot teleoperation,” <em>Frontiers in Robotics and AI</em>, vol. 8, p. 707149, 2021, doi: <a href="https://doi.org/10.3389/frobt.2021.707149">10.3389/frobt.2021.707149</a>.</p>
-<p><strong>[55]</strong> A. De Luca, L. Muratore, and N. G. Tsagarakis, “Autonomous navigation with online replanning and recovery behaviors for wheeled-legged robots using behavior trees,” <em>IEEE Robotics and Automation Letters</em>, vol. 8, no. 10, pp. 6803–6810, 2023, doi: <a href="https://doi.org/10.1109/LRA.2023.3313052">10.1109/LRA.2023.3313052</a>.</p>
-<p><strong>[56]</strong> J. Wang, A. Laurenzi, and N. Tsagarakis, “Autonomous behavior planning for humanoid loco-manipulation through grounded language model.” 2024. Available: <a href="https://arxiv.org/abs/2408.08282">https://arxiv.org/abs/2408.08282</a></p>
+<p><strong>[19]</strong> E. Senft <em>et al.</em>, “Task-level authoring for remote robot teleoperation,” <em>Frontiers in Robotics and AI</em>, vol. 8, p. 707149, 2021, doi: <a href="https://doi.org/10.3389/frobt.2021.707149">10.3389/frobt.2021.707149</a>.</p>
+<p><strong>[62]</strong> A. De Luca, L. Muratore, and N. G. Tsagarakis, “Autonomous navigation with online replanning and recovery behaviors for wheeled-legged robots using behavior trees,” <em>IEEE Robotics and Automation Letters</em>, vol. 8, no. 10, pp. 6803–6810, 2023, doi: <a href="https://doi.org/10.1109/LRA.2023.3313052">10.1109/LRA.2023.3313052</a>.</p>
+<p><strong>[63]</strong> J. Wang, A. Laurenzi, and N. Tsagarakis, “Autonomous behavior planning for humanoid loco-manipulation through grounded language model.” 2024. Available: <a href="https://arxiv.org/abs/2408.08282">https://arxiv.org/abs/2408.08282</a></p>
 <!-- PAGE-REFERENCES-END -->
 
                     </main>
@@ -273,10 +276,10 @@ Together these structured systems show important pieces of the design space, but
         <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="citation-data-578f8bf9.js"></script>
+        <script src="citation-data-f786c247.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
         <script src="theme-persist-5a94a5be.js"></script>
-        <script src="pdf-download-40e21669.js"></script>
+        <script src="pdf-download-841dcc54.js"></script>
 
 
 

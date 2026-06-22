@@ -44,10 +44,10 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-cc4d89e8.js";
+            window.path_to_searchindex_js = "searchindex-2084a571.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-13565dbe.js"></script>
+        <script src="toc-fe631b60.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -194,7 +194,7 @@ A video is available at <a href="https://youtu.be/BV9vFMgMc3A" class="uri">https
 <p>In January 2024, in an effort to demonstrate advancements in manipulation capability, the behavior system was used in a demo that picks up a shoe off a table, sidesteps, places the shoe in a banker’s box, picks up the box, and backs away with it as shown in <a href="#fig:2024_shoe_in_box">Figure 4.29</a>.
 This behavior was authored by Dexton Anderson and Dhruv Thanki and was a good example of the behavior system being used by someone other than Duncan Calvert or Luigi Penco, who had been the primary users until this point.
 The behavior was executed using manually stepping as opposed to the automatic mode and lasted 3 minutes and 9 seconds.
-This was also the first integration of a CenterPose  <a href="references.html#ref-lin2022icra:centerpose" class="citation-ref">[35]</a> model for the shoe and the first behavior that did not use an ArUco marker for manipulation of an object.
+This was also the first integration of a CenterPose  <a href="references.html#ref-lin2022icra:centerpose" class="citation-ref">[42]</a> model for the shoe and the first behavior that did not use an ArUco marker for manipulation of an object.
 The behavior was split into three separate JSON files which were executed separately: “LeftHandShoePickUp.json”, “ShoeDropOff.json”, and “PickUpBankersResizableBox.json”.</p>
 <p>This behavior was very difficult to get to work due to the unreliability of the components.
 The Nadia T-Motor arms and lower body EtherCAT bus would often fault, causing the robot to fall.
@@ -219,7 +219,7 @@ The major changes included the following.</p>
 <p>Icons were added for the action types to aid in visual navigation.</p>
 </li>
 <li>
-<p>Actions could now be renamed by double clicking them, typing the new name, and hitting enter.</p>
+<p>Actions could be renamed by double clicking them, typing the new name, and hitting enter.</p>
 </li>
 <li>
 <p>The settings for each node were moved to a modal area at the bottom of the Behavior Tree panel instead of being inlined next to each node.
@@ -240,12 +240,11 @@ A video is available at <a href="https://youtu.be/c929cDimaCY" class="uri">https
 </figcaption>
 </figure>
 <h2 id="453-fast-behaviors"><a class="header" href="#453-fast-behaviors"><span class="heading-number">4.5.3.</span> Fast Behaviors</a></h2>
-<p>On February 4, 2024, we achieved the fastest push door behavior yet on Nadia in 17 seconds, shown in <a href="#fig:2024_17s_push_door">Figure 4.31</a>.
-By this time, Nadia’s upper arms had been upgraded to a cycloid drive based design.
-It also used an “execute with next action” boolean option for action nodes which was added back in September 2023.
-The “execute with next action” feature supported executing multiple nodes at once, contributing to the speed of this push door behavior.
-This action sequence node would not wait for the currently executing action to complete if this field was true for the next action.
-Instead, it would immediately execute it too, such that multiple actions could be running at once.</p>
+<p>On February 4, 2024, we achieved the fastest push door behavior to that date on Nadia, executing in 17 seconds, shown in <a href="#fig:2024_17s_push_door">Figure 4.31</a>.
+By this time, Nadia’s upper arms had been upgraded to a cycloid drive based design which enabled faster motions without hardware faults.
+It also used a new “execute with next action” boolean option for action nodes which was added back in September 2023.
+This feature supported executing multiple nodes at once, contributing to the speed of this push door behavior.
+It did this by allowing subsequent actions to proceed without waiting for the currently executing action to complete.</p>
 <figure id="fig:2024_mark_modified">
 <img src="media/nadia/Peek 2024-02-28 16-42-MarkModified-00.00.09.316.jpeg" />
 <figcaption><strong>Figure 4.32.</strong> A screenshot from February 28, 2024, showing the introduction of the “mark modified” feature, which illustrated to the operator that a node has been modified but not saved, using the asterisk symbol (*).
@@ -265,54 +264,56 @@ A video is available at <a href="https://youtu.be/DrR2Ng3ft5Y" class="uri">https
 </figcaption>
 </figure>
 <p>In March of 2024, the “execute with next action” concurrency feature was replaced with an “execute after” node pointer.
-This allowed each action to declare a dependency on which action to wait for.
+This allowed each action to declare a dependency on which action to wait for, as illustrated in <a href="#fig:execute_after_concurrency">Figure 4.34</a>.
 By setting the “execute after” field to something earlier than the previous action, actions could start along with prior actions.
 This also allowed for action scheduling using the Wait action in combination with the “execute after” field.
 For example, arm motions could be scheduled during walking.
 This feature enabled our fastest ever door traversal, performed on March 15 2024, as shown in <a href="#fig:2024_14s_push_door">Figure 4.33</a>.
 In this behavior, Nadia traversed a spring-loaded push door without stopping walking in 14 seconds, using nubs for hands and an ArUco marker for detecting the pose of the door.</p>
+<figure id="fig:execute_after_concurrency">
+<img src="media/generated/ActionLayeringIllustrationSpecific.jpg" style="width:100%" alt="ActionLayeringIllustrationSpecific" />
+<figcaption><strong>Figure 4.34.</strong> An illustration of the “execute after” concurrency mechanism.
+Arrows represent a dependency on action completion.
+This has the effect of scheduling the dependent action later or allowing it to run earlier.</figcaption>
+</figure>
 <h2 id="455-bimanual-box-pick-and-place"><a class="header" href="#455-bimanual-box-pick-and-place"><span class="heading-number">4.5.5.</span> Bimanual Box Pick and Place</a></h2>
 <figure id="fig:2024_box_pick_and_place">
 <img src="media/nadia/202400409_AutonomousWBBoxPickUp.jpg" />
-<figcaption><strong>Figure 4.34.</strong> The April 9, 2024 bimanual box pick and place behavior.
+<figcaption><strong>Figure 4.35.</strong> The April 9, 2024 bimanual box pick and place behavior.
 A video is available at <a href="https://youtu.be/m0NC2EV4XB4" class="uri">https://youtu.be/m0NC2EV4XB4</a>.
 </figcaption>
 </figure>
-<p>On April 9, 2024, we demonstrated a bimanual box pick and place behavior as shown in <a href="#fig:2024_box_pick_and_place">Figure 4.34</a>.
+<p>On April 9, 2024, we demonstrated a bimanual box pick and place behavior as shown in <a href="#fig:2024_box_pick_and_place">Figure 4.35</a>.
 With some padding attached to the nub forearms, Nadia executed a behavior that picked a box up from a pallet on the ground, carried it to a table, set it down, and backed away.</p>
 <h2 id="456-hard-coded-disturbance-recovery"><a class="header" href="#456-hard-coded-disturbance-recovery"><span class="heading-number">4.5.6.</span> Hard-Coded Disturbance Recovery</a></h2>
 <figure id="fig:2024_pull_door_tmotor">
 <img src="media/nadia/20240412_PullDoorBehavior.jpg" />
-<figcaption><strong>Figure 4.35.</strong> A 19 second pull door behavior executed on April 12, 2024.
+<figcaption><strong>Figure 4.36.</strong> A 19 second pull door behavior executed on April 12, 2024.
 A video is available at <a href="https://youtu.be/jSM8mdmOZlc" class="uri">https://youtu.be/jSM8mdmOZlc</a>.
 </figcaption>
 </figure>
-<p>On April 12, 2024, we demonstrated a pull door behavior in 19 seconds, shown in <a href="#fig:2024_pull_door_tmotor">Figure 4.35</a>.
+<p>On April 12, 2024, we demonstrated a pull door behavior in 19 seconds, shown in <a href="#fig:2024_pull_door_tmotor">Figure 4.36</a>.
 This behavior used a new YOLO model for door opening mechanisms and did not use an ArUco marker.</p>
 <p>Earlier, in late March 2024, we had started implementing a heuristic door traversal node as a place to hard-code door-specific logic while continuing to use the runtime editable actions.
 The purpose of this was to implement reactive elements like retries on failure before figuring out how to generalize it with fallback nodes.
-Pseudocode for the initial pull door lever retry is presented in <a href="#alg:pull_door_screw_primitive_retry">Algorithm 3</a>.
-This algorithm didn’t work as reliably as the one we will present next.</p>
+Pseudocode for the initial pull door lever retry is presented in <a href="#alg:pull_door_screw_primitive_retry">Algorithm 3</a>.</p>
 <figure id="alg:pull_door_screw_primitive_retry">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/alg_pull_door_screw_primitive_retry.light.jpg" /><img class="tikz-dark" src="media/generated/alg_pull_door_screw_primitive_retry.dark.jpg" /></span>
 <figcaption><strong>Algorithm 3.</strong> Retry door opening if gripper slips off handle and closes all the way</figcaption>
 </figure>
 <figure id="fig:2024_pull_door_reactive_dhruv">
 <img src="media/nadia/20240412_NadiaDisturbanceReactiveLeftPullHandleTmotor.jpg" />
-<figcaption><strong>Figure 4.36.</strong> A pull door behavior is disturbed during the opening phase 5 times.
+<figcaption><strong>Figure 4.37.</strong> A pull door behavior is disturbed during the opening phase 5 times.
 The robot retries the opening 5 times, ultimately leading to task success.
 This demonstration was executed on April 12, 2024.
 A video is available at <a href="https://youtu.be/j_rzh5cAP2E" class="uri">https://youtu.be/j_rzh5cAP2E</a>.
 </figcaption>
 </figure>
-<p>On April 12, 2024, we used this strategy to demonstrate a reactive version of the pull door behavior, as shown in <a href="#fig:2024_pull_door_reactive_dhruv">Figure 4.36</a>.
+<p>On April 12, 2024, we used this strategy to demonstrate a reactive version of the pull door behavior, as shown in <a href="#fig:2024_pull_door_reactive_dhruv">Figure 4.37</a>.
 A human repeatedly holds the door closed, pulls the door closed, and pushes the robot’s hand back as the robot tries to open the door.
 The door traversal node detects the action failure, rewinds to the grasp approach action, and tries again until successful.</p>
-<figure id="alg:door_traversal_node_reactive">
-<span class="tikz-figure"><img class="tikz-light" src="media/generated/alg_door_traversal_node_reactive.light.jpg" /><img class="tikz-dark" src="media/generated/alg_door_traversal_node_reactive.dark.jpg" /></span>
-<figcaption><strong>Algorithm 4.</strong> Door Traversal Node Reactive Algorithm</figcaption>
-</figure>
-<p>An improved hard-coded heuristic, presented in <a href="#alg:door_traversal_node_reactive">Algorithm 4</a>, was used to detect three types of failures specific to opening a door.
+<p>In <a href="#alg:door_traversal_node_reactive">Algorithm 4</a>, we present an improved hard-coded heuristic which was used to detect three types of failures specific to opening a door.
+This yielded an improvement in reliability over <a href="#alg:pull_door_screw_primitive_retry">Algorithm 3</a>.
 At the end of the grasp action, if the hand did not reach the handle, we assume the grasp failed.
 At the end of the pull door open action, we check the pose of the door handle and the pose of the robot’s hand.
 In the case the handle did not move far from its original position, we assume that the unlatch failed.
@@ -320,17 +321,21 @@ In the case the handle pose is far from the hand pose, we assume the hand slippe
 On any type of failure detected by this node, we rewind the action sequence to the grasp approach action, where the robot immediately begins to retry the door opening.
 This approach worked well for the human holding the door shut, pulling the door out of the robot’s hand, and pushing the robot’s hand away from the door handle.
 In all three cases, the robot was able to recover and successfully execute the full door traversal without operator intervention.</p>
+<figure id="alg:door_traversal_node_reactive">
+<span class="tikz-figure"><img class="tikz-light" src="media/generated/alg_door_traversal_node_reactive.light.jpg" /><img class="tikz-dark" src="media/generated/alg_door_traversal_node_reactive.dark.jpg" /></span>
+<figcaption><strong>Algorithm 4.</strong> Door Traversal Node Reactive Algorithm</figcaption>
+</figure>
 <p>During this demo, we noted the friction with hard-coded reactive logic.
 Iterating from <a href="#alg:pull_door_screw_primitive_retry">Algorithm 3</a> to <a href="#alg:door_traversal_node_reactive">Algorithm 4</a> took a lot of time and guesswork.
 Our metric for evaluation was the reliability of the reactive retry mechanism.
 Since this test required the full system to be online and two people to operate, one at the operator computer and one to disturb the robot,
 experiment time was scarce.
-Having to change code, implement debugging output, redeploy, and restart the behavior to modify the reactive logic sucked up even more of that time.
+Having to change code, implement debugging output, redeploy, and restart the behavior to modify the reactive logic consumed a lot of that time.
 It was clear that a fallback node, proximity condition, and improved action success criteria would streamline this process in the future.</p>
 <h2 id="457-three-door-traversals-in-a-row"><a class="header" href="#457-three-door-traversals-in-a-row"><span class="heading-number">4.5.7.</span> Three Door Traversals in a Row</a></h2>
 <figure id="fig:2024_3_doors">
 <img src="media/nadia/20240703_NadiaDoorTraversalsPushBarPushKnobPullHandleFall.jpg" />
-<figcaption><strong>Figure 4.37.</strong> Our July 3, 2024 run where we attempted to traverse three doors in a row with continuous autonomy.
+<figcaption><strong>Figure 4.38.</strong> Our July 3, 2024 run where we attempted to traverse three doors in a row with continuous autonomy.
 We traversed the first two in 48 seconds, but ultimately fell after opening the third.
 A video is available at <a href="https://youtu.be/cd-lo-l7pPI" class="uri">https://youtu.be/cd-lo-l7pPI</a>.
 </figcaption>
@@ -339,43 +344,43 @@ A video is available at <a href="https://youtu.be/cd-lo-l7pPI" class="uri">https
 We put together a behavior to traverse three doors of different types consecutively in one continuous automatic execution.
 We built three lab doors for this: a door with spring closer with a push bar on one side and a pull handle on the other, a knob handle door with a spring closer, and a lever handle door without a spring closer.
 We traversed the first two doors in 48 seconds but fell after opening the third door.
-This run is shown in <a href="#fig:2024_3_doors">Figure 4.37</a>.</p>
+This run is shown in <a href="#fig:2024_3_doors">Figure 4.38</a>.</p>
 <p>There were a couple of failure modes that made achieving this behavior difficult.
 Firstly, the EZGripper gripper, having only two fingers and limited grippiness, resulted in slipping off the pull lever handle very often.
 Additionally, having only two fingers made getting a solid grasp on the knob handle difficult.
 For example, if the two fingers are not positioned at opposite vertices of the circular knob handle, it would slip off to the side.
 This was a key moment in realizing that having at least three fingers would make door behaviors more reliable.</p>
 <p>Another failure mode, and the one that ultimately prevented us from getting the third door completed, was the result of a combination of hardware and control issues.
-The Nadia robot was tethered to a hydraulic pump across the room and the hydraulic cabling was very stiff.
+The Nadia robot was tethered to a hydraulic pump across the room and the hydraulic hoses were very stiff.
 Also, Nadia’s hip pitch actuators in their configuration were barely strong enough to lift the leg when the arms were also out in front of the robot, as required for door traversals in avoiding collisions with the door frame.
-When the robot was positioned to traverse the third door, the hydraulic cables put enough extra torque on the robot to make walking through the door un-achievable for the robot and it repeatedly fell.</p>
+When the robot was positioned to traverse the third door, the hydraulic hoses put enough extra torque on the robot to make walking through the door un-achievable for the robot and it repeatedly fell.</p>
 <h2 id="458-onr-building-exploration-demo"><a class="header" href="#458-onr-building-exploration-demo"><span class="heading-number">4.5.8.</span> ONR Building Exploration Demo</a></h2>
 <figure id="fig:2024_onr_demo_partial">
 <img src="media/nadia/202407_NadiaONRDemoPushBarTrashCanPullHandleSearch.jpg" />
-<figcaption><strong>Figure 4.38.</strong> 
+<figcaption><strong>Figure 4.39.</strong> 
 The “ONR Demo” run where we entered a mock building through a push door (top), searched the room for couches and recycling bins (center left), navigated to the door being blocked by the recycling bin and cleared it out of the way (center right), entered that room (bottom left), and searched for a person (bottom right).
 A video is available at <a href="https://youtu.be/GQZbcyediI0" class="uri">https://youtu.be/GQZbcyediI0</a>.
 </figcaption>
 </figure>
 <p>Later that month, we attempted an extended version of that behavior in which we turned the behavior into a multi-room search.
 Dubbed the “ONR Demo”, this behavior was demonstrated on July 19, 2024.
-<a href="#fig:2024_onr_demo_partial">Figure 4.38</a> shows a partial test run that entered through a push-bar door, searched the first room, cleared a recycling bin blocking a doorway, and entered a second room.
-Later the same day, we also executed a more complete second run in 7 minutes and 45 seconds, shown in <a href="#fig:2024_onr_demo_run_2">Figure 4.39</a>.
+<a href="#fig:2024_onr_demo_partial">Figure 4.39</a> shows a partial test run that entered through a push-bar door, searched the first room, cleared a recycling bin blocking a doorway, and entered a second room.
+Later the same day, we also executed a more complete second run in 7 minutes and 45 seconds, shown in <a href="#fig:2024_onr_demo_run_2">Figure 4.40</a>.
 That run searched all three rooms, cleared a blocked doorway, moved the couch to recover a hidden object, and ended with a salute behavior.</p>
+<p>We have printed the structure of the behavior which consists of 178 nodes, generated from the actual JSON in <a href="#fig:onr_demo_tikz">Figure 4.41</a> and <a href="#fig:onr_demo_tikz2">Figure 4.42</a>.</p>
 <figure id="fig:2024_onr_demo_run_2">
-<img src="media/nadia/20240719_ONRDemoRun2.jpg" />
-<figcaption><strong>Figure 4.39.</strong> The more complete July 19, 2024 ONR Demo run 2 collage.
+<img src="media/nadia/20240719_ONRDemoRun2_2.jpg" />
+<figcaption><strong>Figure 4.40.</strong> The more complete July 19, 2024 ONR Demo run 2 collage.
 This run entered through a push-bar door, searched multiple rooms, cleared a blocked doorway, traversed additional doors, moved furniture to recover a hidden object, and ended with a salute behavior in 7 minutes and 45 seconds.
 A video is available at <a href="https://youtu.be/D0gylAJEdZw" class="uri">https://youtu.be/D0gylAJEdZw</a>.</figcaption>
 </figure>
-<p>We have printed the structure of the behavior which consists of 178 nodes, generated from the actual JSON in <a href="#fig:onr_demo_tikz">Figure 4.40</a> and <a href="#fig:onr_demo_tikz2">Figure 4.41</a>.</p>
 <figure id="fig:onr_demo_tikz">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/ONRDemoTikz.light.jpg" /><img class="tikz-dark" src="media/generated/ONRDemoTikz.dark.jpg" /></span>
-<figcaption><strong>Figure 4.40.</strong> The ONR Demo behavior tree (Part 1).</figcaption>
+<figcaption><strong>Figure 4.41.</strong> The ONR Demo behavior tree (Part 1).</figcaption>
 </figure>
 <figure id="fig:onr_demo_tikz2">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/ONRDemoTikz2.light.jpg" /><img class="tikz-dark" src="media/generated/ONRDemoTikz2.dark.jpg" /></span>
-<figcaption><strong>Figure 4.41.</strong> The ONR Demo behavior tree (Part 2).</figcaption>
+<figcaption><strong>Figure 4.42.</strong> The ONR Demo behavior tree (Part 2).</figcaption>
 </figure>
 <p>On the day of the ONR Demo, we were able to accomplish each task without a failure.
 However, in the run-up to the demo, we noted an important property of behavior composition.
@@ -411,7 +416,7 @@ Our full demo was composed of seven main loco-manipulation behaviors:</p>
 On the day of the final demo, where we were ultimately successful, our success likely hinged on sufficiently configuring and testing the initial conditions such that the chance of success was much higher.</p>
 <!-- PAGE-REFERENCES-START -->
 <p><strong>References cited on this page</strong></p>
-<p><strong>[35]</strong> Y. Lin, J. Tremblay, S. Tyree, P. A. Vela, and S. Birchfield, “Single-stage keypoint-based category-level object pose estimation from an RGB image,” in <em>IEEE international conference on robotics and automation (ICRA)</em>, 2022.</p>
+<p><strong>[42]</strong> Y. Lin, J. Tremblay, S. Tyree, P. A. Vela, and S. Birchfield, “Single-stage keypoint-based category-level object pose estimation from an RGB image,” in <em>IEEE international conference on robotics and automation (ICRA)</em>, 2022.</p>
 <!-- PAGE-REFERENCES-END -->
 
                     </main>
@@ -465,10 +470,10 @@ On the day of the final demo, where we were ultimately successful, our success l
         <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="citation-data-578f8bf9.js"></script>
+        <script src="citation-data-f786c247.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
         <script src="theme-persist-5a94a5be.js"></script>
-        <script src="pdf-download-40e21669.js"></script>
+        <script src="pdf-download-841dcc54.js"></script>
 
 
 

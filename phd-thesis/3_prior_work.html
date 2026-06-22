@@ -44,10 +44,10 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-cc4d89e8.js";
+            window.path_to_searchindex_js = "searchindex-2084a571.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-13565dbe.js"></script>
+        <script src="toc-fe631b60.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -187,7 +187,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
 <p><span id="ch:prior_work" label="ch:prior_work"></span></p>
 <h2 id="301-introduction"><a class="header" href="#301-introduction"><span class="heading-number">3.0.1.</span> Introduction</a></h2>
 <p>In this chapter we’ll cover literature that relates to this dissertation on reusable action structure, reactive task coordination, human-machine coordination, perception, and real robot door task demonstrations.
-Architectural references include CLARAty, Affordance Templates, Affordance Primitives, Coactive Design, Director, FlexBE, RAFCON, Drawing Board, and the CENTAURO behavior tree systems.
+Architectural references include CLARAty  <a href="references.html#ref-Volpe_2001_CLARAty" class="citation-ref">[18]</a>, Affordance Templates  <a href="references.html#ref-Hart_2014" class="citation-ref">[20]</a>, <a href="references.html#ref-Hart_2015" class="citation-ref">[22]</a>, Affordance Primitives  <a href="references.html#ref-Pettinger_2020" class="citation-ref">[13]</a>, <a href="references.html#ref-Pettinger_2022" class="citation-ref">[14]</a>, Coactive Design  <a href="references.html#ref-Johnson_2014" class="citation-ref">[34]</a>, Director  <a href="references.html#ref-Marion_2017" class="citation-ref">[15]</a>, FlexBE  <a href="references.html#ref-Schillinger_2016" class="citation-ref">[16]</a>, RAFCON  <a href="references.html#ref-Brunner_2016" class="citation-ref">[17]</a>, Drawing Board  <a href="references.html#ref-Senft_2021" class="citation-ref">[19]</a>, and the CENTAURO behavior tree systems  <a href="references.html#ref-2023_centaur_bt" class="citation-ref">[62]</a>, <a href="references.html#ref-2024_wang_grounded_lm" class="citation-ref">[63]</a>.
 Door task references span from classical and model-based mobile-manipulator and humanoid systems to recent learned legged and humanoid policies.
 The systems with metrics that overlap our benchmark are compared with each other and this thesis in <a href="7_defense.html#ch:defense">Evaluation</a>.</p>
 <p><a href="#fig:design_space_map">Figure 3.1</a> maps every system reviewed in this chapter across four dimensions: execution boundary, runtime editability, perception model, and door evidence.
@@ -205,6 +205,21 @@ DoorMan is the only off-board entry, and the learned door systems concentrate on
 Design-space placement of every prior system reviewed in this chapter.
 </figcaption>
 </figure>
+<!-- PAGE-REFERENCES-START -->
+<p><strong>References cited on this page</strong></p>
+<p><strong>[13]</strong> A. Pettinger, C. Elliott, P. Fan, and M. Pryor, “Reducing the teleoperator’s cognitive burden for complex contact tasks using affordance primitives,” in <em>2020 IEEE/RSJ international conference on intelligent robots and systems (IROS)</em>, 2020, pp. 11513–11518. doi: <a href="https://doi.org/10.1109/IROS45743.2020.9341576">10.1109/IROS45743.2020.9341576</a>.</p>
+<p><strong>[14]</strong> A. Pettinger, F. Alambeigi, and M. Pryor, “A versatile affordance modeling framework using screw primitives to increase autonomy during manipulation contact tasks,” <em>IEEE Robotics and Automation Letters</em>, vol. 7, no. 3, pp. 7224–7231, 2022, doi: <a href="https://doi.org/10.1109/LRA.2022.3181732">10.1109/LRA.2022.3181732</a>.</p>
+<p><strong>[15]</strong> P. Marion <em>et al.</em>, “Director: A user interface designed for robot operation with shared autonomy,” <em>Journal of Field Robotics</em>, vol. 34, no. 2, pp. 262–280, 2017.</p>
+<p><strong>[16]</strong> P. Schillinger, S. Kohlbrecher, and O. von Stryk, “Human-robot collaborative high-level control with application to rescue robotics,” in <em>2016 IEEE international conference on robotics and automation (ICRA)</em>, 2016, pp. 3898–3905. doi: <a href="https://doi.org/10.1109/ICRA.2016.7487584">10.1109/ICRA.2016.7487584</a>.</p>
+<p><strong>[17]</strong> S. G. Brunner, F. Steinmetz, R. Belder, and A. Dömel, “RAFCON: A graphical tool for engineering complex, robotic tasks,” in <em>2016 IEEE/RSJ international conference on intelligent robots and systems (IROS)</em>, 2016.</p>
+<p><strong>[18]</strong> R. Volpe, I. Nesnas, T. Estlin, D. Mutz, R. Petras, and H. Das, “The CLARAty architecture for robotic autonomy,” in <em>2001 IEEE aerospace conference proceedings (cat. no.01TH8542)</em>, 2001, pp. 1/121–1/132. doi: <a href="https://doi.org/10.1109/AERO.2001.931701">10.1109/AERO.2001.931701</a>.</p>
+<p><strong>[19]</strong> E. Senft <em>et al.</em>, “Task-level authoring for remote robot teleoperation,” <em>Frontiers in Robotics and AI</em>, vol. 8, p. 707149, 2021, doi: <a href="https://doi.org/10.3389/frobt.2021.707149">10.3389/frobt.2021.707149</a>.</p>
+<p><strong>[20]</strong> S. Hart, P. Dinh, and K. A. Hambuchen, “Affordance templates for shared robot control,” in <em>AAAI fall symposium on artificial intelligence and human-robot interaction</em>, Arlington, VA, USA: AAAI, Nov. 2014. Available: <a href="https://ntrs.nasa.gov/citations/20140012413">https://ntrs.nasa.gov/citations/20140012413</a></p>
+<p><strong>[22]</strong> S. Hart, P. Dinh, and K. A. Hambuchen, “The affordance template ROS package for robot task programming,” in <em>Proceedings of the IEEE international conference on robotics and automation (ICRA)</em>, 2015, pp. 6227–6234. doi: <a href="https://doi.org/10.1109/ICRA.2015.7140073">10.1109/ICRA.2015.7140073</a>.</p>
+<p><strong>[34]</strong> M. Johnson, J. M. Bradshaw, P. J. Feltovich, C. M. Jonker, M. B. van Riemsdijk, and M. Sierhuis, “Coactive design: Designing support for interdependence in joint activity,” <em>J. Hum.-Robot Interact.</em>, vol. 3, no. 1, pp. 43–69, Feb. 2014.</p>
+<p><strong>[62]</strong> A. De Luca, L. Muratore, and N. G. Tsagarakis, “Autonomous navigation with online replanning and recovery behaviors for wheeled-legged robots using behavior trees,” <em>IEEE Robotics and Automation Letters</em>, vol. 8, no. 10, pp. 6803–6810, 2023, doi: <a href="https://doi.org/10.1109/LRA.2023.3313052">10.1109/LRA.2023.3313052</a>.</p>
+<p><strong>[63]</strong> J. Wang, A. Laurenzi, and N. Tsagarakis, “Autonomous behavior planning for humanoid loco-manipulation through grounded language model.” 2024. Available: <a href="https://arxiv.org/abs/2408.08282">https://arxiv.org/abs/2408.08282</a></p>
+<!-- PAGE-REFERENCES-END -->
 
                     </main>
 
@@ -257,10 +272,10 @@ Design-space placement of every prior system reviewed in this chapter.
         <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="citation-data-578f8bf9.js"></script>
+        <script src="citation-data-f786c247.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
         <script src="theme-persist-5a94a5be.js"></script>
-        <script src="pdf-download-40e21669.js"></script>
+        <script src="pdf-download-841dcc54.js"></script>
 
 
 

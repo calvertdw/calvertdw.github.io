@@ -44,10 +44,10 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-cc4d89e8.js";
+            window.path_to_searchindex_js = "searchindex-2084a571.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-13565dbe.js"></script>
+        <script src="toc-fe631b60.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -192,7 +192,7 @@ A video of this demonstration is available at <a href="https://youtu.be/mw4z4H4K
 <p>Now we will cover fallback node operation.
 A fallback node is like an if-else statement, but since the if condition evaluation is performing an action, we call it a try-catch.
 A fallback node therefore has two parts: the try and the catch.
-Each part can contain one or more actions, however, unlike a Behavior Tree fallback node from the literature  <a href="references.html#ref-2018_colledanchise" class="citation-ref">[53]</a>, our fallback node has only one try clause and the catch clause is just an action sequence of unlimited length.</p>
+Each part can contain one or more actions, however, unlike a Behavior Tree fallback node from the literature  <a href="references.html#ref-2018_colledanchise" class="citation-ref">[60]</a>, our fallback node has only one try clause and the catch clause is just an action sequence of unlimited length.</p>
 <p>We also support concurrent actions in the fallback node.
 To do this, we expand the try to contain the first concurrent action set.
 This could be one or more actions with the rule that they must execute together.
@@ -218,14 +218,14 @@ Each time it is executed, the count is increased.
 If the count reaches the limit, the counter condition node fails.</p>
 <p>The LLM condition node provides the ability to query a large language model to determine success or failure.
 It has an authorable system prompt, repeated prompt, and boolean response matcher.
-We covered the LLM node in more detail near <a href="4_story_of_building_and_architecture_6_2024_2026_h1_2_5_fingers_manipulation_era.html#fig:2025_llm_condition_node">Figure 4.44</a>.</p>
+We covered the LLM node in more detail near <a href="4_story_of_building_and_architecture_6_2024_2026_h1_2_5_fingers_manipulation_era.html#fig:2025_llm_condition_node">Figure 4.46</a>.</p>
 <p>The proximity node checks the distance between two behavior reference frames.
 If the distance is between the tunable minimum and maximum, the condition succeeds.
-We also covered the proximity node in some more detail near <a href="4_story_of_building_and_architecture_6_2024_2026_h1_2_5_fingers_manipulation_era.html#fig:2025_proximity_condition">Figure 4.48</a>.</p>
+We also covered the proximity node in some more detail near <a href="4_story_of_building_and_architecture_6_2024_2026_h1_2_5_fingers_manipulation_era.html#fig:2025_proximity_condition">Figure 4.50</a>.</p>
 <p>For this example, we’ll use the shape contains condition node to check that the right hand frame is within the bounds of a sphere.
 In <a href="#fig:guide_sim_fallback">Figure 6.29</a>, our shape contains condition node is selected with the settings showing in the bottom-left.
 There are two modes for the shape contains condition: contains frame and contains points.
-We’ll be using contains frame in this example, but the contains points functionality, which counts the number of live point cloud points in the virtual shape, is covered near <a href="4_story_of_building_and_architecture_7_2026_alex_resilience_adaptability_era.html#fig:alex_shape_contains_condition">Figure 4.63</a>.</p>
+We’ll be using contains frame in this example, but the contains points functionality, which counts the number of live point cloud points in the virtual shape, is covered near <a href="4_story_of_building_and_architecture_7_2026_alex_resilience_adaptability_era.html#fig:alex_shape_contains_condition">Figure 4.65</a>.</p>
 <h2 id="682-shape-contains-frame-condition"><a class="header" href="#682-shape-contains-frame-condition"><span class="heading-number">6.8.2.</span> Shape Contains Frame Condition</a></h2>
 <p>In <a href="#fig:guide_sim_fallback">Figure 6.29</a>, you’ll see there are four main settings for the shape contains frame functionality.
 The shape parent frame, the shape pose, the sphere radius, and the frame to check containment of.
@@ -270,7 +270,7 @@ We run check hand, it fails, then the arm action runs to move the hand into the 
 The goto node causes us to re-evaluate the check, which now succeeds, sending us on to the spine action, which executes successfully.</p>
 <!-- PAGE-REFERENCES-START -->
 <p><strong>References cited on this page</strong></p>
-<p><strong>[53]</strong> M. Colledanchise and P. “Ogren, <em>Behavior trees in robotics and AI: An introduction</em>. CRC Press, Taylor; Francis Group, 2018. doi: <a href="https://doi.org/10.1201/9780429489105">10.1201/9780429489105</a>.</p>
+<p><strong>[60]</strong> M. Colledanchise and P. “Ogren, <em>Behavior trees in robotics and AI: An introduction</em>. CRC Press, Taylor; Francis Group, 2018. doi: <a href="https://doi.org/10.1201/9780429489105">10.1201/9780429489105</a>.</p>
 <!-- PAGE-REFERENCES-END -->
 
                     </main>
@@ -324,10 +324,10 @@ The goto node causes us to re-evaluate the check, which now succeeds, sending us
         <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="citation-data-578f8bf9.js"></script>
+        <script src="citation-data-f786c247.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
         <script src="theme-persist-5a94a5be.js"></script>
-        <script src="pdf-download-40e21669.js"></script>
+        <script src="pdf-download-841dcc54.js"></script>
 
 
 

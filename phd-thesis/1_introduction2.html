@@ -44,10 +44,10 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-cc4d89e8.js";
+            window.path_to_searchindex_js = "searchindex-2084a571.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-13565dbe.js"></script>
+        <script src="toc-fe631b60.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -187,19 +187,19 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
 <p><span id="ch:introduction2" label="ch:introduction2"></span></p>
 <h2 id="11-introduction"><a class="header" href="#11-introduction"><span class="heading-number">1.1.</span> Introduction</a></h2>
 <p>There is tremendous value in humanoid robots taking on the dull, dirty, and dangerous work in spaces built for humans.
-However, a useful system must coordinate locomotion, whole body motion, perception, contact, and operator supervision.
+However, a useful robotic system must coordinate locomotion, whole body motion, perception, contact, and operator supervision.
 It must also support adaptation to new tasks.
 This chapter introduces the problem addressed by this dissertation and situates the proposed behavior architecture in the relevant literature.</p>
 <p>The central claim of this thesis is that our behavior architecture enables fast, resilient, and adaptive humanoid robot behaviors.
 Different architectural choices affect how quickly a behavior executes, how robustly it tolerates task variation and disturbance, and how much effort is required to adapt an existing behavior to a new variant.
-The work therefore focuses on the runtime structure that makes the task faster, more resilient, and easier to modify than prior versions.
-In <a href="4_story_of_building_and_architecture.html#ch:building">Building our Behavior Architecture</a>, we tell the story of how we arrived at our current design choices.
+The work therefore focuses on the runtime structure that makes the task faster, more resilient, and easier to modify than the DRC-era behavior stack  <a href="references.html#ref-Johnson_2017" class="citation-ref">[36]</a> and our prior published behavior architecture  <a href="references.html#ref-calvert2024behavior" class="citation-ref">[75]</a>.
+In <a href="4_story_of_building_and_architecture.html#ch:building">Building Our Behavior Architecture</a>, we tell the story of how we arrived at our current design choices.
 In <a href="5_current_architecture.html#ch:architecture2">Current Architecture</a>, we’ll present our current behavior system architecture.</p>
 <p>This thesis demonstrates its relevance through performant real-robot demos on a variety of humanoid robot platforms, including IHMC’s recently developed Alex, a fully-electric humanoid robot with 29 degrees of freedom, as shown in <a href="#fig:20260309_AlexRightPullDoorProfessionalStill">Figure 1.1</a>.
 Alex uses the PSYONIC Ability Hands, which are anthropomorphic 5-finger hands with 6 degrees of freedom each.
-It also perceives the world on-board, using just two stereo color cameras in the head with a human-like interpupillary distance.
+It also perceives the world on-board, using just two passive stereo color cameras in the head with a human-like interpupillary distance.
 We present an evaluation of our results in <a href="7_defense.html#ch:defense">Evaluation</a>.</p>
-<p>We have run our system with several humanoid robots over the years, including the Boston Dynamics DARPA Robotics Challenge Atlas, NASA’s Valkyrie, IHMC and Boardwalk Robotics’ Nadia, Unitree’s H1-2, and IHMC’s Alex.
+<p>We have run our system with several humanoid robots over the years, including the Boston Dynamics DARPA Robotics Challenge Finals-Era Atlas, NASA’s Valkyrie, IHMC and Boardwalk Robotics’ Nadia, Unitree’s H1-2, and IHMC’s Alex.
 This reflects the generality of our approach: it can run on a variety of humanoid robots.
 We describe the prerequisites in more detail in <a href="6_tutorial.html#ch:tutorial">Usage Guide</a>.</p>
 <figure id="fig:20260309_AlexRightPullDoorProfessionalStill">
@@ -253,21 +253,40 @@ Resilience means robust and reactive behavior under disturbance and task variati
 Adaptability means runtime-editable behaviors for rapid task retargeting.
 These pillars provide the main lens for evaluating the architecture and the results presented throughout the dissertation.
 In <a href="2_metrics.html#ch:metrics">Desirable Characteristics</a>, we cover the full set of desirable characteristics of a humanoid robot behavior architecture.</p>
-<h2 id="16-door-traversals-as-a-benchmark-task"><a class="header" href="#16-door-traversals-as-a-benchmark-task"><span class="heading-number">1.6.</span> Door Traversals as a Benchmark Task</a></h2>
+<h2 id="16-contributions"><a class="header" href="#16-contributions"><span class="heading-number">1.6.</span> Contributions</a></h2>
+<p>The main contributions of this dissertation are:</p>
+<ul>
+<li>
+<p><strong>Architecture:</strong> We present a robot-local behavior architecture that unifies runtime-editable task logic, synchronized operator UI state, and behavior-time perception for humanoid loco-manipulation, evaluated through repeated real-robot demonstrations on multiple humanoid platforms, with Alex as the primary evaluation robot.</p>
+</li>
+<li>
+<p><strong>Speed:</strong> We report humanoid door traversals among the fastest timed results in the published literature, including sub-20-second full traversals on real hardware and performance competitive with recent learned humanoid door policies on overlapping tasks.</p>
+</li>
+<li>
+<p><strong>Combined evaluation:</strong> To our knowledge, this is the first door-traversal study to report competitive speed and repeated-trial reliability on a humanoid while also measuring behavior authoring and adaptation time on the same runtime-editable stack.</p>
+</li>
+<li>
+<p><strong>Adaptability:</strong> We show that an expert operator can bring a novel humanoid door behavior from an empty sequence to first fully autonomous success in under two hours of measured active authoring time, and we report comparable adaptation durations for retargeting existing behaviors to new doors and tasks.</p>
+</li>
+<li>
+<p><strong>Perception:</strong> We introduce behavior-time perception modules for generalized door traversal and table approach, including visual door-state estimation across diverse door configurations and a depth-based table-edge detection method that yields a reusable approach frame for precise humanoid positioning.</p>
+</li>
+</ul>
+<h2 id="17-door-traversals-as-a-benchmark-task"><a class="header" href="#17-door-traversals-as-a-benchmark-task"><span class="heading-number">1.7.</span> Door Traversals as a Benchmark Task</a></h2>
 <p>We use door traversal as a benchmark task because it exposes the full coordination problem in a compact and repeatable setting.
 There are three main phases of door traversal: the approach, the opening, and the traversal walk.
 For the approach, footsteps must be precise to provide arm reachability while avoiding collisions between the door and the robot.
 Since the doors often have spring closers, a complex manipulation sequence is required to open the door all the way without failure.
 Finally, the traversal walk is difficult because the robot must maintain balance while avoiding collisions with the door frame and resisting lateral impacts from the spring loaded door panel.
-<a href="#fig:2024NadiaRightPullLeverHandleCycloid">Figure 1.2</a> shows a circa-2024 door behavior being executed on the Boardwalk Robotics and IHMC Nadia humanoid robot.</p>
+<a href="#fig:2024NadiaRightPullLeverHandleCycloid">Figure 1.2</a> shows a circa-2024 door behavior being executed on the Nadia humanoid robot.</p>
 <figure id="fig:2024NadiaRightPullLeverHandleCycloid">
 <img src="media/nadia/2024NadiaRightPullLeverHandleCycloid.jpg" />
 <figcaption><strong>Figure 1.2.</strong> The Nadia humanoid robot performing a right pull lever handle door traversal using cycloidal drive forearms and Sake grippers.</figcaption>
 </figure>
-<p>There are many publications on door opening with wheeled base robots and arms, such as <a href="references.html#ref-Jain2008dooropening" class="citation-ref">[41]</a>, <a href="references.html#ref-2010ChittaDoorOpening" class="citation-ref">[48]</a>, <a href="references.html#ref-xiong2024adaptive" class="citation-ref">[40]</a>, and <a href="references.html#ref-kang2024door" class="citation-ref">[50]</a>.
-By contrast, there is relatively little published work on door traversal with bipedal humanoid robots <a href="references.html#ref-xue2025opening" class="citation-ref">[75]</a>.
+<p>There are many publications on door opening with wheeled base robots and arms, such as <a href="references.html#ref-Jain2008dooropening" class="citation-ref">[48]</a>, <a href="references.html#ref-2010ChittaDoorOpening" class="citation-ref">[55]</a>, <a href="references.html#ref-xiong2024adaptive" class="citation-ref">[47]</a>, and <a href="references.html#ref-kang2024door" class="citation-ref">[57]</a>.
+By contrast, there is relatively little published work on door traversal with bipedal humanoid robots <a href="references.html#ref-xue2025opening" class="citation-ref">[82]</a>.
 That gap matters because humanoids must manage foot placement, balance, reachability, body orientation, and environmental contact at the same time.
-The humanoid form is also especially well suited for navigating complex spaces that already assume a human body plan <a href="references.html#ref-Johnson_2017" class="citation-ref">[32]</a>.</p>
+The humanoid form is also especially well suited for navigating complex spaces designed for humans. <a href="references.html#ref-Johnson_2017" class="citation-ref">[36]</a>.</p>
 <p>Although doors are the primary benchmark, the architecture is intended for loco-manipulation more broadly.
 The behavior library developed during this work spans more than twenty real robot task variants.
 In one demonstration, the robot walks between two tables and sorts colored balls into the correct containers.
@@ -278,38 +297,38 @@ In one demonstration, the robot walks between two tables and sorts colored balls
 </figure>
 <h1 id="contributed-works"><a class="header" href="#contributed-works">Contributed Works</a></h1>
 <p>We contributed to the following publications while working on this thesis.
-The first paper in this list received the Humanoids 2022 Best Oral Paper Award <a href="references.html#ref-humanoids2022_awards" class="citation-ref">[73]</a>.
-The second paper in this list earned a Bronze Medal in Benjie Holson’s Humanoid Olympic Games for a round knob push door traversal timed at 18 s <a href="references.html#ref-holson2025_ihmc_bronze" class="citation-ref">[74]</a>.</p>
+The first paper in this list received the Humanoids 2022 Best Oral Paper Award <a href="references.html#ref-humanoids2022_awards" class="citation-ref">[80]</a>.
+The second paper in this list earned a Bronze Medal in Benjie Holson’s Humanoid Olympic Games for a round knob push door traversal timed at 18 s <a href="references.html#ref-holson2025_ihmc_bronze" class="citation-ref">[81]</a>.</p>
 <ol>
 <li>
-<p><strong>Duncan Calvert</strong>, Bhavyansh Mishra, Stephen McCrory, Sylvain Bertrand, Robert Griffin and Jerry Pratt (2022). A Fast, Autonomous, Bipedal Walking Behavior over Rapid Regions. <em>2022 IEEE-RAS 21st International Conference on Humanoid Robots (Humanoids)</em> <a href="references.html#ref-lookandstep" class="citation-ref">[64]</a>.</p>
+<p><strong>Duncan Calvert</strong>, Bhavyansh Mishra, Stephen McCrory, Sylvain Bertrand, Robert Griffin and Jerry Pratt (2022). A Fast, Autonomous, Bipedal Walking Behavior over Rapid Regions. <em>2022 IEEE-RAS 21st International Conference on Humanoid Robots (Humanoids)</em> <a href="references.html#ref-lookandstep" class="citation-ref">[71]</a>.</p>
 </li>
 <li>
-<p><strong>Duncan Calvert</strong>, Luigi Penco, Dexton Anderson, Tomasz Bialek, Arghya Chatterjee, Bhavyansh Mishra, Geoffrey Clark, Sylvain Bertrand and Robert Griffin (2024). A Behavior Architecture for Fast Humanoid Robot Door Traversals. <em>Robotics and Autonomous Systems</em> <a href="references.html#ref-calvert2024behavior" class="citation-ref">[68]</a>.</p>
+<p><strong>Duncan Calvert</strong>, Luigi Penco, Dexton Anderson, Tomasz Bialek, Arghya Chatterjee, Bhavyansh Mishra, Geoffrey Clark, Sylvain Bertrand and Robert Griffin (2024). A Behavior Architecture for Fast Humanoid Robot Door Traversals. <em>Robotics and Autonomous Systems</em> <a href="references.html#ref-calvert2024behavior" class="citation-ref">[75]</a>.</p>
 </li>
 <li>
-<p><strong>Duncan Calvert</strong>, Luigi Penco, Dexton Anderson, Tomasz Bialek, Arghya Chatterjee, Beomyeong Park, and Robert Griffin (2026). A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots. <em>IEEE Robotics and Automation Letters</em> (in preparation) <a href="references.html#ref-calvert2026resilient" class="citation-ref">[69]</a>.</p>
+<p><strong>Duncan Calvert</strong>, Luigi Penco, Dexton Anderson, Tomasz Bialek, Arghya Chatterjee, Beomyeong Park, and Robert Griffin (2026). A System for Fast, Resilient, and Adaptable Loco-Manipulation Behaviors on Humanoid Robots. <em>IEEE Robotics and Automation Letters</em> (in preparation) <a href="references.html#ref-calvert2026resilient" class="citation-ref">[76]</a>.</p>
 </li>
 <li>
-<p>Bhavyansh Mishra, <strong>Duncan Calvert</strong>, Sylvain Bertrand, Jerry Pratt, Hakki Erhan Sevil, and Robert Griffin (2024). Efficient Terrain Map Using Planar Regions for Footstep Planning on Humanoid Robots. Accepted for publication in the <em>Proceedings of the 2024 IEEE International Conference on Robotics and Automation (ICRA)</em> <a href="references.html#ref-Mishra_2023_SKIPR" class="citation-ref">[65]</a>.</p>
+<p>Bhavyansh Mishra, <strong>Duncan Calvert</strong>, Sylvain Bertrand, Jerry Pratt, Hakki Erhan Sevil, and Robert Griffin (2024). Efficient Terrain Map Using Planar Regions for Footstep Planning on Humanoid Robots. Accepted for publication in the <em>Proceedings of the 2024 IEEE International Conference on Robotics and Automation (ICRA)</em> <a href="references.html#ref-Mishra_2023_SKIPR" class="citation-ref">[72]</a>.</p>
 </li>
 <li>
-<p>Bhavyansh Mishra, <strong>Duncan Calvert</strong>, Brendon Ortolano, Max Asselmeier, Luke Fina, Stephen McCrory, Hakki Erhan Sevil, and Robert Griffin (2022). Perception engine using a multi-sensor head to enable high-level humanoid robot behaviors. Published in the <em>Proceedings of the 2022 International Conference on Robotics and Automation (ICRA)</em> <a href="references.html#ref-Mishra_2022_PerceptionEngine" class="citation-ref">[67]</a>.</p>
+<p>Bhavyansh Mishra, <strong>Duncan Calvert</strong>, Brendon Ortolano, Max Asselmeier, Luke Fina, Stephen McCrory, Hakki Erhan Sevil, and Robert Griffin (2022). Perception engine using a multi-sensor head to enable high-level humanoid robot behaviors. Published in the <em>Proceedings of the 2022 International Conference on Robotics and Automation (ICRA)</em> <a href="references.html#ref-Mishra_2022_PerceptionEngine" class="citation-ref">[74]</a>.</p>
 </li>
 <li>
-<p>Bhavyansh Mishra, <strong>Duncan Calvert</strong>, Sylvain Bertrand, Stephen McCrory, Robert Griffin, and Hakki Erhan Sevil (2024). GPU-Accelerated Rapid Planar Region Extraction for Dynamic Behaviors on Legged Robots. Published in the <em>Proceedings of the 2021 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</em> <a href="references.html#ref-Mishra_2021_RapidRegions" class="citation-ref">[66]</a>.</p>
+<p>Bhavyansh Mishra, <strong>Duncan Calvert</strong>, Sylvain Bertrand, Stephen McCrory, Robert Griffin, and Hakki Erhan Sevil (2024). GPU-Accelerated Rapid Planar Region Extraction for Dynamic Behaviors on Legged Robots. Published in the <em>Proceedings of the 2021 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</em> <a href="references.html#ref-Mishra_2021_RapidRegions" class="citation-ref">[73]</a>.</p>
 </li>
 <li>
-<p>Luigi Penco, Kazuhiko Momose, Stephen McCrory, Dexton Anderson, Nicholas Kitchel, <strong>Duncan Calvert</strong>, and Robert J Griffin (2024). Mixed reality teleoperation assistance for direct control of humanoids. <em>IEEE Robotics and Automation Letters</em>, 9(2), 1937-1944 <a href="references.html#ref-penco2024mixed" class="citation-ref">[70]</a>.</p>
+<p>Luigi Penco, Kazuhiko Momose, Stephen McCrory, Dexton Anderson, Nicholas Kitchel, <strong>Duncan Calvert</strong>, and Robert J Griffin (2024). Mixed reality teleoperation assistance for direct control of humanoids. <em>IEEE Robotics and Automation Letters</em>, 9(2), 1937-1944 <a href="references.html#ref-penco2024mixed" class="citation-ref">[77]</a>.</p>
 </li>
 <li>
-<p>Sylvain Bertrand, Luigi Penco, Dexton Anderson, <strong>Duncan Calvert</strong>, Valentine Roy, Stephen McCrory, Khizar Mohammed, Sebastian Sanchez, Will Griffith, Steve Morfey, Alexis Maslyczyk, Achintya Mohan, Cody Castello, Bingyin Ma, Kartik Suryavanshi, Patrick Dills, Jerry Pratt, Victor Ragusila, Brandon Shrewsbury, and Robert Griffin (2024). High-Speed and Impact Resilient Teleoperation of Humanoid Robots. <em>2024 IEEE-RAS 23rd International Conference on Humanoid Robots (Humanoids)</em> <a href="references.html#ref-bertrand2024highspeed" class="citation-ref">[72]</a>.</p>
+<p>Sylvain Bertrand, Luigi Penco, Dexton Anderson, <strong>Duncan Calvert</strong>, Valentine Roy, Stephen McCrory, Khizar Mohammed, Sebastian Sanchez, Will Griffith, Steve Morfey, Alexis Maslyczyk, Achintya Mohan, Cody Castello, Bingyin Ma, Kartik Suryavanshi, Patrick Dills, Jerry Pratt, Victor Ragusila, Brandon Shrewsbury, and Robert Griffin (2024). High-Speed and Impact Resilient Teleoperation of Humanoid Robots. <em>2024 IEEE-RAS 23rd International Conference on Humanoid Robots (Humanoids)</em> <a href="references.html#ref-bertrand2024highspeed" class="citation-ref">[79]</a>.</p>
 </li>
 <li>
-<p>Stephen McCrory, Sylvain Bertrand, Achintya Mohan, <strong>Duncan Calvert</strong>, Jerry Pratt, and Robert Griffin (2023). Generating humanoid multi-contact through feasibility visualization. <em>2023 IEEE-RAS 22nd International Conference on Humanoid Robots (Humanoids)</em> <a href="references.html#ref-mccrory2023generating" class="citation-ref">[71]</a>.</p>
+<p>Stephen McCrory, Sylvain Bertrand, Achintya Mohan, <strong>Duncan Calvert</strong>, Jerry Pratt, and Robert Griffin (2023). Generating humanoid multi-contact through feasibility visualization. <em>2023 IEEE-RAS 22nd International Conference on Humanoid Robots (Humanoids)</em> <a href="references.html#ref-mccrory2023generating" class="citation-ref">[78]</a>.</p>
 </li>
 <li>
-<p>Sylvain Bertrand, Inho Lee, Bhavyansh Mishra, <strong>Duncan Calvert</strong>, Jerry Pratt, and Robert Griffin (2020). Detecting Usable Planar Regions for Legged Robot Locomotion. <em>2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</em> <a href="references.html#ref-Bertrand_2020" class="citation-ref">[28]</a>.</p>
+<p>Sylvain Bertrand, Inho Lee, Bhavyansh Mishra, <strong>Duncan Calvert</strong>, Jerry Pratt, and Robert Griffin (2020). Detecting Usable Planar Regions for Legged Robot Locomotion. <em>2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</em> <a href="references.html#ref-Bertrand_2020" class="citation-ref">[32]</a>.</p>
 </li>
 </ol>
 <!-- PAGE-REFERENCES-START -->
@@ -319,24 +338,24 @@ The second paper in this list earned a Bronze Medal in Benjie Holson’s Humanoi
 <p><strong>[5]</strong> D. Faconti and Groot Contributors, <em>Groot 1.0</em>. (2019). Available: <a href="https://github.com/BehaviorTree/Groot">https://github.com/BehaviorTree/Groot</a></p>
 <p><strong>[6]</strong> D. Faconti and A. Robotics, <em>Groot2</em>. (2022). Available: <a href="https://www.behaviortree.dev/groot">https://www.behaviortree.dev/groot</a></p>
 <p><strong>[7]</strong> PickNik Robotics, <em>MoveIt pro</em>. (2021). Available: <a href="https://picknik.ai/pro/">https://picknik.ai/pro/</a></p>
-<p><strong>[28]</strong> S. Bertrand, I. Lee, B. Mishra, D. Calvert, J. Pratt, and R. Griffin, “Detecting usable planar regions for legged robot locomotion,” in <em>2020 IEEE/RSJ international conference on intelligent robots and systems (IROS)</em>, 2020, pp. 4736–4742.</p>
-<p><strong>[32]</strong> M. Johnson <em>et al.</em>, “Team IHMC’s lessons learned from the DARPA robotics challenge: Finding data in the rubble,” <em>Journal of Field Robotics</em>, vol. 34, no. 2, pp. 241–261, 2017.</p>
-<p><strong>[40]</strong> H. Xiong, R. Mendonca, K. Shaw, and D. Pathak, “Adaptive mobile manipulation for articulated objects in the open world.” 2024. Available: <a href="https://arxiv.org/abs/2401.14403">https://arxiv.org/abs/2401.14403</a></p>
-<p><strong>[41]</strong> A. Jain and C. C. Kemp, “Behaviors for robust door opening and doorway traversal with a force-sensing mobile manipulator,” in <em>RSS manipulation workshop: Intelligence in human environments</em>, Zurich: Georgia Institute of Technology, Jun. 2008. Available: <a href="http://hdl.handle.net/1853/37399">http://hdl.handle.net/1853/37399</a></p>
-<p><strong>[48]</strong> S. Chitta, B. Cohen, and M. Likhachev, “Planning for autonomous door opening with a mobile manipulator,” in <em>2010 IEEE international conference on robotics and automation</em>, 2010, pp. 1799–1806. doi: <a href="https://doi.org/10.1109/ROBOT.2010.5509475">10.1109/ROBOT.2010.5509475</a>.</p>
-<p><strong>[50]</strong> G. Kang, H. Seong, D. Lee, and D. H. Shim, “A versatile door opening system with mobile manipulator through adaptive position-force control and reinforcement learning,” <em>Robotics and Autonomous Systems</em>, vol. 180, p. 104760, 2024, doi: <a href="https://doi.org/10.1016/j.robot.2024.104760">https://doi.org/10.1016/j.robot.2024.104760</a>.</p>
-<p><strong>[64]</strong> D. Calvert, B. Mishra, S. McCrory, S. Bertrand, R. Griffin, and J. Pratt, “A fast, autonomous, bipedal walking behavior over rapid regions,” in <em>2022 IEEE-RAS 21st international conference on humanoid robots (humanoids)</em>, 2022, pp. 24–31. doi: <a href="https://doi.org/10.1109/Humanoids53995.2022.10000120">10.1109/Humanoids53995.2022.10000120</a>.</p>
-<p><strong>[65]</strong> B. Mishra, D. Calvert, S. Bertrand, J. Pratt, H. E. Sevil, and R. Griffin, “Efficient terrain map using planar regions for footstep planning on humanoid robots,” in <em>2024 IEEE international conference on robotics and automation (ICRA)</em>, IEEE, 2024.</p>
-<p><strong>[66]</strong> B. Mishra, D. Calvert, S. Bertrand, S. McCrory, R. Griffin, and H. E. Sevil, “GPU-accelerated rapid planar region extraction for dynamic behaviors on legged robots,” in <em>2021 IEEE/RSJ international conference on intelligent robots and systems (IROS)</em>, 2021, pp. 8493–8499. doi: <a href="https://doi.org/10.1109/IROS51168.2021.9636009">10.1109/IROS51168.2021.9636009</a>.</p>
-<p><strong>[67]</strong> B. Mishra <em>et al.</em>, “Perception engine using a multi-sensor head to enable high-level humanoid robot behaviors,” in <em>2022 international conference on robotics and automation (ICRA)</em>, 2022, pp. 9251–9257. doi: <a href="https://doi.org/10.1109/ICRA46639.2022.9812178">10.1109/ICRA46639.2022.9812178</a>.</p>
-<p><strong>[68]</strong> D. Calvert <em>et al.</em>, “A behavior architecture for fast humanoid robot door traversals,” <em>Robotics and Autonomous Systems</em>, 2024.</p>
-<p><strong>[69]</strong> D. Calvert <em>et al.</em>, “A system for resilient and adaptable loco-manipulation behaviors on humanoid robots,” <em>IEEE Robotics and Automation Letters</em>, 2026.</p>
-<p><strong>[70]</strong> L. Penco <em>et al.</em>, “Mixed reality teleoperation assistance for direct control of humanoids,” <em>IEEE Robotics and Automation Letters</em>, vol. 9, no. 2, pp. 1937–1944, 2024, doi: <a href="https://doi.org/10.1109/LRA.2024.3349904">10.1109/LRA.2024.3349904</a>.</p>
-<p><strong>[71]</strong> S. McCrory, S. Bertrand, A. Mohan, D. Calvert, J. Pratt, and R. Griffin, “Generating humanoid multi-contact through feasibility visualization,” in <em>2023 IEEE-RAS 22nd international conference on humanoid robots (humanoids)</em>, IEEE, 2023, pp. 1–8.</p>
-<p><strong>[72]</strong> S. Bertrand <em>et al.</em>, “High-speed and impact resilient teleoperation of humanoid robots,” in <em>2024 IEEE-RAS 23rd international conference on humanoid robots (humanoids)</em>, IEEE, 2024, pp. 189–196.</p>
-<p><strong>[73]</strong> “Humanoids 2022 - awards.” Accessed: Apr. 13, 2026. [Online]. Available: <a href="https://www.humanoids2022.org/program/awards">https://www.humanoids2022.org/program/awards</a></p>
-<p><strong>[74]</strong> B. Holson, “Congrats to IHMC robotics for winning bronze in my humanoid olympics: Doors event: Round knob push door with a time of 18 seconds.” Accessed: Apr. 25, 2026. [Online]. Available: <a href="https://generalrobots.substack.com/p/congrats-to-ihmc-robotics-for-winning">https://generalrobots.substack.com/p/congrats-to-ihmc-robotics-for-winning</a></p>
-<p><strong>[75]</strong> H. Xue <em>et al.</em>, “Opening the sim-to-real door for humanoid pixel-to-action policy transfer,” <em>arXiv preprint arXiv:2512.01061</em>, 2025.</p>
+<p><strong>[32]</strong> S. Bertrand, I. Lee, B. Mishra, D. Calvert, J. Pratt, and R. Griffin, “Detecting usable planar regions for legged robot locomotion,” in <em>2020 IEEE/RSJ international conference on intelligent robots and systems (IROS)</em>, 2020, pp. 4736–4742.</p>
+<p><strong>[36]</strong> M. Johnson <em>et al.</em>, “Team IHMC’s lessons learned from the DARPA robotics challenge: Finding data in the rubble,” <em>Journal of Field Robotics</em>, vol. 34, no. 2, pp. 241–261, 2017.</p>
+<p><strong>[47]</strong> H. Xiong, R. Mendonca, K. Shaw, and D. Pathak, “Adaptive mobile manipulation for articulated objects in the open world.” 2024. Available: <a href="https://arxiv.org/abs/2401.14403">https://arxiv.org/abs/2401.14403</a></p>
+<p><strong>[48]</strong> A. Jain and C. C. Kemp, “Behaviors for robust door opening and doorway traversal with a force-sensing mobile manipulator,” in <em>RSS manipulation workshop: Intelligence in human environments</em>, Zurich: Georgia Institute of Technology, Jun. 2008. Available: <a href="http://hdl.handle.net/1853/37399">http://hdl.handle.net/1853/37399</a></p>
+<p><strong>[55]</strong> S. Chitta, B. Cohen, and M. Likhachev, “Planning for autonomous door opening with a mobile manipulator,” in <em>2010 IEEE international conference on robotics and automation</em>, 2010, pp. 1799–1806. doi: <a href="https://doi.org/10.1109/ROBOT.2010.5509475">10.1109/ROBOT.2010.5509475</a>.</p>
+<p><strong>[57]</strong> G. Kang, H. Seong, D. Lee, and D. H. Shim, “A versatile door opening system with mobile manipulator through adaptive position-force control and reinforcement learning,” <em>Robotics and Autonomous Systems</em>, vol. 180, p. 104760, 2024, doi: <a href="https://doi.org/10.1016/j.robot.2024.104760">https://doi.org/10.1016/j.robot.2024.104760</a>.</p>
+<p><strong>[71]</strong> D. Calvert, B. Mishra, S. McCrory, S. Bertrand, R. Griffin, and J. Pratt, “A fast, autonomous, bipedal walking behavior over rapid regions,” in <em>2022 IEEE-RAS 21st international conference on humanoid robots (humanoids)</em>, 2022, pp. 24–31. doi: <a href="https://doi.org/10.1109/Humanoids53995.2022.10000120">10.1109/Humanoids53995.2022.10000120</a>.</p>
+<p><strong>[72]</strong> B. Mishra, D. Calvert, S. Bertrand, J. Pratt, H. E. Sevil, and R. Griffin, “Efficient terrain map using planar regions for footstep planning on humanoid robots,” in <em>2024 IEEE international conference on robotics and automation (ICRA)</em>, IEEE, 2024.</p>
+<p><strong>[73]</strong> B. Mishra, D. Calvert, S. Bertrand, S. McCrory, R. Griffin, and H. E. Sevil, “GPU-accelerated rapid planar region extraction for dynamic behaviors on legged robots,” in <em>2021 IEEE/RSJ international conference on intelligent robots and systems (IROS)</em>, 2021, pp. 8493–8499. doi: <a href="https://doi.org/10.1109/IROS51168.2021.9636009">10.1109/IROS51168.2021.9636009</a>.</p>
+<p><strong>[74]</strong> B. Mishra <em>et al.</em>, “Perception engine using a multi-sensor head to enable high-level humanoid robot behaviors,” in <em>2022 international conference on robotics and automation (ICRA)</em>, 2022, pp. 9251–9257. doi: <a href="https://doi.org/10.1109/ICRA46639.2022.9812178">10.1109/ICRA46639.2022.9812178</a>.</p>
+<p><strong>[75]</strong> D. Calvert <em>et al.</em>, “A behavior architecture for fast humanoid robot door traversals,” <em>Robotics and Autonomous Systems</em>, 2024.</p>
+<p><strong>[76]</strong> D. Calvert <em>et al.</em>, “A system for resilient and adaptable loco-manipulation behaviors on humanoid robots,” <em>IEEE Robotics and Automation Letters</em>, 2026.</p>
+<p><strong>[77]</strong> L. Penco <em>et al.</em>, “Mixed reality teleoperation assistance for direct control of humanoids,” <em>IEEE Robotics and Automation Letters</em>, vol. 9, no. 2, pp. 1937–1944, 2024, doi: <a href="https://doi.org/10.1109/LRA.2024.3349904">10.1109/LRA.2024.3349904</a>.</p>
+<p><strong>[78]</strong> S. McCrory, S. Bertrand, A. Mohan, D. Calvert, J. Pratt, and R. Griffin, “Generating humanoid multi-contact through feasibility visualization,” in <em>2023 IEEE-RAS 22nd international conference on humanoid robots (humanoids)</em>, IEEE, 2023, pp. 1–8.</p>
+<p><strong>[79]</strong> S. Bertrand <em>et al.</em>, “High-speed and impact resilient teleoperation of humanoid robots,” in <em>2024 IEEE-RAS 23rd international conference on humanoid robots (humanoids)</em>, IEEE, 2024, pp. 189–196.</p>
+<p><strong>[80]</strong> “Humanoids 2022 - awards.” Accessed: Apr. 13, 2026. [Online]. Available: <a href="https://www.humanoids2022.org/program/awards">https://www.humanoids2022.org/program/awards</a></p>
+<p><strong>[81]</strong> B. Holson, “Congrats to IHMC robotics for winning bronze in my humanoid olympics: Doors event: Round knob push door with a time of 18 seconds.” Accessed: Apr. 25, 2026. [Online]. Available: <a href="https://generalrobots.substack.com/p/congrats-to-ihmc-robotics-for-winning">https://generalrobots.substack.com/p/congrats-to-ihmc-robotics-for-winning</a></p>
+<p><strong>[82]</strong> H. Xue <em>et al.</em>, “Opening the sim-to-real door for humanoid pixel-to-action policy transfer,” <em>arXiv preprint arXiv:2512.01061</em>, 2025.</p>
 <!-- PAGE-REFERENCES-END -->
 
                     </main>
@@ -390,10 +409,10 @@ The second paper in this list earned a Bronze Medal in Benjie Holson’s Humanoi
         <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="citation-data-578f8bf9.js"></script>
+        <script src="citation-data-f786c247.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
         <script src="theme-persist-5a94a5be.js"></script>
-        <script src="pdf-download-40e21669.js"></script>
+        <script src="pdf-download-841dcc54.js"></script>
 
 
 

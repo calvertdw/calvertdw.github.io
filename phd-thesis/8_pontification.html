@@ -44,10 +44,10 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-cc4d89e8.js";
+            window.path_to_searchindex_js = "searchindex-2084a571.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-13565dbe.js"></script>
+        <script src="toc-fe631b60.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -204,7 +204,7 @@ Furthermore, these quality levels can vary with lighting, situation, and hardwar
 The metrics of quality include depth accuracy, semantic object detection confidence, latency, and frequency.
 Our design designates an expert human operator to evaluate and exploit available quality levels for each behavior situation to achieve the goal at hand.</p>
 <p>We also think a strong point of our system is its ability to be combined with learned systems.
-For example, as mentioned in <a href="4_story_of_building_and_architecture.html#ch:building">Building our Behavior Architecture</a>, we built an action node that executed a learned mimic policy, such as a dance or a door traversal walk through.
+For example, as mentioned in <a href="4_story_of_building_and_architecture.html#ch:building">Building Our Behavior Architecture</a>, we built an action node that executed a learned mimic policy, such as a dance or a door traversal walk through.
 More work in this direction could enable more robust door walkthroughs.
 We think this is a good way to get the best of both worlds for the time being.</p>
 <h2 id="82-weak-points"><a class="header" href="#82-weak-points"><span class="heading-number">8.2.</span> Weak Points</a></h2>
@@ -224,7 +224,7 @@ If sequences can be run as a subtree and returned when done, identical subtrees 
 In general, making the behavior tree mirror the structure of computer programs more would greatly increase the expressiveness of the system.
 We think a good strategy would be to keep thinking of the next most useful thing to add, guided by operator frustration in trying to create new behaviors.</p>
 <p>We also have a scaling problem with large trees, both in the view and in the data synchronization.
-We were able to use trees consisting of well over 100 nodes, as we presented in <a href="4_story_of_building_and_architecture.html#ch:building">Building our Behavior Architecture</a> with the ONR Demo that consisted of 178 nodes.
+We were able to use trees consisting of well over 100 nodes, as we presented in <a href="4_story_of_building_and_architecture.html#ch:building">Building Our Behavior Architecture</a> with the ONR Demo that consisted of 178 nodes.
 However, we don’t think this could grow much further without some optimization.
 Two issues stand out.
 First, when loading in large subtrees, there can be a loading delay that can cause a glitch in the network synchronization.
@@ -255,7 +255,7 @@ For example, if the behavior authoring interface was adapted to virtual or augme
 <p>Our screw primitive action, inspired by  <a href="references.html#ref-Pettinger_2022" class="citation-ref">[14]</a>, is a very versatile manipulation planning abstraction.
 We think there could be useful constructs like this that extend beyond positional sliding and turning.
 There may be interesting ways to model forces, torques, or the way objects can deform or move, using a similar approach.
-For example, there is some work like this on clothes folding where geometrical primitives are used to define folding patterns  <a href="references.html#ref-Moletta2023VRClothFolding" class="citation-ref">[83]</a>.</p>
+For example, there is some work like this on clothes folding where geometrical primitives are used to define folding patterns  <a href="references.html#ref-Moletta2023VRClothFolding" class="citation-ref">[90]</a>.</p>
 <p>Another fruitful area to explore would be navigation.
 In the behaviors presented in this thesis, even for the “building exploration” ones, we didn’t ever form a map and plan from point A to point B.
 They were more like a slightly reactive scripting of which door to go through next, with some stand-in-place visual searches.
@@ -275,9 +275,9 @@ That capability could also be extended by filtering the motions or by collecting
 It would be valuable to demonstrate and dispatch vision-action model training runs from within the authoring interface.
 On training completion, the resulting policies could be used as an alternative mode of the arm action.</p>
 <h2 id="84-why-not-fully-embrace-behavior-trees"><a class="header" href="#84-why-not-fully-embrace-behavior-trees"><span class="heading-number">8.4.</span> Why Not Fully Embrace Behavior Trees</a></h2>
-<p>One interesting part of this thesis is that we use a “behavior tree” architecture, but left out some of the key mechanisms from the literature version  <a href="references.html#ref-2018_colledanchise" class="citation-ref">[53]</a>.
+<p>One interesting part of this thesis is that we use a “behavior tree” architecture, but left out some of the key mechanisms from the literature version  <a href="references.html#ref-2018_colledanchise" class="citation-ref">[60]</a>.
 The most important part of why is just that we built what appeared to work best for us.
-The other aspect is that the lone result from the literature just wasn’t that convincing  <a href="references.html#ref-2023_centaur_bt" class="citation-ref">[55]</a>, being ultimately very slow and locomotion only.</p>
+The other aspect is that the lone result from the literature just wasn’t that convincing  <a href="references.html#ref-2023_centaur_bt" class="citation-ref">[62]</a>, being ultimately very slow and locomotion only.</p>
 <p>The reason we don’t tick from the root node is that, for authoring behavior at runtime, we have the robot in a particular configuration and doing a particular thing and we are trying to author a particular part.
 This means we want a “cursor”, just like in a text editor, that marks our current editing location.</p>
 <p>It may be beneficial to introduce the root node tick system for autonomous mode.
@@ -287,7 +287,7 @@ In dynamical situations, the robot really has to finish what it’s doing before
 In these cases, it needs to execute specific “abort mission” behaviors that are very dependent on current robot and task configuration.</p>
 <p>This is where we guess Behavior Trees would suggest using the blackboard.
 However, the Behavior Tree blackboard is an unstructured design component and we would strive for a more formal mechanism for doing things like this.
-A promising theory for this sort of reactivity includes sequential composition  <a href="references.html#ref-1999_burridge" class="citation-ref">[52]</a>.</p>
+A promising theory for this sort of reactivity includes sequential composition  <a href="references.html#ref-1999_burridge" class="citation-ref">[59]</a>.</p>
 <h2 id="85-the-future"><a class="header" href="#85-the-future"><span class="heading-number">8.5.</span> The Future</a></h2>
 <p>We would like to see a near future where technical people can buy or build their own robots and put them towards useful work.
 To us, it is most convincing if the system is open source, understandable, and tinkerable.
@@ -305,10 +305,10 @@ Cheers!</p>
 <!-- PAGE-REFERENCES-START -->
 <p><strong>References cited on this page</strong></p>
 <p><strong>[14]</strong> A. Pettinger, F. Alambeigi, and M. Pryor, “A versatile affordance modeling framework using screw primitives to increase autonomy during manipulation contact tasks,” <em>IEEE Robotics and Automation Letters</em>, vol. 7, no. 3, pp. 7224–7231, 2022, doi: <a href="https://doi.org/10.1109/LRA.2022.3181732">10.1109/LRA.2022.3181732</a>.</p>
-<p><strong>[52]</strong> R. R. Burridge, A. A. Rizzi, and D. E. Koditschek, “Sequential composition of dynamically dexterous robot behaviors,” <em>The International Journal of Robotics Research</em>, vol. 18, no. 6, pp. 534–555, 1999, doi: <a href="https://doi.org/10.1177/02783649922066385">10.1177/02783649922066385</a>.</p>
-<p><strong>[53]</strong> M. Colledanchise and P. “Ogren, <em>Behavior trees in robotics and AI: An introduction</em>. CRC Press, Taylor; Francis Group, 2018. doi: <a href="https://doi.org/10.1201/9780429489105">10.1201/9780429489105</a>.</p>
-<p><strong>[55]</strong> A. De Luca, L. Muratore, and N. G. Tsagarakis, “Autonomous navigation with online replanning and recovery behaviors for wheeled-legged robots using behavior trees,” <em>IEEE Robotics and Automation Letters</em>, vol. 8, no. 10, pp. 6803–6810, 2023, doi: <a href="https://doi.org/10.1109/LRA.2023.3313052">10.1109/LRA.2023.3313052</a>.</p>
-<p><strong>[83]</strong> M. Moletta, M. K. Wozniak, M. C. Welle, and D. Kragic, “A virtual reality framework for human-robot collaboration in cloth folding,” in <em>2023 IEEE-RAS 22nd international conference on humanoid robots (humanoids)</em>, Austin, TX, USA, Dec. 2023.</p>
+<p><strong>[59]</strong> R. R. Burridge, A. A. Rizzi, and D. E. Koditschek, “Sequential composition of dynamically dexterous robot behaviors,” <em>The International Journal of Robotics Research</em>, vol. 18, no. 6, pp. 534–555, 1999, doi: <a href="https://doi.org/10.1177/02783649922066385">10.1177/02783649922066385</a>.</p>
+<p><strong>[60]</strong> M. Colledanchise and P. “Ogren, <em>Behavior trees in robotics and AI: An introduction</em>. CRC Press, Taylor; Francis Group, 2018. doi: <a href="https://doi.org/10.1201/9780429489105">10.1201/9780429489105</a>.</p>
+<p><strong>[62]</strong> A. De Luca, L. Muratore, and N. G. Tsagarakis, “Autonomous navigation with online replanning and recovery behaviors for wheeled-legged robots using behavior trees,” <em>IEEE Robotics and Automation Letters</em>, vol. 8, no. 10, pp. 6803–6810, 2023, doi: <a href="https://doi.org/10.1109/LRA.2023.3313052">10.1109/LRA.2023.3313052</a>.</p>
+<p><strong>[90]</strong> M. Moletta, M. K. Wozniak, M. C. Welle, and D. Kragic, “A virtual reality framework for human-robot collaboration in cloth folding,” in <em>2023 IEEE-RAS 22nd international conference on humanoid robots (humanoids)</em>, Austin, TX, USA, Dec. 2023.</p>
 <!-- PAGE-REFERENCES-END -->
 
                     </main>
@@ -362,10 +362,10 @@ Cheers!</p>
         <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="citation-data-578f8bf9.js"></script>
+        <script src="citation-data-f786c247.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
         <script src="theme-persist-5a94a5be.js"></script>
-        <script src="pdf-download-40e21669.js"></script>
+        <script src="pdf-download-841dcc54.js"></script>
 
 
 

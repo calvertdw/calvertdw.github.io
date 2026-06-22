@@ -44,10 +44,10 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-cc4d89e8.js";
+            window.path_to_searchindex_js = "searchindex-2084a571.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-13565dbe.js"></script>
+        <script src="toc-fe631b60.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -185,38 +185,38 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
                     <main>
                         <h1 id="31-architectural-foundations"><a class="header" href="#31-architectural-foundations"><span class="heading-number">3.1.</span> Architectural Foundations</a></h1>
 <p>Affordance Templates, Behavior Trees, and Coactive Design form the strongest theoretical foundations of the work in this thesis.
-Affordance Templates provide a theoretical foundation for reusable behavior with respect to recurring tasks in the environment.
-Behavior Trees provide a data structure for organizing behavior functionality and logic.
+Affordance Templates define an architecture for reusable behavior with respect to recurring tasks in the environment.
+Behavior Trees provide a data structure for organizing and orchestrating behavior.
 Coactive Design poses three questions that drive the design of a system to leverage the synergistic opportunities of human-robot teams.</p>
 <h2 id="311-affordance-templates"><a class="header" href="#311-affordance-templates"><span class="heading-number">3.1.1.</span> Affordance Templates</a></h2>
-<p>The Affordance Template Framework  <a href="references.html#ref-Hart_2014" class="citation-ref">[19]</a>, <a href="references.html#ref-Hart_2015" class="citation-ref">[21]</a> was developed and used for the DARPA Robotics Challenge Trials in 2013.
+<p>The Affordance Template Framework  <a href="references.html#ref-Hart_2014" class="citation-ref">[20]</a>, <a href="references.html#ref-Hart_2015" class="citation-ref">[22]</a> was developed and used for the DARPA Robotics Challenge Trials in 2013.
 Affordance templates were first presented in the literature in 2014.
 The work was performed on NASA’s Valkyrie humanoid robot, where it demonstrated a valve turning task.
 The Affordance Template framework provides a way to parameterize and reuse robot loco-manipulation behaviors with respect to environmental affordances.
-A number of affordance templates were developed for use on the Valkyrie robot including templates for door opening, walking, hose mating, valve turning, and ladder and stair climbing.</p>
-<p>The word “affordance” comes from James Gibson’s 1979 book, <em>The Ecological Approach to Visual Perception</em>  <a href="references.html#ref-Gibson_1979" class="citation-ref">[20]</a>.
+Hart et al.  <a href="references.html#ref-Hart_2014" class="citation-ref">[20]</a>, <a href="references.html#ref-Hart_2015" class="citation-ref">[22]</a> developed a set of affordance templates at NASA Johnson Space Center for Valkyrie during the 2013 DARPA Robotics Challenge Trials, including templates for door opening, walking, hose mating, valve turning, and ladder and stair climbing.</p>
+<p>The word “affordance” comes from James Gibson’s 1979 book, <em>The Ecological Approach to Visual Perception</em>  <a href="references.html#ref-Gibson_1979" class="citation-ref">[21]</a>.
 It is used in the sense that an environmental feature “affords” an action.
 For example, the ground is an affordance for walking and a handle is an affordance for turning.
 An affordance template is a robotics construct providing a theoretical foundation for defining and parameterizing robot behavior with respect to environmental affordances.
 This makes it one of the most consequential design inspirations for our work.</p>
 <figure id="fig:affordance_template_reference">
 <img src="media/affordance_templates/ValveTemplate.png" />
-<figcaption><strong>Figure 3.2.</strong> “Placing a wheel-turning template in RViz.”, taken from  <a href="references.html#ref-Hart_2014" class="citation-ref">[19]</a>.
+<figcaption><strong>Figure 3.2.</strong> “Placing a wheel-turning template in RViz.”, taken from  <a href="references.html#ref-Hart_2014" class="citation-ref">[20]</a>.
 (a) shows NASA Valkyrie turning a valve using an affordance template in the DARPA Robotics Challenge Trials.
 (b) shows the perceptual 3D point cloud scan, colored by depth.
 (c) shows a virtual affordance template before it is aligned to the object.
 (d) shows the affordance template after it has been aligned to the object by a human operator.
 </figcaption>
 </figure>
-<p>In 2022, Hart et al.  <a href="references.html#ref-Hart_2022" class="citation-ref">[24]</a> generalized and further demonstrated the power of this approach, as shown in <a href="#fig:affordance_template_2">Figure 3.3</a>.
+<p>In 2022, Hart et al.  <a href="references.html#ref-Hart_2022" class="citation-ref">[26]</a> generalized and further demonstrated the power of this approach, as shown in <a href="#fig:affordance_template_2">Figure 3.3</a>.
 Tools for footstep planning, motion planning, stance generation, and grasping were incorporated to enable increased autonomous functionality.
-This was demonstrated on NASA Valkyrie for integrated task execution, including car-door interaction and explosive-device handling  <a href="references.html#ref-2019_Jorgensen_valEOD" class="citation-ref">[51]</a>.
-In this work, the operator could load, edit, and execute templates at runtime.</p>
+This was demonstrated on NASA Valkyrie for integrated task execution, including car-door interaction and explosive-device handling  <a href="references.html#ref-2019_Jorgensen_valEOD" class="citation-ref">[58]</a>.
+In that work, the operator could load, edit, and execute templates at runtime.</p>
 <p>Related works on affordance primitives  <a href="references.html#ref-Pettinger_2020" class="citation-ref">[13]</a>, <a href="references.html#ref-Pettinger_2022" class="citation-ref">[14]</a> emphasize constrained interaction motions such as turning a valve or closing a drawer.
 The screw primitive in particular shows how a reusable low-level action can capture a class of constrained manipulation motions without hard coding them.</p>
 <figure id="fig:affordance_template_2">
 <img src="media/affordance_templates/AT2022.png" />
-<figcaption><strong>Figure 3.3.</strong> “NASA Valkyrie using an AT to remove a bag from a table”, taken from  <a href="references.html#ref-Hart_2022" class="citation-ref">[24]</a>.
+<figcaption><strong>Figure 3.3.</strong> “NASA Valkyrie using an AT to remove a bag from a table”, taken from  <a href="references.html#ref-Hart_2022" class="citation-ref">[26]</a>.
 (a) shows the alignment of an affordance for picking up a bag to the point cloud.
 Tools are then invoked for footstep planning, stance generation, and manipulation and visualized as shown.
 (b) shows the robot’s state at the conclusion of the bag pickup task.
@@ -224,13 +224,13 @@ Tools are then invoked for footstep planning, stance generation, and manipulatio
 </figcaption>
 </figure>
 <h2 id="312-behavior-trees"><a class="header" href="#312-behavior-trees"><span class="heading-number">3.1.2.</span> Behavior Trees</a></h2>
-<p>Behavior Trees  <a href="references.html#ref-2018_colledanchise" class="citation-ref">[53]</a>, <a href="references.html#ref-2022_iovino_behavior_trees" class="citation-ref">[37]</a> are a data structure that coordinates low-level actions through structured reactive task logic.
+<p>Behavior Trees  <a href="references.html#ref-2018_colledanchise" class="citation-ref">[60]</a>, <a href="references.html#ref-2022_iovino_behavior_trees" class="citation-ref">[44]</a> are a data structure that coordinates low-level actions through structured and reactive task logic.
 They define logical operator nodes such as sequence, fallback, and parallel which work to control the execution flow of a behavior.
 Actions are performed by the leaf nodes which command the robot and gather environmental data.
 They provide reactivity through a ticking system in which each tick starts at the root node.
 This is in contrast to state machines in which each tick starts from the previous state.
-By continuously re-evaluating from the top down, from tick to tick there are pathways to ending up in very different parts of the tree without explicit connections between those parts.</p>
-<p>A Behavior Tree is “ticked” from the root node at a constant frequency.
+By continuously re-evaluating from the top down, from tick to tick there are pathways to end up in very different parts of the tree without explicit connections between those parts.</p>
+<p>A Behavior Tree is ticked from the root node at a constant frequency.
 The tick is a signal which propagates through the tree, causing nodes to evaluate or execute.
 Control nodes redirect the tick and condition and action nodes return results: success, failure, or running.
 A node is executed if and only if it receives ticks.
@@ -262,28 +262,29 @@ This is shown in <a href="#fig:behavior_tree_fallback">Figure 3.5</a> and <a hre
 <figcaption><strong>Figure 3.6.</strong> The different types of Behavior Tree nodes.</figcaption>
 </figure>
 <h2 id="313-coactive-design"><a class="header" href="#313-coactive-design"><span class="heading-number">3.1.3.</span> Coactive Design</a></h2>
-<p>The Coactive Design method  <a href="references.html#ref-Johnson_2014" class="citation-ref">[30]</a> is an iterative process comprised of three main processes: an identification process, a selection and implementation process, and an evaluation of change process.
-The most complex process is the identification process, in which requirements, alternatives, and interdependence relationships are explored.
+<p>The Coactive Design method  <a href="references.html#ref-Johnson_2014" class="citation-ref">[34]</a> is an iterative process comprised of three main subprocesses: identification, selection and implementation, and evaluation of change.
+The most complex is the identification process, in which requirements, alternatives, and interdependence relationships are explored.
 A set of desired interdependence relationships are determined and selected for implementation.
 The result is then evaluated using human feedback and performance analysis.
-This methodology was used for the design and development of IHMC’s operator interface in the 2015 DRC  <a href="references.html#ref-Johnson_2014" class="citation-ref">[30]</a>.
-A later analysis details how that methodology led to success in the competition  <a href="references.html#ref-Johnson_2017" class="citation-ref">[32]</a>.</p>
-<p>Coactive Design treats human-machine systems as interdependent and emphasizes making the system observable, predictable, and directable, with interdependence analysis charts used to document those relationships.
+This methodology was used for the design and development of Team IHMC’s operator interface in the 2015 DRC  <a href="references.html#ref-Johnson_2014" class="citation-ref">[34]</a>.
+A later analysis details how that methodology led to success in the competition  <a href="references.html#ref-Johnson_2017" class="citation-ref">[36]</a>.</p>
+<p>Coactive Design treats human-machine systems as interdependent and emphasizes the value in making the system observable, predictable, and directable, with interdependence analysis charts used to document those relationships.
 The architecture in this thesis is meant to be developed, debugged, and adapted by expert operators on real hardware.
-Coactive Design directly motivates the authoring and supervision interfaces in <a href="5_current_architecture.html#ch:architecture2">Current Architecture</a>.</p>
+Coactive Design directly motivates the authoring and supervision interfaces in <a href="5_current_architecture.html#ch:architecture2">Current Architecture</a>. An interdependence analysis was done in  <a href="references.html#ref-calvert2024behavior" class="citation-ref">[75]</a>.</p>
 <!-- PAGE-REFERENCES-START -->
 <p><strong>References cited on this page</strong></p>
 <p><strong>[13]</strong> A. Pettinger, C. Elliott, P. Fan, and M. Pryor, “Reducing the teleoperator’s cognitive burden for complex contact tasks using affordance primitives,” in <em>2020 IEEE/RSJ international conference on intelligent robots and systems (IROS)</em>, 2020, pp. 11513–11518. doi: <a href="https://doi.org/10.1109/IROS45743.2020.9341576">10.1109/IROS45743.2020.9341576</a>.</p>
 <p><strong>[14]</strong> A. Pettinger, F. Alambeigi, and M. Pryor, “A versatile affordance modeling framework using screw primitives to increase autonomy during manipulation contact tasks,” <em>IEEE Robotics and Automation Letters</em>, vol. 7, no. 3, pp. 7224–7231, 2022, doi: <a href="https://doi.org/10.1109/LRA.2022.3181732">10.1109/LRA.2022.3181732</a>.</p>
-<p><strong>[19]</strong> S. Hart, P. Dinh, and K. A. Hambuchen, “Affordance templates for shared robot control,” in <em>AAAI fall symposium on artificial intelligence and human-robot interaction</em>, Arlington, VA, USA: AAAI, Nov. 2014. Available: <a href="https://ntrs.nasa.gov/citations/20140012413">https://ntrs.nasa.gov/citations/20140012413</a></p>
-<p><strong>[20]</strong> J. J. Gibson, <em>The ecological approach to visual perception</em>. Houghton Mifflin, 1979.</p>
-<p><strong>[21]</strong> S. Hart, P. Dinh, and K. A. Hambuchen, “The affordance template ROS package for robot task programming,” in <em>Proceedings of the IEEE international conference on robotics and automation (ICRA)</em>, 2015, pp. 6227–6234. doi: <a href="https://doi.org/10.1109/ICRA.2015.7140073">10.1109/ICRA.2015.7140073</a>.</p>
-<p><strong>[24]</strong> S. Hart, A. H. Quispe, M. W. Lanighan, and S. Gee, “Generalized affordance templates for mobile manipulation,” in <em>2022 international conference on robotics and automation (ICRA)</em>, 2022, pp. 6240–6246. doi: <a href="https://doi.org/10.1109/ICRA46639.2022.9812082">10.1109/ICRA46639.2022.9812082</a>.</p>
-<p><strong>[30]</strong> M. Johnson, J. M. Bradshaw, P. J. Feltovich, C. M. Jonker, M. B. van Riemsdijk, and M. Sierhuis, “Coactive design: Designing support for interdependence in joint activity,” <em>J. Hum.-Robot Interact.</em>, vol. 3, no. 1, pp. 43–69, Feb. 2014.</p>
-<p><strong>[32]</strong> M. Johnson <em>et al.</em>, “Team IHMC’s lessons learned from the DARPA robotics challenge: Finding data in the rubble,” <em>Journal of Field Robotics</em>, vol. 34, no. 2, pp. 241–261, 2017.</p>
-<p><strong>[37]</strong> M. Iovino, E. Scukins, J. Styrud, P. “Ogren, and C. Smith, “A survey of behavior trees in robotics and AI,” <em>Robotics and Autonomous Systems</em>, vol. 154, p. 104096, 2022, doi: <a href="https://doi.org/10.1016/j.robot.2022.104096">https://doi.org/10.1016/j.robot.2022.104096</a>.</p>
-<p><strong>[51]</strong> S. J. Jorgensen <em>et al.</em>, “Deploying the NASA valkyrie humanoid for IED response: An initial approach and evaluation summary,” in <em>2019 IEEE-RAS 19th international conference on humanoid robots (humanoids)</em>, 2019, pp. 1–8. doi: <a href="https://doi.org/10.1109/Humanoids43949.2019.9034993">10.1109/Humanoids43949.2019.9034993</a>.</p>
-<p><strong>[53]</strong> M. Colledanchise and P. “Ogren, <em>Behavior trees in robotics and AI: An introduction</em>. CRC Press, Taylor; Francis Group, 2018. doi: <a href="https://doi.org/10.1201/9780429489105">10.1201/9780429489105</a>.</p>
+<p><strong>[20]</strong> S. Hart, P. Dinh, and K. A. Hambuchen, “Affordance templates for shared robot control,” in <em>AAAI fall symposium on artificial intelligence and human-robot interaction</em>, Arlington, VA, USA: AAAI, Nov. 2014. Available: <a href="https://ntrs.nasa.gov/citations/20140012413">https://ntrs.nasa.gov/citations/20140012413</a></p>
+<p><strong>[21]</strong> J. J. Gibson, <em>The ecological approach to visual perception</em>. Houghton Mifflin, 1979.</p>
+<p><strong>[22]</strong> S. Hart, P. Dinh, and K. A. Hambuchen, “The affordance template ROS package for robot task programming,” in <em>Proceedings of the IEEE international conference on robotics and automation (ICRA)</em>, 2015, pp. 6227–6234. doi: <a href="https://doi.org/10.1109/ICRA.2015.7140073">10.1109/ICRA.2015.7140073</a>.</p>
+<p><strong>[26]</strong> S. Hart, A. H. Quispe, M. W. Lanighan, and S. Gee, “Generalized affordance templates for mobile manipulation,” in <em>2022 international conference on robotics and automation (ICRA)</em>, 2022, pp. 6240–6246. doi: <a href="https://doi.org/10.1109/ICRA46639.2022.9812082">10.1109/ICRA46639.2022.9812082</a>.</p>
+<p><strong>[34]</strong> M. Johnson, J. M. Bradshaw, P. J. Feltovich, C. M. Jonker, M. B. van Riemsdijk, and M. Sierhuis, “Coactive design: Designing support for interdependence in joint activity,” <em>J. Hum.-Robot Interact.</em>, vol. 3, no. 1, pp. 43–69, Feb. 2014.</p>
+<p><strong>[36]</strong> M. Johnson <em>et al.</em>, “Team IHMC’s lessons learned from the DARPA robotics challenge: Finding data in the rubble,” <em>Journal of Field Robotics</em>, vol. 34, no. 2, pp. 241–261, 2017.</p>
+<p><strong>[44]</strong> M. Iovino, E. Scukins, J. Styrud, P. “Ogren, and C. Smith, “A survey of behavior trees in robotics and AI,” <em>Robotics and Autonomous Systems</em>, vol. 154, p. 104096, 2022, doi: <a href="https://doi.org/10.1016/j.robot.2022.104096">https://doi.org/10.1016/j.robot.2022.104096</a>.</p>
+<p><strong>[58]</strong> S. J. Jorgensen <em>et al.</em>, “Deploying the NASA valkyrie humanoid for IED response: An initial approach and evaluation summary,” in <em>2019 IEEE-RAS 19th international conference on humanoid robots (humanoids)</em>, 2019, pp. 1–8. doi: <a href="https://doi.org/10.1109/Humanoids43949.2019.9034993">10.1109/Humanoids43949.2019.9034993</a>.</p>
+<p><strong>[60]</strong> M. Colledanchise and P. “Ogren, <em>Behavior trees in robotics and AI: An introduction</em>. CRC Press, Taylor; Francis Group, 2018. doi: <a href="https://doi.org/10.1201/9780429489105">10.1201/9780429489105</a>.</p>
+<p><strong>[75]</strong> D. Calvert <em>et al.</em>, “A behavior architecture for fast humanoid robot door traversals,” <em>Robotics and Autonomous Systems</em>, 2024.</p>
 <!-- PAGE-REFERENCES-END -->
 
                     </main>
@@ -337,10 +338,10 @@ Coactive Design directly motivates the authoring and supervision interfaces in <
         <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="citation-data-578f8bf9.js"></script>
+        <script src="citation-data-f786c247.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
         <script src="theme-persist-5a94a5be.js"></script>
-        <script src="pdf-download-40e21669.js"></script>
+        <script src="pdf-download-841dcc54.js"></script>
 
 
 

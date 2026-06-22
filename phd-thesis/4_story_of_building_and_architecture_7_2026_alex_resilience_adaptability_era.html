@@ -44,10 +44,10 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-cc4d89e8.js";
+            window.path_to_searchindex_js = "searchindex-2084a571.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-13565dbe.js"></script>
+        <script src="toc-fe631b60.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -187,11 +187,11 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
 <h2 id="471-alex-pull-door-traversal"><a class="header" href="#471-alex-pull-door-traversal"><span class="heading-number">4.7.1.</span> Alex Pull Door Traversal</a></h2>
 <figure id="fig:alex_door_opening">
 <img src="media/alex/2026-01-20_AlexDoorOpening-00.23.15.396.jpg" />
-<figcaption><strong>Figure 4.59.</strong> Our first manipulation behavior on the IHMC Alex robot on January 20, 2026.
+<figcaption><strong>Figure 4.61.</strong> Our first manipulation behavior on the IHMC Alex robot on January 20, 2026.
 A video is available at <a href="https://youtu.be/t4vXJIXfsl8" class="uri">https://youtu.be/t4vXJIXfsl8</a>.
 </figcaption>
 </figure>
-<p>On the same day, in a 33 minute authoring session, we demonstrated a stand-in-place door opening behavior on the new IHMC Alex robot, as seen in <a href="#fig:alex_door_opening">Figure 4.59</a>.
+<p>On the same day, in a 33 minute authoring session, we demonstrated a stand-in-place door opening behavior on the new IHMC Alex robot, as seen in <a href="#fig:alex_door_opening">Figure 4.61</a>.
 This was the first autonomous manipulation behavior to run on the Alex platform.
 The process for getting this to work was essentially the same as the prior door opening behaviors on the Unitree H1-2, with the exception that we needed to point the head down, which wasn’t supported as a behavior action yet.
 Alex features a neck with pitch and yaw and the default neck pitch does not provide sufficient visibility of the manipulation zone in front of the robot.
@@ -227,13 +227,13 @@ The time column is cumulative across days but excludes inactive gaps between dai
 <p>As presented in <a href="#tab:alex_first_right_pull_authoring_timeline_story">Table 4.1</a>, the authoring of the first pull door behavior on Alex was a five day process spanning 11 hours and 10 minutes of authoring time.</p>
 <figure id="fig:alex_door_approach_opening">
 <img src="media/alex/20260123_182614_AlexDoorApproachAndOpening.jpg" />
-<figcaption><strong>Figure 4.60.</strong> Alex executing a pull door approach and opening behavior on January 23, 2026 as the behavior was being developed.
+<figcaption><strong>Figure 4.62.</strong> Alex executing a pull door approach and opening behavior on January 23, 2026 as the behavior was being developed.
 A video is available at <a href="https://youtube.com/shorts/0_joZBgrBsQ" class="uri">https://youtube.com/shorts/0_joZBgrBsQ</a>.
 </figcaption>
 </figure>
-<p>On January 23, 2026, three days after the squared up stance opening behavior, we achieved the approach and opening portion of the pull door behavior, as shown in <a href="#fig:alex_door_approach_opening">Figure 4.60</a>.
+<p>On January 23, 2026, three days after the squared up stance opening behavior, we achieved the approach and opening portion of the pull door behavior, as shown in <a href="#fig:alex_door_approach_opening">Figure 4.62</a>.
 This took a while to get working because Alex’s arms are shorter than Nadia’s were and the spine range of motion was more limited, meaning the same strategy did not work.
-Nadia’s spine yaw range of motion was greater than Alex’s +/- 30 degrees.
+Nadia’s spine yaw range of motion of +/- 60 degrees was twice that of Alex’s +/- 30 degrees.
 Also on Nadia, we took a double support stance for opening that was further from the door, using the spine yaw and the longer arms.
 This allows Nadia’s pull door opening motions to be simpler and faster, due to the robot being farther from the door and having more space to work with.
 Part of Alex’s pull door behavior involved “sneaking” the left arm in to hold and pull the door open, which was complicated not only by space but also through trying to reduce risk of damage to the Ability Hands.
@@ -241,11 +241,11 @@ These items contributed to Alex’s door behaviors being significantly slower th
 However, we also think that, given some more time, we could speed Alex’s behaviors up significantly.</p>
 <figure id="fig:alex_first_pull_door">
 <img src="media/alex/20260124_AlexFirstPullDoor.jpg" />
-<figcaption><strong>Figure 4.61.</strong> Alex executing its first full door traversal, a pull lever door, on January 24, 2026.
+<figcaption><strong>Figure 4.63.</strong> Alex executing its first full door traversal, a pull lever door, on January 24, 2026.
 A video is available at <a href="https://youtube.com/shorts/xp6Zs7By5tw" class="uri">https://youtube.com/shorts/xp6Zs7By5tw</a>.
 </figcaption>
 </figure>
-<p>The next day, as shown in <a href="#fig:alex_first_pull_door">Figure 4.61</a>, we authored the sequence for walking through the door and ran the whole behavior.
+<p>The next day, as shown in <a href="#fig:alex_first_pull_door">Figure 4.63</a>, we authored the sequence for walking through the door and ran the whole behavior.
 This one was not fully automatic, but it was the first successful door traversal on Alex.
 Some difficulty was encountered in the preparation steps for the final traversal steps.
 While taking these preparation steps, Alex had to hold the door open with the left arm, as this door had a spring closer.</p>
@@ -253,15 +253,15 @@ While taking these preparation steps, Alex had to hold the door open with the le
 One was that the whole body controller was not well tuned on Alex for walking with the arms out, as was required for holding the door open.
 Another was that when the robot would take a step toward the door while holding it open, if the holding arm is kept still, when the robot puts its weight on the stance foot, the upper body and arm shifts towards the robot and the foot swing would get caught on the bottom of the door, causing a fall.
 The solution was to put the arm farther out before or during the traversal preparation steps.
-This solution can be seen in the tree in <a href="#fig:alex_first_pull_door_tree">Figure 4.62</a> as the “Push door way open for foot clearance” and “Retry push door way open” nodes.</p>
+This solution can be seen in the tree in <a href="#fig:alex_first_pull_door_tree">Figure 4.64</a> as the “Push door way open for foot clearance” and “Retry push door way open” nodes.</p>
 <figure id="fig:alex_first_pull_door_tree">
 <img src="media/alex/20260127_AlexPullDoorBehaviorTree.png" />
-<figcaption><strong>Figure 4.62.</strong> The behavior tree used for Alex’s first pull door traversal on January 24, 2026.</figcaption>
+<figcaption><strong>Figure 4.64.</strong> The behavior tree used for Alex’s first pull door traversal on January 24, 2026.</figcaption>
 </figure>
 <h2 id="472-shape-contains-condition"><a class="header" href="#472-shape-contains-condition"><span class="heading-number">4.7.2.</span> Shape Contains Condition</a></h2>
 <figure id="fig:alex_shape_contains_condition">
 <img src="media/alex/2026-01-27 22-34-20_ShapeContainsCondition-00.00.16.227.jpg" />
-<figcaption><strong>Figure 4.63.</strong> A demonstration of the “shape contains” condition node type.
+<figcaption><strong>Figure 4.65.</strong> A demonstration of the “shape contains” condition node type.
 On the left, a condition node is placed in the tree.
 In the bottom left, the condition node settings area can be seen, with the <code>SHAPE_CONTAINS</code> type selected.
 The sphere radius, min points, and current number of points contained are displayed.
@@ -269,7 +269,7 @@ In the center, the 3D view shows the sphere, intersecting the door, with a red t
 A video is available at <a href="https://youtu.be/tbTrKuGGmqk" class="uri">https://youtu.be/tbTrKuGGmqk</a>.
 </figcaption>
 </figure>
-<p>The “shape contains” condition was implemented on January 27, 2026 and is shown in <a href="#fig:alex_shape_contains_condition">Figure 4.63</a>.
+<p>The “shape contains” condition was implemented on January 27, 2026 and is shown in <a href="#fig:alex_shape_contains_condition">Figure 4.65</a>.
 This new behavior condition returns success if either a reference frame or some minimum number of points from the point cloud lies within a 3D shape.
 We supported just spheres initially which can be sized and placed with respect to any behavior frame, just like the taskspace actions.</p>
 <p>For example, we can use it to check if the whole body controller actually achieved a commanded hand goal pose.
@@ -280,7 +280,7 @@ If there are no or few points in the sphere at that point, the fallback catch ex
 Else, the behavior skips the fallback catch and continues opening and eventually traversing the door.</p>
 <figure id="fig:alex_freeze">
 <img src="media/alex/2026-01-29 15-47-29_AlexTestingBehaviorFeaturesThursday-00.06.33.134.jpg" />
-<figcaption><strong>Figure 4.64.</strong> A demonstration of the <code>FREEZE_OBJECT</code> scene action type.
+<figcaption><strong>Figure 4.66.</strong> A demonstration of the <code>FREEZE_OBJECT</code> scene action type.
 On the left, a scene action can be seen in the tree named “Freeze door lever handle”.
 In the bottom left, the scene action settings area is shown with the <code>FREEZE_OBJECT</code> type selected.
 In the center, the 3D scene has text overlaid reading “Freezing object: door_lever”.
@@ -289,7 +289,7 @@ A video is available at <a href="https://youtu.be/dTM4Rw_912Q" class="uri">https
 </figcaption>
 </figure>
 <h2 id="473-freeze-scene-action-type"><a class="header" href="#473-freeze-scene-action-type"><span class="heading-number">4.7.3.</span> Freeze Scene Action Type</a></h2>
-<p>On January 29, 2026, we developed the planned freeze object scene action type, as shown in <a href="#fig:alex_freeze">Figure 4.64</a>.
+<p>On January 29, 2026, we developed the planned freeze object scene action type, as shown in <a href="#fig:alex_freeze">Figure 4.66</a>.
 As mentioned previously, the freeze action helps with manipulation by preventing a partial hand occlusion of objects while actively tracking.
 By freezing the object frame just before occlusion by the hand, we prevent a corrupted object frame during the grasp.
 Another use case for the freeze action is to dead reckon from the frame of an object we saw in the past, as we do for door handles and the door traversal footsteps.</p>
@@ -304,12 +304,12 @@ This was a good indication that our behaviors worked independently of slight var
 <h2 id="475-from-scratch-push-door-authoring"><a class="header" href="#475-from-scratch-push-door-authoring"><span class="heading-number">4.7.5.</span> From-Scratch Push Door Authoring</a></h2>
 <figure id="fig:alex_push_door_authoring">
 <img src="media/alex/202602_AlexPushDoorAuthoring-00.00.17.864.jpg" />
-<figcaption><strong>Figure 4.65.</strong> A screenshot from the authoring session on February 22, 2026 for the push door behavior.
+<figcaption><strong>Figure 4.67.</strong> A screenshot from the authoring session on February 22, 2026 for the push door behavior.
 A video is available at <a href="https://youtu.be/bLHQmV4GEFA" class="uri">https://youtu.be/bLHQmV4GEFA</a>.
 </figcaption>
 </figure>
 <p>On February 22, 2026, we authored our first push door traversal behavior on Alex in under 2 hours.
-A screenshot from the session is shown in <a href="#fig:alex_push_door_authoring">Figure 4.65</a> and the timeline of authoring is documented in <a href="#tab:left_push_scratch_authoring_timeline_story">Table 4.2</a>.
+A screenshot from the session is shown in <a href="#fig:alex_push_door_authoring">Figure 4.67</a> and the timeline of authoring is documented in <a href="#tab:left_push_scratch_authoring_timeline_story">Table 4.2</a>.
 The push door traversal executed in 21 seconds.</p>
 <div id="tab:left_push_scratch_authoring_timeline_story">
 <div class="table-wrapper">
@@ -349,9 +349,9 @@ Copying and mutating an existing node is often faster than creating a new one fr
 <h2 id="478-new-behavior-node-icons"><a class="header" href="#478-new-behavior-node-icons"><span class="heading-number">4.7.8.</span> New Behavior Node Icons</a></h2>
 <figure id="fig:alex_behavior_tree_icons">
 <img src="media/alex/20260301_NewIconsAndNodeCreationMenu.png" />
-<figcaption><strong>Figure 4.66.</strong> New icons for behavior tree nodes on March 3, 2026.</figcaption>
+<figcaption><strong>Figure 4.68.</strong> New icons for behavior tree nodes on March 3, 2026.</figcaption>
 </figure>
-<p>On March 3, 2026, we introduced some new icons, shown in <a href="#fig:alex_behavior_tree_icons">Figure 4.66</a>.
+<p>On March 3, 2026, we introduced some new icons, shown in <a href="#fig:alex_behavior_tree_icons">Figure 4.68</a>.
 At this point in time, the most common actions had an icon.
 Icons are useful when working with the behavior tree, because they help you locate things much easier and also give at-a-glance verification of node type.
 This takes the burden off the behavior author to include the action type in the name, which also helps reduce the amount of text in the view.</p>
@@ -386,7 +386,7 @@ When the behavior is running in preview mode, setup type scene actions will use 
 This enables the behavior to run through its nominal motions without perception.
 This feature turned out to also be useful for recording reference motions for training reinforcement learning mimic behaviors.</p>
 <h2 id="4714-collision-avoidance-with-rrt-connect"><a class="header" href="#4714-collision-avoidance-with-rrt-connect"><span class="heading-number">4.7.14.</span> Collision Avoidance with RRT-Connect</a></h2>
-<p>On March 20, we introduced a navigational mode for the Quick Footstep Planner which uses RRT-Connect  <a href="references.html#ref-kuffner2000rrt" class="citation-ref">[78]</a> to avoid YOLO detected obstacles.
+<p>On March 20, we introduced a navigational mode for the Quick Footstep Planner which uses RRT-Connect  <a href="references.html#ref-kuffner2000rrt" class="citation-ref">[85]</a> to avoid YOLO detected obstacles.
 It plans from the start to the goal but avoids any YOLO objects by maintaining a radius of avoidance.
 We didn’t end up using it in an actual behavior yet.
 We think it might be better to use a capsule point check with the point cloud to make it more general.
@@ -395,13 +395,13 @@ It may be a good application of an occupancy map.</p>
 <h2 id="4715-behavior-timeline"><a class="header" href="#4715-behavior-timeline"><span class="heading-number">4.7.15.</span> Behavior Timeline</a></h2>
 <figure id="fig:alex_behavior_timeline">
 <img src="media/alex/2026-03-22 20-33-52-BehaviorTimeline-00.00.41.533.jpg" />
-<figcaption><strong>Figure 4.67.</strong> A view-only behavior timeline implementation from March 22, 2026.
+<figcaption><strong>Figure 4.69.</strong> A view-only behavior timeline implementation from March 22, 2026.
 In the bottom center, the horizontal bars show the concurrency and durations of actions from a portion of our push door behavior as previewed in simulation.
 A video is available at <a href="https://youtu.be/QmiHA9GlQjY" class="uri">https://youtu.be/QmiHA9GlQjY</a>.
 </figcaption>
 </figure>
 <p>We had talked over the years about how to do a video-editor-like horizontal bars implementation where the behaviors can be viewed by concurrency, start time, and end time.
-On March 22, we took a stab at an initial behavior timeline implementation as seen in <a href="#fig:alex_behavior_timeline">Figure 4.67</a>.
+On March 22, we took a stab at an initial behavior timeline implementation as seen in <a href="#fig:alex_behavior_timeline">Figure 4.69</a>.
 One immediate issue with rendering such a view is that action timings are not always known ahead of time.
 They are often dependent on real-time events, such as the scene node obtaining a stable detection.
 When the behavior is run in preview mode or regular mode, the actual action durations are stored in the bars, to provide a retrospective on the behavior’s actions over time.</p>
@@ -420,17 +420,17 @@ We were able to preview the mirrored behavior in simulation to verify the genera
 <h2 id="4717-traversal-of-a-real-door"><a class="header" href="#4717-traversal-of-a-real-door"><span class="heading-number">4.7.17.</span> Traversal of a Real Door</a></h2>
 <figure id="fig:alex_break_room_door">
 <img src="media/alex/20260326_RealLeftPushDoorBreakRoom-00.00.17.952.jpg" />
-<figcaption><strong>Figure 4.68.</strong> Alex opening the break room door on March 26, 2026.
+<figcaption><strong>Figure 4.70.</strong> Alex opening the break room door on March 26, 2026.
 A video is available at <a href="https://youtu.be/sv6r1ZBn6FA" class="uri">https://youtu.be/sv6r1ZBn6FA</a>.
 </figcaption>
 </figure>
 <p>On March 26, we attempted to traverse the break room door, which would be the first time an IHMC robot has traversed a real-world door as opposed to a lab-constructed one.
 In less than two hours of tweaking the behavior and attempting the behavior, we got a full door traversal to execute successfully in about 33 seconds.
-A frame from this run is shown in <a href="#fig:alex_break_room_door">Figure 4.68</a>.</p>
+A frame from this run is shown in <a href="#fig:alex_break_room_door">Figure 4.70</a>.</p>
 <h2 id="4718-ball-pick-and-place"><a class="header" href="#4718-ball-pick-and-place"><span class="heading-number">4.7.18.</span> Ball Pick and Place</a></h2>
 <figure id="fig:alex_jared_ball_pick_and_place">
 <img src="media/alex/20260331_AlexJaredBallPickAndPlace-00.00.49.389.jpg" />
-<figcaption><strong>Figure 4.69.</strong> Our first ball pick and place behavior on March 31, 2026.
+<figcaption><strong>Figure 4.71.</strong> Our first ball pick and place behavior on March 31, 2026.
 A video is available at <a href="https://youtu.be/hq0y2LSdQ4A" class="uri">https://youtu.be/hq0y2LSdQ4A</a>.
 </figcaption>
 </figure>
@@ -440,7 +440,7 @@ Since we did not have any orientation-invariant graspable objects in our in-hous
 We picked the default “yolov8n-seg” model that comes out of the box with YOLOv8.
 It has a “sports ball” object class that just barely worked for our use case, detecting our colored tennis balls and baseballs with widely varying confidence levels.
 Our balls could be detected with high confidence in the 70-80% range, but we could only rely on the confidence levels to be above 2% or so, as they were very often that low.</p>
-<p>As seen in <a href="#fig:alex_jared_ball_pick_and_place">Figure 4.69</a>, on March 31, 2026 we had our first ball pick and place behavior running.
+<p>As seen in <a href="#fig:alex_jared_ball_pick_and_place">Figure 4.71</a>, on March 31, 2026 we had our first ball pick and place behavior running.
 We used our “sphere contains” condition check to only pick up balls that were in a reachable region on the table, to avoid catastrophic unreachable grasp attempts.
 This version would often miss the grasps and had some unnatural looking arm configurations and slow trajectories.
 We also had some issues with the reliability of the YOLO persistent detections.
@@ -455,14 +455,14 @@ This meant that the behaviors could configure the sports ball class to allow per
 <h2 id="4720-reactive-colored-ball-sorting"><a class="header" href="#4720-reactive-colored-ball-sorting"><span class="heading-number">4.7.20.</span> Reactive Colored Ball Sorting</a></h2>
 <figure id="fig:alex_reactive_robust_ball_sorting">
 <img src="media/alex/20260404_ReactiveRobustBallSorting-00.00.29.328.jpg" />
-<figcaption><strong>Figure 4.70.</strong> A reactive and robust ball sorting behavior on April 4, 2026, in which the robot sorted 5 balls successfully while gracefully handling a human-caused disturbance.
+<figcaption><strong>Figure 4.72.</strong> A reactive and robust ball sorting behavior on April 4, 2026, in which the robot sorted 5 balls successfully while gracefully handling a human-caused disturbance.
 A video is available at <a href="https://youtu.be/9DhgbjIRynM" class="uri">https://youtu.be/9DhgbjIRynM</a>.
 </figcaption>
 </figure>
 <p>In order to demonstrate online decision-making and reactivity, we then sought to sort the balls by color into separate containers.
 We also planned, for our annual robotics lab open house where we share our work with the public, to trigger specific behaviors based on ball color.
 For example, picking up a green ball would cause the robot to go and deliver that green ball to a box on a table beyond a door.
-On April 4, 2026, as seen in <a href="#fig:alex_reactive_robust_ball_sorting">Figure 4.70</a>, we achieved a demonstration in which the robot successfully sorts five balls by color into two different containers, while successfully handling a disturbance where a ball was removed from the table just before the grasp.
+On April 4, 2026, as seen in <a href="#fig:alex_reactive_robust_ball_sorting">Figure 4.72</a>, we achieved a demonstration in which the robot successfully sorts five balls by color into two different containers, while successfully handling a disturbance where a ball was removed from the table just before the grasp.
 In this demo, the behavior was authored to pick up the balls and inspect them while still in hand for grasp success and color.
 If there were no points within the hand, we assumed the grasp failed and returned to pre-grasp.
 If there were points in the hand, we checked if they were yellow, in which case they would be placed in container A, else they would be placed in container B.</p>
@@ -474,7 +474,7 @@ We haven’t yet run the mimic policy for the door traversals at the time of wri
 <h2 id="4722-hybrid-and-composite-frames"><a class="header" href="#4722-hybrid-and-composite-frames"><span class="heading-number">4.7.22.</span> Hybrid and Composite Frames</a></h2>
 <figure id="fig:alex_composite_frame">
 <img src="media/alex/20260512_143840_HybridFrame.png" />
-<figcaption><strong>Figure 4.71.</strong> The composite frame feature.
+<figcaption><strong>Figure 4.73.</strong> The composite frame feature.
 On the left, a series of scene actions can be seen: Clear scene, Setup door panel, Setup door frame, and Setup hybrid frame.
 On the bottom left, the settings for the composite frame scene action type can be seen.
 In the settings, the hybrid frame is named “Door Approach Hybrid” and takes the position of the Door Panel object and the orientation of the Door Frame object.
@@ -491,7 +491,7 @@ To do this, on April 4, 2026, we decided to add a type of behavior scene object 
 This composite frame would exist as a privileged object in the behavior scene such that it would be usable in the same way to define actions.</p>
 <p>There are currently two types of composite frames: an approach frame and a hybrid frame.
 They are both generalized to be named frames as a derivative computation of two pre-existing behavior frames.
-In <a href="#fig:alex_composite_frame">Figure 4.71</a>, this feature is shown.
+In <a href="#fig:alex_composite_frame">Figure 4.73</a>, this feature is shown.
 The approach frame’s orientation is defined to face from frame A to frame B and its position is defined to be on the line segment from frame B to frame A at some tunable distance from frame B.
 This makes the approach frame suitable for walking directly towards an object, but stopping before getting too close.</p>
 <p>The hybrid frame is similar.
@@ -509,7 +509,7 @@ We mention this bug fix because it marks a leap in trust of the system, prevents
 <h2 id="4724-approaching-tables-with-active-perception"><a class="header" href="#4724-approaching-tables-with-active-perception"><span class="heading-number">4.7.24.</span> Approaching Tables with Active Perception</a></h2>
 <figure id="fig:alex_table_approach">
 <img src="media/alex/2026-04-06 16-15-17_TableApproachFrame.jpg" />
-<figcaption><strong>Figure 4.72.</strong> The table approach algorithm visualization.
+<figcaption><strong>Figure 4.74.</strong> The table approach algorithm visualization.
 The approach reference frame available to the physical actions is seen on the floor between the capsules.
 A video is available at <a href="https://youtu.be/iBPPJW1Pbmc" class="uri">https://youtu.be/iBPPJW1Pbmc</a>.
 </figcaption>
@@ -517,7 +517,7 @@ A video is available at <a href="https://youtu.be/iBPPJW1Pbmc" class="uri">https
 <p>In the same week we developed a novel algorithm for humanoid robot table approach.
 Using our point-in-shape counting CUDA kernel, we designed a special heuristic scene object called the “Approach Table” object.
 This was similar in spirit to the heuristic door panel object discussed previously, but differs in that it does not use any semantic detections.
-Instead, we sweep two vertical capsules forward from the robot’s hips with the intention of colliding with the table’s edge, as shown in <a href="#fig:alex_table_approach">Figure 4.72</a>.
+Instead, we sweep two vertical capsules forward from the robot’s hips with the intention of colliding with the table’s edge, as shown in <a href="#fig:alex_table_approach">Figure 4.74</a>.
 A tunable threshold for the number of points to be considered constituting the table edge is defined in the settings of this type of scene node.
 Typically a value of 300-400 points seemed to be good.
 The capsules start around knee height and end just below chest height with the intention of handling tables of various heights.
@@ -532,14 +532,14 @@ The ability to approach tables with this degree of accuracy is a necessary part 
 <h2 id="4725-high-volume-pick-and-place-demo"><a class="header" href="#4725-high-volume-pick-and-place-demo"><span class="heading-number">4.7.25.</span> High-Volume Pick and Place Demo</a></h2>
 <figure id="fig:alex_open_house_setup">
 <img src="media/alex/20260409_DoorBehaviorTriggeredByColoredBallCut-00.00.42.222.jpg" />
-<figcaption><strong>Figure 4.73.</strong> A still frame from our open house demo behavior preparation on April 9, 2026, where Alex has picked up a green ball from the table and is executing a door traversal behavior as part of the delivery sub-behavior.
+<figcaption><strong>Figure 4.75.</strong> A still frame from our open house demo behavior preparation on April 9, 2026, where Alex has picked up a green ball from the table and is executing a door traversal behavior as part of the delivery sub-behavior.
 A video is available at <a href="https://youtu.be/NmmnQui-uu0" class="uri">https://youtu.be/NmmnQui-uu0</a>.
 </figcaption>
 </figure>
 <p>On April 9 and 10, 2026, we designed and rehearsed a demo for our open house where the robot would have a table station where balls of different colors would be fed to the robot through a tube system.
 The robot would be tasked with picking up the balls, determining their color, and executing a specific behavior for each color, in an infinite loop.
 Yellow balls would simply be placed in a chute to deliver the ball back to the visitor’s side.
-Green balls would trigger a delivery behavior where the robot would traverse a door and deliver the green ball to a box on a table beyond that door, as presented in <a href="#fig:alex_open_house_setup">Figure 4.73</a>.
+Green balls would trigger a delivery behavior where the robot would traverse a door and deliver the green ball to a box on a table beyond that door, as presented in <a href="#fig:alex_open_house_setup">Figure 4.75</a>.
 The rest of the colors would trigger different RL mimic dances.
 For example, red balls would trigger the “I love you!” RL mimic dance.</p>
 <p>We did some partially successful rehearsals of this demo, but on April 10, 2026, just before the demo, the robot’s legs fell off its body in a dramatic fall.
@@ -548,7 +548,7 @@ During the demo, we picked and placed 199 balls at the table station.</p>
 <h2 id="4726-multi-station-reactive-ball-sorting"><a class="header" href="#4726-multi-station-reactive-ball-sorting"><span class="heading-number">4.7.26.</span> Multi-Station Reactive Ball Sorting</a></h2>
 <figure id="fig:alex_two_table_sorting">
 <img src="media/alex/20260414_SortingBallTwoTables-00.00.02.284.jpg" />
-<figcaption><strong>Figure 4.74.</strong> The two-station ball sorting task scenario, as filmed on April 4, 2026.
+<figcaption><strong>Figure 4.76.</strong> The two-station ball sorting task scenario, as filmed on April 4, 2026.
 2 yellow balls, 1 orange ball, and container A sit on table A and a green ball, a blue ball, and container B sit on table B.
 A video is available at <a href="https://youtu.be/KxIihoDiMtc" class="uri">https://youtu.be/KxIihoDiMtc</a>.
 </figcaption>
@@ -557,7 +557,7 @@ A video is available at <a href="https://youtu.be/KxIihoDiMtc" class="uri">https
 On April 14, 2026, we extended our reactive and robust ball sorting behavior to a multi-station ball sorting behavior.
 The intention behind this demonstration was to show a compelling loco-manipulation task beyond door traversals.
 The robot and behavior author were tasked with sorting colored balls between two containers on two different tables, requiring walking between the tables.
-A still frame from this behavior is shown in <a href="#fig:alex_two_table_sorting">Figure 4.74</a>.
+A still frame from this behavior is shown in <a href="#fig:alex_two_table_sorting">Figure 4.76</a>.
 In a 1 hour and 50 minute time period we were able to extend the stationary sorting behavior to multi-station sorting.
 In the final demonstration run, the robot sorted 9 balls correctly, with three table approaches including two table-to-table transitions.
 However, the robot did not perceive the containers and there was one pause where the human experimenter had to shift one of the balls to get YOLO to detect it.</p>
@@ -567,7 +567,7 @@ We were able to achieve 11 push door approach and openings in a row and 12 in a 
 This final demonstration in our story marked a reliability milestone in loco-manipulation.</p>
 <!-- PAGE-REFERENCES-START -->
 <p><strong>References cited on this page</strong></p>
-<p><strong>[78]</strong> J. J. Kuffner and S. M. LaValle, “RRT-connect: An efficient approach to single-query path planning,” in <em>Proceedings 2000 ICRA. Millennium conference. IEEE international conference on robotics and automation. Symposia proceedings (cat. No. 00CH37065)</em>, IEEE, 2000, pp. 995–1001.</p>
+<p><strong>[85]</strong> J. J. Kuffner and S. M. LaValle, “RRT-connect: An efficient approach to single-query path planning,” in <em>Proceedings 2000 ICRA. Millennium conference. IEEE international conference on robotics and automation. Symposia proceedings (cat. No. 00CH37065)</em>, IEEE, 2000, pp. 995–1001.</p>
 <!-- PAGE-REFERENCES-END -->
 
                     </main>
@@ -621,10 +621,10 @@ This final demonstration in our story marked a reliability milestone in loco-man
         <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="citation-data-578f8bf9.js"></script>
+        <script src="citation-data-f786c247.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
         <script src="theme-persist-5a94a5be.js"></script>
-        <script src="pdf-download-40e21669.js"></script>
+        <script src="pdf-download-841dcc54.js"></script>
 
 
 
