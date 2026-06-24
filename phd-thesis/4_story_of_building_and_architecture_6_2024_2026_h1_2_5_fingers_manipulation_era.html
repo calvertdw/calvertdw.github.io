@@ -44,7 +44,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2084a571.js";
+            window.path_to_searchindex_js = "searchindex-a48ff01f.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-fe631b60.js"></script>
@@ -205,7 +205,15 @@ The system also supports collision avoidance.
 In the case a person is blocking the robot’s path, the behavior will pause and the operator can, in natural language, ask the robot to go behind the last person.
 This hybrid behavior system suggests that it is possible for LLMs to work in place of some classical components.
 However, we do not present any results from these experiments in this thesis.</p>
-<h2 id="462-runtime-editable-logic"><a class="header" href="#462-runtime-editable-logic"><span class="heading-number">4.6.2.</span> Runtime-Editable Logic</a></h2>
+<h2 id="462-attempt-to-integrate-vlas"><a class="header" href="#462-attempt-to-integrate-vlas"><span class="heading-number">4.6.2.</span> Attempt to Integrate VLAs</a></h2>
+<p>For a seven-month period from March to October 2025, we tried to get Vision Language Action Models (VLAs) working for task sub-components like the door opening, but ultimately failed to reproduce the reported results and diverted our efforts back to our classical route.
+Our conclusion was that at this time, VLAs were not an “off-the-shelf” solution and still required expertise and possibly even an “artistic” talent to get working well.
+However, it may have also been that we had a bug somewhere.</p>
+<p>In October of 2025, we did some restructuring of the internals of the behavior system, making the root node reference final and accessible directly to all nodes.
+This allowed more direct access to behavior-wide components.
+For example, for all executor nodes, the controller ROS 2 node, the behavior scene, and the root node were all made final and accessible directly without needing to navigate boilerplate.
+This made the code a little nicer to deal with but didn’t have any meaningful effects on operator usability or robot performance.</p>
+<h2 id="463-runtime-editable-logic"><a class="header" href="#463-runtime-editable-logic"><span class="heading-number">4.6.3.</span> Runtime-Editable Logic</a></h2>
 <figure id="fig:2025_whiteboards">
 <img src="media/unitree/2025_BehaviorDesignMeetings.jpg" />
 <figcaption><strong>Figure 4.44.</strong> 
@@ -255,7 +263,7 @@ Instead, it would be better to detect that the door did not open with the hand b
 <p>It took longer to implement a condition node that had a meaningful impact on behavior capability.
 In February 2025, a simple counter condition node was implemented to execute loops with iteration limits.
 This was ultimately not very useful.</p>
-<h2 id="463-llm-condition-node"><a class="header" href="#463-llm-condition-node"><span class="heading-number">4.6.3.</span> LLM Condition Node</a></h2>
+<h2 id="464-llm-condition-node"><a class="header" href="#464-llm-condition-node"><span class="heading-number">4.6.4.</span> LLM Condition Node</a></h2>
 <figure id="fig:2025_llm_condition_node">
 <img src="media/unitree/2025-03-06 17-08-LLMNode-15-00.00.04.763.jpg" />
 <figcaption><strong>Figure 4.46.</strong> 
@@ -277,14 +285,6 @@ The behavior author is provided with an option for whether a match means a succe
 <p>This worked okay, but we had trouble with such a small LLM model generating meaningful results.
 This development did not result in any meaningful impact on the capabilities of loco-manipulation behaviors.
 Our focus quickly drifted to approaches that queried paid online VLM models via the AI2R node.</p>
-<h2 id="464-attempt-to-integrate-vlas"><a class="header" href="#464-attempt-to-integrate-vlas"><span class="heading-number">4.6.4.</span> Attempt to Integrate VLAs</a></h2>
-<p>For a seven-month period from March to October 2025, we tried to get Vision Language Action Models (VLAs) working for task sub-components like the door opening, but ultimately failed to reproduce the reported results and diverted our efforts back to our classical route.
-Our conclusion was that at this time, VLAs were not an “off-the-shelf” solution and still required expertise and possibly even an “artistic” talent to get working well.
-However, it may have also been that we had a bug somewhere.</p>
-<p>In October of 2025, we did some restructuring of the internals of the behavior system, making the root node reference final and accessible directly to all nodes.
-This allowed more direct access to behavior-wide components.
-For example, for all executor nodes, the controller ROS 2 node, the behavior scene, and the root node were all made final and accessible directly without needing to navigate boilerplate.
-This made the code a little nicer to deal with but didn’t have any meaningful effects on operator usability or robot performance.</p>
 <h2 id="465-behavior-scene"><a class="header" href="#465-behavior-scene"><span class="heading-number">4.6.5.</span> Behavior Scene</a></h2>
 <figure id="fig:2025_scene_action_whiteboard">
 <img src="media/unitree/20251021_BehaviorSceneActionWhiteboard.jpg" />
@@ -568,7 +568,7 @@ This is possible with the assumption that door panels swing on a vertical hinge.
         <script src="citation-data-f786c247.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
         <script src="theme-persist-5a94a5be.js"></script>
-        <script src="pdf-download-841dcc54.js"></script>
+        <script src="pdf-download-b2857007.js"></script>
 
 
 

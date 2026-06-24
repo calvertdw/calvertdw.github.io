@@ -44,7 +44,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2084a571.js";
+            window.path_to_searchindex_js = "searchindex-a48ff01f.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-fe631b60.js"></script>
@@ -236,6 +236,9 @@ A video is available at <a href="https://youtu.be/AH2dFMW-IbY" class="uri">https
 </div>
 
 <p><span id="tab:h3_bottle_carry_through_authoring_timeline" label="tab:h3_bottle_carry_through_authoring_timeline"></span></p>
+<p>Most of the 1 hour 13 minute 49 second session went to wiring existing pickup and door subtrees and preserving the bottle grasp through traversal (<a href="#tab:h3_bottle_carry_through_authoring_timeline">Table 7.22</a>).
+We did not author a new door behavior from scratch.
+This supports hypothesis 3 because the work edited connections and parameters between existing behaviors rather than rebuilding either subtree.</p>
 <h2 id="732-break-room-door-adaptation-alex-2026-03-26"><a class="header" href="#732-break-room-door-adaptation-alex-2026-03-26"><span class="heading-number">7.3.2.</span> Break Room Door Adaptation (Alex, 2026-03-26)</a></h2>
 <p>On March 26, 2026, we adapted the lab right pull door traversal to the break room left pull door on Alex.
 Door mirroring was only the starting point.
@@ -271,6 +274,9 @@ A video is available at <a href="https://youtu.be/HcJPLoRfs3Q" class="uri">https
 </div>
 
 <p><span id="tab:h3_break_room_adaptation_timeline" label="tab:h3_break_room_adaptation_timeline"></span></p>
+<p>Our behavior mirroring function supplied the starting tree, but 1 hour 54 minutes 3 seconds went to retuning on the real left pull door (<a href="#tab:h3_break_room_adaptation_timeline">Table 7.23</a>), which was more difficult to open and did not have a spring closer.
+Point check fallbacks, spine yaw, and re-authored footsteps were the main edits rather than a new behavior file.
+This supports hypothesis 3 because most of the effort went into localized changes inside an existing traversal behavior.</p>
 <h2 id="733-two-table-sorting-extension-alex-2026-04-13-to-14"><a class="header" href="#733-two-table-sorting-extension-alex-2026-04-13-to-14"><span class="heading-number">7.3.3.</span> Two Table Sorting Extension (Alex, 2026-04-13 to 14)</a></h2>
 <p>From April 13 through 14, 2026, we extended the open house ball return behavior to sort colored balls between two tables with locomotion between stations.
 The measured total is 1 hour, 50 minutes, and 41 seconds, including 15 minutes and 30 seconds of off-robot pre-authoring before the real-robot follow-up session.
@@ -299,6 +305,9 @@ A video is available at <a href="https://youtu.be/_3lqvcd_5WE" class="uri">https
 </div>
 
 <p><span id="tab:h3_two_table_sorting_authoring_summary" label="tab:h3_two_table_sorting_authoring_summary"></span></p>
+<p>The extended behavior reused <code>demo/BallsInBins.json</code> and added routing logic in 15 minutes 30 seconds off robot, followed by 1 hour 35 minutes on real robot (<a href="#tab:h3_two_table_sorting_authoring_summary">Table 7.24</a>).
+The documented execution run sorted 9/9 balls with walks between tables in 2 minutes 8 seconds (<a href="7_defense_1_hypothesis_1_fast_loco_manipulation_behaviors.html#tab:alex_two_table_sorting_event_timeline">Table 7.12</a>).
+This supports hypothesis 3 because locomotion and ball color-based branches were added to an existing sorting behavior instead of authoring a new one from an empty tree.</p>
 
                     </main>
 
@@ -354,7 +363,7 @@ A video is available at <a href="https://youtu.be/_3lqvcd_5WE" class="uri">https
         <script src="citation-data-f786c247.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
         <script src="theme-persist-5a94a5be.js"></script>
-        <script src="pdf-download-841dcc54.js"></script>
+        <script src="pdf-download-b2857007.js"></script>
 
 
 

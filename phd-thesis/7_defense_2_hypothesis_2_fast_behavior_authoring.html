@@ -44,7 +44,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2084a571.js";
+            window.path_to_searchindex_js = "searchindex-a48ff01f.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-fe631b60.js"></script>
@@ -237,6 +237,9 @@ A video is available at <a href="https://youtu.be/SbBGpRHY_eE" class="uri">https
 </div>
 
 <p><span id="tab:h2_nadia_scratch_push_authoring_timeline" label="tab:h2_nadia_scratch_push_authoring_timeline"></span></p>
+<p><a href="#tab:h2_nadia_scratch_push_authoring_timeline">Table 7.18</a> is our earliest measured scratch door session at 33 minutes.
+The session used ArUco perception and teleoperated traversal steps rather than full autonomy.
+It still documents runtime editing on the robot, but it should not be directly compared to later sessions that produced fully autonomous behaviors.</p>
 <h2 id="722-right-pull-opening-loop-unitree-h1-2-2026-01-02"><a class="header" href="#722-right-pull-opening-loop-unitree-h1-2-2026-01-02"><span class="heading-number">7.2.2.</span> Right Pull Opening Loop (Unitree H1-2, 2026-01-02)</a></h2>
 <p>On January 2, 2026, we authored a looping standing right pull lever handle opening behavior on the Unitree H1-2 from an empty behavior tree.
 The session reached first autonomous looping execution in 31 minutes and 43 seconds of active authoring time.
@@ -270,6 +273,9 @@ A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https
 </div>
 
 <p><span id="tab:h2_unitree_scratch_authoring_timeline" label="tab:h2_unitree_scratch_authoring_timeline"></span></p>
+<p>The first autonomous looping opening came at 31 minutes 43 seconds (<a href="#tab:h2_unitree_scratch_authoring_timeline">Table 7.19</a>).
+The goto loop at 31:27 immediately began the 32/32 repeated opening test in <a href="7_defense_1_hypothesis_1_fast_loco_manipulation_behaviors.html#fig:unitree_pull_opening_reliability_20260102">Figure 7.17</a>.
+This session shows the diagnose, edit, and retest loop in one sitting, which is what hypothesis 2 claims relative to redeploy or retrain workflows.</p>
 <h2 id="723-first-right-pull-door-bring-up-alex-2026-01-20-to-24"><a class="header" href="#723-first-right-pull-door-bring-up-alex-2026-01-20-to-24"><span class="heading-number">7.2.3.</span> First Right Pull Door Bring Up (Alex, 2026-01-20 to 24)</a></h2>
 <p>From January 20 through 24, 2026, we brought up the first full Alex pull lever door traversal from scratch.
 The measured active authoring total is 11 hours, 10 minutes, and 17 seconds.
@@ -309,6 +315,9 @@ The time column is cumulative across days but excludes inactive gaps between dai
 </div>
 
 <p><span id="tab:h2_alex_first_pull_authoring_timeline" label="tab:h2_alex_first_pull_authoring_timeline"></span></p>
+<p>The 11 hour 10 minute total spans five days of incremental trial-and-error authoring (<a href="#tab:h2_alex_first_pull_authoring_timeline">Table 7.20</a>).
+Major milestones include the first open from a staggered stance on day 3 and the hold open fallback added on day 5 after force related trouble.
+These Alex authoring sessions show the cost of bringing up the first door traversal behavior on a new hardware platform.</p>
 <h2 id="724-scratch-left-push-door-alex-2026-02-22"><a class="header" href="#724-scratch-left-push-door-alex-2026-02-22"><span class="heading-number">7.2.4.</span> Scratch Left Push Door (Alex, 2026-02-22)</a></h2>
 <p>On February 22, 2026, we authored a left push door traversal on Alex from an empty <code>Left Push Door</code> sequence to first fully automatic success in 1 hour, 59 minutes, and 48 seconds of active authoring.
 This is the measured scratch case used in the comparative authoring process figure.
@@ -344,6 +353,12 @@ A video is available at <a href="https://youtu.be/bLHQmV4GEFA" class="uri">https
 </div>
 
 <p><span id="tab:h2_scratch_left_push_authoring_timeline" label="tab:h2_scratch_left_push_authoring_timeline"></span></p>
+<p>This is our measured fully autonomous scratch case for literature comparison: 1 hour 59 minutes 48 seconds from empty sequence to first automatic success (<a href="#tab:h2_scratch_left_push_authoring_timeline">Table 7.21</a>).
+Failure at 1:50:11 from arm task space error was fixed in about 9 minutes by bringing the right arm in using jointspace for traversal.
+That short edit and retest loop is the kind of workflow <a href="7_defense_4_comparative_analysis.html#fig:hero_authoring_process_comparison">Figure 7.31</a> contrasts against multi day retraining pipelines.</p>
+<p>Across the four rows in <a href="#fig:in_house_authoring_from_scratch_timeline">Figure 7.20</a>, measured active authoring ranged from  30 minutes to  11 hours.
+The 33 minute session from 2023 on Nadia resulted in a behavior that was only partially autonomous, while the February 22, 2026 Alex left push row is the fairest fully autonomous scratch comparison at just under 2 hours.
+Each session documented failure diagnosis, logic edits, and retesting on the robot without a redeploy or retraining cycle.</p>
 
                     </main>
 
@@ -399,7 +414,7 @@ A video is available at <a href="https://youtu.be/bLHQmV4GEFA" class="uri">https
         <script src="citation-data-f786c247.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
         <script src="theme-persist-5a94a5be.js"></script>
-        <script src="pdf-download-841dcc54.js"></script>
+        <script src="pdf-download-b2857007.js"></script>
 
 
 

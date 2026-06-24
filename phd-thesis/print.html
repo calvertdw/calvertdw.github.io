@@ -45,7 +45,7 @@ if(p&&p!=="auto"&&c.indexOf(p)!==-1){var h=document.documentElement;h.classList.
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2084a571.js";
+            window.path_to_searchindex_js = "searchindex-a48ff01f.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-fe631b60.js"></script>
@@ -1724,7 +1724,15 @@ The system also supports collision avoidance.
 In the case a person is blocking the robot’s path, the behavior will pause and the operator can, in natural language, ask the robot to go behind the last person.
 This hybrid behavior system suggests that it is possible for LLMs to work in place of some classical components.
 However, we do not present any results from these experiments in this thesis.</p>
-<h2 id="462-runtime-editable-logic"><a class="header" href="#462-runtime-editable-logic"><span class="heading-number">4.6.2.</span> Runtime-Editable Logic</a></h2>
+<h2 id="462-attempt-to-integrate-vlas"><a class="header" href="#462-attempt-to-integrate-vlas"><span class="heading-number">4.6.2.</span> Attempt to Integrate VLAs</a></h2>
+<p>For a seven-month period from March to October 2025, we tried to get Vision Language Action Models (VLAs) working for task sub-components like the door opening, but ultimately failed to reproduce the reported results and diverted our efforts back to our classical route.
+Our conclusion was that at this time, VLAs were not an “off-the-shelf” solution and still required expertise and possibly even an “artistic” talent to get working well.
+However, it may have also been that we had a bug somewhere.</p>
+<p>In October of 2025, we did some restructuring of the internals of the behavior system, making the root node reference final and accessible directly to all nodes.
+This allowed more direct access to behavior-wide components.
+For example, for all executor nodes, the controller ROS 2 node, the behavior scene, and the root node were all made final and accessible directly without needing to navigate boilerplate.
+This made the code a little nicer to deal with but didn’t have any meaningful effects on operator usability or robot performance.</p>
+<h2 id="463-runtime-editable-logic"><a class="header" href="#463-runtime-editable-logic"><span class="heading-number">4.6.3.</span> Runtime-Editable Logic</a></h2>
 <figure id="fig:2025_whiteboards">
 <img src="media/unitree/2025_BehaviorDesignMeetings.jpg" />
 <figcaption><strong>Figure 4.44.</strong> 
@@ -1774,7 +1782,7 @@ Instead, it would be better to detect that the door did not open with the hand b
 <p>It took longer to implement a condition node that had a meaningful impact on behavior capability.
 In February 2025, a simple counter condition node was implemented to execute loops with iteration limits.
 This was ultimately not very useful.</p>
-<h2 id="463-llm-condition-node"><a class="header" href="#463-llm-condition-node"><span class="heading-number">4.6.3.</span> LLM Condition Node</a></h2>
+<h2 id="464-llm-condition-node"><a class="header" href="#464-llm-condition-node"><span class="heading-number">4.6.4.</span> LLM Condition Node</a></h2>
 <figure id="fig:2025_llm_condition_node">
 <img src="media/unitree/2025-03-06 17-08-LLMNode-15-00.00.04.763.jpg" />
 <figcaption><strong>Figure 4.46.</strong> 
@@ -1796,14 +1804,6 @@ The behavior author is provided with an option for whether a match means a succe
 <p>This worked okay, but we had trouble with such a small LLM model generating meaningful results.
 This development did not result in any meaningful impact on the capabilities of loco-manipulation behaviors.
 Our focus quickly drifted to approaches that queried paid online VLM models via the AI2R node.</p>
-<h2 id="464-attempt-to-integrate-vlas"><a class="header" href="#464-attempt-to-integrate-vlas"><span class="heading-number">4.6.4.</span> Attempt to Integrate VLAs</a></h2>
-<p>For a seven-month period from March to October 2025, we tried to get Vision Language Action Models (VLAs) working for task sub-components like the door opening, but ultimately failed to reproduce the reported results and diverted our efforts back to our classical route.
-Our conclusion was that at this time, VLAs were not an “off-the-shelf” solution and still required expertise and possibly even an “artistic” talent to get working well.
-However, it may have also been that we had a bug somewhere.</p>
-<p>In October of 2025, we did some restructuring of the internals of the behavior system, making the root node reference final and accessible directly to all nodes.
-This allowed more direct access to behavior-wide components.
-For example, for all executor nodes, the controller ROS 2 node, the behavior scene, and the root node were all made final and accessible directly without needing to navigate boilerplate.
-This made the code a little nicer to deal with but didn’t have any meaningful effects on operator usability or robot performance.</p>
 <h2 id="465-behavior-scene"><a class="header" href="#465-behavior-scene"><span class="heading-number">4.6.5.</span> Behavior Scene</a></h2>
 <figure id="fig:2025_scene_action_whiteboard">
 <img src="media/unitree/20251021_BehaviorSceneActionWhiteboard.jpg" />
@@ -4033,8 +4033,9 @@ In <a href="#ch:defense">Evaluation</a>, we evaluate these behaviors against our
 </li>
 </ol>
 <p>We’ll present evidence that supports our first hypothesis with speed and reliability results for real robot tasks in <a href="#71-hypothesis-1-fast-loco-manipulation-behaviors">Section 7.1</a>, our second hypothesis by showing the speed with which we can create and modify behaviors in <a href="#72-hypothesis-2-fast-behavior-authoring">Section 7.2</a>, and our third hypothesis by showing that we can readily adapt existing behaviors to new tasks in <a href="#73-hypothesis-3-fast-adaptation-extension-and-combination-of-behaviors">Section 7.3</a>.
+Each demonstration subsection states what that run shows for the relevant hypothesis.
 We’ll then do a comparative analysis against the literature to see how our results stack up in <a href="#74-comparative-analysis">Section 7.4</a>.
-Finally, we’ll evaluate to what degree our hypotheses held in <a href="#75-evaluation">Section 7.5</a>.</p>
+Finally, we’ll summarize to what degree our hypotheses held in <a href="#75-evaluation">Section 7.5</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="71-hypothesis-1-fast-loco-manipulation-behaviors"><a class="header" href="#71-hypothesis-1-fast-loco-manipulation-behaviors"><span class="heading-number">7.1.</span> Hypothesis 1: Fast Loco-Manipulation Behaviors</a></h1>
 <p>To support our first hypothesis, we’ll present the demonstrations that highlight the system’s capabilities and breadth while also executing with high speed relative to prior and comparative works.
@@ -4081,6 +4082,9 @@ A video is available at <a href="https://youtu.be/nBMn1lJ57TU" class="uri">https
 </div>
 
 <p><span id="tab:rough_terrain_speed_comparison_ch4-1" label="tab:rough_terrain_speed_comparison_ch4"></span></p>
+<p>This 14 step run averaged 0.079 m/s over 5.3 m (<a href="#tab:rough_terrain_speed_comparison_ch4-1">Table 7.1</a>), about 3.4 times faster than the Fallon et al. baseline at 0.023 m/s.
+This demonstration uses an earlier architecture than is tested in hypothesis 1.
+It is still useful context because it shows an early focus as part of this thesis in achieving faster robot locomotion and onboard sensing.</p>
 <h3 id="7112-atlas-hard-coded-pull-door-traversal"><a class="header" href="#7112-atlas-hard-coded-pull-door-traversal"><span class="heading-number">7.1.1.2.</span> Atlas Hard-Coded Pull-Door Traversal</a></h3>
 <p>Our earliest in-house door-speed anchor is the hard-coded IHMC Atlas pull-door traversal from the June 2021 building exploration era, shown in <a href="#fig:2021_building_exploration_demo_defense">Figure 7.3</a>.
 That step-by-step behavior took 106 s from approach start to full traversal completion, with long pauses, fiducial dependence, and no robot-local authored recovery.</p>
@@ -4089,6 +4093,9 @@ That step-by-step behavior took 106 s from approach start to full traversal com
 <figcaption><strong>Figure 7.3.</strong> The June 23, 2021 building exploration demo on IHMC Atlas, including the hard-coded automatic pull-door behavior used as the 106 s speed anchor in [Figure 7.1](#fig:in_house_speed_phase_timeline).
 A video is available at <a href="https://youtu.be/CFiFaO-ENPw" class="uri">https://youtu.be/CFiFaO-ENPw</a>.</figcaption>
 </figure>
+<p>Compared with the July 2024 Nadia right pull handle traversal at 27 s (<a href="#tab:nadia_right_pull_handle_event_timeline-1">Table 7.5</a>), this Atlas run is about 3.9 times slower on a pull side door task.
+The later run removed fiducial dependence, used runtime authored structure, and was run on a different platform.
+The comparison is not controlled, but still anchors how much faster our recent door behaviors became relative to this IHMC baseline.</p>
 <h3 id="7113-supervised-can-pick-and-place"><a class="header" href="#7113-supervised-can-pick-and-place"><span class="heading-number">7.1.1.3.</span> Supervised Can Pick-and-Place</a></h3>
 <p>On June 20, 2023, we executed a supervised can-of-soup pick-and-place behavior on Nadia in 1 minute and 46 seconds, shown in <a href="#fig:nadia_pick_soup_defense">Figure 7.4</a>.
 The run was operator-supervised, used an ArUco marker rather than direct can detection, and required manual gripper retries between actions.
@@ -4122,6 +4129,9 @@ Videos are available at <a href="https://youtu.be/V8jMvhVdP8k" class="uri">https
 </div>
 
 <p><span id="tab:pick_and_place_execution_2023-1" label="tab:pick_and_place_execution_2023"></span></p>
+<p>The 1 minute 46 second run shows an early manipulation capability on Nadia, but much of the timeline is operator supervised tuning rather than autonomous execution (<a href="#tab:pick_and_place_execution_2023-1">Table 7.2</a>).
+ArUco marker dependence and operator supervision make this demonstration an early speed reference rather than a testable result for hypothesis 1.
+It does show that the architecture could, albeit with great difficulty, execute pick and place on real hardware before YOLO based scene authoring was in place.</p>
 <h3 id="7114-14-s-nadia-left-push-bar-traversal"><a class="header" href="#7114-14-s-nadia-left-push-bar-traversal"><span class="heading-number">7.1.1.4.</span> 14 s Nadia Left Push-Bar Traversal</a></h3>
 <p>Our fastest door traversal ever was on March 15, 2024, and is presented in <a href="#fig:20240315_NadiaLeftPushBarWithCloserContinuousWalking">Figure 7.5</a>.
 The robot walked continuously during this run, using concurrent arm actions to open the push bar door during the traversal.
@@ -4150,6 +4160,9 @@ A video is available at <a href="https://youtu.be/DrR2Ng3ft5Y" class="uri">https
 </div>
 
 <p><span id="tab:nadia_left_push_bar_event_timeline-1" label="tab:nadia_left_push_bar_event_timeline"></span></p>
+<p>The robot unlatched the push bar at 4 s and cleared the doorway at 14 s (<a href="#tab:nadia_left_push_bar_event_timeline-1">Table 7.3</a>).
+Continuous walking with concurrent arm actions produced our fastest door traversal on record and is marked by the dashed line in <a href="#fig:in_house_speed_phase_timeline">Figure 7.1</a>.
+Relative to the 106 s Atlas anchor, this run is direct evidence that concurrent action layering removed long execution pauses.</p>
 <h3 id="7115-three-doors-in-a-row"><a class="header" href="#7115-three-doors-in-a-row"><span class="heading-number">7.1.1.5.</span> Three Doors in a Row</a></h3>
 <p>On July 3, 2024, we attempted to traverse three lab doors consecutively in one continuous run, shown in <a href="#fig:2024_3_doors_defense">Figure 7.6</a>.
 The robot cleared the first two doors but fell during traversal of the third; the timed run ended at 1 minute and 30 seconds.
@@ -4183,6 +4196,9 @@ A video is available at <a href="https://youtu.be/cd-lo-l7pPI" class="uri">https
 </div>
 
 <p><span id="tab:three_doors_event_timeline-1" label="tab:three_doors_event_timeline"></span></p>
+<p>The robot cleared the first door at 16 s and the second at 53 s, then fell during the third traversal at 1 minute 30 s (<a href="#tab:three_doors_event_timeline-1">Table 7.4</a>).
+The run still supports capability breadth across push bar, push knob, and pull handle doors in one continuous behavior.
+The fall shows that full traversal reliability remained a weak point, which we talk about in the reliability results below.</p>
 <h3 id="7116-nadia-right-pull-handle-traversal"><a class="header" href="#7116-nadia-right-pull-handle-traversal"><span class="heading-number">7.1.1.6.</span> Nadia Right Pull-Handle Traversal</a></h3>
 <p>On July 19, 2024, Nadia completed a representative right pull-handle door traversal with hook hands in 27 seconds, shown in <a href="#fig:20240719_ONRDemoRun2PullHandleDoorNadia">Figure 7.7</a>.
 Timestamps are presented in <a href="#tab:nadia_right_pull_handle_event_timeline-1">Table 7.5</a>.</p>
@@ -4210,6 +4226,9 @@ A video of the full mock-building demo run is available at <a href="https://yout
 </div>
 
 <p><span id="tab:nadia_right_pull_handle_event_timeline-1" label="tab:nadia_right_pull_handle_event_timeline"></span></p>
+<p>The 27 s total matches the pull lever traversal measurement in <a href="#fig:in_house_speed_phase_timeline">Figure 7.1</a>.
+Door opening finished at 7 s, but panel clearance kept the robot from getting through the frame until 22 s (<a href="#tab:nadia_right_pull_handle_event_timeline-1">Table 7.5</a>).
+<a href="#fig:DoorTraversalTimingsSpeed">Figure 7.13</a> shows the same push versus pull timing pattern across Nadia runs.</p>
 <h3 id="7117-onr-mock-building-demo-run-2"><a class="header" href="#7117-onr-mock-building-demo-run-2"><span class="heading-number">7.1.1.7.</span> ONR Mock-Building Demo Run 2</a></h3>
 <p>On July 19, 2024, we executed the second timed full run of our ONR mock-building search demo in 7 minutes and 45 seconds, shown in <a href="#fig:20240719_ONRDemoRun2">Figure 7.8</a>.
 This run searched three rooms, cleared a blocked doorway, moved furniture, and ended with a salute behavior.
@@ -4255,6 +4274,9 @@ A video is available at <a href="https://youtu.be/D0gylAJEdZw" class="uri">https
 </div>
 
 <p><span id="tab:onr_demo_run_2_event_timeline-1" label="tab:onr_demo_run_2_event_timeline"></span></p>
+<p>The 7 minute 45 second run combined three room searches, five door passages, furniture manipulation, and a blocked doorway recovery (<a href="#tab:onr_demo_run_2_event_timeline-1">Table 7.6</a>).
+Much of the elapsed time went to searching and repositioning between doors, not to isolated door traversals.
+The standalone 27 s pull handle run from the same day (<a href="#tab:nadia_right_pull_handle_event_timeline-1">Table 7.5</a>) shows that individual door phases could be fast, but this chained demo mainly demonstrates breadth across many authored behaviors in one tree.</p>
 <h3 id="7118-alex-right-pull-lever-traversal"><a class="header" href="#7118-alex-right-pull-lever-traversal"><span class="heading-number">7.1.1.8.</span> Alex Right Pull Lever Traversal</a></h3>
 <p>On March 9, 2026, Alex completed a right pull lever-handle door traversal in 45 seconds, shown in <a href="#fig:AlexRightPullDoorProfessional">Figure 7.9</a>.
 Timestamps are presented in <a href="#tab:alex_right_pull_event_timeline-1">Table 7.7</a>.</p>
@@ -4303,6 +4325,9 @@ A video is available at <a href="https://youtu.be/fP-9DfGFvW8" class="uri">https
 </div>
 
 <p><span id="tab:alex_right_pull_phase_breakdown-1" label="tab:alex_right_pull_phase_breakdown"></span></p>
+<p>This 45 s run breaks down into 12 s approach, 4 s unlatch, 15 s panel motion, and 14 s traverse (<a href="#tab:alex_right_pull_phase_breakdown-1">Table 7.8</a>).
+Panel motion is the longest phase on pull doors because the robot must stay clear of the swing.
+This timing places Alex pull traversals in the same tens of seconds band as our 2024 Nadia results and well below the minute scale classical literature entries in <a href="#fig:hero_speed_comparison">Figure 7.29</a>.</p>
 <h3 id="7119-alex-left-push-lever-traversal"><a class="header" href="#7119-alex-left-push-lever-traversal"><span class="heading-number">7.1.1.9.</span> Alex Left Push Lever Traversal</a></h3>
 <p>On March 9, 2026, Alex completed a left push lever-handle door traversal in 34 seconds, shown in <a href="#fig:AlexLeftPushDoorProfessional">Figure 7.10</a>.
 Timestamps are presented in <a href="#tab:alex_left_push_event_timeline-1">Table 7.9</a>.</p>
@@ -4351,6 +4376,9 @@ A video is available at <a href="https://youtu.be/rKOUzo2sZ70" class="uri">https
 </div>
 
 <p><span id="tab:alex_left_push_phase_breakdown-1" label="tab:alex_left_push_phase_breakdown"></span></p>
+<p>The 34 s push side run is faster than the 45 s pull run on the same robot and week.
+Approach and panel motion together take only 20 s, and shoulders align with the frame just 1 s after traversal begins (<a href="#tab:alex_left_push_phase_breakdown-1">Table 7.10</a>).
+This matches the progress curve pattern in <a href="#fig:DoorTraversalTimingsSpeed">Figure 7.13</a>, where push doors allow more continuous forward motion.</p>
 <h3 id="71110-reactive-single-table-ball-sorting"><a class="header" href="#71110-reactive-single-table-ball-sorting"><span class="heading-number">7.1.1.10.</span> Reactive Single-Table Ball Sorting</a></h3>
 <p>On April 4, 2026, Alex completed a reactive single-table ball-sorting run in 45.2 seconds while humans continuously placed and sometimes removed balls on the table, shown in <a href="#fig:ReactiveRobustBallSortingDisturbance">Figure 7.11</a>.
 Timestamps are presented in <a href="#tab:AlexReactiveRobustBallSortingTimeline-1">Table 7.11</a>.</p>
@@ -4392,6 +4420,9 @@ A video is available at <a href="https://youtu.be/9DhgbjIRynM" class="uri">https
 </div>
 
 <p><span id="tab:AlexReactiveRobustBallSortingTimeline-1" label="tab:AlexReactiveRobustBallSortingTimeline"></span></p>
+<p>The 45.2 s run sorted six balls while humans continuously placed new balls on the table (<a href="#tab:AlexReactiveRobustBallSortingTimeline-1">Table 7.11</a>).
+This rate of action supports hypothesis 1 on manipulation speed under a dynamic scene.
+Resilience to the ball removal disturbance at 17.8 s is analyzed in <a href="#sec:reactive_ball_sorting_disturbance">1.2.6</a>.</p>
 <h3 id="71111-two-table-loco-manipulation-sorting"><a class="header" href="#71111-two-table-loco-manipulation-sorting"><span class="heading-number">7.1.1.11.</span> Two-Table Loco-Manipulation Sorting</a></h3>
 <p>On April 14, 2026, we extended the reactive ball-sorting behavior to a two-table loco-manipulation task, shown in <a href="#fig:alex_two_table_sorting_defense">Figure 7.12</a>.
 In the timed execution run used in <a href="#fig:in_house_speed_phase_timeline">Figure 7.1</a>, the robot sorted nine balls across two tables in 2 minutes and 8 seconds.
@@ -4440,6 +4471,9 @@ A video is available at <a href="https://youtu.be/KxIihoDiMtc" class="uri">https
 </div>
 
 <p><span id="tab:alex_two_table_sorting_event_timeline-1" label="tab:alex_two_table_sorting_event_timeline"></span></p>
+<p>Nine balls were sorted between two tables in 2 minutes 8 seconds, with locomotion between tables at 0:00, 0:38, and 1:31 (<a href="#tab:alex_two_table_sorting_event_timeline-1">Table 7.12</a>).
+This demonstration shows a loco-manipulation capability beyond door traversal and exploration tasks.
+The timed run appears in <a href="#fig:in_house_speed_phase_timeline">Figure 7.1</a>; the behavior extension that produced it is analyzed under hypothesis 3.</p>
 <h3 id="71112-nadia-door-traversal-progress-curves"><a class="header" href="#71112-nadia-door-traversal-progress-curves"><span class="heading-number">7.1.1.12.</span> Nadia Door-Traversal Progress Curves</a></h3>
 <p><a href="#fig:DoorTraversalTimingsSpeed">Figure 7.13</a> illustrates representative forward progress curves for door traversals on Nadia, showing the difference between push and pull doors.
 Pull doors can take longer because the robot must stay clear of the panel as it opens.</p>
@@ -4447,6 +4481,12 @@ Pull doors can take longer because the robot must stay clear of the panel as it 
 <img src="media/generated/DoorTraversalProgress.jpg" style="width:100%" alt="DoorTraversalProgress" />
 <figcaption><strong>Figure 7.13.</strong> Distance progress through the door frame for four representative 2024 Nadia real-robot door traversals. Push-door behaviors are faster because the robot can keep making forward progress. Pull-door behaviors take longer because the robot must stay clear of the panel while fully opening it before traversal.</figcaption>
 </figure>
+<p>The four Nadia curves separate push doors, which keep moving forward, from pull doors, which stall progress while the panel opens.
+The 14 s push bar and 27 s pull handle runs above match these two curve shapes.
+The Alex push and pull traversals above follow the same qualitative pattern at 34 s and 45 s, even though they are not plotted in this figure.</p>
+<p><a href="#fig:in_house_speed_phase_timeline">Figure 7.1</a> summarizes the speed arc from the 106 s Atlas anchor through 14 to 45 s door traversals and minute scale manipulation tasks.
+The individual runs above supply the timed events behind each bar.
+Together they support the speed and capability parts of hypothesis 1.</p>
 <h2 id="712-reliability-and-resilience-evidence"><a class="header" href="#712-reliability-and-resilience-evidence"><span class="heading-number">7.1.2.</span> Reliability and Resilience Evidence</a></h2>
 <p>In <a href="#fig:in_house_reliability_resilience_summary">Figure 7.14</a>, we summarize our main in-house reliability and resilience anchors.
 The top band shows consecutive successful trials for repeated door approach and opening on Alex and Unitree H1-2.
@@ -4502,11 +4542,15 @@ A video is available at <a href="https://youtu.be/N4rzKOKUjIA" class="uri">https
 </div>
 
 <p><span id="tab:alex_push_reliability_runs-1" label="tab:alex_push_reliability_runs"></span></p>
+<p>Eleven consecutive approach and opening trials completed without failure (<a href="#tab:alex_push_reliability_runs-1">Table 7.13</a>).
+We did not test full traversal because the walking controller was not working well for traversal at the time of these experiments.
+However, our repeated trials still demonstrate reliable approach and opening.
+This 11/11 result is the Alex left push row in <a href="#fig:in_house_reliability_resilience_summary">Figure 7.14</a>.</p>
 <h3 id="71214-alex-right-pull-approach-and-opening-repeat"><a class="header" href="#71214-alex-right-pull-approach-and-opening-repeat"><span class="heading-number">7.1.2.14.</span> Alex Right Pull Approach and Opening Repeat</a></h3>
 <p>On April 14, 2026, we ran the right pull door behavior on Alex with a goal of at least 10 approach and opening trials.
 We lost count during the session and kept going so we would not stop short.
 The test ended with 12 successes in a row.
-All trials used the same lab right pull door on the same night as the push repeat test.
+All trials used the same lab right pull door on the same night as the repeated push test.
 An operator was present at the UI.
 We did not run the test to failure.
 Each run completed the approach and opening phases without failure.
@@ -4545,6 +4589,9 @@ A video is available at <a href="https://youtu.be/l2piKf40ea4" class="uri">https
 </div>
 
 <p><span id="tab:alex_pull_reliability_runs-1" label="tab:alex_pull_reliability_runs"></span></p>
+<p>Twelve consecutive approach and opening trials completed without failure on the same night as the repeated push test (<a href="#tab:alex_pull_reliability_runs-1">Table 7.14</a>).
+Again, the scope was approach and opening only.
+This 12/12 result is the Alex right pull row in <a href="#fig:in_house_reliability_resilience_summary">Figure 7.14</a>.</p>
 <h3 id="71215-unitree-h1-2-standing-right-pull-opening-repeat"><a class="header" href="#71215-unitree-h1-2-standing-right-pull-opening-repeat"><span class="heading-number">7.1.2.15.</span> Unitree H1-2 Standing Right Pull Opening Repeat</a></h3>
 <p>On January 2, 2026, we ran the standing right pull lever opening behavior 32 times in a row on Unitree H1-2.
 All trials used the same lab right pull door during the same session.
@@ -4585,6 +4632,10 @@ A video is available at <a href="https://youtu.be/fQCNuXEF9xg" class="uri">https
 </div>
 
 <p><span id="tab:unitree_pull_opening_reliability_protocol-1" label="tab:unitree_pull_opening_reliability_protocol"></span></p>
+<p>The robot opened the same lab door 32 times in a row from a standing start in about five minutes (<a href="#tab:unitree_pull_opening_reliability_protocol-1">Table 7.15</a>).
+This repeated trial was autonomous even between repetitions: the goto loop returned to the same opening sequence after each success.
+It also serves as evidence that our system’s reliability extends beyond a single humanoid robot platform.
+The 32/32 result is the Unitree row in <a href="#fig:in_house_reliability_resilience_summary">Figure 7.14</a>.</p>
 <h3 id="71216-nadia-reactive-left-pull-handle-opening"><a class="header" href="#71216-nadia-reactive-left-pull-handle-opening"><span class="heading-number">7.1.2.16.</span> Nadia Reactive Left Pull Handle Opening</a></h3>
 <p>On April 12, 2024, we disturbed a Nadia left pull door opening five times during one run.
 The hard coded door traversal node detected each failure and retried until the door opened.
@@ -4625,6 +4676,9 @@ A video is available at <a href="https://youtu.be/j_rzh5cAP2E" class="uri">https
 </div>
 
 <p><span id="tab:nadia_reactive_pull_event_timeline-1" label="tab:nadia_reactive_pull_event_timeline"></span></p>
+<p>Five human disturbances during opening caused grasp slips or blocked reaches (<a href="#tab:nadia_reactive_pull_event_timeline-1">Table 7.16</a>).
+A hard coded traversal node retried until the door opened at 29 s and the robot cleared the doorway at 44 s without operator intervention.
+This is an earlier resilience mechanism than the authored fallback trees used in later Alex behaviors, but it still produced the Nadia reactive pull row in <a href="#fig:in_house_reliability_resilience_summary">Figure 7.14</a>.</p>
 <h3 id="71217-alex-reactive-right-pull-lever-door"><a class="header" href="#71217-alex-reactive-right-pull-lever-door"><span class="heading-number">7.1.2.17.</span> Alex Reactive Right Pull Lever Door</a></h3>
 <p>On March 13, 2026, we disturbed an Alex right pull lever door opening four times during the opening phase.
 A human also blocked the doorway before traversal.
@@ -4665,12 +4719,16 @@ A video is available at <a href="https://youtu.be/pWxptD5j8b4" class="uri">https
 </div>
 
 <p><span id="tab:alex_reactive_pull_event_timeline-1" label="tab:alex_reactive_pull_event_timeline"></span></p>
+<p>Four disturbances during opening and a blocked doorway before traversal triggered retries and a wait for clearance (<a href="#tab:alex_reactive_pull_event_timeline-1">Table 7.17</a>).
+The run finished in 65 s overall.
+Unlike the 2024 Nadia case, the retry and wait logic here was authored in the behavior tree with fallback and condition nodes, and it appears as the Alex reactive pull row in <a href="#fig:in_house_reliability_resilience_summary">Figure 7.14</a>.</p>
 <h3 id="71218-reactive-single-table-ball-sorting-disturbance"><a class="header" href="#71218-reactive-single-table-ball-sorting-disturbance"><span class="heading-number">7.1.2.18.</span> Reactive Single Table Ball Sorting Disturbance</a></h3>
-<p>On April 4, 2026, a human removed a ball from the table while Alex was reaching to grasp it.
-The behavior detected the failed pick and returned to search.
-The robot still sorted all six balls in the run.
-The run is shown in <a href="#fig:ReactiveRobustBallSortingDisturbance">Figure 7.11</a>.
-Timestamps are presented in <a href="#tab:AlexReactiveRobustBallSortingTimeline-1">Table 7.11</a>.</p>
+<p>For the previously presented 45.2 s sorting run in <a href="#sec:reactive_ball_sorting">1.1.10</a>, the ball removal at 17.8 s is the main resilience event.
+The reactive tree logic abandoned the stale pick at 20.6 s and still placed all six balls by 45.2 s.
+That recovery is the ball sorting row in <a href="#fig:in_house_reliability_resilience_summary">Figure 7.14</a>.</p>
+<p>The repeated run and disturbance results above support reliability and resilience within hypothesis 1.
+We do not have comparable repeat trial data for prior IHMC door baselines.
+Our tests also stopped short of repeated full door traversals because walk through performance was not yet trustworthy enough to risk the hardware.</p>
 <!-- PAGE-REFERENCES-START -->
 <p><strong>References cited on this page</strong></p>
 <p><strong>[33]</strong> M. F. Fallon <em>et al.</em>, “Continuous humanoid locomotion over uneven terrain using stereo fusion,” in <em>2015 IEEE-RAS 15th international conference on humanoid robots (humanoids)</em>, 2015, pp. 881–888.</p>
@@ -4731,6 +4789,9 @@ A video is available at <a href="https://youtu.be/SbBGpRHY_eE" class="uri">https
 </div>
 
 <p><span id="tab:h2_nadia_scratch_push_authoring_timeline-1" label="tab:h2_nadia_scratch_push_authoring_timeline"></span></p>
+<p><a href="#tab:h2_nadia_scratch_push_authoring_timeline-1">Table 7.18</a> is our earliest measured scratch door session at 33 minutes.
+The session used ArUco perception and teleoperated traversal steps rather than full autonomy.
+It still documents runtime editing on the robot, but it should not be directly compared to later sessions that produced fully autonomous behaviors.</p>
 <h2 id="722-right-pull-opening-loop-unitree-h1-2-2026-01-02"><a class="header" href="#722-right-pull-opening-loop-unitree-h1-2-2026-01-02"><span class="heading-number">7.2.2.</span> Right Pull Opening Loop (Unitree H1-2, 2026-01-02)</a></h2>
 <p>On January 2, 2026, we authored a looping standing right pull lever handle opening behavior on the Unitree H1-2 from an empty behavior tree.
 The session reached first autonomous looping execution in 31 minutes and 43 seconds of active authoring time.
@@ -4764,6 +4825,9 @@ A video is available at <a href="https://youtu.be/7VGFufJWaR4" class="uri">https
 </div>
 
 <p><span id="tab:h2_unitree_scratch_authoring_timeline-1" label="tab:h2_unitree_scratch_authoring_timeline"></span></p>
+<p>The first autonomous looping opening came at 31 minutes 43 seconds (<a href="#tab:h2_unitree_scratch_authoring_timeline-1">Table 7.19</a>).
+The goto loop at 31:27 immediately began the 32/32 repeated opening test in <a href="#fig:unitree_pull_opening_reliability_20260102">Figure 7.17</a>.
+This session shows the diagnose, edit, and retest loop in one sitting, which is what hypothesis 2 claims relative to redeploy or retrain workflows.</p>
 <h2 id="723-first-right-pull-door-bring-up-alex-2026-01-20-to-24"><a class="header" href="#723-first-right-pull-door-bring-up-alex-2026-01-20-to-24"><span class="heading-number">7.2.3.</span> First Right Pull Door Bring Up (Alex, 2026-01-20 to 24)</a></h2>
 <p>From January 20 through 24, 2026, we brought up the first full Alex pull lever door traversal from scratch.
 The measured active authoring total is 11 hours, 10 minutes, and 17 seconds.
@@ -4803,6 +4867,9 @@ The time column is cumulative across days but excludes inactive gaps between dai
 </div>
 
 <p><span id="tab:h2_alex_first_pull_authoring_timeline-1" label="tab:h2_alex_first_pull_authoring_timeline"></span></p>
+<p>The 11 hour 10 minute total spans five days of incremental trial-and-error authoring (<a href="#tab:h2_alex_first_pull_authoring_timeline-1">Table 7.20</a>).
+Major milestones include the first open from a staggered stance on day 3 and the hold open fallback added on day 5 after force related trouble.
+These Alex authoring sessions show the cost of bringing up the first door traversal behavior on a new hardware platform.</p>
 <h2 id="724-scratch-left-push-door-alex-2026-02-22"><a class="header" href="#724-scratch-left-push-door-alex-2026-02-22"><span class="heading-number">7.2.4.</span> Scratch Left Push Door (Alex, 2026-02-22)</a></h2>
 <p>On February 22, 2026, we authored a left push door traversal on Alex from an empty <code>Left Push Door</code> sequence to first fully automatic success in 1 hour, 59 minutes, and 48 seconds of active authoring.
 This is the measured scratch case used in the comparative authoring process figure.
@@ -4838,6 +4905,12 @@ A video is available at <a href="https://youtu.be/bLHQmV4GEFA" class="uri">https
 </div>
 
 <p><span id="tab:h2_scratch_left_push_authoring_timeline-1" label="tab:h2_scratch_left_push_authoring_timeline"></span></p>
+<p>This is our measured fully autonomous scratch case for literature comparison: 1 hour 59 minutes 48 seconds from empty sequence to first automatic success (<a href="#tab:h2_scratch_left_push_authoring_timeline-1">Table 7.21</a>).
+Failure at 1:50:11 from arm task space error was fixed in about 9 minutes by bringing the right arm in using jointspace for traversal.
+That short edit and retest loop is the kind of workflow <a href="#fig:hero_authoring_process_comparison">Figure 7.31</a> contrasts against multi day retraining pipelines.</p>
+<p>Across the four rows in <a href="#fig:in_house_authoring_from_scratch_timeline">Figure 7.20</a>, measured active authoring ranged from  30 minutes to  11 hours.
+The 33 minute session from 2023 on Nadia resulted in a behavior that was only partially autonomous, while the February 22, 2026 Alex left push row is the fairest fully autonomous scratch comparison at just under 2 hours.
+Each session documented failure diagnosis, logic edits, and retesting on the robot without a redeploy or retraining cycle.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="73-hypothesis-3-fast-adaptation-extension-and-combination-of-behaviors"><a class="header" href="#73-hypothesis-3-fast-adaptation-extension-and-combination-of-behaviors"><span class="heading-number">7.3.</span> Hypothesis 3: Fast Adaptation, Extension, and Combination of Behaviors</a></h1>
 <p>To support our third hypothesis, we’ll show measured sessions where existing behaviors were adapted, composed, or extended rather than rebuilt from scratch.</p>
@@ -4892,6 +4965,9 @@ A video is available at <a href="https://youtu.be/AH2dFMW-IbY" class="uri">https
 </div>
 
 <p><span id="tab:h3_bottle_carry_through_authoring_timeline-1" label="tab:h3_bottle_carry_through_authoring_timeline"></span></p>
+<p>Most of the 1 hour 13 minute 49 second session went to wiring existing pickup and door subtrees and preserving the bottle grasp through traversal (<a href="#tab:h3_bottle_carry_through_authoring_timeline-1">Table 7.22</a>).
+We did not author a new door behavior from scratch.
+This supports hypothesis 3 because the work edited connections and parameters between existing behaviors rather than rebuilding either subtree.</p>
 <h2 id="732-break-room-door-adaptation-alex-2026-03-26"><a class="header" href="#732-break-room-door-adaptation-alex-2026-03-26"><span class="heading-number">7.3.2.</span> Break Room Door Adaptation (Alex, 2026-03-26)</a></h2>
 <p>On March 26, 2026, we adapted the lab right pull door traversal to the break room left pull door on Alex.
 Door mirroring was only the starting point.
@@ -4927,6 +5003,9 @@ A video is available at <a href="https://youtu.be/HcJPLoRfs3Q" class="uri">https
 </div>
 
 <p><span id="tab:h3_break_room_adaptation_timeline-1" label="tab:h3_break_room_adaptation_timeline"></span></p>
+<p>Our behavior mirroring function supplied the starting tree, but 1 hour 54 minutes 3 seconds went to retuning on the real left pull door (<a href="#tab:h3_break_room_adaptation_timeline-1">Table 7.23</a>), which was more difficult to open and did not have a spring closer.
+Point check fallbacks, spine yaw, and re-authored footsteps were the main edits rather than a new behavior file.
+This supports hypothesis 3 because most of the effort went into localized changes inside an existing traversal behavior.</p>
 <h2 id="733-two-table-sorting-extension-alex-2026-04-13-to-14"><a class="header" href="#733-two-table-sorting-extension-alex-2026-04-13-to-14"><span class="heading-number">7.3.3.</span> Two Table Sorting Extension (Alex, 2026-04-13 to 14)</a></h2>
 <p>From April 13 through 14, 2026, we extended the open house ball return behavior to sort colored balls between two tables with locomotion between stations.
 The measured total is 1 hour, 50 minutes, and 41 seconds, including 15 minutes and 30 seconds of off-robot pre-authoring before the real-robot follow-up session.
@@ -4955,10 +5034,13 @@ A video is available at <a href="https://youtu.be/_3lqvcd_5WE" class="uri">https
 </div>
 
 <p><span id="tab:h3_two_table_sorting_authoring_summary-1" label="tab:h3_two_table_sorting_authoring_summary"></span></p>
+<p>The extended behavior reused <code>demo/BallsInBins.json</code> and added routing logic in 15 minutes 30 seconds off robot, followed by 1 hour 35 minutes on real robot (<a href="#tab:h3_two_table_sorting_authoring_summary-1">Table 7.24</a>).
+The documented execution run sorted 9/9 balls with walks between tables in 2 minutes 8 seconds (<a href="#tab:alex_two_table_sorting_event_timeline-1">Table 7.12</a>).
+This supports hypothesis 3 because locomotion and ball color-based branches were added to an existing sorting behavior instead of authoring a new one from an empty tree.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="74-comparative-analysis"><a class="header" href="#74-comparative-analysis"><span class="heading-number">7.4.</span> Comparative Analysis</a></h1>
 <p>In this section, we’ll compare our work with others in the literature across speed, capability, reliability, resilience, and the speed of creating and adapting behaviors.
-We present our work against a handful of classical, model-based references and two learned references.</p>
+The per run analyses above supply the measured evidence; here we place those numbers beside classical and learned references.</p>
 <h2 id="741-speed-and-capability"><a class="header" href="#741-speed-and-capability"><span class="heading-number">7.4.1.</span> Speed and Capability</a></h2>
 <p><a href="#fig:hero_speed_comparison">Figure 7.29</a> presents a comparison of the durations of robot door traversals across this thesis and the literature.
 This represents every timed door traversal in the literature that we are aware of for both wheeled and legged robots.
@@ -5024,7 +5106,9 @@ However, DoorMan’s architecture requires a simulation refit, PPO policy tuneup
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="75-evaluation"><a class="header" href="#75-evaluation"><span class="heading-number">7.5.</span> Evaluation</a></h1>
 <p>So how well did our hypotheses hold up?
-First, let’s state them again:</p>
+The experiment subsections above analyzed each demonstration individually.
+This section summarizes what that evidence supports when taken together.
+But first, let’s state the hypotheses again:</p>
 <ol>
 <li>
 <p>Robot-local execution with synchronized UI state, concurrent action layering, reactive tree logic, and behavior-time semantic perception yield door behaviors that are faster and more reliable than prior IHMC baselines and competitive with reported reinforcement learning systems on overlapping door tasks.</p>
@@ -5036,28 +5120,31 @@ First, let’s state them again:</p>
 <p>Decomposing behaviors into reusable primitives, subtrees, and scene actions allows new door and loco-manipulation variants to be brought up by editing a small part of a working behavior rather than rebuilding it from scratch.</p>
 </li>
 </ol>
-<p>We can say that our first hypothesis holds.
-We showed that our system with robot-local execution, synchronized UI state, concurrent action layering, reactive tree logic, and behavior-time semantic perception is sufficient to yield door behaviors that are faster than a prior IHMC baseline in <a href="#fig:in_house_speed_phase_timeline">Figure 7.1</a>.
+<p>Hypothesis 1 is supported on speed and capability, with partial and qualified support on reliability.
+<a href="#71-hypothesis-1-fast-loco-manipulation-behaviors">Section 7.1</a> traced the arc from the 106 s Atlas hard coded anchor through 14 s and 27 s Nadia door traversals to 34 s and 45 s Alex traversals and the 2 minute 8 second two table sorting behavior.
 The 2021 Atlas door behavior took 3.9x longer to execute than our 2024 Nadia pull door behavior.
-We also showed that it was competitive in speed with reinforcement learning policies in <a href="#fig:hero_speed_comparison">Figure 7.29</a>.
-Our door behaviors are in the same tens of seconds regime as Zhang et al.  <a href="#ref-zhang2024learningopentraversedoors" class="citation-ref">[56]</a> and DoorMan  <a href="#ref-xue2025opening" class="citation-ref">[82]</a>.</p>
-<p>For reliability, unfortunately, there is a lack of data for prior IHMC baselines, but in <a href="#fig:in_house_reliability_resilience_summary">Figure 7.14</a>, we show that our loco-manipulation behaviors, namely, door approach and opening, were able to be repeated 11 and 12 times without failure.
-Likewise, evidence for door behavior reliability on learned systems is limited.
+<a href="#fig:hero_speed_comparison">Figure 7.29</a> placed those door results in the tens of seconds regime alongside Zhang et al.  <a href="#ref-zhang2024learningopentraversedoors" class="citation-ref">[56]</a> and DoorMan  <a href="#ref-xue2025opening" class="citation-ref">[82]</a>, well below classical minute scale references.</p>
+<p><a href="#71-hypothesis-1-fast-loco-manipulation-behaviors">Section 7.1</a> also documented 11/11 and 12/12 Alex door approach and opening repetitions, 32/32 Unitree standing door openings, and disturbed recoveries on doors and ball sorting (<a href="#fig:in_house_reliability_resilience_summary">Figure 7.14</a>).
+We did not repeat full door traversals, and we lack comparable repeat trial data for prior IHMC door baselines.
 Zhang et al.  <a href="#ref-zhang2024learningopentraversedoors" class="citation-ref">[56]</a> show the most convincing reliability with their 20/20 and 18/20 trial sets for full door traversals.
-DoorMan  <a href="#ref-xue2025opening" class="citation-ref">[82]</a> claims “83%” reliability, but does not share the data from which that number is calculated.
+Learned systems such as Zhang et al. report higher trial counts on full traversals, so reliability comparisons should be read with that scope difference in mind.
+However, DoorMan  <a href="#ref-xue2025opening" class="citation-ref">[82]</a> claims “83%” reliability, but does not share the data from which that number is calculated.
 We can say that the reliability of our system is competitive with learned door systems, especially when the resilience capabilities are factored in, which are also presented in <a href="#fig:in_house_reliability_resilience_summary">Figure 7.14</a>.</p>
-<p>We can also say that our second and third hypotheses hold.
+<p>Hypothesis 2 is supported by the measured authoring sessions in <a href="#72-hypothesis-2-fast-behavior-authoring">Section 7.2</a>.
 Runtime-editable behaviors and perception have reduced our behavior authoring times to the hours regime as shown in <a href="#fig:in_house_authoring_from_scratch_timeline">Figure 7.20</a>.
+Scratch times ranged from 33 minutes for a partially autonomous Nadia session to about 11 hours for the first full Alex pull traversal, with a fully autonomous Alex left push door scratch authoring session at 1 hour 59 minutes 48 seconds.
 Creating new behaviors from scratch has been shown to require failure diagnostics, logic modification, and re-testing on the robot, which we have shown in our authoring videos and tables and described.
 While we don’t have direct comparisons with prior IHMC baselines, <a href="#fig:ihmc_behavior_development_timeline">Figure 7.32</a> suggests a drastic reduction in the iteration loop required to create new behaviors.
 This figure spans a decade of IHMC real-robot behavior milestones from the 2015 DRC Finals through the Alex loco-manipulation demos in 2026.
 What we see is a drastic increase in the rate of new behavior demonstrations over time given the same or less resources allocated to creating them.</p>
-<p>The literature does not provide data on the creation or modification timelines of loco-manipulation behaviors.
-Standing alone in measuring this is one of the most novel aspects of our work.
-However, given knowledge of DoorMan  <a href="#ref-xue2025opening" class="citation-ref">[82]</a>’s architecture, we can estimate that our behavior authoring process is 50 to 100 times faster, as illustrated in <a href="#fig:hero_authoring_process_comparison">Figure 7.31</a>.
-We credit this speed to our architectural decisions where we decompose behaviors into reusable primitives, subtrees, and scene actions.
-This allows us to edit a small part of a working behavior rather than rebuilding the whole thing from scratch.
-The ability to perform these edits and re-test the behavior at runtime speeds up the process even further.</p>
+<p>Hypothesis 3 is supported by the adaptation sessions in <a href="#73-hypothesis-3-fast-adaptation-extension-and-combination-of-behaviors">Section 7.3</a>.
+A bottle-door carry composition session took 1 hour 13 minutes, lab to break room door adaptation took 1 hour 54 minutes, and the two table sorting extension took 1 hour 50 minutes including off robot pre-authoring.
+We credit our adaptation speed to our architectural decisions where we decompose behaviors into reusable primitives, subtrees, and scene actions.
+In each case, the work edited part of an existing behavior rather than rebuilding from an empty tree.
+The ability to perform these edits and re-test the behavior at runtime speeds up the process even further.
+<a href="#fig:hero_authoring_process_comparison">Figure 7.31</a> estimates a 50 to 100 times speedup over DoorMan’s multi day pipeline for comparable create and adapt steps, but that literature comparison is inferred rather than directly measured.
+The literature does not provide data on the creation or modification timelines of loco-manipulation behaviors.
+Standing alone in measuring this is one of the most novel aspects of our work.</p>
 <figure id="fig:ihmc_behavior_development_timeline">
 <span class="tikz-figure"><img class="tikz-light" src="media/generated/IhmcBehaviorDevelopmentTimeline.light.jpg" /><img class="tikz-dark" src="media/generated/IhmcBehaviorDevelopmentTimeline.dark.jpg" /></span>
 <figcaption><strong>Figure 7.32.</strong> 
@@ -5068,38 +5155,36 @@ Entries include teleoperated and non-loco-manipulation demos from the developmen
 </figure>
 <h2 id="751-desirable-characteristics"><a class="header" href="#751-desirable-characteristics"><span class="heading-number">7.5.1.</span> Desirable Characteristics</a></h2>
 <p>So how well did we achieve the desirable characteristics we defined in <a href="#ch:metrics">Desirable Characteristics</a>?
-We think we did pretty well.</p>
+We think we did pretty well overall.</p>
 <p>Our system is highly capable.
 We demonstrated dozens of different task varieties, from door traversal types and sorting objects on tables to building exploration.
-A taxonomy is illustrated in <a href="#fig:behavior_library_taxonomy">Figure 1.3</a>.</p>
-<p>There are, however, classes of tasks we cannot do, such as grasping objects while the robot is walking, dynamic bracing, tasks that require proprioception, and fast manipulation tasks such as playing ping-pong.
+A taxonomy is illustrated in <a href="#fig:behavior_library_taxonomy">Figure 1.3</a>.
+There are, however, classes of tasks we cannot do yet, such as grasping objects while the robot is walking, dynamic bracing, tasks that require proprioception, and fast manipulation tasks such as playing ping-pong.
 We cannot yet do them because the necessary control and perception components do not yet exist.
 Dancing, swimming, and sports are probably classes of tasks that this system is not well suited to address because they are too continuous, too dynamic, and even artistic.</p>
 <p>Demonstrating our system was certainly feasible, as is shown by our results on real hardware.
-However, we did not show that it was feasible to take our system off-site and reproduce the results.</p>
-<p>Our system definitely supports fast behaviors.
-We feel that the videos included of our real robot demonstrations are watchable at 1x speed.</p>
-<p>It also supports parallelism through moving multiple parts of the body at once, including being able to manipulate a door panel while walking.</p>
+However, we did not show that it was feasible to take our system off-site and reproduce the results.
+Our system definitely supports fast behaviors, and we feel that the videos included of our real robot demonstrations are watchable at 1x speed.
+It also supports parallelism through moving multiple parts of the body at once, including being able to manipulate a door panel while walking.</p>
 <p>We showed that our system is capable of producing reliable repeated-run behaviors for door approach and opening and for sorting balls on tables.
-Our walking controller was, however, not very reliable for the door traversal walk-throughs.</p>
-<p>We showed how our system supports robustness to environmental disturbances through our pull door reactivity demo and our ball sorting demo with human disturbance.
+Our walking controller was, however, not very reliable for the door traversal walk-throughs.
+We also showed how our system supports robustness to environmental disturbances through our pull door reactivity demo and our ball sorting demo with human disturbance.
 This goes hand in hand with our resilience capabilities.
-By using fallback nodes with condition nodes, common failure modes can be handled.</p>
-<p>For longer-tail resilience, we support this through operator-robot teaming.
+By using fallback nodes with condition nodes, common failure modes can be handled.
+For longer-tail resilience, we support this through operator-robot teaming.
 When behaviors fail, the human operator might be able to solve the problem with edits or additions to the behavior.</p>
 <p>Our system is independent from external systems when it is in autonomous mode.
-It does not rely on external comms or compute in this mode.
-Our perception is entirely from on-board color vision.</p>
+It does not rely on external comms or compute in this mode, and our perception is entirely from on-board color vision.</p>
 <p>Our system is designed around adaptability of the human-robot team.
 We have shown this through our results in behavior authoring.
-To achieve this, we made our system observable, predictable, and directable.</p>
-<p>Our system is learnable, and we have a handful of trained expert operators.
-We have provided a usage guide in <a href="#ch:tutorial">Usage Guide</a>.</p>
-<p>We hope the reader will find our system understandable through reading this thesis, watching the videos, and browsing the source code.</p>
-<p>We think the interface is easy to use, as suggested by our fast from-scratch authoring times.</p>
-<p>Our system is able to be analyzed after behavior runs.
-We have done this via screen recordings of the operator interface and the log system shown in <a href="#469-logging-behavior-data">Section 4.6.9</a>.</p>
-<p>Our system is debuggable by looking at logged data and by rerunning behavior logic in an application we call the “behavior test facilitator”.
+To achieve this, we made our system observable, predictable, and directable.
+Our system is learnable, and we have a handful of trained expert operators.
+We have provided a usage guide in <a href="#ch:tutorial">Usage Guide</a>.
+We hope the reader will find our system understandable through reading this thesis, watching the videos, and browsing the source code.
+We think the interface is easy to use, as suggested by our fast from-scratch authoring times.</p>
+<p>Our system can be analyzed after behavior runs.
+We have done this via screen recordings of the operator interface and the log system shown in <a href="#469-logging-behavior-data">Section 4.6.9</a>.
+It is also debuggable by looking at logged data and by rerunning behavior logic in an application we call the “behavior test facilitator”.
 This application uses a kinematic simulation combined with the playback of real perception data from a logged run.
 Very often, bugs can be reproduced and fixed in this environment.
 We also use this application to automate behavior tests.</p>
@@ -5203,6 +5288,9 @@ This would enable the operator to quickly define complicated motions that are ha
 That capability could also be extended by filtering the motions or by collecting repeated demonstrations and training a vision-action policy.
 It would be valuable to demonstrate and dispatch vision-action model training runs from within the authoring interface.
 On training completion, the resulting policies could be used as an alternative mode of the arm action.</p>
+<p>Taking a step back and looking at our system as a whole, there’s also an important gap in handling open world environments.
+We focus on a human operator’s ability to author robot behaviors rather than robot-generated ones.
+The lack of a generative ability on the robot, where it could “author” its own behavior, limits our system to well thought out human constructed scenarios.</p>
 <h2 id="84-why-not-fully-embrace-behavior-trees"><a class="header" href="#84-why-not-fully-embrace-behavior-trees"><span class="heading-number">8.4.</span> Why Not Fully Embrace Behavior Trees</a></h2>
 <p>One interesting part of this thesis is that we use a “behavior tree” architecture, but left out some of the key mechanisms from the literature version  <a href="#ref-2018_colledanchise" class="citation-ref">[60]</a>.
 The most important part of why is just that we built what appeared to work best for us.
@@ -5651,7 +5739,7 @@ Cheers!</p>
         <script src="citation-data-f786c247.js"></script>
         <script src="citation-popups-d78943c6.js"></script>
         <script src="theme-persist-5a94a5be.js"></script>
-        <script src="pdf-download-841dcc54.js"></script>
+        <script src="pdf-download-b2857007.js"></script>
 
         <script>
         window.addEventListener('load', function() {
