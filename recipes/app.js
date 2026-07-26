@@ -31,10 +31,15 @@ const CATEGORIES = [
   ['grain', 'Grains & Bread'],
   ['pantry', 'Pantry, Nuts & Seeds'],
   ['powder', 'Powders'],
-  ['spice', 'Spices — check what you have'],
+  ['spice', 'Spices & Seasonings'],
 ];
 
-const MEALS = [['breakfast', 'Breakfast'], ['lunch', 'Lunch'], ['dinner', 'Dinner']];
+const MEALS = [
+  ['breakfast', 'Breakfast'],
+  ['lunch', 'Lunch'],
+  ['snack', 'Post-training'],
+  ['dinner', 'Dinner'],
+];
 
 const FRACTIONS = { 0.25: '¼', 0.5: '½', 0.75: '¾' };
 
@@ -189,11 +194,11 @@ function ingLine(ing) {
 /* A curated handful of filters — every tag at once is just noise. */
 const FILTERS = [
   ['blueprint', 'Blueprint'],
+  ['attia', 'Attia'],
   ['meal-prep', 'Meal prep'],
   ['no-cook', 'No cook'],
   ['high-protein', 'High protein'],
   ['seafood', 'Seafood'],
-  ['familiar', 'Familiar'],
 ];
 
 function viewHome() {
@@ -206,9 +211,9 @@ function viewHome() {
   return `
     <p class="section-hint">Blueprint-adjacent, protein-forward, reflux-aware</p>
     <h1>The Kitchen</h1>
-    <p class="lede">Fifteen repeatable meals built around a plant-forward base that still carries
-    enough protein for soccer and lifting — roughly 150–180&nbsp;g a day, spread across four feedings.
-    Every recipe is written for one serving; the
+    <p class="lede">${RECIPES.length} repeatable meals built around a plant-forward base that still
+    carries enough protein for soccer and lifting — roughly 150–180&nbsp;g a day, spread across four
+    feedings. Every recipe is written for one serving; the
     <a href="#/list">shopping list</a> does the multiplication.</p>
 
     <div class="filters">
@@ -397,20 +402,19 @@ function viewPlan() {
 
   return `
     <h1>The weekly plan</h1>
-    <p class="lede">Run this for four weeks before judging it. Three Super Veggie lunches,
-    two sweet-potato or salmon dinners, two upgraded familiar dinners, one red-meat meal,
-    and the shake every other morning.</p>
+    <p class="lede">Run this for four weeks before judging it. Four protein feedings a day: three
+    Super Veggie lunches, two seafood meals, two of the familiar chicken and turkey-burger dinners,
+    one red-meat meal, and a post-training feeding every day. The ${RECIPES.length - 16} recipes
+    that do not appear here are the bench — swap them in freely.</p>
 
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Day</th><th>Breakfast</th><th>Lunch</th><th>Dinner</th></tr></thead>
+        <thead><tr><th>Day</th>${MEALS.map(([, l]) => `<th>${l}</th>`).join('')}</tr></thead>
         <tbody>
           ${WEEKLY_PLAN.map(d => `
             <tr>
               <td>${esc(d.day)}</td>
-              <td>${link(d.breakfast)}</td>
-              <td>${link(d.lunch)}</td>
-              <td>${link(d.dinner)}</td>
+              ${PLAN_SLOTS.map(slot => `<td>${link(d[slot])}</td>`).join('')}
             </tr>`).join('')}
         </tbody>
       </table>
@@ -463,24 +467,161 @@ function viewPlan() {
       <li><strong>Tuna:</strong> optional rather than forbidden — an occasional convenience food, not the default daily protein. Canned light runs lower in mercury than albacore.</li>
     </ul>
 
+    <h2>What the reflux caution was costing</h2>
+    <p>Every recipe here was written to hold back the usual triggers first. That was the right
+    starting point, but it is worth being explicit that those omissions were not free — several
+    of them are the actual functional ingredients in Johnson’s meals, not garnish. Now that
+    symptoms are managed without medication, these are the ones worth earning back:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Held back</th><th>What you were giving up</th><th>How to reintroduce</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Lime &amp; lemon</td>
+            <td>Vitamin C, and the thing that makes a lentil bowl taste finished. Vitamin C also
+            markedly increases absorption of non-heme iron — which is the only kind lentils, spinach,
+            and hemp hearts provide. On a plant-forward plan this is a real nutritional loss, not
+            just a flavor one.</td>
+            <td>Start here. A quarter lime over a lunch bowl. Johnson’s Super Veggie calls for a whole one.</td>
+          </tr>
+          <tr>
+            <td>Fermented vegetables</td>
+            <td>Blueprint specifies 1–4&nbsp;tbsp of kimchi, sauerkraut, or fermented beets in every
+            Super Veggie. Live cultures and the microbiome diversity that comes with them are a
+            genuine component of the protocol, and nothing else in the rotation supplies them.</td>
+            <td>1&nbsp;tbsp of sauerkraut at lunch, twice, then build. Refrigerated and unpasteurized — shelf-stable jars are dead.</td>
+          </tr>
+          <tr>
+            <td>Apple-cider vinegar</td>
+            <td>1&nbsp;tbsp is in the original Super Veggie. Modest evidence for blunting the
+            post-meal glucose rise, and it sharpens an otherwise very earthy bowl.</td>
+            <td>Diluted, mixed into the dressing rather than splashed on. 1&nbsp;tsp first.</td>
+          </tr>
+          <tr>
+            <td>Tomatoes</td>
+            <td>Twelve grape tomatoes are in Johnson’s stuffed sweet potato. Lycopene, and it is
+            more bioavailable cooked than raw.</td>
+            <td>Cooked first — roasted or in the curry — since cooked tomato tends to be gentler than raw.</td>
+          </tr>
+          <tr>
+            <td>Raw garlic</td>
+            <td>Allicin only forms when garlic is crushed raw and it degrades with heat, so cooked
+            garlic is not a substitute for the same compound.</td>
+            <td>Grated fine into a dressing, one clove. Grating distributes it instead of leaving hot bites.</td>
+          </tr>
+          <tr>
+            <td>Chili &amp; jalapeño</td>
+            <td>Capsaicin, and the reason the taco bowl and the stuffed sweet potato are interesting
+            rather than dutiful. The smallest genuine loss on this list.</td>
+            <td>Last, and lowest priority. Test at lunch on a day you have no evening plans.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
     <div class="callout">
-      <h3>Reflux rules of thumb</h3>
+      <h3>How to reintroduce without losing ground</h3>
       <ul>
-        <li>Make <strong>lunch</strong> the experimental, high-fiber, higher-fat meal. Keep dinner simpler, earlier, and leaner.</li>
-        <li>Test one possible trigger at a time — vinegar, lime, raw garlic, fermented vegetables, hot spice — and always at lunch.</li>
-        <li>Last substantive meal 3–4 hours before bed. Stay upright, take the walk.</li>
-        <li>Move added fats earlier in the day rather than taking oil as a standalone shot at night.</li>
+        <li><strong>One at a time, at lunch, for three days each.</strong> Two new things at once tells
+        you nothing when something flares. Lunch leaves the whole afternoon upright.</li>
+        <li><strong>Keep what is working while you experiment.</strong> Being off medication is the
+        outcome to protect — the 3–4 hour window before bed, staying upright, the walk, and the
+        alginate in the evening are doing real work. Change the food, not the habits, and not
+        both in the same week.</li>
+        <li><strong>Dinner stays the conservative meal.</strong> Earlier, leaner, simpler. Nothing on
+        the list above needs to be tested at 8&nbsp;pm.</li>
+        <li><strong>Fats earlier rather than later.</strong> A large bolus of fat late is more likely to
+        matter than an acidic bite at midday, which is why the oil moved onto lunch vegetables
+        instead of a bedtime shot.</li>
+        <li><strong>One caveat worth naming:</strong> absent symptoms are not the same as an absent
+        problem, and long-standing reflux is the one place where "it feels fine" is not fully
+        reassuring on its own. Worth a sentence with your doctor at the annual — especially about
+        whether anything warrants a look — rather than a reason not to add lime back to your lunch.</li>
       </ul>
     </div>
   `;
 }
 
+const STATUS_LABEL = {
+  have: ['Already have it', 'ok'],
+  first: ['Buy first', 'buy'],
+  later: ['Nice to have', 'later'],
+};
+
 function viewSetup() {
+  const group = s => EQUIPMENT.filter(e => e.status === s);
+
+  const equipTable = list => `
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Equipment</th><th>Why it matters here</th><th>Used by</th></tr></thead>
+        <tbody>
+          ${list.map(e => `
+            <tr>
+              <td style="white-space:normal">${esc(e.item)}
+                <span class="badge ${STATUS_LABEL[e.status][1]}">${STATUS_LABEL[e.status][0]}</span></td>
+              <td style="white-space:normal">${esc(e.why)}</td>
+              <td style="white-space:normal"><small>${esc(e.used)}</small></td>
+            </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>`;
+
   return `
     <h1>Kitchen setup</h1>
-    <p class="lede">The rotation only survives if getting ingredients out of their packaging is
-    frictionless. Decant the things you touch daily into rigid, wide-mouth containers; keep the
-    original bag sealed as backup stock.</p>
+    <p class="lede">What you need to actually cook everything here, then how to store it so that
+    getting ingredients out of their packaging never becomes the reason you skip a meal.</p>
+
+    <h2>Equipment</h2>
+    <p>You are already set for every blended recipe — between the Ninja Pro and the Fit cup, the
+    shakes and Nutty Pudding are covered. The gaps are all on the legume-and-vegetable side, and
+    the total for everything in the "buy first" list is roughly $150–200.</p>
+
+    ${equipTable([...group('have'), ...group('first')])}
+
+    <h3>Worth it eventually</h3>
+    ${equipTable(group('later'))}
+
+    <div class="callout">
+      <h3>On the Cuckoo — and how to cook lentils fast</h3>
+      <p>Short answer: <strong>yes, a Cuckoo would work, and it is a genuinely excellent machine —
+      but it is not the one to buy first for this plan.</strong></p>
+      <p>The Cuckoo CRP induction-heating models are pressure cookers that happen to be specialized
+      for rice. They run around 29&nbsp;psi, which is well above a standard electric pressure
+      cooker, and the reputation is earned — the multigrain program on the twin-pressure models
+      will cook unsoaked beans, and rice comes out better than anything else will manage.</p>
+      <p>The problem is fit. This rotation is built on lentils, chickpeas, and vegetables; rice
+      appears as a half-cup side on training days. You would be buying a superb specialist for the
+      ingredient you use least, and the fixed inner pot and rice-oriented programs make it awkward
+      for the things you would do constantly — sautéing aromatics before a dal, poaching chicken,
+      cooking dry chickpeas, or making stock.</p>
+      <p>A $90 generic electric pressure cooker covers all of that plus rice at maybe 85% of the
+      Cuckoo's quality. If you find later that you are eating rice often enough to care about the
+      last 15%, buy the Cuckoo <em>then</em> — the two coexist happily, and that is the order that
+      gets you the most cooking per dollar.</p>
+      <h3 style="margin-top:18px">Fast lentils, ranked</h3>
+      <ul>
+        <li><strong>Pressure cooker, 10–12 minutes, no soaking.</strong> Rinse, 1 part lentils to
+        2½ parts water, high pressure, then <em>natural release for 10 minutes</em> — a quick release
+        bursts them and you get grainy mush. This is the method for a batch.</li>
+        <li><strong>Stovetop simmer, 18–25 minutes.</strong> Perfectly fine and needs no new
+        appliance. Plenty of water, gentle simmer, drain. Black and brown lentils hold their shape;
+        red lentils collapse and are for dal only.</li>
+        <li><strong>Microwave lentil pouches, 90 seconds.</strong> More expensive per serving, but
+        the rescue-lunch option and worth keeping two in the pantry.</li>
+        <li><strong>Salt and acid go in at the end, always.</strong> Both slow softening. Acid added
+        early is the single most common reason lentils stay stubborn — which matters double for
+        that old bag.</li>
+        <li><strong>Batch it.</strong> 180&nbsp;g dry gives four portions. Cooked lentils keep five days
+        in the fridge and freeze for months in flat bags, so there is little reason to cook them
+        more than weekly.</li>
+      </ul>
+    </div>
+
+    <h2>Storage</h2>
+    <p>Decant the things you touch daily into rigid, wide-mouth containers; keep the original bag
+    sealed as backup stock.</p>
 
     <div class="table-wrap">
       <table>
@@ -564,7 +705,9 @@ function render(keepScroll) {
   const y = window.scrollY;
 
   main.innerHTML = html;
-  main.className = /^#\/(plan|setup)/.test(hash) ? 'narrow' : '';
+  /* Prose is capped at 68ch by the stylesheet, so these pages can run full width
+     for the sake of their three- and five-column tables. */
+  main.className = '';
 
   document.querySelectorAll('.nav a').forEach(a => {
     const base = hash.startsWith('#/r/') ? '#/' : hash;
@@ -605,7 +748,7 @@ document.addEventListener('click', e => {
   if (d.plan !== undefined) {
     state.picks = {};
     WEEKLY_PLAN.forEach(day => {
-      ['breakfast', 'lunch', 'dinner'].forEach(slot => {
+      PLAN_SLOTS.forEach(slot => {
         const id = day[slot];
         if (byId(id)) state.picks[id] = (state.picks[id] || 0) + 1;
       });

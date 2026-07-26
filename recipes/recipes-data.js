@@ -19,7 +19,7 @@
 const STAPLES = {
   cumin:        { n: 'Ground cumin',    cat: 'spice', staple: true },
   paprika:      { n: 'Smoked paprika',  cat: 'spice', staple: true },
-  cinnamon:     { n: 'Cinnamon',        cat: 'spice', staple: true },
+  cinnamon:     { n: 'Ceylon cinnamon', cat: 'spice', staple: true },
   turmeric:     { n: 'Turmeric',        cat: 'spice', staple: true },
   chili:        { n: 'Chili powder',    cat: 'spice', staple: true },
   salt:         { n: 'Salt',            cat: 'spice', staple: true },
@@ -163,6 +163,10 @@ const RECIPES = [
       { n: 'Pearl couscous', q: 0.33, u: 'cup', d: '½–1 cup cooked pearl couscous (⅓ cup dry) on soccer days', cat: 'grain', opt: true },
       { n: 'Fresh parsley', q: 0.25, u: 'bunch', d: 'Parsley, dill, or cilantro', cat: 'produce', opt: true },
       { n: 'Plain Greek yogurt', q: 2, u: 'tbsp', d: '1–2 tbsp plain Greek yogurt, for a creamy dressing', cat: 'dairy', opt: true },
+      /* The three authentic components held back at first — see the reflux tradeoffs table. */
+      { n: 'Lime', q: 1, u: 'ea', d: '1 lime, juiced — the original calls for a whole one', cat: 'produce', opt: true },
+      { n: 'Apple-cider vinegar', q: 1, u: 'tbsp', d: '1 tbsp apple-cider vinegar', cat: 'pantry', opt: true },
+      { n: 'Fermented vegetables', q: 2, u: 'tbsp', d: '1–4 tbsp fermented vegetables — kimchi, sauerkraut, or fermented beets', cat: 'produce', opt: true },
     ],
     steps: [
       '<strong>Lentils:</strong> rinse 45 g dry lentils, cover with plenty of water, bring to a boil, then drop to a gentle simmer. Cook until tender but not mushy — 18–25 minutes for black lentils. Older lentils take longer, so start checking at 25 minutes and keep going. Drain.',
@@ -173,10 +177,10 @@ const RECIPES = [
       '<strong>Meal-prep:</strong> make four portions at once. Store the lentil-and-vegetable base separately from the chicken and toppings, and add the EVOO and hemp hearts when you eat it.',
     ],
     notes: [
-      'Skip the literal Blueprint acid component to start — it calls for about 1 tbsp apple-cider vinegar plus fresh lime juice, and both are common reflux triggers. Get brightness from herbs, ginger if tolerated, or Greek yogurt mixed with dill and cumin instead.',
-      'If you want to test lime or vinegar later, do it in a <em>lunch</em> portion, start with a teaspoon, and watch what happens. Never test at dinner.',
-      'Also worth easing into rather than starting with: raw garlic, large amounts of fermented vegetables, and hot spice.',
+      '<strong>Now that your reflux is managed, this is the recipe to make authentic.</strong> The lime, the apple-cider vinegar, and the fermented vegetables are the three components originally held back, and they are functional rather than decorative — the vitamin C in the lime substantially improves how much of the lentils’ iron you absorb, and the ferment is the only source of live cultures in the whole rotation.',
+      'Reintroduce them one at a time, at lunch, three days each. Start with a quarter lime; it also happens to be the single biggest flavor upgrade available here.',
       'Baby bellas are a fine stand-in for shiitake or maitake.',
+      'Buy refrigerated, unpasteurized sauerkraut or kimchi. The shelf-stable jars have been heat-treated and contain nothing alive.',
       'Keep the EVOO a measured drizzle here rather than another oil shot later in the evening.',
     ],
   },
@@ -199,8 +203,13 @@ const RECIPES = [
       { n: 'Chicken breast', q: 6, u: 'oz', d: '4–6 oz grilled chicken, turkey, or salmon', cat: 'protein' },
       { n: 'Arugula', q: 2, u: 'cup', d: 'A couple of handfuls arugula or baby spinach', cat: 'produce' },
       { n: 'Avocado', q: 0.25, u: 'ea', d: '¼ avocado', cat: 'produce' },
-      { n: 'Fresh cilantro', q: 0.25, u: 'bunch', d: 'A little fresh cilantro', cat: 'produce' },
+      { n: 'Fresh cilantro', q: 0.25, u: 'bunch', d: '¼ cup fresh cilantro', cat: 'produce' },
       { n: 'Extra-virgin olive oil', q: 2, u: 'tsp', d: '1–2 tsp extra-virgin olive oil', cat: 'pantry' },
+      /* Johnson's original: 12 grape tomatoes, 4 radishes, 1 jalapeño, 2 limes, 1 lemon. */
+      { n: 'Grape tomatoes', q: 12, u: 'ea', d: '12 grape tomatoes, halved', cat: 'produce', opt: true },
+      { n: 'Radishes', q: 4, u: 'ea', d: '4 radishes, sliced thin', cat: 'produce', opt: true },
+      { n: 'Lime', q: 1, u: 'ea', d: '1–2 limes, juiced', cat: 'produce', opt: true },
+      { n: 'Jalapeño', q: 1, u: 'ea', d: '1 jalapeño — the last thing to reintroduce, not the first', cat: 'produce', opt: true },
       STAPLES.cumin, STAPLES.salt,
     ],
     steps: [
@@ -211,7 +220,8 @@ const RECIPES = [
       'Finish with avocado, cilantro, the remaining EVOO, and salt.',
     ],
     notes: [
-      'For reflux, leave off the jalapeño, lemon, lime, and tomato at first. Johnson’s original has all four.',
+      'Johnson’s original has tomato, radish, jalapeño, and the juice of two limes plus a lemon — all four were held back at first, and all four are now worth adding in that order. Radishes are the free one: no acid, no capsaicin, just crunch.',
+      'The tomatoes are better roasted alongside the potato than raw — more available lycopene, and cooked tomato tends to sit easier.',
       'Salmon here doubles as one of your two seafood meals for the week.',
     ],
   },
@@ -339,7 +349,7 @@ const RECIPES = [
       { n: 'Avocado', q: 0.25, u: 'ea', d: '¼ avocado', cat: 'produce' },
       { n: 'Shredded cheese', q: 1, u: 'oz', d: '1 oz shredded cheese — modest', cat: 'dairy' },
       { n: 'Salsa', q: 2, u: 'tbsp', d: '2 tbsp salsa, only if tolerated', cat: 'pantry', opt: true },
-      { n: 'Whole-grain tortillas', q: 1, u: 'ea', d: '1 whole-grain tortilla, if you want it wrapped', cat: 'grain', opt: true },
+      { n: 'Whole-grain tortilla', q: 1, u: 'ea', d: '1 whole-grain tortilla, if you want it wrapped', cat: 'grain', opt: true },
       STAPLES.cumin, STAPLES.chili, STAPLES.salt,
     ],
     steps: [
@@ -372,7 +382,7 @@ const RECIPES = [
       { n: 'Celery', q: 1, u: 'ea', d: '1 stalk celery, diced', cat: 'produce' },
       { n: 'Fresh dill', q: 0.25, u: 'bunch', d: 'A little fresh dill', cat: 'produce' },
       { n: 'Fresh parsley', q: 0.25, u: 'bunch', d: 'A little fresh parsley', cat: 'produce' },
-      { n: 'Whole-grain tortillas', q: 1, u: 'ea', d: '1 whole-grain wrap or pita', cat: 'grain' },
+      { n: 'Whole-grain tortilla', q: 1, u: 'ea', d: '1 whole-grain wrap or pita', cat: 'grain' },
       { n: 'Baby carrots', q: 1, u: 'cup', d: 'Baby carrots on the side', cat: 'produce' },
       { n: 'Banana', q: 1, u: 'ea', d: 'A piece of fruit on the side', cat: 'produce' },
       STAPLES.salt, STAPLES.pepper,
@@ -545,25 +555,413 @@ const RECIPES = [
       'Pick turkey burgers with a short ingredient list — this is the difference between lean poultry and a processed-meat product.',
     ],
   },
+
+  /* ------------------------------------------------------------------ */
+  {
+    id: 'nutty-pudding',
+    title: 'Nutty Pudding',
+    subtitle: 'Blueprint’s signature breakfast. The dish your original shake was reaching for.',
+    meal: 'breakfast',
+    protein: '35–45 g',
+    time: '10 min',
+    tags: ['blueprint', 'no-cook', 'blender', 'high-polyphenol'],
+    featured: true,
+    blurb: 'This is the meal Johnson has eaten nearly every morning for years, and it is a close ' +
+           'cousin of the shake you already make — same nuts, seeds, cocoa, and berries, but ' +
+           'thick enough to eat with a spoon. Macadamia carries the fat here instead of peanut.',
+    ingredients: [
+      { n: 'Unsweetened almond milk', q: 0.5, u: 'cup', d: '50–100 ml macadamia or almond milk — start low, it should be thick', cat: 'dairy' },
+      { n: 'Macadamia nuts', q: 25, u: 'g', d: '3 tbsp ground macadamia nuts (~25 g)', cat: 'pantry', src: 'amazon' },
+      { n: 'Walnuts', q: 5, u: 'g', d: '2 tsp ground walnuts (~5 g)', cat: 'pantry' },
+      { n: 'Chia seeds', q: 2, u: 'tbsp', cat: 'pantry' },
+      { n: 'Ground flaxseed', q: 1, u: 'tsp', cat: 'pantry' },
+      { n: 'Cocoa powder', q: 1, u: 'tbsp', d: '1 tbsp unsweetened cocoa powder', cat: 'pantry' },
+      { n: 'Sunflower lecithin', q: 1, u: 'tsp', d: '1 tsp sunflower lecithin — emulsifies it, big texture upgrade', cat: 'powder', src: 'amazon', opt: true },
+      { n: 'Ceylon cinnamon', d: '½ tsp Ceylon cinnamon', cat: 'spice', staple: true },
+      { n: 'Whey protein powder', q: 1, u: 'scoop', d: '30–60 g protein powder — Johnson uses pea; whey works and digests fine for you', cat: 'powder' },
+      { n: 'Blueberries or strawberries', q: 0.5, u: 'cup', d: '½ cup blueberries, raspberries, or strawberries', cat: 'produce' },
+      { n: 'Frozen cherries', q: 3, u: 'ea', d: '3 pitted dark cherries', cat: 'frozen' },
+      { n: 'Pomegranate juice', q: 2, u: 'oz', d: '2 oz pomegranate juice — see the reflux note', cat: 'pantry', opt: true },
+      { n: 'Brazil nuts', q: 0.25, u: 'ea', d: '¼ of one Brazil nut — selenium; do not exceed this', cat: 'pantry', src: 'amazon', opt: true },
+    ],
+    steps: [
+      'Grind the macadamias and walnuts first if they are whole — the Ninja Fit cup does this dry in a few pulses.',
+      'Add the milk, then everything except the berries and cherries.',
+      'Blend on high 3–4 minutes. It is supposed to run long; that is what makes it pudding rather than gritty paste.',
+      'Pour into a dish and top with the berries and cherries.',
+      'Eat it with a spoon. If it is too thick to blend, add milk 1 tbsp at a time — going too thin is the common mistake.',
+    ],
+    notes: [
+      '<strong>One Brazil nut has a full day of selenium.</strong> A quarter nut is the whole intended dose — this is not an ingredient to eyeball.',
+      'The pomegranate juice is the acidic component. Now that your reflux is quiet it is worth trying at breakfast; if it bites, the pudding is still excellent without it.',
+      'Macadamia is the expensive ingredient. Buying halves or pieces rather than whole nuts cuts the cost, and you are grinding them anyway.',
+      'Ceylon cinnamon rather than cassia is a deliberate Blueprint choice — cassia carries far more coumarin at daily doses.',
+    ],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    id: 'blueberry-nut-mix',
+    title: 'Blueberry Nut Mix',
+    subtitle: 'Three ingredients. Johnson’s breakfast side, and your answer to a mid-afternoon snack.',
+    meal: 'snack',
+    protein: '6–8 g',
+    time: '2 min',
+    tags: ['blueprint', 'no-cook', 'high-polyphenol', 'meal-prep'],
+    blurb: 'The Blueprint version is sold as a product with exactly three things in it: macadamia ' +
+           'nuts, walnuts, and blueberries. There is no reason to buy it pre-mixed — make a jar ' +
+           'and it is the cheapest polyphenol-dense snack in the rotation.',
+    ingredients: [
+      { n: 'Macadamia nuts', q: 0.75, u: 'oz', d: '¾ oz macadamia nuts, roasted unsalted', cat: 'pantry', src: 'amazon' },
+      { n: 'Walnuts', q: 0.75, u: 'oz', cat: 'pantry' },
+      { n: 'Dried blueberries', q: 2, u: 'tbsp', d: '2 tbsp dried blueberries, no added sugar', cat: 'pantry' },
+    ],
+    steps: [
+      'Mix a batch at a 1:1:1 ratio by volume in a jar. Ten minutes of work covers two weeks.',
+      'Portion into 1½ oz servings if you would otherwise eat the jar.',
+      'Keep it in the fridge or freezer — macadamia and walnut are both fat-rich enough to go rancid on a warm shelf.',
+    ],
+    notes: [
+      'Check the dried blueberries for added sugar and oil; plenty of brands add both. Freeze-dried is the cleanest option and stays crisp in the jar.',
+      'This is a snack, not a meal — it is nearly all fat and runs 250+ kcal per generous handful. It pairs well with the Super Shake on a training day rather than replacing it.',
+    ],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    id: 'super-shake',
+    title: 'The Post-Training Super Shake',
+    subtitle: 'Attia’s fourth feeding: 40–50 g of protein in a glass, built for after soccer or lifting.',
+    meal: 'snack',
+    protein: '45–50 g',
+    time: '5 min',
+    tags: ['attia', 'no-cook', 'high-protein', 'post-training', 'blender'],
+    featured: true,
+    blurb: 'Attia’s own version is a large shake built on almond milk and frozen fruit to land at ' +
+           'about 50 g of protein — the point being that four feedings of 40–50 g is far easier to ' +
+           'hit than three enormous meals. This is the feeding that closes the gap on a 180 g day.',
+    ingredients: [
+      { n: 'Unsweetened almond milk', q: 2, u: 'cup', d: '16–24 oz unsweetened almond milk', cat: 'dairy' },
+      { n: 'Whey protein powder', q: 2, u: 'scoop', d: '2 scoops whey — this is the whole point of the shake', cat: 'powder' },
+      { n: 'Frozen mixed berries', q: 1, u: 'cup', cat: 'frozen' },
+      { n: 'Baby spinach', q: 2, u: 'cup', d: 'A big handful of baby spinach', cat: 'produce', opt: true },
+      { n: 'Collagen peptides', q: 1, u: 'scoop', d: '1 scoop collagen peptides — not a complete protein, so it is on top of the whey, not instead of it', cat: 'powder', opt: true },
+      { n: 'Ground flaxseed', q: 1, u: 'tbsp', cat: 'pantry', opt: true },
+      { n: 'Banana', q: 1, u: 'ea', d: '1 banana on hard soccer days, for the carbohydrate', cat: 'produce', opt: true },
+    ],
+    steps: [
+      'This is a full-size Ninja Pro job, not the Fit cup — 24 oz of liquid will not fit in the small vessel.',
+      'Liquid first, then powders, then the frozen fruit on top.',
+      'Blend 45 seconds. Drink within an hour or so of finishing training.',
+      'On a rest day, drop to one scoop of whey and skip the banana.',
+    ],
+    notes: [
+      'Whey is the right protein here specifically because it is fast-digesting and leucine-rich. Collagen is a supplement to it, never a substitute — it lacks tryptophan and is a poor muscle-protein stimulus on its own.',
+      'If the shake plus your other three meals is pushing you past comfortable, this is the feeding to shrink first. The 1 g/lb figure is a target to approach, not a quota to force.',
+      'Attia is deliberately not dogmatic about eating windows — he cares about hitting the protein and the training, not the clock. Which suits your reflux timing better anyway.',
+    ],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    id: 'black-lentil-roasted-veg-bowl',
+    title: 'Black Lentil & Roasted Veg Bowl',
+    subtitle: 'A published Blueprint recipe, with a chickpea dressing that does the work of cheese.',
+    meal: 'lunch',
+    protein: '20 g base · 50–60 g with chicken',
+    time: '35 min',
+    tags: ['blueprint', 'high-fiber', 'meal-prep'],
+    blurb: 'This is Blueprint’s own bowl rather than my adaptation of it, and the blended-chickpea ' +
+           'dressing is the part worth stealing: nutritional yeast and lemon give it a savory, ' +
+           'almost cheesy weight with no dairy and no added oil beyond a spoonful.',
+    ingredients: [
+      { n: 'Dry lentils', q: 55, u: 'g', d: '¼ cup dry black lentils, rinsed (~¾ cup cooked)', cat: 'legume' },
+      { n: 'Zucchini', q: 1, u: 'ea', d: '1 small zucchini, chopped', cat: 'produce' },
+      { n: 'Bell pepper', q: 1, u: 'ea', d: '1 small red bell pepper, chopped', cat: 'produce' },
+      { n: 'Cauliflower', q: 150, u: 'g', d: '1 cup cauliflower florets', cat: 'produce' },
+      { n: 'Baby bella mushrooms', q: 50, u: 'g', d: '50 g shiitake mushrooms, or baby bellas', cat: 'produce' },
+      { n: 'Baby spinach', q: 1, u: 'cup', d: '1 packed cup baby spinach or massaged kale', cat: 'produce' },
+      { n: 'Extra-virgin olive oil', q: 3, u: 'tsp', d: '2 tsp macadamia or avocado oil for roasting, 1 tbsp EVOO in the dressing', cat: 'pantry' },
+      { n: 'Canned chickpeas', q: 0.5, u: 'can', d: '¾ cup cooked chickpeas, for the dressing', cat: 'legume' },
+      { n: 'Nutritional yeast', q: 1, u: 'tbsp', cat: 'pantry' },
+      { n: 'Lemon', q: 0.5, u: 'ea', d: '1 tbsp lemon juice, in the dressing', cat: 'produce' },
+      { n: 'Garlic', q: 1, u: 'clove', d: '1 small garlic clove, for the dressing', cat: 'produce' },
+      { n: 'Chicken breast', q: 6, u: 'oz', d: '6 oz grilled chicken, to make it a real lunch', cat: 'protein', opt: true },
+      STAPLES.salt, STAPLES.pepper,
+    ],
+    steps: [
+      'Simmer the lentils in about twice their volume of water for 20 minutes, until tender. Drain.',
+      'Roast the zucchini, bell pepper, and cauliflower at 400 °F for 20–25 minutes with 1 tsp of oil.',
+      'Sauté the mushrooms separately in a hot pan for 3–5 minutes with the other teaspoon — they release water and will steam rather than brown if you crowd them onto the roasting tray.',
+      '<strong>Dressing:</strong> blend the chickpeas, EVOO, lemon juice, nutritional yeast, garlic, and 4 tbsp water until smooth. The Ninja Fit cup is perfect for this.',
+      'Layer lentils, roasted vegetables, mushrooms, and greens. Add the chicken, then drizzle the dressing over the top.',
+    ],
+    notes: [
+      'The dressing makes about four servings and keeps five days — it is worth making the full batch and using it on the Super Veggie bowl too.',
+      'Blueprint calls for macadamia nut oil for the roasting. Avocado oil is a cheaper high-heat stand-in; save the EVOO for the dressing where its polyphenols survive.',
+      'Reflux: the lemon and raw garlic in the dressing are the two things to watch. Roasting the garlic clove first mellows it a lot if raw is too sharp.',
+    ],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    id: 'sweet-potato-curry',
+    title: 'Sweet Potato Curry with Quinoa',
+    subtitle: 'Another published Blueprint meal. Six vegetables, one pot, freezes well.',
+    meal: 'dinner',
+    protein: '15 g base · 50 g with chicken',
+    time: '40 min',
+    tags: ['blueprint', 'high-fiber', 'meal-prep', 'training-day'],
+    blurb: 'The most dinner-like thing in the Blueprint canon, and the best vehicle in this whole ' +
+           'rotation for clearing out whatever vegetables are about to turn. Turmeric plus black ' +
+           'pepper is deliberate — piperine sharply increases curcumin absorption.',
+    ingredients: [
+      { n: 'Sweet potato', q: 1.5, u: 'ea', d: '1½ medium sweet potatoes, cubed', cat: 'produce' },
+      { n: 'Cauliflower', q: 75, u: 'g', d: '½ cup cauliflower florets', cat: 'produce' },
+      { n: 'Frozen green beans', q: 0.5, u: 'cup', cat: 'frozen' },
+      { n: 'Broccoli', q: 75, u: 'g', d: '½ cup chopped broccoli', cat: 'produce' },
+      { n: 'Carrots', q: 0.5, u: 'cup', d: '½ cup chopped carrots', cat: 'produce' },
+      { n: 'Frozen peas', q: 0.25, u: 'cup', cat: 'frozen' },
+      { n: 'Fresh ginger', q: 1, u: 'tsp', d: '1 tsp grated fresh ginger', cat: 'produce' },
+      { n: 'Garlic', q: 1, u: 'clove', d: '1 garlic clove, minced', cat: 'produce' },
+      { n: 'Onion', q: 0.25, u: 'ea', d: '¼ small onion, diced', cat: 'produce' },
+      { n: 'Unsweetened almond milk', q: 0.5, u: 'cup', d: '½ cup macadamia or almond milk', cat: 'dairy' },
+      { n: 'Fresh cilantro', q: 0.25, u: 'bunch', d: '1 cup fresh cilantro, chopped', cat: 'produce' },
+      { n: 'Brown rice or quinoa', q: 0.2, u: 'cup', d: '½ cup cooked quinoa', cat: 'grain' },
+      { n: 'Extra-virgin olive oil', q: 1, u: 'tsp', d: '1 tsp avocado oil for the sauté', cat: 'pantry' },
+      { n: 'Lemon', q: 0.5, u: 'ea', d: '1 tsp fresh lime juice, at the end', cat: 'produce', opt: true },
+      { n: 'Chicken breast', q: 6, u: 'oz', d: '6 oz chicken, poached in the curry', cat: 'protein', opt: true },
+      STAPLES.turmeric, STAPLES.pepper, STAPLES.salt,
+    ],
+    steps: [
+      'Cook the quinoa — 1 part quinoa to 2 parts water, 15 minutes, then rest off the heat 5 minutes.',
+      'Sauté the garlic, ginger, onion, turmeric, and black pepper in the oil for 2 minutes, until fragrant.',
+      'Add the sweet potato, carrots, broccoli, and cauliflower with enough water or broth to come halfway up. Simmer 25 minutes.',
+      'Add the green beans, peas, and almond milk. Simmer 5 minutes more. If you are adding chicken, slice it thin and poach it in here now.',
+      'Off the heat, stir in the cilantro and the lime juice if you are using it. Season and serve over the quinoa.',
+    ],
+    notes: [
+      'Do not skip the black pepper with the turmeric — the piperine is what makes the curcumin bioavailable at all.',
+      'This is the one dinner here that genuinely improves on day two, and it freezes in portions better than any bowl in the rotation.',
+      'Reflux: onion and lime are the two candidates. Cooked onion is much gentler than raw, and the lime is a teaspoon you can simply leave out.',
+    ],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    id: 'pressure-cooker-dal',
+    title: 'Pressure-Cooker Black Lentil Dal',
+    subtitle: 'Twelve minutes under pressure, four dinners out, freezes for a month.',
+    meal: 'dinner',
+    protein: '18 g base · 45–55 g with chicken or yogurt',
+    time: '30 min mostly unattended',
+    tags: ['meal-prep', 'high-fiber', 'freezer', 'pressure-cooker'],
+    featured: true,
+    blurb: 'The single highest-yield thing a pressure cooker does for this rotation. Dry lentils ' +
+           'to finished dal without soaking, without watching a pot, and at a cost per serving ' +
+           'that makes the rest of the week’s salmon look expensive.',
+    ingredients: [
+      { n: 'Dry lentils', q: 60, u: 'g', d: '⅓ cup dry black or brown lentils per serving (1½ cups for a full batch of four)', cat: 'legume' },
+      { n: 'Onion', q: 0.25, u: 'ea', d: '¼ onion, diced', cat: 'produce' },
+      { n: 'Garlic', q: 1, u: 'clove', cat: 'produce' },
+      { n: 'Fresh ginger', q: 1, u: 'tsp', d: '1 tsp grated fresh ginger', cat: 'produce' },
+      { n: 'Carrots', q: 0.5, u: 'cup', d: '½ cup diced carrot', cat: 'produce' },
+      { n: 'Baby spinach', q: 2, u: 'cup', d: '2 cups baby spinach, stirred in at the end', cat: 'produce' },
+      { n: 'Unsweetened almond milk', q: 0.25, u: 'cup', d: '¼ cup almond milk or a spoon of yogurt, for body', cat: 'dairy' },
+      { n: 'Extra-virgin olive oil', q: 2, u: 'tsp', cat: 'pantry' },
+      { n: 'Plain Greek yogurt', q: 0.5, u: 'cup', d: '½ cup Greek yogurt on top — adds 12 g protein', cat: 'dairy', opt: true },
+      { n: 'Chicken breast', q: 5, u: 'oz', d: '5 oz shredded chicken, stirred through', cat: 'protein', opt: true },
+      STAPLES.cumin, STAPLES.turmeric, STAPLES.pepper, STAPLES.salt,
+    ],
+    steps: [
+      'Sauté mode: oil, onion, carrot, garlic, and ginger for 3–4 minutes. Add the cumin, turmeric, and black pepper and stir for 30 seconds until they smell toasted.',
+      'Add the rinsed lentils and water at roughly 1 part lentils to 2½ parts water. Scrape the bottom so nothing is stuck — that is what causes a burn warning.',
+      'Seal and cook 10–12 minutes at high pressure, then let it release naturally for 10 minutes. Natural release matters: a fast release makes lentils burst and go grainy.',
+      'Stir in the spinach — the residual heat wilts it in under a minute — then the almond milk. Season.',
+      'Serve with yogurt on top, or shredded chicken stirred through for a full-protein dinner.',
+    ],
+    notes: [
+      'No soaking, and no need for fresh lentils. This is also the most forgiving use for an old bag: if they are stubborn, add 3 minutes and they still come out fine, which is not true on the stovetop.',
+      'Hold the salt and any acid until after cooking. Both slow softening, and acid is the main reason lentils refuse to break down.',
+      'Freezes in portions for a month. Two batches a month is most of your legume intake handled.',
+      'No pressure cooker? Same recipe on the stove: 30–35 minutes at a simmer, stirring now and then.',
+    ],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    id: 'tofu-edamame-bowl',
+    title: 'Crispy Tofu & Edamame Bowl',
+    subtitle: 'The plant-protein slot in the weekly rotation, done so the tofu is actually good.',
+    meal: 'lunch',
+    protein: '40–45 g',
+    time: '30 min',
+    tags: ['high-protein', 'high-fiber', 'meal-prep'],
+    blurb: 'One or two lunches a week are meant to come from something other than poultry or fish. ' +
+           'Tofu plus edamame gets there without a supplement, and pressing then cornstarch-dusting ' +
+           'the tofu is the difference between crisp cubes and the sad wet version people give up on.',
+    ingredients: [
+      { n: 'Extra-firm tofu', q: 7, u: 'oz', d: '7 oz extra-firm tofu (half a block), pressed', cat: 'protein' },
+      { n: 'Edamame', q: 1, u: 'cup', d: '1 cup shelled edamame — about 18 g protein', cat: 'frozen' },
+      { n: 'Broccoli', q: 150, u: 'g', d: '150 g broccoli', cat: 'produce' },
+      { n: 'Carrots', q: 0.5, u: 'cup', d: '½ cup shredded carrot', cat: 'produce' },
+      { n: 'Baby spinach', q: 1, u: 'cup', cat: 'produce' },
+      { n: 'Brown rice or quinoa', q: 0.2, u: 'cup', d: '½ cup cooked brown rice or quinoa', cat: 'grain' },
+      { n: 'Cornstarch', q: 1, u: 'tbsp', d: '1 tbsp cornstarch, for the crust', cat: 'pantry' },
+      { n: 'Extra-virgin olive oil', q: 2, u: 'tsp', cat: 'pantry' },
+      { n: 'Hemp hearts', q: 1, u: 'tbsp', cat: 'pantry', src: 'amazon' },
+      { n: 'Fresh ginger', q: 1, u: 'tsp', d: '1 tsp grated ginger', cat: 'produce' },
+      { n: 'Low-sodium soy sauce', q: 1, u: 'tbsp', d: '1 tbsp low-sodium soy sauce or tamari', cat: 'pantry' },
+      STAPLES.pepper,
+    ],
+    steps: [
+      '<strong>Press the tofu</strong> 15 minutes — wrap the block in a towel with something heavy on top. This is the step that matters; skip it and nothing crisps.',
+      'Cube it, toss with the cornstarch and a pinch of pepper until evenly dusted.',
+      'Pan-fry in the oil over medium-high, 3–4 minutes a side, without moving it around. Or air-fry / oven-roast at 425 °F for 20 minutes.',
+      'Steam the edamame and broccoli from frozen, 4–5 minutes.',
+      'Build over the grain: tofu, edamame, broccoli, carrot, spinach. Finish with ginger, the soy sauce, and hemp hearts.',
+    ],
+    notes: [
+      'Tofu and edamame are both complete proteins — this bowl does not need animal protein bolted on to count as a real 40 g feeding.',
+      'Soy sauce is the sodium in this dish. Low-sodium tamari at a single tablespoon keeps it reasonable.',
+      'Freeze the other half-block of tofu if you are not using it within a few days. Frozen-then-thawed tofu has a chewier, spongier texture that soaks up more flavor — many people prefer it.',
+    ],
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    id: 'sardine-toast',
+    title: 'Sardines on Whole-Grain Toast',
+    subtitle: 'The cheapest omega-3 lunch there is, and near the bottom of the mercury table.',
+    meal: 'lunch',
+    protein: '35–45 g',
+    time: '5 min',
+    tags: ['no-cook', 'seafood', 'low-mercury', 'emergency'],
+    blurb: 'Sardines are small, short-lived, and low on the food chain, which is exactly why they ' +
+           'carry so little mercury compared with tuna — and they deliver EPA and DHA directly ' +
+           'rather than the ALA your flax and chia have to convert inefficiently.',
+    ingredients: [
+      { n: 'Canned sardines', q: 1, u: 'can', d: '1 can sardines in olive oil or water, drained', cat: 'protein' },
+      { n: 'Whole-grain bread', q: 2, u: 'slice', d: '2 slices whole-grain bread, toasted', cat: 'grain' },
+      { n: 'Plain Greek yogurt', q: 0.25, u: 'cup', d: '¼ cup Greek yogurt, as the spread — adds 6 g protein', cat: 'dairy' },
+      { n: 'Cottage cheese', q: 0.5, u: 'cup', d: '½ cup cottage cheese on the side, to bring it to a full 45 g', cat: 'dairy', opt: true },
+      { n: 'Cucumber', q: 0.5, u: 'ea', d: '½ cucumber, sliced', cat: 'produce' },
+      { n: 'Baby spinach', q: 1, u: 'cup', cat: 'produce' },
+      { n: 'Fresh dill', q: 0.25, u: 'bunch', cat: 'produce' },
+      { n: 'Extra-virgin olive oil', q: 1, u: 'tsp', cat: 'pantry' },
+      { n: 'Lemon', q: 0.5, u: 'ea', d: '½ lemon — traditional with sardines, and now worth trying', cat: 'produce', opt: true },
+      STAPLES.pepper,
+    ],
+    steps: [
+      'Toast the bread. Mix the yogurt with the dill and pepper and spread it on.',
+      'Lay the drained sardines over the top and break them up with a fork.',
+      'Pile on the spinach and cucumber, then the olive oil and a squeeze of lemon.',
+      'Cottage cheese on the side if you want this to clear 45 g of protein.',
+    ],
+    notes: [
+      'Bone-in sardines are the ones to buy. The bones are soft, you will not notice them, and they are a genuinely significant calcium source.',
+      'Two of these a week covers the seafood slot at a fraction of what salmon costs, and with a fraction of tuna’s mercury.',
+      'Reflux: sardines are oily and lemon is acidic, so this is a lunch rather than a dinner. Worth a try now that things are settled.',
+    ],
+  },
 ];
 
-/* The 7-day rotation: 3 Super Veggie lunches, 2 sweet-potato-or-salmon dinners,
-   2 familiar chicken/turkey dinners, 1 red-meat meal, shake every other morning. */
+/* The 7-day rotation: 3 Super Veggie lunches, 2 familiar chicken/turkey dinners,
+   1 red-meat meal, 2 seafood meals, and four protein feedings a day including the
+   post-training shake. The recipes not listed here are the bench, not rejects. */
 const WEEKLY_PLAN = [
-  { day: 'Monday',    breakfast: 'everyday-shake',       lunch: 'super-veggie-bowl',    dinner: 'turkey-burger-plate' },
-  { day: 'Tuesday',   breakfast: 'yogurt-oat-bowl',      lunch: 'chicken-lentil-bowl',  dinner: 'sweet-potato-bowl' },
-  { day: 'Wednesday', breakfast: 'berry-green-smoothie', lunch: 'super-veggie-bowl',    dinner: 'salmon-veg-grain' },
-  { day: 'Thursday',  breakfast: 'yogurt-oat-bowl',      lunch: 'greek-yogurt-wrap',    dinner: 'turkey-taco-bowl' },
-  { day: 'Friday',    breakfast: 'everyday-shake',       lunch: 'chicken-lentil-bowl',  dinner: 'turkey-burger-plate' },
-  { day: 'Saturday',  breakfast: 'berry-green-smoothie', lunch: 'cottage-cheese-plate', dinner: 'steak-burrito-bowl' },
-  { day: 'Sunday',    breakfast: 'yogurt-oat-bowl',      lunch: 'super-veggie-bowl',    dinner: 'pearl-couscous-bowl' },
+  { day: 'Monday',    breakfast: 'nutty-pudding',        lunch: 'super-veggie-bowl',    snack: 'blueberry-nut-mix', dinner: 'turkey-burger-plate' },
+  { day: 'Tuesday',   breakfast: 'yogurt-oat-bowl',      lunch: 'chicken-lentil-bowl',  snack: 'super-shake',       dinner: 'sweet-potato-bowl' },
+  { day: 'Wednesday', breakfast: 'berry-green-smoothie', lunch: 'super-veggie-bowl',    snack: 'blueberry-nut-mix', dinner: 'salmon-veg-grain' },
+  { day: 'Thursday',  breakfast: 'everyday-shake',       lunch: 'sardine-toast',        snack: 'super-shake',       dinner: 'pressure-cooker-dal' },
+  { day: 'Friday',    breakfast: 'nutty-pudding',        lunch: 'chicken-lentil-bowl',  snack: 'blueberry-nut-mix', dinner: 'turkey-burger-plate' },
+  { day: 'Saturday',  breakfast: 'berry-green-smoothie', lunch: 'cottage-cheese-plate', snack: 'super-shake',       dinner: 'steak-burrito-bowl' },
+  { day: 'Sunday',    breakfast: 'yogurt-oat-bowl',      lunch: 'super-veggie-bowl',    snack: 'blueberry-nut-mix', dinner: 'sweet-potato-curry' },
 ];
+
+const PLAN_SLOTS = ['breakfast', 'lunch', 'snack', 'dinner'];
 
 const PROTEIN_SCHEDULE = [
-  ['Breakfast', '35–45 g', 'The shake with a full whey serving, or eggs plus the yogurt-oat bowl'],
-  ['Lunch', '45–55 g', 'Chicken-lentil bowl, Super Veggie with chicken, or a salmon yogurt wrap'],
-  ['Post-training snack', '25–35 g', 'Greek yogurt, skyr, cottage cheese, or whey'],
-  ['Dinner', '40–55 g', 'Chicken, turkey, fish, or lean beef plus vegetables and legumes'],
+  ['Breakfast', '35–45 g', 'Nutty Pudding, the shake with a full whey serving, or eggs plus the yogurt-oat bowl'],
+  ['Lunch', '45–55 g', 'Chicken-lentil bowl, Super Veggie with chicken, tofu-edamame bowl, or sardines'],
+  ['Post-training', '25–50 g', 'The Super Shake, or Greek yogurt, skyr, or cottage cheese'],
+  ['Dinner', '40–55 g', 'Chicken, turkey, fish, or dal plus vegetables and legumes'],
+];
+
+/* status: 'have' | 'first' | 'later' | 'skip' */
+const EQUIPMENT = [
+  {
+    item: 'Ninja Pro blender',
+    status: 'have',
+    why: 'The full-size jar is what you want for the Super Shake (24 oz of liquid will not fit a personal cup) and for Nutty Pudding, which needs 3–4 minutes of continuous high-speed blending.',
+    used: 'Super Shake, Nutty Pudding, all smoothies',
+  },
+  {
+    item: 'Ninja Fit personal blender',
+    status: 'have',
+    why: 'Single-serve smoothies and, more usefully, small jobs the big jar cannot do well: grinding macadamias and walnuts dry, and blending the chickpea dressing in a batch too small for the large blade to catch.',
+    used: 'Everyday Shake, berry-green smoothie, chickpea dressing, grinding nuts',
+  },
+  {
+    item: 'Electric pressure cooker, 6 qt',
+    status: 'first',
+    why: 'The one appliance that changes this rotation. Black lentils in 10–12 minutes from dry with no soaking, dry chickpeas without an overnight plan, unattended batch dal, and a sauté mode so it is one pot rather than three. Roughly $80–100.',
+    used: 'Pressure-cooker dal, every lentil and chickpea in the plan',
+  },
+  {
+    item: 'Digital kitchen scale',
+    status: 'first',
+    why: 'Non-negotiable, and about $12. Every Blueprint recipe is specified in grams — 45 g lentils, 250 g broccoli, 150 g cauliflower — and "1 oz walnuts" is the whole mechanism keeping the shake from becoming 900 calories. Volume guesses are how portions drift.',
+    used: 'Super Veggie, Nutty Pudding, every nut portion',
+  },
+  {
+    item: 'Two half-sheet pans + parchment',
+    status: 'first',
+    why: 'Roasting at 425 °F is what makes the vegetables taste good enough to eat three times a week. Two pans means the Sunday tray of broccoli and cauliflower does not have to go in shifts, and crowding one pan steams instead of roasts.',
+    used: 'Super Veggie, chicken-lentil bowls, turkey-burger plate, every roasted vegetable',
+  },
+  {
+    item: 'Instant-read thermometer',
+    status: 'first',
+    why: 'Chicken breast is dry at 175 °F and perfect at 165 °F, and the gap is about ninety seconds. This is the difference between batch-cooked chicken you look forward to and chicken you choke down. About $15.',
+    used: 'All batch chicken, turkey burgers, salmon',
+  },
+  {
+    item: 'Microplane / rasp grater',
+    status: 'first',
+    why: 'Fresh ginger and garlic appear in most of the bowls, and grated is not the same as chopped — you get the flavor distributed instead of hot pockets of raw garlic, which also matters for reflux.',
+    used: 'Super Veggie, dal, curry, tofu bowl',
+  },
+  {
+    item: 'Collapsible steamer basket',
+    status: 'first',
+    why: 'Johnson’s method for Super Veggie is steaming, and it beats boiling badly — no waterlogged broccoli, no nutrients poured down the drain. A few dollars, fits any pot you own.',
+    used: 'Super Veggie, edamame, broccoli',
+  },
+  {
+    item: 'Glass meal-prep containers, 8+',
+    status: 'first',
+    why: 'Four lunches on Sunday is the load-bearing habit of this whole plan. Glass reheats without absorbing smells, and being able to see what is in the fridge is most of why prepped food actually gets eaten.',
+    used: 'Every batch-cooked recipe',
+  },
+  {
+    item: 'Tofu press (or a heavy pan and a towel)',
+    status: 'later',
+    why: 'Pressing is the step that decides whether tofu crisps. A dedicated press is about $20 and removes the excuse, but a cast-iron pan on a towel-wrapped block works identically for free.',
+    used: 'Crispy tofu & edamame bowl',
+  },
+  {
+    item: 'Air fryer',
+    status: 'later',
+    why: 'Genuinely faster than the oven for one portion of tofu, chickpeas, or salmon, and it does not heat the kitchen. Redundant with sheet pans for batch cooking, though — this is a convenience upgrade, not a capability one.',
+    used: 'Tofu, roasted chickpeas, single salmon fillets',
+  },
+  {
+    item: 'Cuckoo induction pressure rice cooker',
+    status: 'later',
+    why: 'A superb machine that solves a problem this plan mostly does not have. See the note below.',
+    used: 'Rice, quinoa, multigrain — and beans on the twin-pressure models',
+  },
 ];
 
 const STORAGE_PLAN = [

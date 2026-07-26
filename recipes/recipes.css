@@ -334,6 +334,13 @@ hr {
 
 .badge.opt { background: var(--warm-soft); color: var(--warm); }
 .badge.amazon { background: var(--accent-soft); color: var(--accent-ink); }
+.badge.ok { background: var(--accent-soft); color: var(--accent-ink); }
+.badge.buy { background: var(--warm-soft); color: var(--warm); }
+.badge.later { background: var(--bg-sunk); color: var(--ink-faint); }
+
+.callout p { font-size: 15.5px; }
+.callout p:last-child { margin-bottom: 0; }
+.callout h3 + p { margin-top: 0; }
 
 .steps { counter-reset: step; list-style: none; padding: 0; margin: 0; }
 
