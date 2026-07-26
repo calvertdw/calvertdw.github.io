@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Kitchen — recipes &amp; shopping list</title>
+<meta name="description" content="Fifteen Blueprint-adjacent, protein-forward, reflux-aware recipes with a shopping-list builder that aggregates ingredients across meals.">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="recipes.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥗</text></svg>">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#/">The <span>Kitchen</span></a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#/">Recipes</a>
+      <a href="#/list">Shopping list<span class="count" id="cart-count" style="display:none"></span></a>
+      <a href="#/plan">Weekly plan</a>
+      <a href="#/setup">Kitchen setup</a>
+    </nav>
+  </div>
+</header>
+
+<main id="view"></main>
+
+<footer>
+  <div>
+    <p><strong>General nutrition information, not medical advice.</strong> These are ordinary
+    recipes assembled around a plant-forward, higher-protein pattern, with notes on which
+    common reflux triggers to introduce cautiously. Anything about protein targets, supplements,
+    or cardiovascular risk belongs in a conversation with your own clinician.</p>
+    <p>Super Veggie and the stuffed sweet potato are adapted from Bryan Johnson’s published
+    Blueprint menu; the protein distribution follows Peter Attia’s spread-it-across-the-day
+    approach. Neither is reproduced verbatim — portions, method, and the reflux adjustments
+    differ deliberately.</p>
+    <p><a href="/">← calvertdw.github.io</a></p>
+  </div>
+</footer>
+
+<script src="recipes-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
